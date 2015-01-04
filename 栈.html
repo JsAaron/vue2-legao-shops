@@ -67,7 +67,20 @@ function factorial(n) {
 	}
 }
 
-console.log( factorial(5) )
+function fact(n) {
+	var s = new Stack()
+	while (n > 1) {
+		//[5,4,3,2]
+		s.push(n--);
+	}
+	var product = 1;
+	while (s.length() > 0) {
+		product *= s.pop();
+	}
+	return product;
+}
+
+fact(5) //120
 
 
 
