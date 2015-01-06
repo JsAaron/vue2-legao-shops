@@ -1,0 +1,95 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+</head>
+<body>
+
+
+<table>
+    <tr>
+        <td>Foo</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+	
+
+function Stack(){
+	this.dataStore = []
+	this.top    = 0;
+	this.push   = push
+	this.pop    = pop
+	this.peek   = peek
+	this.length = length;
+}
+
+
+function push(element){
+	this.dataStore[this.top++] = element;
+}
+
+
+function peek(element){
+	return this.dataStore[this.top-1];
+}
+
+function pop(){
+	return this.dataStore[--this.top];
+}
+
+function clear(){
+	this.top = 0
+}
+
+function length(){
+	return this.top
+}
+
+function isPalindrome(word) {
+	var s = new Stack()
+	for (var i = 0; i < word.length; i++) {
+		s.push(word[i])
+	}
+	var rword = "";
+	while (s.length() > 0) {
+		rword += s.pop();
+	}
+	if (word == rword) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+function factorial(n) {
+	if (n === 0) {
+		return 1;
+	} else {
+		return n * factorial(n - 1);
+	}
+}
+
+function fact(n) {
+	var s = new Stack()
+	while (n > 1) {
+		//[5,4,3,2]
+		s.push(n--);
+	}
+	var product = 1;
+	while (s.length() > 0) {
+		product *= s.pop();
+	}
+	return product;
+}
+
+fact(5) //120
+
+
+
+</script>
+</body>
+</html>
