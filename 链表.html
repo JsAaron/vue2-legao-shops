@@ -1,0 +1,77 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	
+	//////////////
+	//创建一个数据节点 //
+	//包含 
+	//	1 data
+	//	2 指向下一个链
+	//////////////
+	function createNode(data) {
+		this.data = data;
+		this.next = null;
+	}
+
+
+	function find(item) {
+		var currNode = this.head;
+		while (currNode.element != item) {
+			currNode = currNode.next;
+		}
+		return currNode;
+	}
+
+	/////////////
+	//加入一个新数据 //
+	/////////////
+	function insert(data) {
+		//是否存在
+		var current = this.find(item);
+		newNode.next = current.next;
+		current.next = newNode;
+	}
+
+	function display() {
+		var currNode = this.head;
+		while (!(currNode.next == null)) {
+			print(currNode.next.element);
+			currNode = currNode.next;
+		}
+	}
+
+
+	////////////
+	//创建一个链表 //
+	////////////
+	function linklist() {
+		this.node    = createNode("head");
+		this.find    = find;
+		this.insert  = insert;
+		this.display = display;
+	}
+
+
+	var cities = new linklist();
+	cities.insert("Conway");
+	cities.insert("Russellville");
+	cities.insert("Alma");
+	
+	console.log( 
+
+		cities.display()
+
+		)
+
+
+</script>
+</body>
+</html>
