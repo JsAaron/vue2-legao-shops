@@ -25,6 +25,12 @@ function createLinkList() {
 				next: prev || null
 			};
 			_this.length++;
+		},
+		show: function(fn) {
+			var temp;
+			for (temp = prev; temp; temp = temp.next) {
+				fn(temp.data);
+			}
 		}
 	}
 }

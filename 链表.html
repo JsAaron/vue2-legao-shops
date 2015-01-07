@@ -8,6 +8,10 @@
 <body>
 
 
+<button id="test1">插入多条数据</button>
+<button id="test2">删除Russellville数据</button>
+
+
 <script type="text/javascript">
 
 	//////////
@@ -49,14 +53,12 @@
 			current.next = newNode;
 		};
 
-		this.display = function() {
+		this.display = function(fn) {
 			var currNode = this.headNode;
 			while (!(currNode.next == null)) {
-				console.log(currNode.next.data);
 				currNode = currNode.next;
+				fn(currNode.data)
 			}
-			console.log('  ')
-			console.log('  ')
 		};
 
 		this.findPrevious = function(key) {
@@ -76,23 +78,32 @@
 		};
 	}
 
-	
-
 
 	var cities = new createLinkList();
-	cities.insert("Conway", "head");
-	cities.insert("Russellville", "Conway");
-	cities.insert("Carlisle", "Russellville");
-	cities.insert("Alma", "Carlisle");
 
+	function create() {
+		var text = '';
+		cities.display(function(data) {
+			text += '-' + data;
+		});
+		var div = document.createElement('div')
+		div.innerHTML = text;
+		document.body.appendChild(div)
+	}
 
-	cities.display()
+	document.getElementById("test1").onclick = function() {
+		cities.insert("Conway", "head");
+		cities.insert("Russellville", "Conway");
+		cities.insert("Carlisle", "Russellville");
+		cities.insert("Alma", "Carlisle");
+		create();
+	}
 
-	
-	cities.remove("Russellville");
+	document.getElementById("test2").onclick = function() {
+		cities.remove("Russellville");
+		create()
+	}
 
-
-	cities.display() 
 
 
 
