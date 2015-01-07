@@ -35,6 +35,15 @@
 			return currNode;
 		};
 
+		//找到前一个节
+		function findPrevious(currNode, key) {
+			while (!(currNode.next == null) &&
+				(currNode.next.data != key)) {
+				currNode = currNode.next;
+			}
+			return currNode;
+		};
+
 		//初始化头部节
 		//从headNode开始形成一条链条
 		//通过next衔接
@@ -48,11 +57,9 @@
 			//然后把新加入的挂进去
 			var current = findNode(this.headNode, key);
 			//插入新的接，更改引用关系
-			//1:a-b-c-d
-			//2:a-b-n-c-d
-			newNode.next = current.next;
+			newNode.next     = current.next;
 			newNode.previous = current
-			current.next = newNode;
+			current.next     = newNode;
 		};
 
 		this.display = function(fn) {
@@ -63,17 +70,8 @@
 			}
 		};
 
-		this.findPrevious = function(key) {
-			var currNode = this.headNode;
-			while (!(currNode.next == null) &&
-				(currNode.next.data != key)) {
-				currNode = currNode.next;
-			}
-			return currNode;
-		};
-
 		this.remove = function(key) {
-			var prevNode = this.findPrevious(key);
+			var prevNode = findPrevious(this.headNode, key);
 			if (!(prevNode.next == null)) {
 				prevNode.next = prevNode.next.next;
 			}
