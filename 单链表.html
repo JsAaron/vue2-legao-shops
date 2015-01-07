@@ -8,50 +8,101 @@
 <body>
 
 
+<button id="test1">插入多条数据</button>
+<button id="test2">删除Russellville数据</button>
+
+
 <script type="text/javascript">
 
-
-	///////////
+	//////////
 	//创建链表 //
-	///////////
-function createLinkList() {
-	var _this = {},
-		prev = null;
-	return {
-		add: function(val) {
-			//保存当前的引用
-			prev = {
-				data: val,
-				next: prev || null
-			};
-			_this.length++;
-		},
-		show: function(fn) {
-			var temp;
-			for (temp = prev; temp; temp = temp.next) {
-				fn(temp.data);
-			}
-		}
-	}
-}
-var linksList = createLinkList(); // 创建一个单链表实例
-linksList.add("arron1"); 
-linksList.add("arron2"); 
-linksList.add("arron3");
+	//////////
+	function createLinkList() {
 
-//-arron3-arron2-arron1
+		//创建节
+		function createNode(data) {
+			this.data = data;
+			this.next = null;
+		}
+
+		//在链表中找到对应的数据
+		function findNode(currNode,key) {
+			//循环找到执行的节，如果没有返回本身
+			while (currNode.data != key) {
+				currNode = currNode.next;
+			}
+			return currNode;
+		};
+
+		//初始化头部节
+		//从headNode开始形成一条链条
+		//通过next衔接
+		this.headNode = new createNode("head");
+
+		//插入一个新节
+		this.insert = function(data, key) {
+			//创建一个新节
+			var newNode = new createNode(data);
+			//在链条中找到对应的数据节
+			//然后把新加入的挂进去
+			var current = findNode(this.headNode, key);
+			//插入新的接，更改引用关系
+			//1:a-b-c-d
+			//2:a-b-n-c-d
+			newNode.next = current.next;
+			current.next = newNode;
+		};
+
+		this.display = function(fn) {
+			var currNode = this.headNode;
+			while (!(currNode.next == null)) {
+				currNode = currNode.next;
+				fn(currNode.data)
+			}
+		};
+
+		this.findPrevious = function(key) {
+			var currNode = this.headNode;
+			while (!(currNode.next == null) &&
+				(currNode.next.data != key)) {
+				currNode = currNode.next;
+			}
+			return currNode;
+		};
+
+		this.remove = function(key) {
+			var prevNode = this.findPrevious(key);
+			if (!(prevNode.next == null)) {
+				prevNode.next = prevNode.next.next;
+			}
+		};
+	}
+
+
+	var cities = new createLinkList();
 
 	function create() {
 		var text = '';
-		linksList.show(function(data) {
+		cities.display(function(data) {
 			text += '-' + data;
 		});
 		var div = document.createElement('div')
 		div.innerHTML = text;
 		document.body.appendChild(div)
 	}
-	create();
 
+	document.getElementById("test1").onclick = function() {
+		cities.insert("Conway", "head");
+		cities.insert("Russellville", "Conway");
+		cities.insert("Carlisle", "Russellville");
+		cities.insert("Alma", "Carlisle");
+		create();
+	}
+
+	document.getElementById("test2").onclick = function() {
+		cities.remove("Russellville");
+		create()
+	}
 
 
 </script>

@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+
+	///////////
+	//创建链表 //
+	///////////
+function createLinkList() {
+	var _this = {},
+		prev = null;
+	return {
+		add: function(val) {
+			//保存当前的引用
+			prev = {
+				data: val,
+				next: prev || null
+			};
+			_this.length++;
+		},
+		show: function(fn) {
+			var temp;
+			for (temp = prev; temp; temp = temp.next) {
+				fn(temp.data);
+			}
+		}
+	}
+}
+var linksList = createLinkList(); // 创建一个单链表实例
+linksList.add("arron1"); 
+linksList.add("arron2"); 
+linksList.add("arron3");
+
+//-arron3-arron2-arron1
+
+	function create() {
+		var text = '';
+		linksList.show(function(data) {
+			text += '-' + data;
+		});
+		var div = document.createElement('div')
+		div.innerHTML = text;
+		document.body.appendChild(div)
+	}
+	create();
+
+
+
+</script>
+</body>
+</html>
