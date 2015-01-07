@@ -100,69 +100,6 @@
 
 
 
-	///////////
-	//创建链表 //
-	///////////
-	function createLinkList1() {
-		var _this = {},
-			prev = null;
-
-		//默认增加一个长度属性
-		_this.length = 0;
-
-		return {
-
-			add: function(val) {
-				//保存当前的引用
-				prev = {
-					data: val,
-					next: prev || null
-				};
-				_this.length++;
-			},
-
-			del: function(val) {
-				if (prev.data == val) {
-					prev = prev.next;
-					return;
-				}
-			},
-
-			get: function(val) {
-				for (var temp = prev; temp; temp = temp.next) {
-					if (temp.data == val) {
-						alert(temp)
-					}
-				}
-			},
-
-			show: function(fn) {
-				var temp;
-				for (temp = prev; temp; temp = temp.next) {
-					fn(temp.data);
-				}
-			}
-
-		}
-	}
-
-	var linksList = createLinkList1(); // 创建一个单链表实例
-	linksList.add("arron1"); // 向链表添加一个元素
-	linksList.add("arron2"); // 再次添加元素
-	linksList.add("arron3");
-
-	function create() {
-		var text = '';
-		linksList.show(function(data) {
-			text += '-' + data;
-		});
-		var div = document.createElement('div')
-		div.innerHTML = text;
-		document.body.appendChild(div)
-	}
-	// create();
-
-
 
 </script>
 </body>
