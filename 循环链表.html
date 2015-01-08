@@ -10,7 +10,7 @@
 
 <button id="test1">插入多条数据</button>
 <button id="test2">删除Russellville数据</button>
-<div id= "listshow"></div>
+
 
 <script type="text/javascript">
 
@@ -23,22 +23,37 @@
 		function createNode(data) {
 			this.data = data;
 			this.next = null;
-			this.previous = null
 		}
 
-	    //初始化头部节
+		//初始化头部节
 		//从headNode开始形成一条链条
 		//通过next衔接
-		var headNode = new createNode("head");
+		var headNode = this.headNode = new createNode("head");
 
-		//在链表中找到对应的数据
-		var findNode = function(currNode, key) {
-			//循环找到执行的节，如果没有返回本身
-			while (currNode.data != key) {
-				currNode = currNode.next;
+		this.headNode.next = this.head;
+
+		//在链表中找到对应的节
+		var findNode = function createFindNode(currNode) {
+			return function(key) {
+				//循环找到执行的节，如果没有返回本身
+				while (currNode.data != key) {
+					currNode = currNode.next;
+				}
+				return currNode;
 			}
-			return currNode;
-		}
+		}(headNode);
+
+		//找到前一个节
+		var findPrevious = function(currNode) {
+			return function(key) {
+				while (!(currNode.next == null) &&
+					(currNode.next.data != key)) {
+					currNode = currNode.next;
+				}
+				return currNode;
+			}
+		}(headNode);
+
 
 		//插入一个新节
 		this.insert = function(data, key) {
@@ -46,33 +61,34 @@
 			var newNode = new createNode(data);
 			//在链条中找到对应的数据节
 			//然后把新加入的挂进去
-			var current = findNode(headNode,key);
+			var current = findNode(key);
 			//插入新的接，更改引用关系
-			newNode.next     = current.next;
-			newNode.previous = current
-			current.next     = newNode;
+			//1:a-b-c-d
+			//2:a-b-n-c-d
+			newNode.next = current.next;
+			current.next = newNode;
 		};
 
+		//插入方法
 		this.remove = function(key) {
-			var currNode = findNode(headNode,key);
-			if (!(currNode.next == null)) {
-				currNode.previous.next = currNode.next;
-				currNode.next.previous = currNode.previous;
-				currNode.next          = null;
-				currNode.previous      = null;
+			var prevNode = findPrevious(key);
+			if (!(prevNode.next == null)) {
+				//修改链表关系
+				prevNode.next = prevNode.next.next;
 			}
 		};
 
+
 		this.display = function(fn) {
 			var currNode = headNode;
-			while (!(currNode.next == null)) {
+			while (!(currNode.next == null) &&
+				!(currNode.next.data == "head")) {
+				fn(currNode.next.data)
 				currNode = currNode.next;
-				fn(currNode.data)
 			}
 		};
 
 	}
-
 
 	var cities = new createLinkList();
 
@@ -83,7 +99,7 @@
 		});
 		var div = document.createElement('div')
 		div.innerHTML = text;
-		document.getElementById("listshow").appendChild(div)
+		document.body.appendChild(div)
 	}
 
 	document.getElementById("test1").onclick = function() {
