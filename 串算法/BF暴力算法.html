@@ -1,0 +1,73 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>BF暴力算法</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	
+  /////////
+  //串的匹配算法
+  //BF 暴力/蛮力算法
+  //递归版本
+  /////////
+  function BF_Recursive(sourceStr, searchStr, offset) {
+      var mainLength = sourceStr.length;
+      var searchLength = searchStr.length;
+      if (searchLength > mainLength - offset) {
+        return -1;
+      }
+      offset = offset || 0;
+      for (var i = 0; searchLength > i; i++) {
+        if (searchStr.charAt(i) !== sourceStr.charAt(offset + i)) {
+          return BF(sourceStr, searchStr, offset + 1)
+        }
+      }
+      return offset;
+  }
+
+
+  var sourceStr = "BBC ABB ABCF";
+  var searchStr = "ABC";
+
+  /////////
+  //暴力算法 //
+  //无递归
+  /////////
+  function BF(sourceStr, searchStr) {
+    var sourceLength = sourceStr.length;
+    var searchLength = searchStr.length;
+    var padding      = sourceLength - searchLength; //循环的次数
+
+    //BBC ABB ABCF =>ABC => 搜索9次
+    for (var i = 0; i <= padding; i++) {
+      //如果满足了第一个charAt是相等的
+      //开始子循环检测
+      //其中sourceStr的取值是需要叠加i的值
+      if (sourceStr.charAt(i) == searchStr.charAt(0)) {
+        //匹配成功的数据
+        var complete = searchLength;
+        for (var j = 0; j < searchLength; j++) {
+          var innerNext = i + j;
+          if (sourceStr.charAt(innerNext) == searchStr.charAt(j)) {
+            --complete
+            if (!complete) {
+              return i;
+            }
+          }
+        }
+      }
+    }
+    return -1;
+  }
+
+  console.log( BF(sourceStr, searchStr) ,sourceStr.indexOf(searchStr))
+
+
+</script>
+</body>
+</html>
