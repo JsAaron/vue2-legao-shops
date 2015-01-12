@@ -36,9 +36,9 @@
 
   /////////
   //暴力算法 //
-  //无递归
+  //普通版
   /////////
-  function BF(sourceStr, searchStr) {
+  function BF_Ordinary(sourceStr, searchStr) {
     var sourceLength = sourceStr.length;
     var searchLength = searchStr.length;
     var padding      = sourceLength - searchLength; //循环的次数
@@ -65,7 +65,23 @@
     return -1;
   }
 
-  console.log( BF(sourceStr, searchStr) ,sourceStr.indexOf(searchStr))
+
+  /////////
+  //暴力算法 //
+  //优化版
+  /////////
+  function BF_Optimize(sourceStr, searchStr) {
+    var sourceLength = sourceStr.length;
+    var searchLength = searchStr.length;
+    var padding      = sourceLength - searchLength; //循环的次数
+
+
+  }
+
+
+
+
+  console.log( BF_Optimize(sourceStr, searchStr) ,sourceStr.indexOf(searchStr))
 
 
 </script>
