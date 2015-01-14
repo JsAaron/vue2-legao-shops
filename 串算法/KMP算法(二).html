@@ -21,9 +21,11 @@
           partMatch[i] = 0;
         } else {
           for (var k = 0; k < i; k++) {
-            //取前缀
+            //前缀
             prefix[k] = newStr.slice(0, k + 1);
+            //后缀
             suffix[k] = newStr.slice(-k - 1);
+            //如果相等就计算大小,并放入结果集中
             if (prefix[k] == suffix[k]) {
               partMatch[i] = prefix[k].length;
             }
@@ -33,11 +35,8 @@
           }
         }
       }
-      prefix.length = 0;
-      suffix.length = 0;
       return partMatch;
     }
-
 
 
     function KMP(sourceStr, searchStr) {
@@ -91,9 +90,9 @@
   var s = "BBC ABCDAB ABCDABCDABDE";
   var t = "ABCDABD";
 
-  console.log( KMP(s,t) );
+  // console.log( KMP(s,t) );
 
-  console.log(s.indexOf(t));
+  // console.log(s.indexOf(t));
 
 </script>
 </body>
