@@ -125,6 +125,7 @@
           partMatch[i] = 0;
         } else {
           for (var k = 0; k < i; k++) {
+            //取前缀
             prefix[k] = newStr.slice(0, k + 1);
             suffix[k] = newStr.slice(-k - 1);
             if (prefix[k] == suffix[k]) {
@@ -141,9 +142,6 @@
       return partMatch;
   }
 
-  //demo
-  var t = "ABCDABD";
-  console.log(kmpGetStrPartMatchValue(t));
 
 
   function KMP(sourceStr,targetStr){
