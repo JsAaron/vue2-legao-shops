@@ -10,38 +10,22 @@
 
 <script type="text/javascript">
 	
-
-    function kmpGetStrPartMatchValue(str) {
-      var prefix = [];
-      var suffix = [];
-      var partMatch = [];
-      for (var i = 0, j = str.length; i < j; i++) {
-        var newStr = str.substring(0, i + 1);
-        if (newStr.length == 1) {
-          partMatch[i] = 0;
-        } else {
-          for (var k = 0; k < i; k++) {
-            //前缀
-            prefix[k] = newStr.slice(0, k + 1);
-            //后缀
-            suffix[k] = newStr.slice(-k - 1);
-            //如果相等就计算大小,并放入结果集中
-            if (prefix[k] == suffix[k]) {
-              partMatch[i] = prefix[k].length;
+    function next(chars) {
+        var length = chars.length;
+        for (var i = length - 1; i > 0; i--) {
+          var isMatch = true;
+          for (var j = 0; j <= i; j++) {
+            if (chars[j] !== chars[length - i + j]) {
+              isMatch = false;
+              break;
             }
           }
-          if (!partMatch[i]) {
-            partMatch[i] = 0;
-          }
+          if (isMatch) return length - i;
         }
-      }
-      return partMatch;
+        return length;
     }
 
-
     function KMP(sourceStr, searchStr) {
-        //生成匹配表
-        var part         = kmpGetStrPartMatchValue(searchStr);
         var sourceLength = sourceStr.length;
         var searchLength = searchStr.length;
         var result;
@@ -63,9 +47,8 @@
                       i++;
                     }
                 } else {
-                  //在子串的匹配中i是被叠加了
-                  if (j > 1 && part[j - 1] > 0) {
-                    i += (i - j - part[j - 1]);
+                  if (j > 1) {
+                    i += i - next(searchStr.slice(0,j));
                   } else {
                     //移动一位
                     i = (i - j)
@@ -90,9 +73,9 @@
   var s = "BBC ABCDAB ABCDABCDABDE";
   var t = "ABCDABD";
 
-  // console.log( KMP(s,t) );
+  console.log( KMP(s,t) );
 
-  // console.log(s.indexOf(t));
+  console.log(s.indexOf(t));
 
 </script>
 </body>
