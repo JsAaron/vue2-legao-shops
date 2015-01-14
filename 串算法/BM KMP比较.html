@@ -1,0 +1,142 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	
+
+  /////////
+  //暴力算法
+  //递归版本
+  /////////
+  function BF(sourceStr, searchStr, offset) {
+      var mainLength = sourceStr.length;
+      var searchLength = searchStr.length;
+      if (searchLength > mainLength - offset) {
+        return -1;
+      }
+      offset = offset || 0;
+      for (var i = 0; searchLength > i; i++) {
+        if (searchStr.charAt(i) !== sourceStr.charAt(offset + i)) {
+          return BF(sourceStr, searchStr, offset + 1)
+        }
+      }
+      return offset;
+  }
+
+
+    /**
+     * 匹配表
+     * @param  {[type]} str [description]
+     * @return {[type]}     [description]
+     */
+    function kmpGetStrPartMatchValue(str) {
+      var prefix = [];
+      var suffix = [];
+      var partMatch = [];
+      for (var i = 0, j = str.length; i < j; i++) {
+        var newStr = str.substring(0, i + 1);
+        if (newStr.length == 1) {
+          partMatch[i] = 0;
+        } else {
+          for (var k = 0; k < i; k++) {
+            //取前缀
+            prefix[k] = newStr.slice(0, k + 1);
+            suffix[k] = newStr.slice(-k - 1);
+            if (prefix[k] == suffix[k]) {
+              partMatch[i] = prefix[k].length;
+            }
+          }
+          if (!partMatch[i]) {
+            partMatch[i] = 0;
+          }
+        }
+      }
+      prefix.length = 0;
+      suffix.length = 0;
+      return partMatch;
+    }
+
+
+    //////////
+    //KMP算法 //
+    //////////
+    function KMP(sourceStr, searchStr) {
+        //生成匹配表
+        var part         = kmpGetStrPartMatchValue(searchStr);
+        var sourceLength = sourceStr.length;
+        var searchLength = searchStr.length;
+        var result;
+        var i = 0;
+        var j = 0;
+
+       for (; i < sourceStr.length; i++) { //最外层循环，主串
+
+            //子循环
+            for (var j = 0; j < searchLength; j++) {
+                //如果与主串匹配
+                if (searchStr.charAt(j) == sourceStr.charAt(i)) {
+                    //如果是匹配完成
+                    if (j == searchLength - 1) {
+                      result = i - j;
+                      break;
+                    } else {
+                      //如果匹配到了，就继续循环，i++是用来增加主串的下标位
+                      i++;
+                    }
+                } else {
+                  //在子串的匹配中i是被叠加了
+                  if (j > 1 && part[j - 1] > 0) {
+                    i += (i - j - part[j - 1]);
+                  } else {
+                    //移动一位
+                    i = (i - j)
+                  }
+                  break;
+                }
+            }
+
+            if (result || result == 0) {
+              break;
+            }
+        }
+
+        if (result || result == 0) {
+          return result
+        } else {
+          return -1;
+        }
+    }
+
+
+
+  var sourceStr = "BBC ABCDAB ABCDABCDABDE"
+  var searchStr = "ABCDABD"; 
+
+
+
+  show('BF',function() {
+    return BF(sourceStr, searchStr)
+  })
+
+  show('KMP',function() {
+    return KMP(sourceStr, searchStr)
+  })
+
+  function show(bf_name,fn) {
+    var myDate = +new Date()
+    var r = fn();
+    var div = document.createElement('div')
+    div.innerHTML = bf_name +'算法,搜索位置:' + r + ",耗时" + (+new Date() - myDate) + "ms";
+    document.body.appendChild(div);
+  }
+
+</script>
+</body>
+</html>
