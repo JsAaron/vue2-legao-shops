@@ -11,32 +11,61 @@
 <script type="text/javascript">
 	
 
-    function kmpGetStrPartMatchValue(str) {
-          var prefix = [];
-          var suffix = [];
-          var partMatch = [];
-          for (var i = 0, j = str.length; i < j; i++) {
-            var newStr = str.substring(0, i + 1);
-            if (newStr.length == 1) {
-              partMatch[i] = 0;
-            } else {
-              for (var k = 0; k < i; k++) {
-                //取前缀
-                prefix[k] = newStr.slice(0, k + 1);
-                suffix[k] = newStr.slice(-k - 1);
-                if (prefix[k] == suffix[k]) {
-                  partMatch[i] = prefix[k].length;
-                }
-              }
-              if (!partMatch[i]) {
-                partMatch[i] = 0;
-              }
-            }
+  function kmpGetStrPartMatchValue(str) {
+    var prefix = [];
+    var suffix = [];
+    var partMatch = [];
+    for (var i = 0, j = str.length; i < j; i++) {
+      var newStr = str.substring(0, i + 1);
+      if (newStr.length == 1) {
+        partMatch[i] = 0;
+      } else {
+        for (var k = 0; k < i; k++) {
+          //取前缀
+          prefix[k] = newStr.slice(0, k + 1);
+          suffix[k] = newStr.slice(-k - 1);
+          if (prefix[k] == suffix[k]) {
+            partMatch[i] = prefix[k].length;
           }
-          prefix.length = 0;
-          suffix.length = 0;
-          return partMatch;
+        }
+        if (!partMatch[i]) {
+          partMatch[i] = 0;
+        }
+      }
     }
+    prefix.length = 0;
+    suffix.length = 0;
+    return partMatch;
+  }
+
+
+
+  function KMP1(sourceStr, searchStr) {
+      var path  = kmpGetStrPartMatchValue(searchStr)
+
+      var i = 0,
+          j = 0;
+
+        while (i < sourceStr.length) {
+            // 两字母相等则继续  
+            if (sourceStr.charAt(i) == searchStr.charAt(j)) {
+              i++;
+              j++;
+            } else { // 两字母不等则角标后退重新开始匹配  
+              var matched = searchStr.slice(0,j)
+              console.log(searchStr,matched,j)
+
+
+              i = i - j + 1; // i 回退到上次匹配首位的下一位  
+              j = 0; // j 回退到子串的首位  
+            }
+
+            if (j == searchStr.length) {
+              return i - j;
+            }
+
+        }
+  }
 
 
     function KMP(sourceStr, searchStr) {
@@ -78,6 +107,7 @@
               break;
             }
         }
+
 
         if (result || result == 0) {
           return result
