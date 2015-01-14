@@ -71,7 +71,7 @@
     function KMP(sourceStr, targetStr) {
         var partMatchValue = kmpGetStrPartMatchValue(targetStr);
         var result = false;
-        for (var i = 0, j = sourceStr.length; i < j; i++) {
+        for (var i = 0, j = sourceStr.length; i < j; i++) { //最外层循环，主串
           for (var m = 0, n = targetStr.length; m < n; m++) {
             if (targetStr.charAt(m) == sourceStr.charAt(i)) {
               if (m == targetStr.length - 1) {
