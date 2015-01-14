@@ -39,39 +39,68 @@
   }
 
 
-  function KMP(sourceStr, targetStr) {
-    var partMatchValue = kmpGetStrPartMatchValue(targetStr);
-    var result = false;
-    for (var i = 0, j = sourceStr.length; i < j; i++) {
-      for (var m = 0, n = targetStr.length; m < n; m++) {
-        if (targetStr.charAt(m) == sourceStr.charAt(i)) {
-          if (m == targetStr.length - 1) {
-            result = true;
-            break;
-          } else {
-            i++;
+
+  function KMP1(sourceStr, searchStr) {
+      var path  = kmpGetStrPartMatchValue(searchStr)
+
+      var i = 0,
+          j = 0;
+
+        while (i < sourceStr.length) {
+            // 两字母相等则继续  
+            if (sourceStr.charAt(i) == searchStr.charAt(j)) {
+              i++;
+              j++;
+            } else { // 两字母不等则角标后退重新开始匹配  
+              var matched = searchStr.slice(0,j)
+              console.log(searchStr,matched,j)
+
+
+              i = i - j + 1; // i 回退到上次匹配首位的下一位  
+              j = 0; // j 回退到子串的首位  
+            }
+
+            if (j == searchStr.length) {
+              return i - j;
+            }
+
+        }
+  }
+
+
+    function KMP(sourceStr, targetStr) {
+        var partMatchValue = kmpGetStrPartMatchValue(targetStr);
+        var result = false;
+        for (var i = 0, j = sourceStr.length; i < j; i++) {
+          for (var m = 0, n = targetStr.length; m < n; m++) {
+            if (targetStr.charAt(m) == sourceStr.charAt(i)) {
+              if (m == targetStr.length - 1) {
+                result = true;
+                break;
+              } else {
+                i++;
+              }
+            } else {
+              if (m > 0 && partMatchValue[m - 1] > 0) {
+                m = partMatchValue[m - 1] - 1;
+              } else {
+                break;
+              }
+            }
           }
-        } else {
-          if (m > 0 && partMatchValue[m - 1] > 0) {
-            m = partMatchValue[m - 1] - 1;
-          } else {
+          if (result) {
             break;
           }
         }
-      }
-      if (result) {
-        break;
-      }
+        return result;
     }
-    return result;
-  }
 
   var s = "BBC ABCDAB ABCDABCDABDE";
   var t = "ABCDABD";
 
   console.log( KMP(s,t) );
 
-  console.log(s.indexOf(t));
+  // console.log(s.indexOf(t));
 
 </script>
 </body>
