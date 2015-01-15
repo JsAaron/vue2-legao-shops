@@ -9,20 +9,25 @@
 
 
 <script type="text/javascript">
-	
-    function next(chars) {
-        var length = chars.length;
-        for (var i = length - 1; i > 0; i--) {
-          var isMatch = true;
-          for (var j = 0; j <= i; j++) {
-            if (chars[j] !== chars[length - i + j]) {
-              isMatch = false;
-              break;
-            }
+	 
+    function next(str) {
+        var prefix = [];
+        var suffix = [];
+        var partMatch;
+        var i = str.length
+        var newStr = str.substring(0, i + 1);
+        for (var k = 0; k < i; k++) {
+          //取前缀
+          prefix[k] = newStr.slice(0, k + 1);
+          suffix[k] = newStr.slice(-k - 1);
+          if (prefix[k] == suffix[k]) {
+            partMatch = prefix[k].length;
           }
-          if (isMatch) return length - i;
         }
-        return length;
+        if (!partMatch) {
+          partMatch = 0;
+        }
+        return partMatch;
     }
 
     function KMP(sourceStr, searchStr) {
@@ -71,11 +76,24 @@
     }
 
   var s = "BBC ABCDAB ABCDABCDABDE";
-  var t = "ABCDABD";
+  var t = "ABCDAB";
 
-  console.log( KMP(s,t) );
 
-  console.log(s.indexOf(t));
+   show('indexOf',function() {
+      return s.indexOf(t)
+    })
+
+    show('KMP.next',function() {
+      return KMP(s,t)
+    })
+
+    function show(bf_name,fn) {
+      var myDate = +new Date()
+      var r = fn();
+      var div = document.createElement('div')
+      div.innerHTML = bf_name +'算法,搜索位置:' + r + ",耗时" + (+new Date() - myDate) + "ms";
+      document.body.appendChild(div);
+    }
 
 </script>
 </body>
