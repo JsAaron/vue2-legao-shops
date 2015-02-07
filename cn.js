@@ -59,7 +59,7 @@ $(function() {
 		})
 
 		//滚动
-		var preIndex
+		var preIndex,currIndex;
 		function setMenu() {
 			var scrollTop = $(window).scrollTop();
 			if (scrollTop < offsetMenu[0].value) {
@@ -84,7 +84,10 @@ $(function() {
 				//移除上一个
 				removeli(preIndex)
 			}
-			menuli[index][0].firstChild.style.color = '#FF3300'
+			if(currIndex != index){
+				menuli[index][0].firstChild.style.color = '#FF3300'
+				currIndex = index
+		    }
 			preIndex = index;
 		}
 
@@ -235,7 +238,12 @@ $(function() {
 	showInfo.append('</br><div id="MySignature" style="display: block;"><div id="MySignature_title">如果您看完本篇文章感觉不错，请点击一下右下角的<strong><span style="color: #ff0000;">【<a id="post-up" href="javascript:void(0);">推荐</a>】</span></strong>来支持一下博主，谢谢！</div>');
 
 
-	$("#blog-calendar").after('</br></br><h3 class="catListTitle">友情链接</h3><strong><div class="youqing"><a href="http://www.cnblogs.com/yexiaochai/">叶小钗</a></strong></br><strong><a href="http://www.cnblogs.com/jikey">豪情</a></strong></br><strong><a href="http://www.cnblogs.com/vajoy/">vajoy</a></strong></div></br></br>').after("</br><span style='color:red'>如果您觉得此文有帮助，可以打赏点钱给我支付宝chenwenkl@163.com<br/>或扫描二维码<span><br/><img src='http://images.cnblogs.com/cnblogs_com/aaronjs/642765/o_o_aex3ezbv03vx4nvq9e%20(1).png'>");
+	$("#blog-calendar").after('</br></br><h3 class="catListTitle">友情链接</h3>'+
+		'<strong><div class="youqing"><a href="http://www.cnblogs.com/yexiaochai/">叶小钗</a></strong></br>'+
+		'<strong><a href="http://www.cnblogs.com/jikey">豪情</a></strong></br>'+
+		'<strong><a href="http://www.cnblogs.com/vajoy/">vajoy</a></strong></br>'+
+		'<strong><a href="http://stylechen.com/">雨夜带刀</a></strong></div></br>'+
+		'</br>').after("</br><span style='color:red'>如果您觉得此文有帮助，可以打赏点钱给我支付宝chenwenkl@163.com<br/>或扫描二维码<span><br/><img src='http://images.cnblogs.com/cnblogs_com/aaronjs/642765/o_o_aex3ezbv03vx4nvq9e%20(1).png'>");
 
 
 });
