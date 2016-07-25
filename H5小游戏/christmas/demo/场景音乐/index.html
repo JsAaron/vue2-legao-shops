@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <link rel='stylesheet' href='common.css' />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="christmas.js"></script>
+</head>
+
+<body>
+    <section class="container">
+        <!-- 第一幅画面 -->
+        <section class="page-a bg-adaptive">
+        </section>
+        <!-- 第二幅画面 -->
+        <section class="page-b bg-adaptive">
+        </section>
+        <!-- 第三幅画面 -->
+        <section class="page-c bg-adaptive">
+        </section>
+    </section>
+    <button>点击播放音乐</button>
+    <button>点击播放循环音乐</button>
+    <script type="text/javascript">
+    /**
+     * 自适应页面大小
+     * @param  {[type]} doc [description]
+     * @param  {[type]} win [description]
+     * @return {[type]}     [description]
+     */
+    var docEl = document.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function() {
+            //自适应设置容器高度
+            var container = document.querySelector(".container")
+                //原始比例
+            var proportion = 900 / 1440;
+            container.style.height = container.clientWidth * proportion + "px";
+        };
+    window.addEventListener(resizeEvt, recalc, false);
+    document.addEventListener('DOMContentLoaded', recalc, false);
+    </script>
+</body>
+
+</html>

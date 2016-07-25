@@ -1,0 +1,199 @@
+/**
+ * 圣诞男孩
+ */
+
+.chs-boy {
+    width: 5rem;
+    height: 1.5rem;
+    position: absolute;
+    z-index: 300;
+    top: .1rem;
+    right: -3rem;
+    transform: scale(0.1);
+    background: url(http://img.mukewang.com/565d07490001365329660269.png) -300% -100%;
+    background-size: 400% 100%;
+}
+
+
+/**
+ * 男孩走路动作
+ */
+
+.chs-boy-deer {
+    -webkit-animation: chsBoyDeer 0.75s steps(3, end) infinite;
+    -moz-animation: chsBoyDeer 0.75s steps(3, end) infinite;
+}
+
+@-webkit-keyframes chsBoyDeer {
+    0% {
+        background-position: -0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+    }
+}
+
+@-moz-keyframes chsBoyDeer {
+    0% {
+        background-position: -0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+    }
+}
+
+
+/**
+ * 人物停止
+ */
+
+.boy-stop-animate {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+}
+
+
+/**
+ * 窗户
+ */
+
+.window {
+    width: 2.6rem;
+    height: 1.5rem;
+    position: absolute;
+    left: 9.7rem;
+    top: 6.2rem;
+    cursor: pointer;
+    -webkit-perspective: 500px;
+    -moz-perspective: 500px;
+}
+
+.window-content {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    width: 91%;
+    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+/**
+ * 窗户背景
+ */
+
+.window-bg {
+    width: 86%;
+    height: 92%;
+    position: absolute;
+    left: 50%;
+    margin-left: -43%;
+    bottom: 0;
+    background: url(http://img.mukewang.com/565d07770001790814410901.png);
+    background-size: 100% 100%;
+    z-index: -1;
+}
+
+
+/**
+ * 窗户底边
+ * @type {[type]}
+ */
+
+.window:before {
+    content: "";
+    background: url(http://img.mukewang.com/565d07e40001088402410017.png);
+    width: 100%;
+    height: 0.17rem;
+    display: block;
+    position: absolute;
+    bottom: 0.05rem;
+    background-size: 100% 100%;
+    z-index: 100;
+}
+
+
+/**
+ * 底边阴影
+ * @type {[type]}
+ */
+
+.window:after {
+    content: "";
+    background: url(http://img.mukewang.com/565d080400018d2702270009.png);
+    width: 100%;
+    height: 0.09rem;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    background-size: 100% 100%;
+    z-index: 100;
+}
+
+.wood {
+    display: block;
+    overflow: hidden;
+}
+
+
+/**
+ * 左侧门
+ */
+
+.window-left {
+    float: left;
+    background: url(http://img.mukewang.com/565d081d0001cfd901140134.png);
+    -webkit-border-top-left-radius: 0.1rem;
+    -moz-border-top-left-radius: 0.1rem;
+}
+
+
+/**
+ * 右侧门
+ */
+
+.window-right {
+    float: right;
+    background: url(http://img.mukewang.com/565d084c0001431b01140134.png);
+    -webkit-border-top-right-radius: 0.1rem;
+    -moz-border-top-left-radius: 0.1rem;
+}
+
+.window-left,
+.window-right {
+    width: 1.17rem;
+    height: 1.3rem;
+    z-index: 110;
+    box-shadow: 0 0 0.15rem #FCF0BC;
+    background-size: 100% 100%;
+}
+
+.window-animation {
+    -webkit-transition: 2s ease-in-out;
+    -moz-transition: 2s ease-in-out;
+}
+
+
+/**
+ * 动画过程
+ */
+
+.window-transition {
+    -webkit-transition: 2s ease-in-out;
+    -moz-transition: 2s ease-in-out;
+}
+
+.window-left.hover {
+    -webkit-transform: scale(0.95) rotateY(60deg);
+    -moz-transform: scale(0.95) rotateY(60deg);
+    margin-top: 0.1rem;
+    margin-left: -0.25rem;
+}
+
+.window-right.hover {
+    /*    -webkit-transition: 2s ease-in-out;*/
+    -webkit-transform: scale(0.95) rotateY(-60deg);
+    -moz-transform: scale(0.95) rotateY(-60deg);
+    margin-top: 0.1rem;
+    margin-right: -0.25rem;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <link rel='stylesheet' href='common.css' />
+    <link rel="stylesheet" type="text/css" href="pageC.css">
+</head>
+
+<body>
+    <section class="container">
+        <!-- 第一幅画面 -->
+        <section class="page-a bg-adaptive">
+        </section>
+        <!-- 第二幅画面 -->
+        <section class="page-b bg-adaptive">
+        </section>
+        <!-- 第三幅画面 -->
+        <section class="page-c bg-adaptive">
+            <!-- 窗户关闭 -->
+            <div class="window wood">
+                <div class="window-content" data-attr="red">
+                    <div class="window-scene-bg"></div>
+                    <div class="window-close-bg"></div>
+                    <div class="window-left hover"></div>
+                    <div class="window-right hover"></div>
+                </div>
+            </div>
+        </section>
+        <!-- 雪花 -->
+        <canvas id="snowflake"></canvas>
+    </section>
+    <script type="text/javascript">
+    var config = {};
+    //rem设置
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                //宽与高度
+                document.body.style.height = clientWidth * (900 / 1440) + "px"
+                config.clientWidth = clientWidth;
+                config.clientHeight =  clientWidth * (900 / 1440)
+            };
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+    </script>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="snowflake.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>老虎机</title>
+    <link rel='stylesheet' href='css/style.css' />
+    <meta name="viewport" content="width=device-width ,initial-scale=1, user-scalable=0, maximum-scale=1">
+</head>
+
+<body>
+    <section class="slot-machine full-screen">
+        <!-- 音乐 -->
+        <div class="slot-music"></div>
+        <!-- 首页 -->
+        <section class="slot-homepage full-screen">
+            <div class="introduce"></div>
+            <div class="help"></div>
+            <div class="enter"></div>
+            <section class="help-content">
+                <div class="help-monkey"></div>
+                <div class="balloon-md"></div>
+                <div class="balloon-bg"></div>
+                <div class="balloon-sm"></div>
+                <div class="help-back"></div>
+            </section>
+            <section class="introduce-content">
+                <div class="help-monkey"></div>
+                <div class="balloon-md"></div>
+                <div class="balloon-bg"></div>
+                <div class="balloon-sm"></div>
+                <div class="introduce-back"></div>
+            </section>
+        </section>
+        <!-- 游戏 -->
+        <section class="slot-gamepage full-screen">
+            <!-- 标题 -->
+            <header></header>
+    
+            <!-- 抽奖框 -->
+            <div class="slot-gamepage-box">
+                <div class="slot-gamepage-box-left box-flash">
+                    <div class="slot-gamepage-roll">
+                        <div id="slot-roll-1" class="slot-gamepage-roll-container"></div>
+                        <div id="slot-roll-2" class="slot-gamepage-roll-container"></div>
+                        <div id="slot-roll-3" class="slot-gamepage-roll-container"></div>
+                    </div>
+                </div>
+                <div class="slot-gamepage-box-right">
+                    <div class="slot-gamepage-box-right-vertical"></div>
+                    <div class="slot-gamepage-box-right-rod"></div>
+                </div>
+            </div>
+            <!-- 开始按钮 -->
+            <div class="slot-gamepage-lottery"></div>
+            <!-- 结果页面 -->
+            <div class="slot-gamepage-result full-screen">
+                <!-- 标题 -->
+                <header></header>
+                
+                <!-- 未中奖 -->
+                <section class="slot-reslut-none">
+                    <div class="slot-reslut-paper">
+                        <div class="slot-reslut-paper-dice"></div>
+                    </div>
+                    <div class="slot-reslut-envelope"></div>
+                    <div class="slot-reslut-back"></div>
+                    <div class="slot-reslut-title"></div>
+                </section>
+
+                <!-- 中奖 -->
+                <section class="slot-reslut">
+                    <div class="slot-reslut-paper">
+                        <div class="slot-reslut-paper-gem"></div>
+                    </div>
+                    <div class="slot-reslut-envelope"></div>
+                    <div class="slot-reslut-back"></div>
+                    <div class="slot-reslut-title"></div>
+                </section>
+
+                <!-- 中奖礼物 -->
+                <section class="slot-gift">
+                    <div class="slot-gift-1"></div>
+                    <div class="slot-gift-2"></div>
+                    <div class="slot-gift-3"></div>
+                </section>
+
+                <!-- 底部 -->
+                <ul class="slot-result-bottom">
+                    <li>
+                        <div class="slot-reslut-sign-a"></div>
+                        <div class="slot-reslut-monkey-left"></div>
+                    </li>
+                    <li>
+                        <div class="slot-reslut-sign-b"></div>
+                        <div class="slot-reslut-monkey-middle"></div>
+                    </li>
+                    <li>
+                        <div class="slot-reslut-sign-c"></div>
+                        <div class="slot-reslut-monkey-right"></div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </section>
+    <script type="text/javascript" src="js/plugin/flexible.js"></script>
+    <script type="text/javascript" src="js/plugin/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/slotMachine.js"></script>
+    <script type="text/javascript" src="js/gamePage.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+</body>
+
+</html>

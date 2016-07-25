@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+</head>
+
+<body>
+    <section class="container"></section>
+    <script type="text/javascript">
+        //模拟异步A
+        function A(callback) {
+           setTimeout(function(){
+                callback(1)
+           },1000)
+        }
+        //模拟异步A
+        function B(callback,value) {
+           setTimeout(function(){
+                 callback(value+2)
+           },1000)
+        }
+        //A执行完毕后，在执行B
+        A(function(data1){
+            B(function(data2){
+                document.write("setTimeout:"+data2)
+            },data1)
+        })
+
+
+        // $.Deferred改造
+        // 
+        // 
+        //模拟异步C
+        function C() {
+           var dtd = $.Deferred();  //创建
+           setTimeout(function(){
+                dtd.resolve(3)
+           },1000)
+           return dtd;
+        }
+        //模拟异步D
+        function D(value) {
+           var dtd = $.Deferred();  //创建
+           setTimeout(function(){
+               dtd.resolve(value+4)
+           },1000)
+           return dtd;
+        }
+        //模拟异步E
+        function E(value) {
+           var dtd = $.Deferred();  //创建
+           setTimeout(function(){
+               dtd.resolve(value+5)
+           },1000)
+           return dtd;
+        }
+
+        C()
+        .then(function(data){
+            return D(data)
+        })
+        .then(function(data){
+            return E(data)
+        })
+        .then(function(data){
+            document.write("\nDeferred:"+data)
+        })
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
+

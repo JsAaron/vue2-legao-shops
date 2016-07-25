@@ -1,0 +1,545 @@
+.container .page-b {
+    width: 100%;
+    height: 100%;
+    /*background-image: url("../images/b/page-b-bg.png");*/
+    position: absolute;
+    background-image: url("http://img.mukewang.com/565d09fa000145a614410901.png");
+    z-index: 4;
+}
+
+.walk-stop {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+}
+
+.walk-run {
+    -webkit-animation-play-state: running;
+    -moz-animation-play-state: running;
+}
+
+
+
+/********************************************************
+        
+        小女孩动作
+
+**********************************************************/
+
+/**
+ * 小女孩看书
+ */
+
+.girl {
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 10;
+    left: 1rem;
+    top: 3.2rem;
+    background: url(http://img.mukewang.com/565d09e50001156273510407.png);
+    background-size: 2100% 100%;
+/*    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 10;
+    left: 1rem;
+    top: 3.2rem;
+    background: url("../images/b/girl.png");
+    background-size: 2100% 100%;*/
+}
+
+/**
+ * 起身
+ */
+.girl-standUp {
+    left: 1.2rem;
+    -webkit-animation: standUp 200ms steps(3, start) forwards;
+    -moz-animation: standUp 200ms steps(3, start) forwards;
+}
+
+@-webkit-keyframes standUp {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+        top: 4rem;
+    }
+}
+
+@-moz-keyframes standUp {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+        top: 4rem;
+    }
+}
+
+/**
+ * 抛书动作
+ */
+.girl-throwBook {
+    top: 4rem;
+    left: 0.5rem;
+    -webkit-animation: throwBook 300ms steps(2, start) forwards;
+    -moz-animation: throwBook 300ms steps(2, start) forwards;
+}
+
+@-webkit-keyframes throwBook {
+    0% {
+        background-position: -300% 100%;
+    }
+    100% {
+        background-position: -500% 100%;
+    }
+}
+
+@-moz-keyframes throwBook {
+    0% {
+        background-position: -300% 100%;
+    }
+    100% {
+        background-position: -500% 100%;
+    }
+}
+
+
+/**
+ * 小女孩走路
+ */
+.girl-walk {
+    left: 1rem;
+    -webkit-animation: girlWalk 900ms steps(4, start) infinite;
+    -moz-animation: girlWalk 900ms steps(4, start) infinite;
+}
+
+@-webkit-keyframes girlWalk {
+    0% {
+        background-position: -500% 100%;
+    }
+    100% {
+        background-position: -900% 100%;
+    }
+}
+
+@-moz-keyframes girlWalk {
+    0% {
+        background-position: -500% 100%;
+    }
+    100% {
+        background-position: -900% 100%;
+    }
+}
+
+
+/**
+ * 站立动作
+ */
+.girl-stand {
+    top: 4rem;
+    background-position: -1000% 100%;
+}
+
+
+/**
+ * 小女孩选择3d选择
+ */
+.girl-choose {
+    -webkit-animation: girlChoose 2000ms steps(2, end) forwards;
+    -moz-animation: girlChoose 2000ms steps(2, end) forwards;
+}
+
+@-webkit-keyframes girlChoose {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1200% 100%;
+    }
+}
+
+@-moz-keyframes girlChoose {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1200% 100%;
+    }
+}
+
+
+
+/**
+ * 流泪奔跑
+ */
+.girl-weep {
+    -webkit-animation: girlWeep 450ms steps(4, end) forwards infinite;
+    -moz-animation: girlWeep 450ms steps(4, end) forwards infinite;
+}
+
+@-webkit-keyframes girlWeep {
+    0% {
+        background-position: -1300% 100%;
+    }
+    100% {
+        background-position: -1700% 100%;
+    }
+}
+
+@-moz-keyframes girlWeep {
+    0% {
+        background-position: -1300% 100%;
+    }
+    100% {
+        background-position: -1700% 100%;
+    }
+}
+
+
+/**
+ * 女孩拥抱
+ */
+.girl-hug {
+    -webkit-animation: girlHug 450ms steps(3, end) forwards;
+    -moz-animation: girlHug 450ms steps(3, end) forwards;
+}
+
+@-webkit-keyframes girlHug {
+    0% {
+        background-position: -1700% 100%;
+    }
+    100% {
+        left: 7.85rem;
+        background-position: -2000% 100%;
+    }
+}
+
+@-moz-keyframes girlHug {
+    0% {
+        background-position: -1700% 100%;
+    }
+    100% {
+        left: 7.85rem;
+        background-position: -2000% 100%;
+    }
+}
+
+
+
+
+/**
+ * 猫
+ */
+
+.cat {
+    width: 1.36rem;
+    height: 0.88rem;
+    position: absolute;
+    z-index: 3;
+    left: 3.5rem;
+    top: 5.5rem;
+    background: url(http://img.mukewang.com/565d09a80001a48801360088.png);
+    background-size: 100% 100%;
+}
+
+.cat-book {
+    background: url(http://img.mukewang.com/565d09ba0001f9aa01360089.png);
+    background-size: 100% 100%;
+}
+
+
+/********************************************************
+        
+        小男孩动作
+
+**********************************************************/
+
+/**
+ * 圣诞小男孩
+ */
+
+.christmas-boy {
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 5;
+    right: -3.5rem;
+    top: 4rem;
+    background: url(http://img.mukewang.com/565d09870001372152510407.png);
+    /*background: url("../images/b/boy.png");*/
+    background-size: 1500% 100%;
+    background-position: 0% 100%;
+}
+
+
+/**
+ * 男孩走路动作
+ */
+
+.boy-walk {
+    -webkit-animation: boyWalk 0.75s steps(4, end) infinite;
+    -moz-animation: boyWalk 0.75s steps(4, end) infinite;
+}
+
+@-webkit-keyframes boyWalk {
+    0% {
+        background-position: 0 100%;
+    }
+    100% {
+        background-position: -400% 100%;
+    }
+}
+
+@-moz-keyframes boyWalk {
+    0% {
+        background-position: 0 100%;
+    }
+    100% {
+        background-position: -400% 100%;
+    }
+}
+
+
+/**
+ * 脱衣动作
+ */
+.boy-strip-1 {
+    background-position: -800% 100%;
+}
+
+.boy-strip-2 {
+    background-position: -900% 100%;
+}
+
+.boy-strip-3 {
+    background-position: -1000% 100%;
+}
+
+
+/**
+ * 站立动作
+ */
+.boy-stand {
+    background-position: -400% 100%;
+}
+
+/**
+ * 打开包裹
+ */
+
+
+.boy-unwrapp {
+    -webkit-animation: unwrapp 2s steps(2, end) 1 forwards;
+    -moz-animation: unwrapp 2s steps(2, end) 1 forwards;
+}
+
+@-webkit-keyframes unwrapp {
+    0% {
+        background-position: -400% 100%;
+    }
+    100% {
+        background-position: -600% 100%;
+    }
+}
+
+@-moz-keyframes unwrapp {
+    0% {
+        background-position: -400% 100%;
+    }
+    100% {
+        background-position: -600% 100%;
+    }
+}
+
+
+
+/**
+ * 男孩拥抱
+ */
+.boy-hug {
+    -webkit-animation: boyHug 1s steps(3, end) 1 forwards;
+    -moz-animation: boyHug 1s steps(3, end) 1 forwards;
+}
+
+@-webkit-keyframes boyHug {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1300% 100%;
+    }
+}
+
+@-moz-keyframes boyHug {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1300% 100%;
+    }
+}
+
+
+/**
+ * 男孩头部
+ */
+.christmas-boy-head{
+    /*background: url("../images/b/boy.png");*/
+    left: 7.85rem;
+    top: 4rem;
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 12;
+    background: url(http://img.mukewang.com/565d09870001372152510407.png);
+    background-size: 1400% 100%;
+    background-position: -1300% 100%;
+    display: none;
+}
+
+
+
+
+/********************************************************
+        
+        视频动画
+
+**********************************************************/
+
+
+@-webkit-keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+
+.bounceIn {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-name: bounceIn;
+  animation-name: bounceIn;
+}
+
+
+
+@-webkit-keyframes bounceOut {
+  20% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+@keyframes bounceOut {
+  20% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+.bounceOut {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-name: bounceOut;
+  animation-name: bounceOut;
+}

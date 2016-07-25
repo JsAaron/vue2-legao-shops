@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <style type="text/css">
+    .bird {
+        min-width: 4rem;
+        min-height: 2rem;
+        top: 10%;
+        right: 0;
+        position: absolute;
+        z-index: 10;
+        background: url(http://img.mukewang.com/55ade1700001b38302730071.png);
+        background-size: 300% 100%;
+    }
+    
+    .birdFly {
+        /*写法1*/
+        -moz-animation-name: bird-slow;
+        -moz-animation-duration: 400ms;
+        -moz-animation-timing-function: steps(1,start);
+        -moz-animation-iteration-count: infinite;
+
+        /*写法2*/
+        -webkit-animation:bird-slow 400ms steps(3) infinite;
+    }
+    
+    @-webkit-keyframes bird-slow {
+        0% {
+            background-position: -0% 0%;
+        }
+        100% {
+            background-position: -300% 0%;
+        }
+    }
+    
+    @-moz-keyframes bird-slow {
+        0% {
+            background-position: -0% 0%;
+        }
+        50% {
+            background-position: -100% 0%;
+        }
+        75% {
+            background-position: -200% 0%;
+        }
+        100% {
+            background-position: -300% 0%;
+        }
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
+</head>
+
+<body>
+    <div class="bird birdFly"></div>
+    <button>点击运动</button>
+</body>
+<script type="text/javascript">
+
+$("button").on("click",function(){
+    /**
+     * 通过transition的方式改变运动
+     */
+    $(".bird").transition({
+        'right': "3rem",
+    }, 10000,'linear',function(){
+        alert("结束")
+    });
+
+})
+
+
+
+
+
+var docEl = document.documentElement,
+    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+    recalc = function() {
+        //设置根字体大小
+        docEl.style.fontSize = 20 * (docEl.clientWidth / 320) + 'px';
+    };
+
+//绑定浏览器缩放与加载时间
+window.addEventListener(resizeEvt, recalc, false);
+document.addEventListener('DOMContentLoaded', recalc, false);
+</script>
+
+</html>

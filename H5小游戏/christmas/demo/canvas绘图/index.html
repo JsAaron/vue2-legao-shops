@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+</head>
+
+<body>
+    <canvas id="cvs"></canvas>
+    <script type="text/javascript">
+     //第一步：获取canvas元素
+    var cvs = document.getElementById('cvs'); //画布
+     //第二步：获取上下文
+    var ctx = cvs.getContext('2d'); // 画笔
+    //第三步：指定绘制线样式、颜色
+    ctx.strokeStyle = "red";
+    //第四步：绘制矩形，只有线。内容是空的
+    ctx.strokeRect(10, 10, 190, 100);
+
+    //以下演示填充矩形。
+    ctx.fillStyle = "blue";
+    ctx.fillRect(110, 110, 100, 100);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <style type="text/css">
+    section {
+        width: 100%;
+        height: 100%;
+        background: red;
+    }
+    .page{
+        width: 5rem;
+        height: 10rem;
+        background: yellow;
+        font-size: 0.3rem;
+    }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="page">rem跟着html:font-size变化</div>
+    </section>
+</body>
+<script type="text/javascript">
+var docEl = document.documentElement,
+    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+    recalc = function() {
+        //设置根字体大小
+        docEl.style.fontSize = 20 * (docEl.clientWidth / 320) + 'px';
+    };
+
+//绑定浏览器缩放与加载时间
+window.addEventListener(resizeEvt, recalc, false);
+document.addEventListener('DOMContentLoaded', recalc, false);
+</script>
+
+</html>

@@ -1,0 +1,4 @@
+
+function pageA (argument) {
+    // body...
+}

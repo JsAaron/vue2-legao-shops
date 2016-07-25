@@ -1,0 +1,344 @@
+/********************************************************
+        
+        小女孩动作
+
+**********************************************************/
+
+
+/**
+ * 小女孩看书
+ */
+
+.girl {
+    width: 3.5rem;
+    height: 4.06rem;
+    position: absolute;
+    z-index: 10;
+    left: 1rem;
+    top: 3.2rem;
+    background: url(http://img.mukewang.com/565d09e50001156273510407.png);
+    background-size: 2100% 100%;
+}
+
+
+/**
+ * 起身
+ */
+
+.girl-standUp {
+    left: 1.2rem;
+    -webkit-animation: standUp 200ms steps(3, start) forwards;
+    -moz-animation: standUp 200ms steps(3, start) forwards;
+}
+
+@-webkit-keyframes standUp {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+        top: 4rem;
+    }
+}
+
+@-moz-keyframes standUp {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: -300% 100%;
+        top: 4rem;
+    }
+}
+
+
+/**
+ * 抛书动作
+ */
+
+.girl-throwBook {
+    top: 4rem;
+    left: 0.5rem;
+    -webkit-animation: throwBook 300ms steps(2, start) forwards;
+    -moz-animation: throwBook 300ms steps(2, start) forwards;
+}
+
+@-webkit-keyframes throwBook {
+    0% {
+        background-position: -300% 100%;
+    }
+    100% {
+        background-position: -500% 100%;
+    }
+}
+
+@-moz-keyframes throwBook {
+    0% {
+        background-position: -300% 100%;
+    }
+    100% {
+        background-position: -500% 100%;
+    }
+}
+
+
+/**
+ * 小女孩走路
+ */
+
+.girl-walk {
+    left: 1rem;
+    -webkit-animation: girlWalk 900ms steps(4, start) infinite;
+    -moz-animation: girlWalk 900ms steps(4, start) infinite;
+}
+
+@-webkit-keyframes girlWalk {
+    0% {
+        background-position: -500% 100%;
+    }
+    100% {
+        background-position: -900% 100%;
+    }
+}
+
+@-moz-keyframes girlWalk {
+    0% {
+        background-position: -500% 100%;
+    }
+    100% {
+        background-position: -900% 100%;
+    }
+}
+
+
+/**
+ * 站立动作
+ */
+
+.girl-stand {
+    top: 4rem;
+    background-position: -1000% 100%;
+}
+
+
+/**
+ * 小女孩选择3d选择
+ */
+
+.girl-choose {
+    -webkit-animation: girlChoose 2000ms steps(2, end) forwards;
+    -moz-animation: girlChoose 2000ms steps(2, end) forwards;
+}
+
+@-webkit-keyframes girlChoose {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1200% 100%;
+    }
+}
+
+@-moz-keyframes girlChoose {
+    0% {
+        background-position: -1000% 100%;
+    }
+    100% {
+        background-position: -1200% 100%;
+    }
+}
+
+
+/**
+ * 流泪奔跑
+ */
+
+.girl-weep {
+    -webkit-animation: girlWeep 450ms steps(4, end) forwards infinite;
+    -moz-animation: girlWeep 450ms steps(4, end) forwards infinite;
+}
+
+@-webkit-keyframes girlWeep {
+    0% {
+        background-position: -1300% 100%;
+    }
+    100% {
+        background-position: -1700% 100%;
+    }
+}
+
+@-moz-keyframes girlWeep {
+    0% {
+        background-position: -1300% 100%;
+    }
+    100% {
+        background-position: -1700% 100%;
+    }
+}
+
+
+/**
+ * 女孩拥抱
+ */
+
+.girl-hug {
+    -webkit-animation: girlHug 450ms steps(3, end) forwards;
+    -moz-animation: girlHug 450ms steps(3, end) forwards;
+}
+
+@-webkit-keyframes girlHug {
+    0% {
+        background-position: -1700% 100%;
+    }
+    100% {
+        left: 7.85rem;
+        background-position: -2000% 100%;
+    }
+}
+
+@-moz-keyframes girlHug {
+    0% {
+        background-position: -1700% 100%;
+    }
+    100% {
+        left: 7.85rem;
+        background-position: -2000% 100%;
+    }
+}
+
+
+
+@-webkit-keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+
+.bounceIn {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-name: bounceIn;
+  animation-name: bounceIn;
+}
+
+
+
+@-webkit-keyframes bounceOut {
+  20% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+@keyframes bounceOut {
+  20% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+.bounceOut {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-name: bounceOut;
+  animation-name: bounceOut;
+}

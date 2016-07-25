@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <link rel='stylesheet' href='common.css' />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
+    <link rel="stylesheet" type="text/css" href="pageA.css">
+    <script src="pageA.js"></script>
+    <script src="christmas.js"></script>
+</head>
+
+<body>
+    <section class="container">
+        <!-- 第一幅画面 -->
+        <section class="page-a bg-adaptive">
+            <!-- 男孩 -->
+            <div class="chs-boy chs-boy-deer"></div>
+        </section>
+        <!-- 第二幅画面 -->
+        <section class="page-b bg-adaptive">
+        </section>
+        <!-- 第三幅画面 -->
+        <section class="page-c bg-adaptive">
+        </section>
+    </section>
+    <button>点击运行雪橇动作</button>
+    <script type="text/javascript">
+    //rem设置
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                //宽与高度
+                document.body.style.height = clientWidth * (900 / 1440) + "px"
+            };
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+
+    </script>
+</body>
+
+</html>

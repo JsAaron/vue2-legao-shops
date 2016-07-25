@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="perspective: 500px; position: absolute; left: 6.8rem; top: 3.5rem;">
+        <h6>去掉preserve-3d后，如下图</h6>
+        <figure style="width: 4rem; transition: 1s;">
+            <figure style="width:100%;transform:rotateY(0deg) ;position:absolute;"><img src="http://img.mukewang.com/5662e29a0001905a14410901.png" style="width:100%;height:100%;"></figure>
+            <figure style="width:100%;transform:rotateY(120deg) ;position:absolute;"><img src="http://img.mukewang.com/5662e2960001f16314410901.png" style="width:100%;height:100%;"></figure>
+            <figure style="width:100%;transform:rotateY(240deg) ;position:absolute;"><img src="http://img.mukewang.com/5662e26f00010dea14410901.png" style="width:100%;height:100%;"></figure>
+        </figure>
+    </div>
+
+    <div style="perspective: 500px; position: absolute; left: 6.8rem; top: 15.5rem;">
+        <h6>增加preserve-3d后，如下图</h6>
+        <figure style="width: 4rem; transform-style: preserve-3d; transition: 1s;">
+            <figure style="width:100%;transform:rotateY(0deg) ;position:absolute;"><img src="http://img.mukewang.com/5662e29a0001905a14410901.png" style="width:100%;height:100%;"></figure>
+            <figure style="width:100%;transform:rotateY(120deg) ;position:absolute;"><img src="http://img.mukewang.com/5662e2960001f16314410901.png" style="width:100%;height:100%;"></figure>
+            <figure style="width:100%;transform:rotateY(240deg) ;position:absolute;"><img src="http://img.mukewang.com/5662e26f00010dea14410901.png" style="width:100%;height:100%;"></figure>
+        </figure>
+    </div>
+    <script type="text/javascript">
+    //rem设置
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                //宽与高度
+                document.body.style.height = clientWidth * (900 / 1440) + "px"
+            };
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+    </script>
+</body>
+
+</html>

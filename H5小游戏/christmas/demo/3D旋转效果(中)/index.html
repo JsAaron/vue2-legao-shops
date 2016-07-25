@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="carousel" style="perspective: 500px; position: absolute; left: 6.8rem; top: 4.5rem;">
+        <figure id="spinner" style="width: 4rem; transform-style: preserve-3d; transition: 1s; -webkit-transition: 1s;">
+            <figure style="width:4rem;transform:rotateY(0deg) translateZ(2.5rem);position:absolute;"><img src="http://img.mukewang.com/5662e29a0001905a14410901.png" style="width:100%;height:100%;"></figure>
+            <figure style="width:4rem;transform: rotateY(120deg) translateZ(2.5rem) scaleY(.9);position:absolute;"><img src="http://img.mukewang.com/5662e2960001f16314410901.png" style="width:100%;height:100%;"></figure>
+            <figure style="width:4rem;transform: rotateY(240deg) translateZ(2.5rem) scaleY(.9);position:absolute;"><img src="http://img.mukewang.com/5662e26f00010dea14410901.png" style="width:100%;height:100%;"></figure>
+        </figure>
+    </div>
+    <button>点击执行</button>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script type="text/javascript">
+
+    var count = 0;
+    var rotate = 120
+    var angle;
+    $("button").on("click", function() {
+        angle = (count++) * rotate + 360
+        $("#spinner")
+            .css("-moz-transform", "rotateY(-" + angle + "deg)")
+            .css("transform", "rotateY(-" + angle + "deg)")
+    })
+
+
+    //rem设置
+    ;(function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                //宽与高度
+                document.body.style.height = clientWidth * (900 / 1440) + "px"
+            };
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+    </script>
+</body>
+
+</html>

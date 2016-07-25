@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/*body{
+    width: 100%;
+    height: 100%;
+}*/
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-adaptive {
+    background-size: 100% 100%;
+} 
+
+.container .page-a {
+    width  : 100%;
+    height : 100%;
+    background-image: url("http://img.mukewang.com/565d07770001790814410901.png");
+    position: absolute;
+    z-index: 5;
+}
+
+.container .page-b {
+    width  : 100%;
+    height : 100%;
+    background-image: url("http://img.mukewang.com/565d09fa000145a614410901.png");
+    position: absolute;
+    z-index: 4;
+}
+
+.page-c {
+    width  : 100%;
+    height : 100%;
+    background-image: url("http://img.mukewang.com/565d0b280001788014410901.png");
+    position: absolute;
+    opacity: 1;
+    z-index: 3;
+}
+

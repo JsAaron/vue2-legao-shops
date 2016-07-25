@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>圣诞主题</title>
+</head>
+
+<body>
+    <svg width="200" height="250">
+        <!-- 矩形
+            x：矩形左上角的坐标(用户坐标系)的x值。
+            y：矩形左上角的坐标(用户坐标系)的y值。
+            width：矩形宽度。
+            height：矩形高度。
+            rx：实现圆角效果时，圆角沿x轴的半径。
+            ry：实现圆角效果时，圆角沿y轴的半径。
+         -->
+        <rect x="10" y="10" width="30" height="30" stroke="black" fill="transparent" stroke-width="5" />
+        <rect x="60" y="10" rx="10" ry="10" width="30" height="30" stroke="black" fill="transparent" stroke-width="5" />
+        <!-- 
+            圆 - circle元素
+            这个元素的属性很简单，主要是定义圆心和半径：
+            r：圆的半径。
+            cx：圆心坐标x值。
+            cy：圆心坐标y值。
+        -->
+        <circle cx="25" cy="75" r="20" stroke="red" fill="transparent" stroke-width="5" />
+
+    
+        <!-- 
+            椭圆 - ellipse元素
+            　　这个是更加通用的圆形元素，你可以分别控制半长轴和半短轴的长度，来实现不同的椭圆，很容易想到，当两个半轴相等时，就是正圆形了。
+            rx：半长轴(x半径)。
+            ry：半短轴(y半径)。
+            cx：圆心坐标x值。
+            cy：圆心坐标y值。
+         -->
+        <ellipse cx="75" cy="75" rx="20" ry="5" stroke="red" fill="transparent" stroke-width="5" />
+
+        <!-- 
+
+            直线 - line元素
+            　　直线需要定义起点与终点即可：
+
+            x1：起点x坐标。
+            y1：起点y坐标。
+            x2：终点x坐标。
+            y2：终点y坐标
+         -->
+        <line x1="10" x2="50" y1="110" y2="150" stroke="orange" fill="transparent" stroke-width="5" />
+
+        <!-- 
+    
+            折线 - polyline元素
+        　　折线主要是要定义每条线段的端点即可，所以只需要一个点的集合作为参数：
+
+        points：一系列的用空格，逗号，换行符等分隔开的点。每个点必须有2个数字：x值和y值。所以下面3个点 (0,0), (1,1)和(2,2)可以写成："0 0, 1 1, 2 2"。
+
+         -->
+        <polyline points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145" stroke="orange" fill="transparent" stroke-width="5" />
+        
+
+        <!-- 
+          多边形 - polygon元素
+            这个元素就是比polyline元素多做一步，把最后一个点和第一个点连起来，形成闭合图形。参数是一样的。
+            points：一系列的用空格，逗号，换行符等分隔开的点。每个点必须有2个数字：x值和y值。所以下面3个点 (0,0), (1,1)和(2,2)可以写成："0 0, 1 1, 2 2"。
+         -->
+        <polygon points="50 160 55 180 70 180 60 190 65 205 50 195 35 205 40 190 30 180 45 180" stroke="green" fill="transparent" stroke-width="5" />
+       
+
+        <path d="M20,230 Q40,205 50,230 T90,230" fill="none" stroke="blue" stroke-width="5" />
+    </svg>
+</body>
+
+</html>
