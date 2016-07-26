@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>css3圆形统计</title>
+    <link type="text/css" rel="stylesheet" href="circlful.css" />
+    <script src="../tool/jQuery.js"></script>
+</head>
+
+<body>
+    <div class="ai-circlful">
+        <div class="ai-hold">
+            <div class="ai-pie ai-pie1"></div>
+        </div>
+        <div class="ai-hold">
+            <div class="ai-pie ai-pie2"></div>
+        </div>
+        <div class="ai-bg"> </div>
+        <div class="ai-number">500 RMB</div>
+    </div>
+</body>
+<script type="text/javascript">
+var pie1 = document.querySelector('.ai-pie1')
+var pie2 = document.querySelector('.ai-pie2')
+
+setTimeout(function() {
+
+       
+    $(pie1).css({
+        'transition-timing-function': 'linear',
+        'transition-duration': '5000ms',
+        'transform': 'rotate(180deg)'
+    }).on('webkitTransitionEnd', function() {
+
+        $(pie1).off();
+        $(pie2).css("backgroundColor", "#d13c36");
+        $(pie2).css('transform', 'rotate(180deg)')
+ 
+        setTimeout(function() {
+           $(pie2).css({
+               'transform': 'rotate(360deg)',
+               'transition-timing-function': 'linear',
+               'transition-duration': '5000ms'
+           })
+        }, 0)
+
+    })
+}, 0)
+</script>
+
+</html>

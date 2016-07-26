@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<link rel="stylesheet" type="text/css" href="css/api.css" />
+		<link rel="stylesheet" type="text/css" href="css/input.css" />
+		<title>Hello APP</title>
+		<style>
+			html, body {
+				height: 100%;
+				width: 100%;
+				padding: 0;
+				margin: 0;
+				border: 0;
+				background-color: #efefef;
+			}
+			#main {
+				background-color: #81A9C3;
+				width: 100%;
+				line-height:20px; padding-top: 40px;
+			}
+			.input {
+				width: 100px;
+				height: 20px; line-height:20px;
+				margin-top: 4px;
+				padding: 0 15px;
+				background: #FFFFFF; /* browsers that don't support rgba */
+				-moz-border-radius: 6px;
+				-webkit-border-radius: 6px;
+				border-radius: 6px;
+				border: 1px solid #BEBEBE; /* browsers that don't support rgba */
+				font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #272930;
+			}
+			.input:-moz-placeholder {
+				color: #fff;
+			}
+			.input:-ms-input-placeholder {
+				color: #fff;
+			}
+			.input::-webkit-input-placeholder {
+				color: #fff;
+			}
+			.input:focus {
+				outline: none;
+			}
+			.input.index {
+				border: 1px solid #d11630;
+				color: #d11630;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			支付宝键盘演示，适用安卓和ios input number 时 填小数只装一种输入法 没用小数点的情况
+		</div>
+		模拟input <div class="input" onclick="this_input(this)"></div>
+		正常input <input type="number" class="input" />
+	</body>
+<!--	<script type="text/javascript" src="script/api.js"></script>-->
+	<script type="text/javascript" src="script/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="script/input_num.js"></script>
+	<script>
+	init_input();
+	</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<style>
+    div {
+        position: relative;
+        height: 50px;
+        width: 50%;
+        left:20%;
+        font-size: 2em;
+        color: #000;
+        line-height: 50px;
+        /*border-bottom: 1px solid #c8c7cc;*/
+    }
+    .test1 {
+        border-bottom: 1px solid #c8c7cc;
+    }
+
+
+    .test2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: 1px solid #ff0000;
+        -webkit-transform: scaleY(.5);
+        -webkit-transform-origin: 0 0;
+        pointer-events: none;
+    }
+
+    /*.test2::after {*/
+        /*content: "";*/
+        /*position: absolute;*/
+        /*bottom: 0;*/
+        /*left: 0;*/
+        /*right: 0;*/
+        /*border-bottom: 1px solid #ff0000;*/
+        /*-webkit-transform: scaleY(.5);*/
+        /*-webkit-transform-origin: 0 0;*/
+        /*pointer-events: none;*/
+    /*}*/
+
+</style>
+<body>
+<div class="test1"></div>
+<br>
+<br>
+<div class="test2"></div>
+</body>
+<script>
+
+
+//    alert('screen'+ window.screen.width )
+//
+//alert('clientWidth: '+ document.documentElement.clientWidth)
+
+alert(window.innerWidth)
+
+    alert(window.outerWidth)
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

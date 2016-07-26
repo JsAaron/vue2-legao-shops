@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>css3圆形统计</title>
+    <style>
+
+    body {
+        background: rgb(235, 205, 86);
+    }
+     
+    h4 {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        margin: 0;
+        font-weight: 200;
+        opacity: .5;
+        font-family: sans-serif;
+        color: #fff;
+    }
+    
+    .spinner {
+        width: 70px;
+        height: 70px;
+        position: relative;
+        left: 100px;
+        top: 100px;
+        color: white;
+    }
+    
+    .spinner .top,
+    .spinner .bottom {
+        width: 70px;
+        height: 35px;
+        position: relative;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0) scale(1.0, 1.0);
+        overflow: hidden;
+    }
+    
+    .spinner::before,
+    .spinner .top::before,
+    .spinner .bottom::before {
+        content: '';
+        width: 70px;
+        height: 70px;
+        display: inline-block;
+        border-style: solid;
+        border-top-color: #FFF;
+        border-right-color: #FFF;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        border-width: 5px;
+        box-sizing: border-box;
+    }
+    /* 使用spinner::before来覆盖空隙*/
+    
+    .spinner::before {
+        position: absolute;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        transform: rotateZ(47deg);
+        -webkit-animation: fix-gap 2s ease-in infinite;
+    }
+    
+    .spinner .top::before {
+        transform: rotateZ(-225deg);
+        -webkit-animation: rotate-top 2s ease-in infinite;
+        /*-webkit-animation-delay: 0.3s;*/
+    }
+    
+    .spinner .bottom::before {
+        border-bottom-color: #fff;
+        border-top-color: transparent;
+        position: relative;
+        bottom: 35px;
+        transform: rotateZ(-135deg);
+        -webkit-animation: rotate-bottom 2s ease-out infinite;
+        /*-webkit-animation-delay: 0.3s;*/
+    }
+    
+    @-webkit-keyframes fix-gap {
+        49% {
+            border-top-color: transparent;
+        }
+        50% {
+            border-top-color: white;
+        }
+        100% {
+            border-top-color: white;
+        }
+    }
+    
+    @-webkit-keyframes rotate-top {
+        50% {
+            transform: rotateZ(-45deg);
+        }
+        100% {
+            transform: rotateZ(-45deg);
+        }
+    }
+    
+    @-webkit-keyframes rotate-bottom {
+        50% {
+            transform: rotateZ(-135deg);
+        }
+        100% {
+            transform: rotateZ(45deg);
+        }
+    }
+    
+    </style>
+</head>
+
+<body>
+    <div class="spinner">
+        <div class="top"></div>
+        <div class="bottom"></div>
+    </div>
+</body>
+
+</html>

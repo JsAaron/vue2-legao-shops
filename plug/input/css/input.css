@@ -1,0 +1,70 @@
+#input_number {
+	position: fixed;
+	bottom: 0;
+	z-index: 100;
+	border-top: 1px solid #cccccc;
+	height: 200px;
+	background-color: #f6f6f7;
+	width: 100%;
+	text-align: center;
+	display: none;
+}
+#input_number div {
+	width: 25%;
+	height: 160px;
+	float: left;
+}
+#input_number h1, #input_number h2, #input_number h3 {
+	list-style: none;
+	font-weight: 900;
+	font-size: 22px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-bottom: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+}
+#input_number h1, #input_number h3 {
+	height: 49px;
+	line-height: 49px;
+}
+#input_number h2, #input_number h4  {
+	height: 99px;
+	line-height: 99px;
+}
+#input_number h3 {
+	background: url(../image/input_ico/1.png) center no-repeat;
+}
+#input_number h2 {
+	background: url(../image/input_ico/2.png) center no-repeat;
+}
+#input_number h4 {
+	background-color: #00aaee;
+	color: #7cd3f6;
+}
+
+#input_number h1.focus {
+	background-color: #d2d2d2;
+}
+
+#input_number h2.focus {
+	background-color: #d2d2d2;
+}
+
+#input_number h4.focus {
+	background-color: #0095d1;
+}
+
+#input_number .p_4 {
+	color: #FFFFFF;
+}
+#input_mask {
+	position: fixed;
+	display: none;
+	z-index: 99;
+	top: 0; bottom: 0 ; width:100%;
+	background: #000;
+}
+#input_blank {
+	height: 200px; width: 200px;
+}

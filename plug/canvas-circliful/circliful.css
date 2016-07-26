@@ -1,0 +1,34 @@
+.pie_right {
+    width:200px;
+    height:200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background:#0cc;
+}
+.right {
+    width:200px;
+    height:200px;
+    background:#00aacc;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.pie_right, .right {
+    clip:rect(0,auto,auto,100px);
+}
+.mask {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    left: 25px;
+    top: 25px;
+    background: #FFF;
+    position: absolute;
+    text-align: center;
+    line-height: 150px;
+    font-size: 20px;
+    background: #0cc;
+    /* mask 是不需要剪切的，此处只是为了让大家看到效果*/
+    clip:rect(0,auto,auto,75px); }

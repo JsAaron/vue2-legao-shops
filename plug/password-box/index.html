@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telphone=no" />
+    <link rel="stylesheet" type="text/css" href="pwBox.css" />
+    <script src="pwBox.js"></script>
+    <script>
+    window.onload = function() {
+
+        //键盘节点
+        var keyboardContainer = document.querySelector('.cm-keyboard-list')
+
+        //密码节点
+        var passWord1 = document.querySelector('.cm-password-box')
+        var passWord2 = document.querySelector('.cm-password-box-check')
+
+        //如果有2个密码框，填入第三个参数
+        //键盘元素
+        //密码框1
+        //密码框2
+        var pw = pwBox(keyboardContainer, passWord1, passWord2);
+        
+        //返回密码，成功处理，失败处理
+        pw.monitor({
+
+            //密码检查
+            //第一次密码输入完毕后，掉用这个方法
+            //可以插入一个提示
+            check: function(complete, error) {
+                if(complete){
+                    document.querySelector('#info').innerHTML = "请再一次输入密码"
+                    document.querySelector('#info').style.color = "red";                    
+                }
+                if(error){ //密码重新输入与之前不一致
+                    document.querySelector('#info').innerHTML = "输入密码错误，请重新输入"
+                    document.querySelector('#info').style.color = "blue";    
+                    pw.reset();//密码复位
+                }
+            },
+
+            //如果密码框输入完毕后
+            success: function(password) {
+                //正确的密码
+//              alert(password)
+            }
+
+        })
+
+    }
+    </script>
+    <title>数字键盘</title>
+</head>
+
+<body>
+    <div class="cm-opacity"></div>
+    <div class="cm-password-content">
+        <div class="cm-ico">
+            <span class="cm-col_span"></span>
+        </div>
+        <section class="cm-password-name">
+            <h2>输入支付密码</h2>
+            <p id="info"></p>
+        </section>
+        <section class="cm-password-box">
+            <ul>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+            </ul>
+        </section>
+        <section class="cm-password-box-check">
+            <ul>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+                <li><span>●</span></li>
+            </ul>
+        </section>
+        <section class="cm-modal cm-modal--num-keyboard" style="display:block;">
+            <div class="cm-modal-bd">
+                <!--<div class="cm-keyboard-bar"><span class="btn-secondary">完成</span></div>-->
+                <ul class="cm-keyboard-list">
+                    <li class="item-num">1</li>
+                    <li class="item-num">2</li>
+                    <li class="item-num">3</li>
+                    <li class="item-num">4</li>
+                    <li class="item-num">5</li>
+                    <li class="item-num">6</li>
+                    <li class="item-num">7</li>
+                    <li class="item-num">8</li>
+                    <li class="item-num">9</li>
+                    <li class="item-num"><span>X</span></li>
+                    <li class="item-num">0</li>
+                    <li class="item-del">
+                        <span class="icon-del-name">del</span>
+                        <span class="icon-del-img"></span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

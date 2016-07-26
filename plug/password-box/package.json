@@ -1,0 +1,11 @@
+{
+  "name": "password-box",
+  "version": "0.1.0",
+  "description": "test",
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-weinre": "0.0.4"
+  }
+}

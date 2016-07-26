@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JS Bin</title>
+    <style type="text/css">
+    .pie {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        background-color: #FFFFFF;
+    }
+    
+    .pie-chart,
+    .pie-chart2 {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-image: -webkit-gradient(radial, 50% 50%, 0, 100% 50%, 60, from(#99CC29), to(#99CC29));
+         background-image: gradient(radial, 50% 50%, 0, 100% 50%, 60, from(#99CC29), to(#99CC29));
+    }
+    
+    .pie-chart2 {
+        background-image: -webkit-gradient(radial, 50% 50%, 0, 100% 50%, 60, from(#FFFFFF), to(#FFFFFF));
+         background-image: gradient(radial, 50% 50%, 0, 100% 50%, 60, from(#FFFFFF), to(#FFFFFF));
+        -webkit-transform: rotate(-180deg);
+        transform: rotate(-180deg);
+    }
+    
+    .g1 {
+        -webkit-animation: pie1 5s linear infinite;
+        animation: pie1 5s linear infinite;
+    }
+    
+    .g2 {
+        -webkit-animation: pie2 5s linear infinite;
+		animation: pie2 5s linear infinite;
+        z-index: 3;
+    }
+    
+    @-webkit-keyframes pie1 {
+        0% {
+            opacity: 1;
+            -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+        }
+        50% {
+            opacity: 1;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        51% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+    }
+    
+    @-webkit-keyframes pie2 {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0;
+        }
+        51% {
+            opacity: 1;
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+    }
+    
+    .center {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        width: 110px;
+        height: 110px;
+        background-color: #A6CAF0;
+        border-radius: 50%;
+        z-index: 5;
+    }
+    </style>
+</head>
+
+<body>
+    <span class="pie pie-chart g1" style="-webkit-transform:rotate(0deg);"></span>
+    <span class="pie-chart g2" style="-webkit-transform:rotate(180deg);"></span>
+    <span class="pie-chart2"></span>
+    <span class="center"></span>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery+css3圆形倒数秒计时器代码 - 站长素材</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/time_js.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/time_css.css" />
+</head>
+
+<body>
+    <div class="game_time">
+        <div class="hold">
+            <div class="pie pie1"></div>
+        </div>
+        <div class="hold">
+            <div class="pie pie2"></div>
+        </div>
+        <div class="bg"> </div>
+        <div class="time"></div>
+    </div>
+    <script type="text/javascript">
+    
+    setTimeout(function() {
+
+        $(".pie1").css({
+            'transition-duration' :  '600ms',
+            'transform'           : 'rotate(180deg)'
+        }).on('transitionend',function(){
+            $(".pie2").css("backgroundColor", "#d13c36");
+        }) 
+
+        // $(".pie2").css({
+        //     "backgroundColor": "#d13c36",
+        //     'transition-delay'    : '600ms',
+        //     'transition-duration' : '600ms',
+        //     'transform'           : 'rotate(180deg)'
+        // })
+
+    }, 0)
+
+    countDown();
+    </script>
+</body>
+
+</html>

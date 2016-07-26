@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CSS3圆环倒计时效果 by liumiao.me</title>
+    <style>
+        .pie {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            border-radius: 100px;
+            position: absolute;
+        }
+
+        .pie1 {
+            clip: rect(0px, 200px, 200px, 100px);
+            -o-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            background: -moz-radial-gradient(20% 50% 0deg, #333, #0000ff);
+            background: -webkit-gradient(radial, 100 100, 0, 100 100, 110, from(#000), to(#0000ff));
+        }
+
+        .pie2 {
+            clip: rect(0px, 100px, 200px, 0px);
+            -o-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            background: -moz-radial-gradient(80% 50% 0deg, #333, #0000ff);
+            background: -webkit-gradient(radial, 100 100, 0, 100 100, 110, from(#000), to(#0000ff));
+        }
+
+        .hold {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .hold1 {
+            clip: rect(0px, 200px, 200px, 100px);
+        }
+
+        .hold2 {
+            clip: rect(0px, 100px, 200px, 0px);
+        }
+
+        .bg {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            border-radius: 100px;
+            position: absolute;
+            box-shadow: 0px 0px 8px #333;
+            background: -moz-radial-gradient(0% 50% 0deg, #900, #ff0000);
+            background: -webkit-gradient(radial, 100 100, 0, 100 100, 110, from(#900), to(#ff0000));
+        }
+
+        .time {
+            width: 160px;
+            height: 160px;
+            margin: 20px 0 0 20px;
+            background-color: #fff;
+            border-radius: 100px;
+            position: absolute;
+            z-index: 1;
+            box-shadow: 0px 0px 8px #333 inset;
+            text-align: center;
+            line-height: 160px;
+            font-family: "Book Antiqua", Palatino, serif;
+            font-size: 35px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px #333;
+        }
+
+        .time em {
+            background: #fff;
+            position: absolute;
+            top: 62px;
+            left: 12px;
+            height: 18px;
+            width: 140px;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+
+<body>
+<div class="hold hold1">
+    <div class="pie pie1"></div>
+</div>
+<div class="hold hold2">
+    <div class="pie pie2"></div>
+</div>
+<div class="bg"></div>
+<div class="time"><span></span><em></em></div>
+
+
+<script src="../tool/jQuery.js"></script>
+
+<script>
+
+    i = 0;
+    j = 0;
+    count = 0;
+    MM = 4;
+    SS = 59;
+    MS = 9;
+    totle = (MM + 1) * 600;
+    d = 180 * (MM + 1);
+    MM = "0" + MM;
+    function showTime() {
+        totle = totle - 1;
+        if (totle == 0) {
+            clearInterval(s);
+            clearInterval(t1);
+            clearInterval(t2);
+            $(".pie2").css("-o-transform", "rotate(" + d + "deg)");
+            $(".pie2").css("-moz-transform", "rotate(" + d + "deg)");
+            $(".pie2").css("-webkit-transform", "rotate(" + d + "deg)");
+        } else {
+            if (totle > 0 && MS > 0) {
+                MS = MS - 1;
+                if (MS < 10) {
+                    MS = "0" + MS
+                }
+                ;
+            }
+            ;
+            if (MS == 0 && SS > 0) {
+                MS = 10;
+                SS = SS - 1;
+                if (SS < 10) {
+                    SS = "0" + SS
+                }
+                ;
+            }
+            ;
+            if (SS == 0 && MM > 0) {
+                SS = 60;
+                MM = MM - 1;
+                if (MM < 10) {
+                    MM = "0" + MM
+                }
+                ;
+            }
+            ;
+        }
+        ;
+        $(".time span").html(MM + ":" + SS + ":" + MS);
+    }
+    ;
+    s = setInterval("showTime()", 100);
+
+    function start1() {
+        i = i + 0.6;
+        count = count + 1;
+        if (count == 300) {
+            count = 0;
+            clearInterval(t1);
+            t2 = setInterval("start2()", 100);
+        }
+        ;
+        $(".pie1").css("-o-transform", "rotate(" + i + "deg)");
+        $(".pie1").css("-moz-transform", "rotate(" + i + "deg)");
+        $(".pie1").css("-webkit-transform", "rotate(" + i + "deg)");
+    }
+    ;
+    function start2() {
+        j = j + 0.6;
+        count = count + 1;
+        if (count == 300) {
+            count = 0;
+            clearInterval(t2);
+            t1 = setInterval("start1()", 100);
+        }
+        ;
+        $(".pie2").css("-o-transform", "rotate(" + j + "deg)");
+        $(".pie2").css("-moz-transform", "rotate(" + j + "deg)");
+        $(".pie2").css("-webkit-transform", "rotate(" + j + "deg)");
+    }
+    ;
+    t1 = setInterval("start1()", 100);
+
+</script>
+
+
+<!--查看源码-->
+<input onclick="window.open('view-source:' + window.location.href)" type="button" value="查看源代码"
+       style="position:absolute; right:0; top:0; width:80px; height:30px;">
+</body>
+</html>

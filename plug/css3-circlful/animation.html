@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	</head>
+	<style>
+		.progressbar {
+			text-align: center;
+			line-height: 44px;
+			width: 44px;
+			display: block;
+			background: url(progressbar.png);
+			height: 44px;
+			font-size: 14px;
+			margin-left: 60px;
+		}
+		.progressbar-1 {
+			background-position: 0px 0px;
+		}
+		.progressbar-2 {
+			background-position: -54px 0px;
+		}
+		.progressbar-3 {
+			background-position: -108px 0px;
+		}
+		.progressbar-4 {
+			background-position: -162px 0px;
+		}
+		.progressbar-5 {
+			background-position: -216px 0px;
+		}
+		.progressbar-6 {
+			background-position: -270px 0px;
+		}
+		.progressbar-7 {
+			background-position: -324px 0px;
+		}
+		.progressbar-8 {
+			background-position: -378px 0px;
+		}
+		.progressbar-9 {
+			background-position: -432px 0px;
+		}
+		.progressbar-10 {
+			background-position: -486px 0px;
+		}
+		.progressbar-11 {
+			background-position: -540px 0px;
+		}
+		.progressbar-12 {
+			background-position: -594px 0px;
+		}
+		.progressbar-13 {
+			background-position: -648px 0px;
+		}
+		.progressbar-14 {
+			background-position: -702px 0px;
+		}
+		.progressbar-15 {
+			background-position: -756px 0px;
+		}
+		.progressbar-16 {
+			background-position: -810px 0px;
+		}
+		.progressbar-17 {
+			background-position: -864px 0px;
+		}
+		.progressbar-18 {
+			background-position: -918px 0px;
+		}
+		.progressbar-19 {
+			background-position: -972px 0px;
+		}
+		.progressbar-20 {
+			background-position: -1026px 0px;
+		}
+		.progressbar-21 {
+			background-position: -1080px 0px;
+		}
+		.progressbar-22 {
+			background-position: -1134px 0px;
+		}
+		.progressbar-23 {
+			background-position: -1188px 0px;
+		}
+		.progressbar-24 {
+			background-position: -1242px 0px;
+		}
+		.progressbar-25 {
+			background-position: -1296px 0px;
+		}
+		.progressbar-26 {
+			background-position: -1350px 0px;
+		}
+		.progressbar-27 {
+			background-position: -1404px 0px;
+		}
+		.progressbar-28 {
+			background-position: -1458px 0px;
+		}
+		.progressbar-29 {
+			background-position: -1512px 0px;
+		}
+		.progressbar-30 {
+			background-position: -1566px 0px;
+		}
+		.progressbar-31 {
+			background-position: -1620px 0px;
+		}
+		.progressbar-32 {
+			background-position: -1674px 0px;
+		}
+		.progressbar-33 {
+			background-position: -1728px 0px;
+		}
+		.progressbar-34 {
+			background-position: -1782px 0px;
+		}
+		.progressbar-35 {
+			background-position: -1836px 0px;
+		}
+		.progressbar-36 {
+			background-position: -1890px 0px;
+		}
+		.progressbar-37 {
+			background-position: -1944px 0px;
+		}
+		.progressbar-38 {
+			background-position: -1998px 0px;
+		}
+		.progressbar-39 {
+			background-position: -2052px 0px;
+		}
+		.progressbar-40 {
+			background-position: -2106px 0px;
+		}
+		.progressbar-41 {
+			background-position: -2160px 0px;
+		}
+		.progressbar-42 {
+			background-position: -2214px 0px;
+		}
+		.progressbar-43 {
+			background-position: -2268px 0px;
+		}
+		.progressbar-44 {
+			background-position: -2322px 0px;
+		}
+		.progressbar-45 {
+			background-position: -2376px 0px;
+		}
+		.progressbar-46 {
+			background-position: -2430px 0px;
+		}
+		.progressbar-47 {
+			background-position: -2484px 0px;
+		}
+		.progressbar-48 {
+			background-position: -2538px 0px;
+		}
+		.progressbar-49 {
+			background-position: -2592px 0px;
+		}
+		.progressbar-50 {
+			background-position: -2700px 0px;
+		}
+		.progressbar-51 {
+			background-position: -2754px 0px;
+		}
+		.progressbar-52 {
+			background-position: -2808px 0px;
+		}
+		.progressbar-53 {
+			background-position: -2862px 0px;
+		}
+		.progressbar-54 {
+			background-position: -2916px 0px;
+		}
+		.progressbar-55 {
+			background-position: -2970px 0px;
+		}
+		.progressbar-56 {
+			background-position: -3024px 0px;
+		}
+		.progressbar-57 {
+			background-position: -3078px 0px;
+		}
+		.progressbar-58 {
+			background-position: -3132px 0px;
+		}
+		.progressbar-59 {
+			background-position: -3186px 0px;
+		}
+		.progressbar-60 {
+			background-position: -3240px 0px;
+		}
+		.progressbar-61 {
+			background-position: -3294px 0px;
+		}
+		.progressbar-62 {
+			background-position: -3348px 0px;
+		}
+		.progressbar-63 {
+			background-position: -3402px 0px;
+		}
+		.progressbar-64 {
+			background-position: -3456px 0px;
+		}
+		.progressbar-65 {
+			background-position: -3510px 0px;
+		}
+		.progressbar-66 {
+			background-position: -3564px 0px;
+		}
+		.progressbar-67 {
+			background-position: -3618px 0px;
+		}
+		.progressbar-68 {
+			background-position: -3672px 0px;
+		}
+		.progressbar-69 {
+			background-position: -3726px 0px;
+		}
+		.progressbar-70 {
+			background-position: -3780px 0px;
+		}
+		.progressbar-71 {
+			background-position: -3834px 0px;
+		}
+		.progressbar-72 {
+			background-position: -3888px 0px;
+		}
+		.progressbar-73 {
+			background-position: -3942px 0px;
+		}
+		.progressbar-74 {
+			background-position: -3996px 0px;
+		}
+		.progressbar-75 {
+			background-position: -4050px 0px;
+		}
+		.progressbar-76 {
+			background-position: -4104px 0px;
+		}
+		.progressbar-77 {
+			background-position: -4158px 0px;
+		}
+		.progressbar-78 {
+			background-position: -4212px 0px;
+		}
+		.progressbar-79 {
+			background-position: -4266px 0px;
+		}
+		.progressbar-80 {
+			background-position: -4320px 0px;
+		}
+		.progressbar-81 {
+			background-position: -4376px 0px;
+		}
+		.progressbar-82 {
+			background-position: -4428px 0px;
+		}
+		.progressbar-83 {
+			background-position: -4482px 0px;
+		}
+		.progressbar-84 {
+			background-position: -4536px 0px;
+		}
+		.progressbar-85 {
+			background-position: -4590px 0px;
+		}
+		.progressbar-86 {
+			background-position: -4644px 0px;
+		}
+		.progressbar-87 {
+			background-position: -4698px 0px;
+		}
+		.progressbar-88 {
+			background-position: -4752px 0px;
+		}
+		.progressbar-89 {
+			background-position: -4806px 0px;
+		}
+		.progressbar-90 {
+			background-position: -4860px 0px;
+		}
+		.progressbar-91 {
+			background-position: -4914px 0px;
+		}
+		.progressbar-92 {
+			background-position: -4968px 0px;
+		}
+		.progressbar-93 {
+			background-position: -5022px 0px;
+		}
+		.progressbar-94 {
+			background-position: -5076px 0px;
+		}
+		.progressbar-95 {
+			background-position: -5130px 0px;
+		}
+		.progressbar-96 {
+			background-position: -5184px 0px;
+		}
+		.progressbar-97 {
+			background-position: -5238px 0px;
+		}
+		.progressbar-98 {
+			background-position: -5292px 0px;
+		}
+		.progressbar-99 {
+			background-position: -5346px 0px;
+		}
+		.progressbar-100 {
+			background-position: -5400px 0px;
+		}
+	</style>
+
+	<body>
+
+		<div class="progressbar">
+			<span>10</span>%
+		</div>
+		<div class="progressbar">
+			<span>20</span>%
+		</div>
+		<div class="progressbar">
+			<span>30</span>%
+		</div>
+		<div class="progressbar">
+			<span>50</span>%
+		</div>
+		<div class="progressbar">
+			<span>70</span>%
+		</div>
+		<div class="progressbar">
+			<span>90</span>%
+		</div>
+		<div class="progressbar">
+			<span>100</span>%
+		</div>
+	</body>
+
+	<script>
+		$(function() {
+		    $('.progressbar').each(function(index, el) {
+		        var num = $(this).find('span').text();
+		        $(this).addClass('progressbar-' + num);
+		    });
+		});
+	</script>
+
+</html>

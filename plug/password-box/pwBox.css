@@ -1,0 +1,351 @@
+/**
+ * set height 100%.
+ */
+html, body {
+    height: 100%;
+    background: darkorchid;
+}
+ 
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ * 0. sandal's style
+ */
+html {
+    font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-size: 62.5%;
+}
+
+/**
+ * 1. Remove default margin
+ * 0. sandal's style.
+ */
+body {
+    margin: 0;
+    font-size: 100%;
+    line-height: 1.5;
+    color: #333;
+    background-image: url("169862742.jpg");
+    background-size: 100% 100%;
+    background-color: #7cd3f6;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+ul, ol {
+    list-style: none outside none;
+}
+
+/*容器布局*/
+.cm-password-content{
+    width:100%;
+    height: 70%;
+    position: absolute;
+    top: 30%;
+    background-color:#FCFCFC;
+    /*background: chartreuse;*/
+}
+
+.cm-password-name{
+    text-align: center;
+}
+
+.cm-password-name h2{
+    border-bottom: 1px solid #cccccc;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+}
+
+.cm-ico{
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    position: absolute;
+    padding: 1.5rem;
+}
+
+.cm-ico span {
+    height: 40px;
+    width: 40px;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
+
+.cm-col_span::before {
+    content: '';
+    height: 10px;
+    width: 10px;
+    display: block;
+    border: 2px solid #cccccc;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+
+
+.cm-keyboard-list:before, .cm-keyboard-list:after {
+    content: "";
+    display: table;
+}
+
+.cm-keyboard-list:after {
+    clear: both;
+}
+
+.cm-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 300px;
+    margin-left: -150px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 985;
+}
+
+.cm-modal--num-keyboard {
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    top: auto;
+    margin-left: 0;
+}
+
+.cm-modal .cm-modal-bd {
+    position: relative;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+/*完成按钮*/
+
+.btn-secondary {
+    line-height: 44px;
+    height: 44px;
+    padding: 0 10px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.cm-modal--num-keyboard .cm-keyboard-bar {
+    background-color: #e2e2e2;
+    text-align: right;
+    padding-right: 10px;
+    height: 44px;
+    line-height: 44px;
+    border-top: 1px solid #dbdbdb;
+}
+
+.cm-modal--num-keyboard .cm-keyboard-bar .btn-secondary {
+    line-height: 30px;
+    height: 30px;
+    padding: 0 15px;
+}
+
+.btn-secondary {
+    background-color: #099fde;
+    color: #fff;
+    border: 0 none;
+}
+
+.cm-keyboard-list {
+    font-size: 2.5rem;
+    /*font-weight:;*/
+}
+
+.cm-keyboard-list li {
+    float: left;
+    text-align: center;
+    width: 33%;
+    line-height: 54px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+}
+
+.cm-keyboard-list li::before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #c8c7cc;
+    -webkit-transform: scaleY(.5);
+    -webkit-transform-origin: 0 0;
+    pointer-events: none;
+}
+
+.cm-keyboard-list li:nth-child(1), .cm-keyboard-list li:nth-child(2), .cm-keyboard-list li:nth-child(3) {
+    border-top-style: none;
+}
+
+/*最有变的布局方格处理*/
+.cm-keyboard-list li:nth-of-type(3n+3) {
+    width: 34%;
+    border-right: none;
+}
+
+.cm-keyboard-list li:nth-last-child(3) {
+    background-color: #C6C6C6;
+}
+
+.cm-keyboard-list li:nth-last-child(3) span, .cm-keyboard-list .icon-del-name {
+    visibility: hidden;
+}
+
+
+/*删除按钮*/
+.cm-keyboard-list li:last-of-type, .cm-keyboard-list li:nth-last-of-type(3) {
+    background-color: #e2e2e2;
+}
+
+.cm-keyboard-list .item-del {
+    position: relative;
+}
+
+.cm-keyboard-list .icon-del-img {
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -10px;
+    margin-left: -15px;
+    background-image: url("pw-del.png");
+    background-size: 100% 100%;
+    display: block;
+}
+
+.cm-keyboard-list li:last-of-type:active {
+    background-color: #fff;
+}
+
+/*密码框1*/
+
+.cm-password-box {
+    width: 90%;
+    height: 48px;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    background-color: #fff;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+}
+
+.cm-password-box ul li {
+    width: 16.5%;
+    float: left;
+    font-size: 1.6rem;
+    font-weight: normal;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #dbdbdb;
+    overflow: hidden;
+}
+
+.cm-password-box ul li:nth-last-of-type(1) {
+    width: 17.5%;
+    border-right-style: none;
+}
+
+.cm-password-box ul li span {
+    display: none;
+}
+
+
+/*密码框2*/
+
+.cm-password-box-check {
+    width: 90%;
+    height: 48px;
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    background-color: #fff;
+    border: 1px solid #e1e1e8;
+    border-radius: 3px;
+}
+
+.cm-password-box-check ul li {
+    width: 16.5%;
+    float: left;
+    font-size: 1.6rem;
+    font-weight: normal;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #dbdbdb;
+    overflow: hidden;
+}
+
+.cm-password-box-check ul li:nth-last-of-type(1) {
+    width: 17.5%;
+    border-right-style: none;
+}
+
+.cm-password-box-check ul li span {
+    display: none;
+}
+
+
+
+
+
+.cm-opacity{
+    width: 100%;
+    height: 30%;
+    position: absolute;
+    left:0;
+    top: 0;
+    opacity: .7;
+    background-color: #000000;
+}
+
+
+
+
+
+

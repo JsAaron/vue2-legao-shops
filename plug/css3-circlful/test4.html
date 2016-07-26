@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    .pie {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: yellowgreen;
+        background-image: linear-gradient(to right, transparent 50%, #655 0);
+    }
+    
+    .pie::before {
+        content: '';
+        display: block;
+        margin-left: 50%;
+        height: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="pie"></div>
+</body>
+
+</html>
