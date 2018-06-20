@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+npm-debug.log
+selenium-debug.log
+test/unit/coverage
+test/e2e/reports
+template/www/data
+src/content
+lib/.tags
+lib/.tags_sorted_by_file
