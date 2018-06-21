@@ -25,7 +25,7 @@ import { cityGuess } from '../service/getData'
 export default {
   data() {
     return {
-      guessCity: '长沙',
+      guessCity: '',
       guessCityid: '', //当前城市id
     }
   },
@@ -33,9 +33,8 @@ export default {
   //并挂载到实例上去之后调用该钩子
   mounted() {
     cityGuess().then(res => {
-      console.log(res)
-      // this.guessCity = res.name;
-      // this.guessCityid = res.id;
+      this.guessCity = res.name;
+      this.guessCityid = res.id;
     })
   },
   components: {
