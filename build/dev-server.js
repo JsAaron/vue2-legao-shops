@@ -53,7 +53,7 @@ var options = {
     changeOrigin: true,
 }
 if (context.length) {
-    // server.use(proxyMiddleware(context, options))
+    server.use(proxyMiddleware(context, options))
 }
 
 // handle fallback for HTML5 history API

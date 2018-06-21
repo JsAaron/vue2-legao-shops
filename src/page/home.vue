@@ -12,18 +12,31 @@
       </div>
       <router-link :to="'/city/' + guessCityid" class="guess_city">
         <span>{{guessCity}}</span>
+        <svg class="arrow_right">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+        </svg>
       </router-link>
     </nav>
   </div>
 </template>
 <script>
 import headTop from '../components/head'
+import { cityGuess } from '../service/getData'
 export default {
   data() {
     return {
       guessCity: '长沙',
       guessCityid: '', //当前城市id
     }
+  },
+  //el 被新创建的 vm.$el 替换
+  //并挂载到实例上去之后调用该钩子
+  mounted() {
+    cityGuess().then(res => {
+      console.log(res)
+      // this.guessCity = res.name;
+      // this.guessCityid = res.id;
+    })
   },
   components: {
     headTop
