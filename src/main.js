@@ -6,21 +6,18 @@ import store from './store/'
 import FastClick from 'fastclick'
 
 if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function() {
-        FastClick.attach(document.body);
-    }, false);
+  document.addEventListener('DOMContentLoaded', function() {
+    FastClick.attach(document.body);
+  }, false);
 }
 
 Vue.use(VueRouter)
 const router = new VueRouter({
-    routes,
-    mode: 'hash',
-    scrollBehavior(to, from, savedPosition) {
-
-    }
+  routes,
+  mode: 'hash'
 })
 
 new Vue({
-    router,
-    store,
+  router,
+  store,
 }).$mount('#app')
