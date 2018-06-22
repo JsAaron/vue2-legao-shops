@@ -2,7 +2,7 @@
   <div>
     <!-- 头部 -->
     <head-top signin-up='home'>
-      <span slot='logo' class="head_logo">ele.me</span>
+      <span slot='logo' class="head_logo" @click="reload">ele.me</span>
     </head-top>
     <!-- 定位 -->
     <nav class="city_nav">
@@ -17,14 +17,40 @@
         </svg>
       </router-link>
     </nav>
+    <!--热门城市 -->
+    <section id="hot_city_container">
+      <h4 class="city_title">热门城市</h4>
+      <ul class="citylistul clear">
+        <router-link tag="li" v-for="item in hotcity" :to="'/city/'+item.id" :key="item.id">
+          {{item.name}}
+        </router-link>
+      </ul>
+    </section>
+    <!-- 所有城市 -->
+    <section class="group_city_container">
+      <ul class="letter_classify">
+        <li v-for="(value, key, index) in sortgroupcity" :key="key" class="letter_classify_li">
+          <h4 class="city_title">{{key}}
+              <span v-if="index == 0">（按字母排序）</span>
+          </h4>
+          <ul class="groupcity_name_container citylistul clear">
+            <router-link tag="li" v-for="item in value" :to="'/city/' + item.id" :key="item.id" class="ellipsis">
+              {{item.name}}
+            </router-link>
+          </ul>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 <script>
 import headTop from '../components/head'
-import { cityGuess } from '../service/getData'
+import { cityGuess, hotcity, groupcity } from '../service/getData'
 export default {
   data() {
     return {
+      groupcity: {},
+      hotcity: [],
       guessCity: '',
       guessCityid: '', //当前城市id
     }
@@ -32,10 +58,35 @@ export default {
   //el 被新创建的 vm.$el 替换
   //并挂载到实例上去之后调用该钩子
   mounted() {
+    //定位城市
     cityGuess().then(res => {
       this.guessCity = res.name;
       this.guessCityid = res.id;
     })
+    //获取热门城市
+    hotcity().then(res => {
+      this.hotcity = res;
+    })
+    //获取所有城市
+    groupcity().then(res => {
+      this.groupcity = res;
+    })
+  },
+  methods: {
+    reload() {
+      window.location.reload();
+    }
+  },
+  computed: {
+    sortgroupcity() {
+      let sortobj = {};
+      for (let i = 65; i <= 90; i++) {
+        if (this.groupcity[String.fromCharCode(i)]) {
+          sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
+        }
+      }
+      return sortobj
+    }
   },
   components: {
     headTop
@@ -84,6 +135,49 @@ export default {
     .arrow_right {
       @include wh(.6rem, .6rem);
       fill: #999;
+    }
+  }
+}
+
+#hot_city_container {
+  background-color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.citylistul {
+  li {
+    float: left;
+    text-align: center;
+    color: $blue;
+    border-bottom: 0.025rem solid $bc;
+    border-right: 0.025rem solid $bc;
+    @include wh(25%, 1.75rem);
+    @include font(0.6rem, 1.75rem);
+  }
+  li:nth-of-type(4n) {
+    border-right: none;
+  }
+}
+
+.city_title {
+  color: #666;
+  font-weight: 400;
+  text-indent: 0.45rem;
+  border-top: 2px solid $bc;
+  border-bottom: 1px solid $bc;
+  @include font(0.55rem, 1.45rem, "Helvetica Neue");
+  span {
+    @include sc(0.475rem, #999);
+  }
+}
+
+.letter_classify_li {
+  margin-bottom: 0.4rem;
+  background-color: #fff;
+  border-bottom: 1px solid $bc;
+  .groupcity_name_container {
+    li {
+      color: #666;
     }
   }
 }
