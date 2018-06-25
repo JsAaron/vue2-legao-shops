@@ -3,13 +3,17 @@
     <ul>
       <router-link :to="{path: 'shop'}" v-for="item in shopListArr" tag='li' :key="item.id" class="shop_li">
         <section>
+          <img :src="imgBaseUrl + item.image_path" class="shop_img">
         </section>
       </router-link>
     </ul>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { shopList } from 'src/service/getData'
+import { imgBaseUrl } from 'src/config/env'
+
 export default {
   props: ['geohash'],
   data() {
@@ -20,17 +24,23 @@ export default {
       showBackStatus: false, //显示返回顶部按钮
       showLoading: true, //显示加载动画
       touchend: false, //没有更多数据
+      imgBaseUrl
     }
   },
   mounted() {
     this.initData();
   },
+  computed: {
+    ...mapState([
+      'latitude', 'longitude'
+    ])
+  },
   methods: {
     async initData() {
       //获取数据
       let res = await shopList(this.latitude, this.longitude, this.offset, this.restaurantCategoryId);
-      console.log(this.latitude, this.longitude, this.offset, this.restaurantCategoryId)
-      // this.shopListArr = [...res];
+      this.shopListArr = [...res];
+
       // if (res.length < 20) {
       //   this.touchend = true;
       // }
