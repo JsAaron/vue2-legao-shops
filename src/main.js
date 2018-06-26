@@ -13,6 +13,8 @@ if ('addEventListener' in document) {
   }, false);
 }
 
+
+
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes,
