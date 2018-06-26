@@ -1,10 +1,32 @@
 <template>
+  <!-- 附近商家 -->
   <div class="shoplist_container">
     <ul>
       <router-link :to="{path: 'shop'}" v-for="item in shopListArr" tag='li' :key="item.id" class="shop_li">
-        <section>
-          <img :src="imgBaseUrl + item.image_path" class="shop_img">
-        </section>
+        <section> <img :src="imgBaseUrl + item.image_path" class="shop_img"> </section>
+        <hgroup class="shop_right">
+          <header class="shop_detail_header">
+            <h4 :class="item.is_premium? 'premium': ''" class="" class="shop_title ellipsis">{{item.name}}</h4>
+            <ul class="shop_detail_ul">
+              <li v-for="item in item.supports" :key="item.id" class="supports">{{item.icon_name}}</li>
+            </ul>
+          </header>
+          <h5 class="rating_order_num">
+            <section class="rating_order_num_left">
+              <section class="rating_section">
+                <!-- <rating-star :rating='item.rating'></rating-star> -->
+                <span class="rating_num">{{item.rating}}</span>
+              </section>
+              <section class="order_section">
+                月售{{item.recent_order_num}}单
+              </section>
+            </section>
+            <section class="rating_order_num_right">
+              <!-- <span class="delivery_style delivery_left" v-if="item.delivery_mode">{{item.delivery_mode.text}}</span> -->
+           <!--    <span class="delivery_style delivery_right" v-if="zhunshi(item.supports)">准时达</span> -->
+            </section>
+          </h5>
+        </hgroup>
       </router-link>
     </ul>
   </div>
