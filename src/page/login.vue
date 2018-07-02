@@ -19,6 +19,11 @@
       <h4 class="city_title">门店定位(<span>选中切换</span>)</h4>
       <v-distpicker :province="province" :city="city" :area="area" @selected="onSelected"></v-distpicker>
       <h4 class="choose_shop">选择门店</h4>
+      <ul class="select_store">
+        <li v-for="name in shopNames" :class="{shop_right_choosed: shop_name == name}" @click="shop_name = name">
+          {{name}}
+        </li>
+      </ul>
     </section>
     <!-- 注册用户 -->
     <div class="register_user">注册</div>
@@ -38,7 +43,9 @@ export default {
       mobileCode: null, //短信验证码
       province: '', //省会
       city: '', //城市
-      area: '' //区域
+      area: '', //区域
+      shop_name: '中天店', //默认店面
+      shopNames: ['中海店', '中天店', '星沙店', '时代店', '顺天店', '岳麓店'] //门店
     }
   },
   computed: {
@@ -99,9 +106,6 @@ export default {
 }
 
 
-
-
-
 /* 手机信息 */
 
 .loginForm {
@@ -134,8 +138,6 @@ export default {
 
 
 
-
-
 /* 注册按钮 */
 
 .register_user {
@@ -146,6 +148,25 @@ export default {
   border: 1px;
   border-radius: 0.15rem;
   text-align: center;
+}
+
+
+/* 选择门店 */
+
+.select_store {
+  display: flex;
+  li {
+    flex: 1;
+    width: 25%;
+    text-align: center;
+    border: 0.025rem solid #e4e4e4;
+    width: 25%;
+    height: 1.75rem;
+    font: 0.6rem/1.75rem "Microsoft YaHei";
+  }
+  .shop_right_choosed {
+    color: #3190e8;
+  }
 }
 
 </style>
