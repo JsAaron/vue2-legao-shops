@@ -51,7 +51,7 @@ async function getAddress(longitude, latitude) {
     var gc = new BMap.Geocoder();
     gc.getLocation(point, function(rs) {
       var addComp = rs.addressComponents;
-      resolve(addComp.city + addComp.district + addComp.street + addComp.streetNumber)
+      resolve(addComp)
     });
   })
 }
