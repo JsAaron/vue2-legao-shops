@@ -26,11 +26,14 @@
       </ul>
     </section>
     <!-- 注册用户 -->
-    <div class="register_user">注册</div>
+    <div class="register_user" @click="register">注册</div>
+    <!-- 弹出通知 -->
+    <alert-tip v-if="showAlert" :showHide="showAlert" @closeTip="closeTip" :alertText="alertText"></alert-tip>
   </div>
 </template>
 <script>
 import headTop from 'components/head'
+import alertTip from 'components/alertTip'
 import VDistpicker from 'v-distpicker'
 import { setStore, getStore } from 'src/utils/store'
 import { getlocation, getAddress } from 'src/utils/location'
@@ -38,13 +41,16 @@ import { getlocation, getAddress } from 'src/utils/location'
 export default {
   data() {
     return {
+      showAlert: false, //显示提示组件
+      alertText: null, //提示的内容
+      showAlert: false, //显示提示组件
       loginWay: '注册用户',
       phoneNumber: null, //电话号码
       mobileCode: null, //短信验证码
       province: '', //省会
       city: '', //城市
       area: '', //区域
-      shop_name: '中天店', //默认店面
+      shop_name: '', //默认店面
       shopNames: ['中海店', '中天店', '星沙店', '时代店', '顺天店', '岳麓店'] //门店
     }
   },
@@ -79,9 +85,32 @@ export default {
       this.city = data.city.value
       this.area = data.area.value
     },
+    register() {
+      //手机号正确
+      if (!this.rightPhoneNumber) {
+        this.showAlert = true;
+        this.alertText = '手机号码不正确';
+        return
+      } else if (!(/^\d{6}$/gi.test(this.mobileCode))) {
+        this.showAlert = true;
+        this.alertText = '短信验证码不正确';
+        return
+      }
+      //门店
+      if(!this.shop_name){
+        this.showAlert = true;
+        this.alertText = '必须选择门店';
+        return
+      }
+
+    },
+    closeTip() {
+      this.showAlert = false;
+    }
   },
   components: {
     headTop,
+    alertTip,
     VDistpicker
   }
 }
@@ -104,6 +133,8 @@ export default {
   right: 0.75rem;
   @include sc(.7rem, #fff);
 }
+
+
 
 
 /* 手机信息 */
@@ -138,6 +169,7 @@ export default {
 
 
 
+
 /* 注册按钮 */
 
 .register_user {
@@ -149,6 +181,8 @@ export default {
   border-radius: 0.15rem;
   text-align: center;
 }
+
+
 
 
 /* 选择门店 */
