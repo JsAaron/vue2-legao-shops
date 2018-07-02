@@ -11,12 +11,12 @@
         <button :class="{right_phone_number:rightPhoneNumber}">获取验证码</button>
       </section>
       <section class="input_container">
-        <input type="text" placeholder="验证码" name="mobileCode" maxlength="6" v-model="mobileCode">
+        <input type="text" placeholder="填入验证码" name="mobileCode" maxlength="6" v-model="mobileCode">
       </section>
     </form>
     <!-- 联动 -->
     <section class="loginDistpicker">
-      <h4 class="city_title">门店定位(<span>选中切换</span>)</h4>
+      <h4 class="city_title">门店定位(<span>点击切换</span>)</h4>
       <v-distpicker :province="province" :city="city" :area="area" @selected="onSelected"></v-distpicker>
       <h4 class="choose_shop">选择门店</h4>
       <ul class="select_store">
@@ -142,7 +142,7 @@ export default {
 
 .register_user {
   margin: 1rem 1rem;
-  @include sc(.7rem, #fff);
+  @include sc(.6rem, #fff);
   background-color: #4cd964;
   padding: .5rem 0;
   border: 1px;
