@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router/router'
 import store from './store/'
+import Icon from 'vue-svg-icon/Icon.vue';
 import './config/rem'
 import { routerMode } from './config/env'
 //300毫秒延时
@@ -13,9 +14,9 @@ if ('addEventListener' in document) {
   }, false);
 }
 
-
-
+Vue.component('icon', Icon)
 Vue.use(VueRouter)
+
 const router = new VueRouter({
   routes,
   mode: routerMode,

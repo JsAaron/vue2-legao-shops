@@ -22,10 +22,21 @@
         <div class="swiper-pagination"></div>
       </div>
     </nav>
+    <!-- 详细产品列表 -->
+    <div class="shop_list_container">
+      <!-- 标题 -->
+      <header class="shop_header">
+        <icon class="shop_icon" name="shop"></icon>
+        <span class="shop_header_title">附近商家</span>
+      </header>
+      <!-- 商品列表 -->
+      <shop-list :geohash="geohash"></shop-list>
+    </div>
   </div>
 </template>
 <script>
 import headTop from 'src/components/head'
+import shopList from 'src/components/shoplist'
 import { getFoodTypes } from '../service/getData'
 import 'src/plugins/swiper.min.js'
 import 'src/style/swiper.min.css'
@@ -38,7 +49,7 @@ export default {
       foodTypes: [], // 食品分类列表
     }
   },
-  created() {
+  mounted() {
     // 通过坐标，获取视频分类
     getFoodTypes(this.geohash).then(res => {
       let resLength = res.length;
@@ -57,7 +68,8 @@ export default {
     })
   },
   components: {
-    headTop
+    headTop,
+    shopList
   }
 }
 
@@ -110,6 +122,25 @@ export default {
         text-align: center;
         @include setSC(0.55rem, #666);
       }
+    }
+  }
+}
+
+
+.shop_list_container {
+  margin-top: .4rem;
+  border-top: 0.025rem solid $bc;
+  background-color: #fff;
+  .shop_header {
+    .shop_icon {
+      fill: #999;
+      margin-left: 0.6rem;
+      vertical-align: middle;
+      @include setWH(0.6rem, 0.6rem);
+    }
+    .shop_header_title {
+      color: #999;
+      @include setFont(0.55rem, 1.6rem);
     }
   }
 }
