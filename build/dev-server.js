@@ -48,6 +48,8 @@ switch (process.env.NODE_ENV) {
     default:
         var proxypath = config.dev.proxypath;
 }
+var proxypath = config.dev.proxypath;
+
 var options = {
     target: proxypath,
     changeOrigin: true,

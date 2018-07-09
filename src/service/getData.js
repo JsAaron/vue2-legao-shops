@@ -6,3 +6,8 @@ import fetch from '../config/fetch'
 export const cityGuess = () => fetch('/v1/cities', {
   type: 'guess'
 });
+
+/**
+ * 获取home页面食品分类列表
+ */
+export const getFoodTypes = geohash => fetch('/home/foodType');
