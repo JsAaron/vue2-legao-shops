@@ -112,7 +112,7 @@ export default {
   .link_to_food {
     width: 25%;
     padding: 0.3rem 0rem;
-    @include setFj(center);
+    @include setFJ(center);
     figure {
       img {
         margin-bottom: 0.3rem;
