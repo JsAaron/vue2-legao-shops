@@ -2,6 +2,9 @@ import App from '../App'
 
 // const login = r => require.ensure([], () => r(require('../page/login')), 'login')
 const home = r => require.ensure([], () => r(require('../page/home')), 'home')
+const search = r => require.ensure([], () => r(require('../page/search')), 'search')
+const order = r => require.ensure([], () => r(require('../page/order')), 'order')
+const profile = r => require.ensure([], () => r(require('../page/profile')), 'profile')
 
 export default [{
   path: '/',
@@ -16,6 +19,21 @@ export default [{
     {
       path: '/home',
       component: home
+    },
+    //搜索页
+    {
+      path: '/search/:geohash',
+      component: search
+    },
+    //个人信息页
+    {
+      path: '/profile',
+      component: profile
+    },
+    //订单列表页
+    {
+      path: '/order',
+      component: order
     }
   ]
 }]

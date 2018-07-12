@@ -25,7 +25,19 @@
               </section>
               <section class="order_section">月售{{item.recent_order_num}}单</section>
             </section>
-
+            <!--配送、准时达信息 -->
+            <section class="rating_order_num_right">
+              <!-- 如果有配送快递信息 -->
+              <span class="delivery_style delivery_left" v-if="item.delivery_mode">{{item.delivery_mode.text}}</span>
+              <span class="delivery_style delivery_right" v-if="zhunshi(item.supports)">准时达</span>
+            </section>
+          </h5>
+          <!-- 配送价格，距离 -->
+          <h5 class="fee_distance">
+              <!-- 左边 -->
+              <p class="fee">¥{{item.float_minimum_order_amount}}起送 / {{item.piecewise_agent_fee.tips}}</p>
+              <!-- 右边 -->
+              <p class="distance_time"></p>
           </h5>
         </hgroup>
       </router-link>
@@ -70,6 +82,24 @@ export default {
     },
     hideLoading() {
       this.showLoading = false;
+    },
+    /**
+     * 是否存在准时达
+     * @param  {[type]} supports [description]
+     * @return {[type]}          [description]
+     */
+    zhunshi(supports) {
+      let zhunStatus;
+      if ((supports instanceof Array) && supports.length) {
+        supports.forEach(item => {
+          if (item.icon_name === '准') {
+            zhunStatus = true;
+          }
+        })
+      } else {
+        zhunStatus = false;
+      }
+      return zhunStatus
     }
   },
   components: {
@@ -184,6 +214,12 @@ export default {
   }
 }
 
+//距离信息
+.fee_distance{
+  @include setSC(0.5rem,#333);
+  margin-top:0.52rem;
+  @include setFJ;
+}
 
 //商铺忙绿
 .list_back_li {

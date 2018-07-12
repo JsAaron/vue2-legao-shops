@@ -32,11 +32,13 @@
       <!-- 商品列表 -->
       <shop-list :geohash="geohash"></shop-list>
     </div>
+    <foot-guide></foot-guide>
   </div>
 </template>
 <script>
 import headTop from 'src/components/head'
 import shopList from 'src/components/shoplist'
+import footGuide from 'src/components/footGuide'
 import { getFoodTypes } from '../service/getData'
 import 'src/plugins/swiper.min.js'
 import 'src/style/swiper.min.css'
@@ -69,7 +71,8 @@ export default {
   },
   components: {
     headTop,
-    shopList
+    shopList,
+    footGuide
   }
 }
 
