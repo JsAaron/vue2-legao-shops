@@ -11,7 +11,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide food_types_container" v-for="(item, index) in foodTypes" :key="index">
-            <router-link :to="{path: '/food'}" v-for="foodItem in item" :key="foodItem.id" class="link_to_food">
+            <router-link :to="{path: '/food', query: {geohash, title: foodItem.title, restaurant_category_id: getCategoryId(foodItem.link)}}" v-for="foodItem in item" :key="foodItem.id" class="link_to_food">
               <figure>
                 <img :src="imgBaseUrl + foodItem.image_url">
                 <figcaption>{{foodItem.title}}</figcaption>
@@ -39,13 +39,14 @@
 import headTop from 'src/components/head'
 import shopList from 'src/components/shoplist'
 import footGuide from 'src/components/footGuide'
+import { imgBaseUrl } from 'src/config/env'
 import { getFoodTypes } from '../service/getData'
 import 'src/plugins/swiper.min.js'
 import 'src/style/swiper.min.css'
 export default {
   data() {
     return {
-      imgBaseUrl: 'https://fuss10.elemecdn.com', //图片域名地址
+      imgBaseUrl, //图片域名地址
       geohash: '28.19031,113.00131',
       homeTitle: '长沙中国城戴斯酒店',
       foodTypes: [], // 食品分类列表
@@ -68,6 +69,16 @@ export default {
         loop: true
       });
     })
+  },
+  methods: {
+    getCategoryId(url) {
+      let urlData = decodeURIComponent(url.split('=')[1].replace('&target_name', ''));
+      if (/restaurant_category_id/gi.test(urlData)) {
+        return JSON.parse(urlData).restaurant_category_id.id
+      } else {
+        return ''
+      }
+    }
   },
   components: {
     headTop,

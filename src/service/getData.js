@@ -12,8 +12,6 @@ export const cityGuess = () => fetch('/v1/cities', {
  */
 export const getFoodTypes = geohash => fetch('/home/foodType');
 
-
-
 /**
  * 获取home商铺列表
  */
@@ -26,3 +24,9 @@ export const getShopList = (latitude, longitude, offset, restaurant_category_id 
   };
   return fetch('/home/shopList', data);
 };
+
+
+/**
+ * 获取home地址
+ */
+export const getHomeAddress = geohash => fetch('/home/pois/' + geohash);

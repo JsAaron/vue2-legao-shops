@@ -13,12 +13,16 @@ let imgBaseUrl = '';
 
 /*基本地址前缀*/
 if (process.env.NODE_ENV == 'development') {
-  imgBaseUrl = '/img/';
+  // imgBaseUrl = '/img/';
+  imgBaseUrl = 'https://fuss10.elemecdn.com' //图片域名地址
 
-} else if (process.env.NODE_ENV == 'production') {
+}
+else if (process.env.NODE_ENV == 'production') {
   baseUrl = '//elm.cangdu.org';
   imgBaseUrl = '//elm.cangdu.org/img/';
 }
+
+
 
 export {
   baseUrl,
