@@ -58,6 +58,7 @@
 import loading from './loading'
 import ratingStar from './ratingStar'
 import { getShopList } from '../service/getData'
+import shopList from 'src/components/shoplist'
 export default {
   props: ['restaurantCategoryId'],
   data() {
@@ -104,7 +105,8 @@ export default {
   },
   components: {
     loading,
-    ratingStar
+    ratingStar,
+    shopList
   }
 }
 

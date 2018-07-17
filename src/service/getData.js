@@ -30,3 +30,12 @@ export const getShopList = (latitude, longitude, offset, restaurant_category_id 
  * 获取home地址
  */
 export const getHomeAddress = geohash => fetch('/home/pois/' + geohash);
+
+
+/**
+ * 获取分类页面的食品分类
+ */
+export const getFoodCategory = (latitude, longitude) => fetch('/shopping/v2/restaurant/category', {
+	latitude,
+	longitude
+});
