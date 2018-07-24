@@ -23,7 +23,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       'vue': 'vue/dist/vue.js'
     }
   },
-  
+
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.dev.cssSourceMap,

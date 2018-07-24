@@ -58,6 +58,15 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
+    //https://www.cnblogs.com/wuzhendong/p/8078659.html
+    // scss: generateLoaders('sass').concat(
+    //   {
+    //     loader: 'sass-resources-loader',
+    //     options: {
+    //       resources: path.resolve(__dirname, '../src/assets/global.scss')
+    //     }
+    //   }
+    // ),
     scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
