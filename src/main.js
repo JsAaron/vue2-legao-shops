@@ -2,34 +2,34 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router/router'
 import store from './store/'
-import Icon from 'vue-svg-icon/Icon.vue';
-import './config/rem'
-import { routerMode } from './config/env'
-//300毫秒延时
+
+import {routerMode} from './config/env'
 import FastClick from 'fastclick'
 
 if ('addEventListener' in document) {
-  document.addEventListener('DOMContentLoaded', function() {
-    FastClick.attach(document.body);
-  }, false);
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
 }
 
-Vue.component('icon', Icon)
 Vue.use(VueRouter)
-
 const router = new VueRouter({
-  routes,
-  mode: routerMode,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
-  }
+	routes,
+	mode: routerMode,
+	strict: process.env.NODE_ENV !== 'production',
+	scrollBehavior (to, from, savedPosition) {
+	    if (savedPosition) {
+		    return savedPosition
+		} else {
+			if (from.meta.keepAlive) {
+				from.meta.savedPosition = document.body.scrollTop;
+			}
+		    return { x: 0, y: to.meta.savedPosition || 0 }
+		}
+	}
 })
 
 new Vue({
-  router,
-  store,
+	router,
+	store,
 }).$mount('#app')

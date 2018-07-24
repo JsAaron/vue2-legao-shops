@@ -1,11 +1,8 @@
 import App from '../App'
 
-// const login = r => require.ensure([], () => r(require('../page/login')), 'login')
+
 const home = r => require.ensure([], () => r(require('../page/home')), 'home')
-const search = r => require.ensure([], () => r(require('../page/search')), 'search')
-const order = r => require.ensure([], () => r(require('../page/order')), 'order')
-const profile = r => require.ensure([], () => r(require('../page/profile')), 'profile')
-const food = r => require.ensure([], () => r(require('../page/food')), 'food')
+
 export default [{
   path: '/',
   component: App, //顶层路由，对应index.html
@@ -19,26 +16,6 @@ export default [{
     {
       path: '/home',
       component: home
-    },
-    //食品单独类别
-    {
-      path: '/food',
-      component: food
-    },
-    //搜索页
-    {
-      path: '/search/:geohash',
-      component: search
-    },
-    //个人信息页
-    {
-      path: '/profile',
-      component: profile
-    },
-    //订单列表页
-    {
-      path: '/order',
-      component: order
     }
   ]
 }]
