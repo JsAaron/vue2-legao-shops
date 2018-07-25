@@ -14,7 +14,7 @@ export default {
   }
 };
 </script>
-@import '../style/mixin';
+
 <style lang="scss" scoped>
 div {
   @include setWH(100%, auto);
