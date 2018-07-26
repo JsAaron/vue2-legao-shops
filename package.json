@@ -1,16 +1,20 @@
 {
-  "name": "",
+  "name": "legao-shops",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "legao-shops",
+  "author": "Aaron<401545553@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "local": "node build/local.test.js"
   },
   "dependencies": {
-    "vue": "^2.5.16"
+    "fastclick": "^1.0.6",
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^8.5.1",
@@ -30,6 +34,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-notifier": "^5.1.2",
+    "node-sass": "^4.9.2",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "ora": "^2.1.0",
     "portfinder": "^1.0.13",
@@ -37,8 +42,10 @@
     "postcss-loader": "^2.1.5",
     "postcss-url": "^7.3.2",
     "rimraf": "^2.6.0",
+    "sass-loader": "^7.0.3",
     "semver": "^5.3.0",
     "shelljs": "^0.8.2",
+    "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "vue-loader": "^15.2.2",

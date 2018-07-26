@@ -31,8 +31,10 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders (loader, loaderOptions) {
-    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
+  function generateLoaders(loader, loaderOptions) {
+    const loaders = options.usePostCSS
+      ? [cssLoader, postcssLoader]
+      : [cssLoader]
 
     if (loader) {
       loaders.push({
@@ -42,6 +44,7 @@ exports.cssLoaders = function (options) {
         })
       })
     }
+
 
     // Extract CSS when that option is specified
     // (which is the case during production build)
@@ -60,7 +63,18 @@ exports.cssLoaders = function (options) {
     sass: generateLoaders('sass', { indentedSyntax: true }),
     scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus')
+    styl: generateLoaders('stylus'),
+    //增加全局导入
+    // scss: generateLoaders('sass').concat(
+    //   {
+    //     loader: 'sass-resources-loader',
+    //     options: {
+    //       resources: [
+    //         path.resolve(__dirname, '../src/style/mixin.scss')
+    //       ]
+    //     }
+    //   }
+    // )
   }
 }
 
