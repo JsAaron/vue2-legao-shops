@@ -2,8 +2,6 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
-    <img src="../assets/test.jpg"/>
-    <img src="static/test.jpg"/>
     <ul>
       <li>
         <a
@@ -97,14 +95,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-@import "../style/mixin";
-// @include setWH(0.6rem, 0.6rem);
-
-img{
-  width: 100%;
-  height: 100px;
-}
+<style scoped>
 h1, h2 {
   font-weight: normal;
 }
