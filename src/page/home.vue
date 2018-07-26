@@ -19,8 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../style/mixin";
 h1 {
-  @include sc(5rem,red);
+  @include sc(10rem,red);
 }
 </style>

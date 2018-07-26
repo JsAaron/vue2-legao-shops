@@ -12,6 +12,8 @@ exports.assetsPath = function (_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
+
+
 exports.cssLoaders = function (options) {
   options = options || {}
 
@@ -55,27 +57,27 @@ exports.cssLoaders = function (options) {
     return ['vue-style-loader'].concat(loaders)
   }
 
-  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
-  return {
+  const loaders = {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    // scss: generateLoaders('sass'),
+    //增加全局的mixin的导入处理
+    scss: generateLoaders('sass').concat(
+      {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: path.resolve(__dirname, '../src/style/mixin.scss')
+        }
+      }
+    ),
     stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus'),
-    //增加全局导入
-    // scss: generateLoaders('sass').concat(
-    //   {
-    //     loader: 'sass-resources-loader',
-    //     options: {
-    //       resources: [
-    //         path.resolve(__dirname, '../src/style/mixin.scss')
-    //       ]
-    //     }
-    //   }
-    // )
+    styl: generateLoaders('stylus')
   }
+
+  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+  return loaders
 }
 
 // Generate loaders for standalone style files (outside of .vue)
