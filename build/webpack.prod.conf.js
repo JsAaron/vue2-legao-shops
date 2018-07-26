@@ -18,7 +18,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
-      extract: true,
+      extract: true,//用MiniCssExtractPlugin合并多个css为一个文件
       usePostCSS: true
     })
   },
@@ -38,7 +38,7 @@ const webpackConfig = merge(baseWebpackConfig, {
           enforce: true
         },
 
-        // Extracting all CSS in a single file
+        //多个css合并成一个文件
         styles: {
           name: 'styles',
           test: /\.css$/,
@@ -92,7 +92,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
-    to: config.build.assetsSubDirectory,
+        to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
     ])

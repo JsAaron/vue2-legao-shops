@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    //配置代理
     proxyTable: {},
 
     // Various Dev Server settings
@@ -40,7 +41,7 @@ module.exports = {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
-    //目标目录
+    //目标目录,绝对地址
     assetsRoot: path.resolve(__dirname, '../dist'),
     //资源目录
     assetsSubDirectory: 'static',
