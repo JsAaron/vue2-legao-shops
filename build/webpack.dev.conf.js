@@ -16,14 +16,6 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
 
-  //新增
-  //https://www.imooc.com/article/17868
-  resolve: {
-    alias: {
-      'vue': 'vue/dist/vue.js'
-    }
-  },
-
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.dev.cssSourceMap,
@@ -40,7 +32,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       rewrites: [{
         from: /.*/,
         to: path.posix.join(config.dev.assetsPublicPath, 'index.html')
-      },],
+      }, ],
     },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.

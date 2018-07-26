@@ -1,21 +1,29 @@
 <template>
-  <div>
-    <transition name="router-fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <HelloWorld/>
   </div>
 </template>
+
 <script>
-export default {};
-</script>
-<style lang="scss">
-@import "./style/common";
-.router-fade-enter-active,
-.router-fade-leave-active {
-  transition: opacity 0.3s;
+import HelloWorld from './components/HelloWorld'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
 }
-.router-fade-enter,
-.router-fade-leave-active {
-  opacity: 0;
+</script>
+
+<style lang="scss" scoped>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #213950;
+  margin-top: 60px;
+  background-color: aquamarine;
 }
 </style>

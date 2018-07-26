@@ -22,8 +22,6 @@ else if (process.env.NODE_ENV == 'production') {
   imgBaseUrl = '//elm.cangdu.org/img/';
 }
 
-
-
 export {
   baseUrl,
   routerMode,

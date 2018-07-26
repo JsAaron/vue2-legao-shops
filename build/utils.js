@@ -31,7 +31,7 @@ exports.cssLoaders = function (options) {
   }
 
   // generate loader string to be used with extract text plugin
-  function generateLoaders(loader, loaderOptions) {
+  function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
 
     if (loader) {
@@ -52,27 +52,16 @@ exports.cssLoaders = function (options) {
     return ['vue-style-loader'].concat(loaders)
   }
 
-  const loaders = {
+  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+  return {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
-    //增加全局@import css
-    //https://vue-loader-v14.vuejs.org/zh-cn/configurations/pre-processors.html
-    scss: generateLoaders('sass').concat(
-      {
-        loader: 'sass-resources-loader',
-        options: {
-          resources: path.resolve(__dirname, '../src/style/mixin.scss')
-        }
-      }
-    ),
-    // scss: generateLoaders('sass'),
+    scss: generateLoaders('sass'),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }
-  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
-  return loaders
 }
 
 // Generate loaders for standalone style files (outside of .vue)
