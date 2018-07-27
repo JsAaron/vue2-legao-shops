@@ -70,7 +70,7 @@ export default {
   width: 100%;
   height: 100%;
   background-size: 100% 100%;
-  background: url(../images/bg9.jpg) no-repeat center center;
+  background: url(../assets/images/bg9.jpg) no-repeat center center;
   .form-contianer {
     width: 370px;
     height: 210px;

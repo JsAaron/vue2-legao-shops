@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import FastClick from 'fastclick'
 
 //css复位
 import 'normalize.css/normalize.css'
@@ -13,9 +14,9 @@ import '@/styles/index.scss'
 
 import routes from './router'
 import store from './store/'
-import { routerMode } from './config/env'
+
 import './config/rem'
-import FastClick from 'fastclick'
+import { routerMode } from './config/env'
 
 //fix click 300ms
 if ('addEventListener' in document) {

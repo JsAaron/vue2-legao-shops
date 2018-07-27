@@ -1,21 +1,17 @@
 import App from '../App'
 
-const login = r => require.ensure([], () => r(require('../page/login')), 'login')
-
 export default [
 	{
-		path: '/',
-		component: App,
-		children: [
-			//地址为空时跳转home页面
-			{
-				path: '',
-				redirect: '/login'
-			},
-			{
-				path: '/login',
-				component: login
-			}
-		]
+		path: '/login',
+		name: '登录',
+		component: (resolve) => require(['../views/login.vue'], resolve)
+	}, {
+		path: '/401',
+		name: '无权访问',
+		component: (resolve) => require(['../views/common/401.vue'], resolve)
+	}, {
+		path: '/404',
+		name: '找不到页面',
+		component: (resolve) => require(['../views/common/404.vue'], resolve)
 	}
 ]
