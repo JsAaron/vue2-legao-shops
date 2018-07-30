@@ -129,6 +129,7 @@ $dark_gray: #889aa4;
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import { isvalidUsername } from "@/utils/validate";
 export default {
   name: "login",
@@ -166,6 +167,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["RECORD_USERINFO"]),
     showPwd() {
       if (this.passwordType === "password") {
         this.passwordType = "";
@@ -177,15 +179,14 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          // this.$store
-          //   .dispatch("LoginByUsername", this.loginForm)
-          //   .then(() => {
-          //     this.loading = false;
-          //     this.$router.push({ path: "/" });
-          //   })
-          //   .catch(() => {
-          //     this.loading = false;
-          //   });
+          this.RECORD_USERINFO(this.loginForm)
+            .then(() => {
+              this.loading = false;
+              this.$router.push({ path: "/" });
+            })
+            .catch(() => {
+              this.loading = false;
+            });
         } else {
           console.log("error submit!!");
           return false;
