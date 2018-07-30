@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const { VueLoaderPlugin } = require('vue-loader')
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+  // const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -18,9 +18,8 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'production' ?
+      config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.less', '.css', '.scss'],
@@ -33,11 +32,11 @@ module.exports = {
       'utils': resolve('src/utils'),
       'store': resolve('src/store'),
       'router': resolve('src/router'),
+      'styles': resolve('src/styles')
     }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
