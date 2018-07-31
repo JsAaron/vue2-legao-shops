@@ -1,7 +1,7 @@
 import defaultRouterMap from '@/router/defaultMap'
 import asyncRouterMap from '@/router/asyncMap'
 
-const interceptor = {
+const permission = {
   state: {
     routers: defaultRouterMap, //总路由
     addRouters: [] //新增路由
@@ -39,4 +39,4 @@ const interceptor = {
   }
 }
 
-export default interceptor
+export default permission

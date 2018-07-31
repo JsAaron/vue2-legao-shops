@@ -4,7 +4,7 @@ import {
   routerMode
 } from '@/config/env'
 import routes from './defaultMap';
-import interceptor from './interceptor'
+import permission from './permission'
 
 Vue.use(VueRouter)
 
@@ -14,6 +14,6 @@ const router = new VueRouter({
   strict: process.env.NODE_ENV !== 'production',
 })
 
-interceptor(router)
+permission(router)
 
 export default router
