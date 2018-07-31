@@ -3,13 +3,13 @@ import asyncRouterMap from '@/router/asyncMap'
 
 const interceptor = {
   state: {
-    // routers: constantRouterMap,
-    addRouters: []
+    routers: defaultRouterMap, //总路由
+    addRouters: [] //新增路由
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
-      state.routers = asyncRouterMap.concat(routers)
+      state.routers = defaultRouterMap.concat(routers)
     }
   },
   actions: {
@@ -28,7 +28,7 @@ const interceptor = {
         let accessedRouters
           //管理员权限，或者别的
         if (roles.indexOf('admin') >= 0) {
-          accessedRouters = defaultRouterMap
+          accessedRouters = asyncRouterMap
         } else {
           // accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }

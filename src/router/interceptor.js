@@ -1,7 +1,18 @@
 import {
   getToken
 } from '@/utils/auth' // getToken from cookie
-import store from './store'
+import store from '@/store'
+
+/**
+ * 判断权限
+ * @param {*} roles 
+ * @param {*} permissionRoles 
+ */
+function hasPermission(roles, permissionRoles) {
+  if (roles.indexOf('admin') >= 0) return true // admin permission passed directly
+  if (!permissionRoles) return true
+  return roles.some(role => permissionRoles.indexOf(role) >= 0)
+}
 
 /**
  * 配置路由全局守卫
@@ -13,7 +24,6 @@ export default function(router) {
     if (getToken()) {
       //有token
       if (to.path === '/login') {
-        console.log(1)
         next({
           path: '/'
         })
@@ -27,21 +37,40 @@ export default function(router) {
             store.dispatch('GENERAT-ROUTES', {
               roles
             }).then(() => {
-
+              // 动态添加可访问路由表
+              router.addRoutes(store.getters.addRouters)
+              next({...to,
+                replace: true
+              })
             })
           })
+        } else {
+          // 没有动态改变权限的需求可直接next() 删除下方权限判断
+          if (hasPermission(store.getters.roles, to.meta.roles)) {
+            next()
+          } else {
+            next({
+              path: '/401',
+              replace: true,
+              query: {
+                noGoBack: true
+              }
+            })
+          }
         }
       }
     } else {
-      console.log(3)
+      console.log(4)
         //如果目标是登录页面
         //跳过不处理
       if (~['/login', '/authredirect'].indexOf(to.path)) {
         next()
       } else {
-        // 否则全部重定向到登录页
+        console.log(5)
+          // 否则全部重定向到登录页
         next('/login')
       }
     }
+
   })
 }

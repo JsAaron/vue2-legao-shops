@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import FastClick from 'fastclick'
 
+import App from './App'
+
 //css复位
 import 'normalize.css/normalize.css'
 
@@ -11,14 +13,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 //全局css
 import '@/styles/index.scss'
 
-
 //国际化
 import i18n from './lang'
 
 //路由守卫
 import store from './store'
 import router from './router'
-import interceptor from './interceptor'
 
 //vue-svg-icon
 import Icon from 'vue-svg-icon/Icon.vue';
@@ -39,13 +39,10 @@ Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
-/**
- * 路由跳转处理
- */
-interceptor(router)
-
 new Vue({
+  el: '#app',
   router,
   store,
-  i18n
-}).$mount('#app')
+  i18n,
+  render: h => h(App)
+})
