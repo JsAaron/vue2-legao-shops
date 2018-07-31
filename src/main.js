@@ -20,10 +20,15 @@ import i18n from './lang'
 //设置根rem
 // import './config/rem'
 //路由守卫
-import guards from './guards'
-import { routerMode } from './config/env'
+import interceptor from './interceptor'
+import {
+  routerMode
+} from './config/env'
 //vue-svg-icon
 import Icon from 'vue-svg-icon/Icon.vue';
+//模拟数据
+import './mock'
+
 Vue.component('icon', Icon);
 
 //fix click 300ms
@@ -47,7 +52,7 @@ const router = new VueRouter({
   mode: routerMode,
   strict: process.env.NODE_ENV !== 'production',
 })
-guards(router)
+interceptor(router)
 
 new Vue({
   router,

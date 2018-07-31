@@ -185,7 +185,7 @@ export default {
               this.$router.push({ path: "/" });
             })
             .catch(() => {
-              this.loading = false;
+              console.log("登录错误");
             });
         } else {
           console.log("error submit!!");

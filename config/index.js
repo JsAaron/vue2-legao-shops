@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     //配置代理
     proxyTable: {
-      '/api': {
-        changeOrigin: true,
-        target: 'http://192.168.1.20:7788',
-        pathRewrite: { '^/api': '' }
-      }
+      // '/api': {
+      //   changeOrigin: true,
+      //   target: 'http://192.168.1.20:7788',
+      //   pathRewrite: { '^/api': '' }
+      // }
     },
 
     // Various Dev Server settings
