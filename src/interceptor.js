@@ -22,8 +22,13 @@ export default function(router) {
         //用户已经登录，所以不需要跳入登录页面，直接进管理页面
         if (store.getters.roles.length === 0) {
           store.dispatch('GET_USERINFO').then(res => {
-            const roles = res.data.roles
-            console.log(roles)
+            const roles = res.data.roles;
+            // 根据roles权限生成可访问的路由表
+            store.dispatch('GENERAT-ROUTES', {
+              roles
+            }).then(() => {
+
+            })
           })
         }
       }

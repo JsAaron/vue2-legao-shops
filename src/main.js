@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import FastClick from 'fastclick'
 
 //css复位
@@ -12,18 +11,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 //全局css
 import '@/styles/index.scss'
 
-import routes from './router'
-import store from './store/'
 
 //国际化
 import i18n from './lang'
-//设置根rem
-// import './config/rem'
+
 //路由守卫
+import store from './store'
+import router from './router'
 import interceptor from './interceptor'
-import {
-  routerMode
-} from './config/env'
+
 //vue-svg-icon
 import Icon from 'vue-svg-icon/Icon.vue';
 //模拟数据
@@ -46,12 +42,6 @@ Vue.use(ElementUI, {
 /**
  * 路由跳转处理
  */
-Vue.use(VueRouter)
-const router = new VueRouter({
-  routes,
-  mode: routerMode,
-  strict: process.env.NODE_ENV !== 'production',
-})
 interceptor(router)
 
 new Vue({
