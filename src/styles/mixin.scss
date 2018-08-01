@@ -1,3 +1,44 @@
+//定位上下左右居中
+@mixin setCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//字体大小，颜色
+@mixin setFontColor($size, $color) {
+  font-size: $size;
+  color: $color;
+}
+
+@mixin borderRadius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin setFlexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//定位全屏
+@mixin setAllcover {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+//宽高
+@mixin setWH($width, $height) {
+  width: $width;
+  height: $height;
+}
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -41,18 +82,15 @@
     border-bottom: $color-border-style;
     border-left: $transparent-border-style;
     border-right: $transparent-border-style;
-  }
-  @else if $direction==right {
+  } @else if $direction==right {
     border-left: $color-border-style;
     border-top: $transparent-border-style;
     border-bottom: $transparent-border-style;
-  }
-  @else if $direction==down {
+  } @else if $direction==down {
     border-top: $color-border-style;
     border-left: $transparent-border-style;
     border-right: $transparent-border-style;
-  }
-  @else if $direction==left {
+  } @else if $direction==left {
     border-right: $color-border-style;
     border-top: $transparent-border-style;
     border-bottom: $transparent-border-style;

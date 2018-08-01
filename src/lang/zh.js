@@ -66,7 +66,8 @@ export default {
     switchUser: "切换用户"
   },
   login: {
-    title: "乐高商铺管理系统",
+    title: "账户登录",
+    subtitle: "欢迎登录乐高租赁门店管理系统",
     logIn: "登录",
     username: "账号",
     password: "密码",
