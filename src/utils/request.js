@@ -1,44 +1,43 @@
-import axios from 'axios'
-import {
-  Message
-} from 'element-ui'
-import store from '@/store'
-import {
-  getToken
-} from '@/utils/auth'
+import axios from "axios";
+import { Message } from "element-ui";
+import store from "@/store";
+import { getToken } from "@/utils/auth";
 
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.BASE_API, // api的base_url
   timeout: 5000 // request timeout
-})
+});
 
 // 添加一个请求拦截器
-service.interceptors.request.use(config => {
+service.interceptors.request.use(
+  config => {
+    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    // config.transformRequest = [function (data, headers) {
+    //   let q = new URLSearchParams();
+    //   for (let i in data) {
+    //     q.append(i, data[i]);
+    //   }
+    //   return q.toString();
+    // }];
 
-  // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-  // config.transformRequest = [function (data, headers) {
-  //   let q = new URLSearchParams();
-  //   for (let i in data) {
-  //     q.append(i, data[i]);
-  //   }
-  //   return q.toString();
-  // }];
-
-  //请求的时候头部带上X-Token
-  if (store.getters.token) {
-    // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-    config.headers['X-Token'] = getToken()
+    //请求的时候头部带上X-Token
+    if (store.getters.token) {
+      // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+      config.headers["X-Token"] = getToken();
+    }
+    return config;
+  },
+  error => {
+    //请求出错
+    console.log(error);
+    Promise.reject(error);
   }
-  return config
-}, error => {
-  //请求出错
-  console.log(error)
-  Promise.reject(error)
-})
+);
 
 // 添加一个响应拦截器
-service.interceptors.response.use(response => response,
+service.interceptors.response.use(
+  response => response,
   /**
    * 下面的注释为通过在response里，自定义code来标示请求状态
    * 当code返回如下情况则说明权限有问题，登出并返回到登录页
@@ -73,13 +72,14 @@ service.interceptors.response.use(response => response,
   //   }
   // },
   error => {
-    console.log('err' + error) // for debug
+    console.log("err" + error); // for debug
     Message({
       message: error.message,
-      type: 'error',
+      type: "error",
       duration: 5 * 1000
-    })
-    return Promise.reject(error)
-  })
+    });
+    return Promise.reject(error);
+  }
+);
 
-export default service
+export default service;

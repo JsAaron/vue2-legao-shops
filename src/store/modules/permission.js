@@ -18,7 +18,7 @@ const permission = {
      * @param {*} param0
      * @param {*} data
      */
-    ["GENERAT-ROUTES"]({ commit }, data) {
+    ["GENERAT_ROUTES"]({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data;
         let accessedRouters;
