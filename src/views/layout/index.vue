@@ -4,17 +4,19 @@
     <sidebar class="sidebar-container"></sidebar>
     <!-- 右边主体内容 -->
     <div class="main-container">
-      <!-- <navbar></navbar>
-      <tags-view></tags-view>
-      <app-main></app-main> -->
+      <!-- 导航条 -->
+      <navbar></navbar>
+      <!-- <tags-view></tags-view>
+      <app-main></app-main>  -->
     </div>
   </div>
 </template>
 
 <script>
-import { Sidebar } from "./components";
+import { Sidebar, Navbar } from "./components";
 export default {
   components: {
+    Navbar,
     Sidebar
   }
 };
