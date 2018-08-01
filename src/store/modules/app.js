@@ -11,7 +11,7 @@ const app = {
   },
   mutations: {
     //切换列表缩放
-    ["TOGGLE-SIDEBAR"](state) {
+    ["TOGGLE_SIDEBAR"](state) {
       if (state.sidebar.opened) {
         Cookies.set("sidebarStatus", 1);
       } else {
@@ -25,8 +25,8 @@ const app = {
     /**
      * 通过点击目录缩放目录列表
      */
-    ["TOGGLE-SIDEBAR"]({ commit }) {
-      commit("TOGGLE-SIDEBAR");
+    ["TOGGLE_SIDEBAR"]({ commit }) {
+      commit("TOGGLE_SIDEBAR");
     }
   }
 };

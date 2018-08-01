@@ -1,10 +1,10 @@
-import { loginByUsername, getUserInfo } from "@/api/login";
+import { loginByUsername, getUserInfo, logout } from "@/api/login";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 
 const user = {
   state: {
     //第二次加载，可能已经存在
-    token: getToken(),
+    token: getToken(), //cookies
     roles: [],
     name: "",
     avatar: "",
@@ -30,6 +30,24 @@ const user = {
   },
 
   actions: {
+    /**
+     * 退出登录
+     */
+    ["LOGOUT"]({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        logout(state.token)
+          .then(() => {
+            commit("SET_TOKEN", "");
+            commit("SET_ROLES", []);
+            removeToken();
+            resolve();
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
     /**
      * 记录用户信息
      */
