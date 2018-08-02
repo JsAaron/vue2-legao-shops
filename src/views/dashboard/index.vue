@@ -1,9 +1,22 @@
 <template>
-  <div class="manage-container">
-    <!-- <component :is="currentRole"></component> -->
+  <div class="dashboard-container">
+    123
   </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  name: "dashboard",
+  data() {
+    return {
+      currentRole: "adminDashboard"
+    };
+  },
+  computed: {
+    ...mapGetters(["roles"])
+  },
+  created() {}
+};
 </script>
