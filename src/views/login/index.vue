@@ -28,18 +28,18 @@
               <icon name="eye" :scale="1.5"></icon>
             </span>
           </el-form-item>
-          <!-- 忘记密码 -->
-          <div class="forgot-password">
-            <span>忘记密码</span>
+          <!-- 底部 -->
+          <div class="foot">
+            <!-- 忘记密码 -->
+            <div class="forgot-password">
+              <span @click="forgotPassword">忘记密码</span>
+            </div>
+            <!--  登录按钮 -->
+            <el-button type="primary" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
           </div>
-          <!--  登录按钮 -->
-          <el-button type="primary" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
-
         </el-form>
-
       </div>
     </div>
-
   </div>
 </template>
 
@@ -107,6 +107,9 @@ export default {
           return false;
         }
       });
+    },
+    forgotPassword() {
+      console.log(123);
     }
   }
 };
@@ -117,7 +120,7 @@ export default {
 .login-container {
   .el-input {
     display: inline-block;
-    height: 47px;
+    height: 27px;
     width: 85%;
     input {
       background: transparent;
@@ -125,7 +128,16 @@ export default {
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      height: 47px;
+      height: 27px;
+    }
+  }
+  .el-button--primary {
+    border-color: antiquewhite;
+    // box-shadow: 2px 2px 2px 2px antiquewhite;
+    span {
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
     }
   }
 }
@@ -159,23 +171,36 @@ export default {
       width: 70%;
     }
     .title-container {
+      margin-bottom: 10px;
+      h2 {
+        font-weight: 800;
+        margin-bottom: 5px;
+        font-size: 1.8rem;
+      }
       .subtitle {
         color: #9c9c9c;
+        font-size: 1.1rem;
       }
+    }
+    .show-pwd {
+      cursor: pointer;
     }
     .forgot-password {
       display: inline-block;
+      cursor: pointer;
       @include setFontColor(0.7rem, #9c9c9c);
     }
     .el-form-item {
       border-bottom: 1px solid rgb(200, 200, 200);
     }
-    .el-button {
-      width: 150px;
-      position: absolute;
-      right: 0;
-      background: red;
-      border-color: none;
+    .foot {
+      @include setFJ;
+      .el-button {
+        width: 150px;
+        height: 45px;
+        background: red;
+        border-color: none;
+      }
     }
   }
 }

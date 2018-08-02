@@ -4,7 +4,7 @@ import FastClick from "fastclick";
 import App from "./App";
 
 //css复位
-import "normalize.css/normalize.css";
+// import "normalize.css/normalize.css";
 
 //element-ui
 import ElementUI from "element-ui";
