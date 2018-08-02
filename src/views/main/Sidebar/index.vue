@@ -1,7 +1,7 @@
 <template>
   <el-scrollbar wrapClass="scrollbar-wrapper">
     <el-menu mode="vertical" :default-active="$route.path" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
-      <sidebar-item :routes="permission_routers"></sidebar-item>
+      <bar-item :routes="permission_routers"></bar-item>
     </el-menu>
   </el-scrollbar>
 </template>
@@ -9,12 +9,21 @@
 <script>
 import { mapGetters } from "vuex";
 //菜单列表
-import SidebarItem from "./SidebarItem";
+import BarItem from "./barItem";
 
 export default {
-  components: { SidebarItem },
+  components: { BarItem },
   computed: {
     ...mapGetters(["permission_routers"])
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.scrollbar-wrapper {
+  overflow-x: hidden !important;
+  .el-scrollbar__view {
+    height: 100%;
+  }
+}
+</style>

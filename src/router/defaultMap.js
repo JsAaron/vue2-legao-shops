@@ -1,5 +1,5 @@
 /* Layout */
-import Layout from "@/views/layout";
+import Main from "@/views/main";
 
 export default [
   {
@@ -9,7 +9,7 @@ export default [
   },
   {
     path: "",
-    component: Layout,
+    component: Main,
     redirect: "dashboard",
     children: [
       {

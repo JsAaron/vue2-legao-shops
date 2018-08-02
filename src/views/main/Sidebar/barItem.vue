@@ -25,6 +25,10 @@ export default {
       default: false
     }
   },
+  data() {
+    console.log(this.routes);
+    return {};
+  },
   methods: {
     hasOneShowingChildren(children) {
       const showingChildren = children.filter(item => {
@@ -40,3 +44,9 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.el-menu-item span {
+  color: white;
+  font-weight: 800;
+}
+</style>
