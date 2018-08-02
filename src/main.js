@@ -22,6 +22,7 @@ import router from "./router";
 
 //vue-svg-icon
 import Icon from "vue-svg-icon/Icon.vue";
+
 //模拟数据
 import "./mock";
 

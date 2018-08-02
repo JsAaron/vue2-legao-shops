@@ -45,6 +45,15 @@ figcaption {
   }
 }
 
+#app {
+  height: 100%;
+}
+
+//main-container全局样式
+.app-container {
+  padding: 20px;
+}
+
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar {
   width: 0px;
@@ -145,8 +154,4 @@ body {
   100% {
     opacity: 1;
   }
-}
-
-.animation_opactiy {
-  animation: backOpacity 2s ease-in-out infinite;
 }

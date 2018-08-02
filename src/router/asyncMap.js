@@ -13,7 +13,7 @@ export default [
         component: () => import("@/views/shop/index"),
         name: "shop",
         meta: {
-          title: "商铺管理",
+          title: "shop",
           icon: "shop"
         }
       }
@@ -28,7 +28,7 @@ export default [
         component: () => import("@/views/repertory/index"),
         name: "repertory",
         meta: {
-          title: "库存管理",
+          title: "repertory",
           icon: "repertory"
         }
       }
@@ -43,7 +43,7 @@ export default [
         component: () => import("@/views/member/index"),
         name: "member",
         meta: {
-          title: "会员管理",
+          title: "member",
           icon: "member"
         }
       }
@@ -58,7 +58,7 @@ export default [
         component: () => import("@/views/order/index"),
         name: "order",
         meta: {
-          title: "订单管理",
+          title: "order",
           icon: "order"
         }
       }
@@ -73,7 +73,7 @@ export default [
         component: () => import("@/views/sell/index"),
         name: "sell",
         meta: {
-          title: "会员卡销售",
+          title: "sell",
           icon: "sell"
         }
       }
@@ -88,8 +88,68 @@ export default [
         component: () => import("@/views/asset/index"),
         name: "asset",
         meta: {
-          title: "资产管理",
+          title: "asset",
           icon: "asset"
+        }
+      }
+    ]
+  },
+  {
+    path: "/statistics",
+    component: Main,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/statistics/index"),
+        name: "statistics",
+        meta: {
+          title: "statistics",
+          icon: "statistics"
+        }
+      }
+    ]
+  },
+  {
+    path: "/query",
+    component: Main,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/query/index"),
+        name: "query",
+        meta: {
+          title: "query",
+          icon: "query"
+        }
+      }
+    ]
+  },
+  {
+    path: "/scanCode",
+    component: Main,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/scanCode/index"),
+        name: "scanCode",
+        meta: {
+          title: "scanCode",
+          icon: "scanCode"
+        }
+      }
+    ]
+  },
+  {
+    path: "/scanDestroy",
+    component: Main,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/scanDestroy/index"),
+        name: "scanDestroy",
+        meta: {
+          title: "scanDestroy",
+          icon: "scanDestroy"
         }
       }
     ]

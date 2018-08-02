@@ -1,15 +1,13 @@
 <template>
-  <div class="menu-wrapper">
-    <!-- 设置路由链接，满足条件才能循环 -->
-    <template v-for="item in routes" v-if="!item.hidden&&item.children">
+  <div v-if="!item.hidden&&item.children" class="menu-wrapper">
 
-      <router-link v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow" :to="item.path+'/'+item.children[0].path" :key="item.children[0].name">
-        <el-menu-item :index="item.path+'/'+item.children[0].path" :class="{'submenu-title-noDropdown':!isNest}">
-          <span v-if="item.children[0].meta&&item.children[0].meta.title" slot="title">{{generateTitle(item.children[0].meta.title)}}</span>
-        </el-menu-item>
-      </router-link>
+    <router-link v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow" :to="resolvePath(onlyOneChild.path)">
+      <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
+        <icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" :scale="1.5"></icon>
+        <span v-if="onlyOneChild.meta&&onlyOneChild.meta.title" slot="title">{{generateTitle(onlyOneChild.meta.title)}}</span>
+      </el-menu-item>
+    </router-link>
 
-    </template>
   </div>
 </template>
 
@@ -17,27 +15,43 @@
 import { generateTitle } from "@/utils/i18n.js";
 export default {
   props: {
-    routes: {
-      type: Array
+    // route object
+    item: {
+      type: Object,
+      required: true
     },
     isNest: {
       type: Boolean,
       default: false
+    },
+    basePath: {
+      type: String,
+      default: ""
     }
   },
   data() {
-    console.log(this.routes);
-    return {};
+    return {
+      onlyOneChild: null
+    };
   },
   methods: {
-    hasOneShowingChildren(children) {
+    hasOneShowingChild(children) {
       const showingChildren = children.filter(item => {
-        return !item.hidden;
+        if (item.hidden) {
+          return false;
+        } else {
+          // temp set(will be used if only has one showing child )
+          this.onlyOneChild = item;
+          return true;
+        }
       });
       if (showingChildren.length === 1) {
         return true;
       }
       return false;
+    },
+    resolvePath(...paths) {
+      return "/";
     },
     generateTitle
   }
@@ -48,5 +62,6 @@ export default {
 .el-menu-item span {
   color: white;
   font-weight: 800;
+  margin-left: 5px;
 }
 </style>

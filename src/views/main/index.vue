@@ -6,8 +6,9 @@
     <div class="main-container">
       <!-- 导航条 -->
       <navbar></navbar>
-      <!-- <tags-view></tags-view>
-      <app-main></app-main>  -->
+      <!-- 顶部路径标签 -->
+      <!-- <tags-view></tags-view> -->
+      <app-main></app-main>
     </div>
   </div>
 </template>
@@ -15,10 +16,12 @@
 <script>
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import AppMain from "./AppMain";
 export default {
   components: {
     Navbar,
-    Sidebar
+    Sidebar,
+    AppMain
   }
 };
 </script>
@@ -29,6 +32,14 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  //内容栏
+  .main-container {
+    min-height: 100%;
+    transition: margin-left 0.28s;
+    margin-left: 180px;
+    position: relative;
+  }
+
   // 侧边栏
   .sidebar-container {
     transition: width 0.28s;
@@ -41,6 +52,7 @@ export default {
     left: 0;
     z-index: 1001;
     overflow: hidden;
+    background-color: rgb(48, 65, 86);
   }
 }
 </style>
