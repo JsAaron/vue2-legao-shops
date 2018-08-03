@@ -5,6 +5,7 @@ const getters = {
   token: state => state.user.token, //cookise
   roles: state => state.user.roles,
   addRouters: state => state.permission.addRouters, //动态路由
+  // 获取许可的路由规则
   permission_routers: state => state.permission.routers, //左边路由
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews

@@ -1,6 +1,6 @@
 export default {
   route: {
-    dashboard: "首页",
+    home: "首页",
     shop: "商铺管理",
     repertory: "库管管理",
     member: "会员管理",
@@ -14,7 +14,7 @@ export default {
   },
   navbar: {
     logOut: "退出登录",
-    dashboard: "首页",
+    home: "首页",
     screenfull: "全屏",
     theme: "换肤",
     switchUser: "切换用户"

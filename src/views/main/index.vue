@@ -2,12 +2,13 @@
   <div class="app-wrapper">
     <!-- 左边导航 -->
     <sidebar class="sidebar-container"></sidebar>
-    <!-- 右边主体内容 -->
+    <!-- 右边内容 -->
     <div class="main-container">
-      <!-- 导航条 -->
+      <!-- 顶部导航条 -->
       <navbar></navbar>
       <!-- 顶部路径标签 -->
       <!-- <tags-view></tags-view> -->
+      <!-- 底部内容 -->
       <app-main></app-main>
     </div>
   </div>
@@ -18,6 +19,9 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import AppMain from "./AppMain";
 export default {
+  data() {
+    return {};
+  },
   components: {
     Navbar,
     Sidebar,

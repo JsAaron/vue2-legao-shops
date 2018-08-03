@@ -1,5 +1,8 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
+
+    <h2>乐高租赁门店管理系统</h2>
+
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
 
@@ -61,9 +64,10 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
-  line-height: 50px;
   border-radius: 0px !important;
+  h2 {
+    text-align: center;
+  }
   .hamburger-container {
     line-height: 58px;
     height: 50px;

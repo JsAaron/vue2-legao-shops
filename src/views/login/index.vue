@@ -159,7 +159,7 @@ export default {
       @include borderRadius(5px);
     }
     .login-left {
-      background-image: url("../../assets/images/login.png");
+      background-image: url("../../images/login.png");
       background-size: 100% 100%;
     }
     .login-right {

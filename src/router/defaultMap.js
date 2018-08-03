@@ -10,15 +10,15 @@ export default [
   {
     path: "",
     component: Main,
-    redirect: "dashboard",
+    redirect: "home",
     children: [
       {
-        path: "dashboard",
-        component: () => import("@/views/dashboard/index"),
-        name: "dashboard",
+        path: "home",
+        component: () => import("@/views/home/index"),
+        name: "home",
         meta: {
-          title: "dashboard",
-          icon: "dashboard",
+          title: "home",
+          icon: "home",
           noCache: true
         }
       }
