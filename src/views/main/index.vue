@@ -48,7 +48,6 @@ export default {
     width: 180px !important;
     height: 100%;
     position: fixed;
-    font-size: 0px;
     top: 0;
     bottom: 0;
     left: 0;

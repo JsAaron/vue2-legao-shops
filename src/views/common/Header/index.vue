@@ -83,8 +83,9 @@ export default {
   .right-menu {
     float: right;
     height: 50px;
-    .title {
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &:focus {
       outline: none;
     }

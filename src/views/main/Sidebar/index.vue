@@ -1,8 +1,13 @@
 <template>
   <section class="bar-logo">
-    <hgroup>
-      <header><img src="../../../images/sidebar.png" class="imation_opactiy" /></header>
-    </hgroup>
+    <!-- logo -->
+    <header>
+      <img src="../../../images/sidebar.png" />
+      <p>
+        <span>长沙喜盈门范城店</span>
+      </p>
+    </header>
+    <!-- 列表 -->
     <el-scrollbar wrapClass="scrollbar-wrapper">
       <el-menu mode="vertical" :show-timeout="200" :default-active="$route.path" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
         <bar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"></bar-item>
@@ -25,11 +30,28 @@ export default {
 
 <style lang="scss" scoped>
 .bar-logo {
-  hgroup {
+  header {
+    text-align: center;
     width: 100%;
     height: 100px;
-    @include setFJ(center);
-    margin-top: 30px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    img {
+      margin-bottom: 5px;
+    }
+    p {
+      background-color: darkgrey;
+      width: 80%;
+      margin: 0 auto;
+      height: 30px;
+      @include borderRadius(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    span {
+      @include setFontColor(0.8rem, white);
+    }
   }
 }
 // .scrollbar-wrapper {
