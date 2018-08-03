@@ -14,7 +14,7 @@
       <ul>
         <!-- 排除home -->
         <li v-for="(route, index) in permission_routers" :key="index" v-if="!route.hidden&&route.children&&route.children[0].name!=='home'">
-          <router-link to="/foo" tag="div" class="img-wrapper">
+          <router-link to="/foo" tag="div" class="img-wrapper" :to="resolvePath(route.path,route.children[0].path)">
             <img src="../../images/home-nav.png" />
             <p>{{generateTitle(route.children[0].meta.title)}}</p>
           </router-link>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import path from "path";
 import { generateTitle } from "@/utils/i18n.js";
 import { mapGetters } from "vuex";
 // console.log(12443);
@@ -35,12 +36,11 @@ export default {
       currentRole: "home"
     };
   },
-  data() {
-    console.log(this.permission_routers);
-    return {};
-  },
   methods: {
-    generateTitle
+    generateTitle,
+    resolvePath(basePath, ...paths) {
+      return path.resolve(basePath, ...paths);
+    }
   },
   computed: {
     ...mapGetters(["permission_routers"])

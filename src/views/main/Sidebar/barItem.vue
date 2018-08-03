@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import path from "path";
 import { generateTitle } from "@/utils/i18n.js";
 export default {
   props: {
@@ -50,8 +51,11 @@ export default {
       }
       return false;
     },
+    /**
+     * 解析出路由地址
+     */
     resolvePath(...paths) {
-      return "/";
+      return path.resolve(this.basePath, ...paths);
     },
     generateTitle
   }
