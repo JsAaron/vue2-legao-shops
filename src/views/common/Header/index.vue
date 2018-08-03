@@ -1,13 +1,12 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
-
     <h2>乐高租赁门店管理系统</h2>
-
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
 
     <!-- 右边菜单，有退出 -->
     <div class="right-menu">
+      <span class="title">长沙喜盈门范城店</span>
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
@@ -83,7 +82,9 @@ export default {
   }
   .right-menu {
     float: right;
-    height: 100%;
+    height: 50px;
+    .title {
+    }
     &:focus {
       outline: none;
     }

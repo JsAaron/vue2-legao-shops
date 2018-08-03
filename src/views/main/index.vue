@@ -5,9 +5,7 @@
     <!-- 右边内容 -->
     <div class="main-container">
       <!-- 顶部导航条 -->
-      <navbar></navbar>
-      <!-- 顶部路径标签 -->
-      <!-- <tags-view></tags-view> -->
+      <head-top></head-top>
       <!-- 底部内容 -->
       <app-main></app-main>
     </div>
@@ -16,14 +14,14 @@
 
 <script>
 import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
+import HeadTop from "../common/Header";
 import AppMain from "./AppMain";
 export default {
   data() {
     return {};
   },
   components: {
-    Navbar,
+    HeadTop,
     Sidebar,
     AppMain
   }
