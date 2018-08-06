@@ -14,7 +14,7 @@
 
 <script>
 import Sidebar from "./Sidebar";
-import HeadTop from "../common/Header";
+import HeadTop from "../common/header";
 import AppMain from "./AppMain";
 export default {
   data() {

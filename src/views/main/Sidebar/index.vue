@@ -1,5 +1,5 @@
 <template>
-  <section class="bar-logo">
+  <section class="sidebar-wrapper">
     <!-- logo -->
     <header>
       <img src="../../../images/sidebar.png" />
@@ -8,7 +8,8 @@
       </p>
     </header>
     <!-- 列表 -->
-    <el-scrollbar wrapClass="scrollbar-wrapper">
+    <!-- https://qiqihaobenben.github.io/Front-End-Basics/project/el-scrollbar -->
+    <el-scrollbar class="scrollbar-wrapper">
       <el-menu mode="vertical" :show-timeout="200" :default-active="$route.path" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
         <bar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"></bar-item>
       </el-menu>
@@ -29,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bar-logo {
+.sidebar-wrapper {
   header {
     text-align: center;
     width: 100%;
@@ -53,11 +54,11 @@ export default {
       @include setFontColor(0.8rem, white);
     }
   }
+  .scrollbar-wrapper {
+    height: 100%;
+    .el-scrollbar__warp {
+      overflow: y;
+    }
+  }
 }
-// .scrollbar-wrapper {
-//   overflow-x: hidden !important;
-//   .el-scrollbar__view {
-//     height: 100%;
-//   }
-// }
 </style>
