@@ -2,7 +2,7 @@ export default {
   route: {
     home: "首页",
     shop: "店铺管理",
-    repertory: "库管管理",
+    stock: "库存管理",
     member: "会员管理",
     order: "订单管理",
     sell: "会员卡销售",

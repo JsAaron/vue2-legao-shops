@@ -28,7 +28,7 @@ export default {
       tableData: [
         {
           user: "管理员",
-          name: "王小虎"
+          name: "老板"
         },
         {
           user: "子账号",
@@ -74,12 +74,10 @@ export default {
   .shop-layout {
     width: 70%;
     @include borderRadius(15px);
-    padding-bottom: 35px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding-bottom: 40px;
   }
 }
 </style>
