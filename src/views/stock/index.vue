@@ -1,36 +1,84 @@
 <template>
-  <div class="tab-container">
-    <el-tag>mounted times ：{{createdTimes}}</el-tag>
-    <el-alert style="width:200px;display:inline-block;vertical-align: middle;margin-left:30px;" title="Tab with keep-alive" type="success" :closable="false">
-    </el-alert>
-    <el-tabs style='margin-top:15px;' v-model="activeName" type="border-card">
-      <el-tab-pane v-for="item in tabMapOptions" :label="item.label" :key='item.key' :name="item.key">
-      </el-tab-pane>
-    </el-tabs>
+  <div class="stock-container">
+    <!-- 搜索，过滤 -->
+    <div class="filter-container">
+      <el-form ref="form" :model="form">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="产品编号：">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="产品货号：">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="所属卡：">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+
+        </el-row>
+
+        <el-row>
+
+          <el-col :span="8">
+            <el-form-item label="所属门店：">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="库存状态：">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+          </el-col>
+
+        </el-row>
+
+      </el-form>
+
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: "tab",
-  components: { tabPane },
   data() {
     return {
-      tabMapOptions: [
-        { label: "China", key: "CN" },
-        { label: "USA", key: "US" },
-        { label: "Japan", key: "JP" },
-        { label: "Eurozone", key: "EU" }
-      ],
-      activeName: "CN",
-      createdTimes: 0
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      }
     };
   }
 };
 </script>
 
-<style scoped>
-.tab-container {
-  margin: 30px;
+<style lang="scss" scoped>
+.stock-container {
+  .filter-container {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+    .el-form-item {
+      display: flex;
+      font-weight: 800;
+    }
+    .el-form-item {
+      margin-bottom: 10px;
+    }
+  }
 }
 </style>
