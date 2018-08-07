@@ -66,6 +66,8 @@ export default {
   border-radius: 0px !important;
   h2 {
     text-align: center;
+    padding-top: 20px;
+    padding-bottom: 10px;
   }
   .hamburger-container {
     line-height: 58px;
