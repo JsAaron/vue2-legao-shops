@@ -134,8 +134,8 @@
 
         <el-table-column 
           align="center" 
-          label="操作"
-          class-name="small-padding fixed-width"> 
+          width="120" 
+          label="操作"> 
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>
           </template>
