@@ -1,5 +1,6 @@
 <template>
   <div class="stock-container">
+
     <!-- 搜索，过滤 -->
     <div class="filter-container">
 
@@ -151,13 +152,13 @@
     <!-- 底部页码导航 -->
     <div class="pagination-container">
       <el-pagination
+        background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage1"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-sizes="[10,20,50,100]"
+        :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total="100">
       </el-pagination>
     </div>
 
@@ -238,11 +239,8 @@ export default {
       multipleSelection: [],
       //全选
       checked: false,
-      //分页
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+      //分页数据
+      pageDate: {}
     };
   },
   created() {
@@ -255,7 +253,7 @@ export default {
     getList() {
       var temp = {
         id: 1,
-        typeId: 856,
+        typeId: 345,
         cardType: "大王卡",
         name: "王小虎",
         poductId: "76849-01-01-02",

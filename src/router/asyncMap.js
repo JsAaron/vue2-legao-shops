@@ -20,16 +20,16 @@ export default [
     ]
   },
   {
-    path: "/stock",
+    path: "/inventory",
     component: Main,
     children: [
       {
         path: "index",
-        component: () => import("@/views/stock/index"),
-        name: "stock",
+        component: () => import("@/views/inventory/index"),
+        name: "inventory",
         meta: {
-          title: "stock",
-          icon: "stock"
+          title: "inventory",
+          icon: "inventory"
         }
       }
     ]
