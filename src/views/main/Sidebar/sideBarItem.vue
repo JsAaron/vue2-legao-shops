@@ -1,13 +1,13 @@
 <template>
   <div v-if="!item.hidden&&item.children" class="menu-wrapper">
-
     <router-link v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow" :to="resolvePath(onlyOneChild.path)">
-      <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-        <icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" :scale="1.5"></icon>
-        <span v-if="onlyOneChild.meta&&onlyOneChild.meta.title" slot="title">{{generateTitle(onlyOneChild.meta.title)}}</span>
-      </el-menu-item>
+        <el-menu-item 
+          :index="resolvePath(onlyOneChild.path)" 
+          :class="{'submenu-title-noDropdown':!isNest}">
+            <icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" :scale="1.5"></icon>
+            <span v-if="onlyOneChild.meta&&onlyOneChild.meta.title" slot="title">{{generateTitle(onlyOneChild.meta.title)}}</span>
+        </el-menu-item>
     </router-link>
-
   </div>
 </template>
 

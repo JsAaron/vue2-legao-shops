@@ -318,7 +318,7 @@ export default {
     }
   }
   .pagination-container {
-    margin-top: 30px;
+    margin-top: 20px;
     .el-pagination {
       width: 50%;
       float: right;

@@ -10,8 +10,13 @@
     <!-- 列表 -->
     <!-- https://qiqihaobenben.github.io/Front-End-Basics/project/el-scrollbar -->
     <el-scrollbar class="scrollbar-wrapper">
-      <el-menu mode="vertical" :show-timeout="200" :default-active="$route.path" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
-        <bar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"></bar-item>
+      <el-menu mode="vertical" 
+        :show-timeout="200" 
+        :default-active="$route.path" 
+        background-color="#304156" 
+        text-color="#bfcbd9" 
+        active-text-color="#409EFF">
+        <sideBar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"></sideBar-item>
       </el-menu>
     </el-scrollbar>
   </section>
@@ -19,10 +24,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import BarItem from "./barItem";
+import sideBarItem from "./sideBarItem";
 
 export default {
-  components: { BarItem },
+  components: { sideBarItem },
   computed: {
     ...mapGetters(["permission_routers"])
   }
@@ -62,3 +67,4 @@ export default {
   }
 }
 </style>
+
