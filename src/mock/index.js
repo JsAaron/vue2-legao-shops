@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 import loginAPI from "./login";
+import InventoryAPI from "./inventory";
 
 // const Random = Mock.Random
 // Random.domain() //   "nhou.org.cn"
@@ -9,5 +10,8 @@ import loginAPI from "./login";
 Mock.mock(/\/login\/login/, "post", loginAPI.loginByUsername);
 Mock.mock(/\/login\/logout/, "post", loginAPI.logout);
 Mock.mock(/\/user\/info\.*/, "get", loginAPI.getUserInfo);
+
+//库存
+Mock.mock(/\/inventory\/list/, "get", InventoryAPI.getList);
 
 export default Mock;

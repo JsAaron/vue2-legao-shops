@@ -72,8 +72,9 @@
     <!-- 主体列表查询 -->
     <div class="stock-list">
       <el-table
+        v-loading="listLoading" 
         ref="multipleTable"
-        :data="tableData"
+        :data="list"
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange">
@@ -116,7 +117,7 @@
         <el-table-column
           prop="shopName"
           align="center"
-           width="100"
+          width="100"
           label="所属门店">
         </el-table-column>
         <el-table-column
@@ -143,9 +144,9 @@
 
       </el-table>
       <div style="margin-top: 20px">
-        <el-checkbox v-model="checked" class="all-checkbox">全选</el-checkbox>
-        <el-button @click="toggleSelection([tableData3[1], tableData3[2]])">进货确定</el-button>
-        <el-button @click="toggleSelection()">退回总部</el-button>
+        <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
+        <el-button @click="replenishSelection()">进货确定</el-button>
+        <el-button @click="returnSelection()">退回总部</el-button>
       </div>
     </div>
 
@@ -155,10 +156,10 @@
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[10,20,50,100]"
-        :page-size="10"
+        :page-sizes="[5,10,20,50,100]"
+        :page-size="listQuery.limit"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="100">
+        :total="total">
       </el-pagination>
     </div>
 
@@ -167,9 +168,24 @@
 </template>
 
 <script>
+import { fetchList } from "@/api/inventory";
+import Button from "./button";
 export default {
+  components: {
+    Button
+  },
   data() {
     return {
+      //数据列表
+      list: null,
+      total: null,
+      //加载进度条
+      listLoading: true,
+      //列表查询条件
+      listQuery: {
+        page: 1, //取第几个页面
+        limit: 5 //多少条数据
+      },
       form: {
         id: "", //产品编号
         poductId: "", //产品货号
@@ -234,8 +250,7 @@ export default {
           label: "出货确定"
         }
       ],
-      //数据列表
-      tableData: [],
+      //多选项内容
       multipleSelection: [],
       //全选
       checked: false,
@@ -247,28 +262,39 @@ export default {
     this.getList();
   },
   methods: {
+    test() {
+      console.log(123);
+    },
     /**
      * 获取数据列表
      */
     getList() {
-      var temp = {
-        id: 1,
-        typeId: 345,
-        cardType: "大王卡",
-        name: "王小虎",
-        poductId: "76849-01-01-02",
-        productName:
-          "喷气机：蝙蝠战车空运攻击喷气机：蝙蝠战车空运攻击喷气机：蝙蝠战车空运攻击",
-        shopName: "喜盈门",
-        integrity: "完整",
-        inventory: "已借出"
-      };
-      for (var i = 1; i < 11; i++) {
-        var data = Object.assign({}, temp);
-        data.id = i;
-        this.tableData.push(data);
-      }
+      this.listLoading = true; //每次重新获取，需要处理
+      fetchList(this.listQuery).then(response => {
+        this.list = response.data.items;
+        this.total = response.data.total;
+        setTimeout(() => {
+          this.listLoading = false;
+        }, 200);
+      });
     },
+    /**
+     * 改变每页显示的数量
+     */
+    handleSizeChange(val) {
+      this.listQuery.limit = val;
+      this.getList();
+    },
+    /**
+     * 改变当前页码
+     */
+    handleCurrentChange(val) {
+      this.listQuery.page = val;
+      this.getList();
+    },
+    /**
+     * 选择row
+     */
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -278,17 +304,23 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
+    /**
+     * 进货确定
+     */
+    replenishSelection() {
+      if (this.multipleSelection.length) {
+        const list = this.multipleSelection;
+      }
+    },
+    /**
+     * 退回总部
+     */
+    returnSelection() {},
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
     onSubmit() {
       console.log(this.form);
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
     }
   }
 };

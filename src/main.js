@@ -6,12 +6,13 @@ import App from "./App";
 //css复位
 // import "normalize.css/normalize.css";
 
-//element-ui
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-
 //全局css
 import "@/styles/index.scss";
+
+//element-ui
+import ElementUI from "element-ui";
+// import "element-ui/lib/theme-chalk/index.css";
+import "@/styles/element-ui.scss";
 
 //国际化
 import i18n from "./lang";
