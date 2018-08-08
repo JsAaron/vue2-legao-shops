@@ -1,6 +1,6 @@
-<template>
-  <el-menu class="navbar" mode="horizontal">
-    <h2>乐高租赁门店管理系统</h2>
+`<template>
+  <el-menu class="legao-navbar" mode="horizontal">
+    <h2>读酷儿童智力馆门店管理系统</h2>
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
 
@@ -60,10 +60,18 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.legao-navbar {
+  // 清空背景颜色
+  background-color: transparent;
+  border: none;
+}
+</style>
+
 
 <style lang="scss" scoped>
-.navbar {
-  border-radius: 0px !important;
+.legao-navbar {
+  color: white;
   h2 {
     text-align: center;
     padding-top: 20px;

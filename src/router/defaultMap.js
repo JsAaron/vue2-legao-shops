@@ -8,20 +8,8 @@ export default [
     hidden: true //路由列表中，不显示
   },
   {
-    path: "",
-    component: Main,
-    redirect: "home",
-    children: [
-      {
-        path: "home",
-        component: () => import("@/views/home/index"),
-        name: "home",
-        meta: {
-          title: "home",
-          icon: "home",
-          noCache: true
-        }
-      }
-    ]
+    path: "/home",
+    component: () => import("@/views/home"),
+    hidden: true //路由列表中，不显示
   }
 ];
