@@ -6,46 +6,58 @@
     </header>
     <!-- 主题显示 -->
     <nav class="home-nav">
-      <div class="nav-layer">
-        <div class="nav-left">
+      <!-- 左边logo金额 -->
+      <div class="nav-left">
+        <div class="logo-top">
           <figure>
             <img src="../../images/home/logo.png" width="107" />
             <p><span>长沙喜盈门范城店</span></p>
           </figure>
-          <section>
-            <h1>今日付款金额</h1>
-            <div>
-              <span>¥</span>
-              <span>99.99</span>
+        </div>
+        <div class="logo-bottom">
+          <h1>今日付款金额</h1>
+          <h2>
+            <span>¥</span>
+            <span>99.99</span>
+          </h2>
+        </div>
+      </div>
+      <!-- 右边导航 -->
+      <div class="nav-right">
+        <ul>
+          <li v-for="item in routers.top" :key="item.id">
+            <router-link :to="item.path">
+              <figure>
+                <img :src="item.url"/>
+                <figcaption>{{generateTitle(item.title)}}</figcaption>
+              </figure>
+            </router-link>
+          </li>
+        </ul>
+        <div class="nav-border"></div>
+        <ul>
+          <li v-for="item in routers.middle" :key="item.id">
+           <figure>
+              <img :src="item.url"/>
+              <figcaption>{{generateTitle(item.title)}}</figcaption>
+            </figure>
+          </li>
+          <li class="man-layout">           
+            <div class="nav-man">
+              <img src="../../images/home/plane.png"  />
+              <img src="../../images/home/man.png"  />
             </div>
-          </section>
-        </div>
-        <div class="nav-right">
-          <ul>
-            <li><div>1</div></li>
-            <li><div>2</div></li>
-            <li><div>3</div></li>
-            <li><div>10</div></li>
-          </ul>
-          <div class="nav-border"></div>
-          <ul>
-            <li><div>4</div></li>
-            <li><div>5</div></li>
-            <li><div>6</div></li>
-            <li class="man-layout">           
-              <div class="nav-man">
-                <img src="../../images/home/plane.png"  />
-                <img src="../../images/home/man.png"  />
-              </div>
-            </li>
-          </ul>
-          <div class="nav-border"></div>
-          <ul>
-            <li><div>7</div></li>
-            <li><div>8</div></li>
-            <li><div>9</div></li>
-          </ul>
-        </div>
+          </li>
+        </ul>
+        <div class="nav-border"></div>
+        <ul>
+          <li v-for="item in routers.bottom" :key="item.id">
+           <figure>
+              <img :src="item.url"/>
+              <figcaption>{{generateTitle(item.title)}}</figcaption>
+            </figure>
+          </li>
+        </ul>
       </div>
     </nav>
   </div>
@@ -53,27 +65,45 @@
 
 <script>
 import path from "path";
-import { generateTitle } from "@/utils/i18n.js";
 import { mapGetters } from "vuex";
 import HeadTop from "../common/header";
-
+import { generateTitle } from "@/utils/i18n";
 export default {
   name: "home",
   data() {
     return {
-      currentRole: "home"
+      imgBaseUrl: "../../images/home/",
+      currentRole: "home",
+      //路由列表
+      routers: {
+        top: [],
+        middle: [],
+        bottom: []
+      }
     };
   },
   methods: {
-    generateTitle,
-    resolvePath(basePath, ...paths) {
-      return path.resolve(basePath, ...paths);
-    }
+    generateTitle
   },
   computed: {
     ...mapGetters(["permission_routers"])
   },
-  created() {},
+  created() {
+    //初始化路由表结构
+    this.permission_routers.forEach(
+      function(item, index, array) {
+        if (!item.hidden) {
+          const meta = item.children[0].meta;
+          const pos = meta.group;
+          if (this.routers[pos]) {
+            meta.url = require("../../images/home/" + meta.url);
+            meta.path = path.resolve(item.path, item.children[0].path);
+            this.routers[pos].push(meta);
+          }
+        }
+      }.bind(this)
+    );
+  },
   components: {
     HeadTop
   }
@@ -87,54 +117,57 @@ export default {
   background-image: url("../../images/login/background.png");
 }
 .home-header {
-  width: 85%;
+  width: 17rem;
   margin: 0 auto;
 }
 .home-nav {
-  margin-top: 20px;
-  height: 80%;
-  .nav-layer {
-    width: 85%;
-    height: 100%;
-    margin: 0 auto;
-  }
+  width: 17rem;
+  margin: 0 auto;
   .nav-left {
-    width: 25%;
     float: left;
     text-align: center;
-    height: 80%;
+    @include setWH(4.05rem, 7rem);
     background-color: #efb526;
-    @include borderRadius(10px);
-    figure {
-      margin-top: 50px;
+    @include borderRadius(0.1rem);
+    .logo-top {
+      height: 50%;
+      figure {
+        height: 100%;
+        @include flexCenter(column);
+        img {
+          @include setWH(1.07rem, 1.07rem);
+          margin-top: -0.5rem;
+          margin-bottom: 0.2rem;
+        }
+        p {
+          @include setWH(1.91rem, 0.3rem);
+          line-height: 0.3rem;
+          background-color: white;
+          @include borderRadius(0.2rem);
+          margin: 0 auto;
+          color: red;
+          font-size: 0.15rem;
+          font-weight: 800;
+        }
+      }
     }
-    p {
-      background-color: white;
-      @include borderRadius(20px);
-      width: 60%;
-      margin: 0 auto;
-      margin-top: 10px;
-      padding: 3px;
-      color: red;
-      font-size: 1rem;
-      font-weight: 800;
-    }
-    section {
-      margin-top: 50px;
+    .logo-bottom {
       color: white;
       h1 {
-        font-size: 1.5rem;
-        font-weight: bold;
+        @include setWH(2.25rem, 0.5rem);
+        font-size: 0.3rem;
+        margin: 0 auto;
       }
-      span {
-        font-size: 3rem;
-        font-weight: bold;
+      h2 {
+        @include setWH(2.9rem, 1.03rem);
+        font-size: 0.6rem;
+        margin: 0 auto;
       }
     }
   }
   .nav-right {
-    width: 75%;
-    height: 80%;
+    width: 12.95rem;
+    height: 7rem;
     display: flex;
     flex-direction: column;
     ul {
@@ -143,28 +176,43 @@ export default {
       li {
         flex: 1;
         background: #fd6861;
-        margin-left: 5px;
-        @include borderRadius(10px);
+        margin-left: 0.05rem;
+        @include borderRadius(0.1rem);
+        figure {
+          height: 100%;
+          @include flexCenter(column);
+          img {
+            @include setWH(1.13rem, 1.13rem);
+          }
+          figcaption {
+            color: white;
+            margin-top: 0.1rem;
+            font-size: 0.25rem;
+            height: 0.3rem;
+          }
+        }
       }
     }
     ul:last-child {
       width: 75%;
     }
+    //撑开边线
     .nav-border {
-      height: 5px;
+      height: 0.05rem;
     }
     .man-layout {
       background: transparent;
+      position: relative;
       .nav-man {
-        width: 100%;
-        text-align: center;
-        img {
-          width: 80%;
-          display: block;
-          margin: 0 auto;
-        }
+        @include flexCenter(column);
+        height: 100%;
+        position: absolute;
+        top: 1rem;
         img:first-child {
-          width: 50%;
+          @include setWH(1.72rem, 8.7rem);
+        }
+        img:last-child {
+          @include setWH(3.4rem, 3.4rem);
         }
       }
     }

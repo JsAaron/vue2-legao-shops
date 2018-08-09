@@ -27,6 +27,9 @@ import Icon from "vue-svg-icon/Icon.vue";
 //模拟数据
 import "./mock";
 
+//弹性布局
+import "@/config/rem";
+
 Vue.component("icon", Icon);
 
 //fix click 300ms

@@ -148,7 +148,9 @@ export default {
   position: fixed;
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, rgb(254, 205, 204), rgb(227, 102, 122));
+  background-image: url("../../images/login/background.png");
+  background-size: 100% 100%;
+
   .login-box {
     width: 900px;
     height: 550px;
@@ -159,7 +161,7 @@ export default {
       @include borderRadius(5px);
     }
     .login-left {
-      background-image: url("../../images/login.png");
+      background-image: url("../../images/login/landing.png");
       background-size: 100% 100%;
     }
     .login-right {
@@ -198,8 +200,6 @@ export default {
       .el-button {
         width: 150px;
         height: 45px;
-        background: red;
-        border-color: none;
       }
     }
   }

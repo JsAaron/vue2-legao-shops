@@ -33,7 +33,9 @@ export default function(router) {
             store.dispatch("GENERAT_ROUTES", { roles }).then(() => {
               // 动态添加可访问路由表
               router.addRoutes(store.getters.addRouters);
+              // router.addRoutes(store.getters.addRouters);
               next({ ...to, replace: true });
+              // next({ path: "/home", replace: true });
             });
           });
         } else {

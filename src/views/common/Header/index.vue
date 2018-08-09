@@ -1,8 +1,7 @@
 `<template>
   <el-menu class="legao-navbar" mode="horizontal">
     <h2>读酷儿童智力馆门店管理系统</h2>
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-    <breadcrumb class="breadcrumb-container"></breadcrumb>
+    <breadcrumb class="breadcrumb-container"></breadcrumb> 
 
     <!-- 右边菜单，有退出 -->
     <div class="right-menu">
@@ -30,13 +29,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Breadcrumb from "@/components/Breadcrumb";
-import Hamburger from "@/components/Hamburger";
+import Breadcrumb from "./Breadcrumb";
 
 export default {
   components: {
-    Breadcrumb,
-    Hamburger
+    Breadcrumb
   },
   computed: {
     ...mapGetters(["sidebar", "name", "avatar"])
@@ -62,73 +59,51 @@ export default {
 </script>
 <style lang="scss">
 .legao-navbar {
+  width: 100%;
   // 清空背景颜色
   background-color: transparent;
   border: none;
 }
 </style>
 
-
 <style lang="scss" scoped>
 .legao-navbar {
+  height: 2rem;
   color: white;
   h2 {
+    font-size: 0.6rem;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 10px;
+    padding: 0.2rem;
   }
-  .hamburger-container {
-    line-height: 58px;
-    height: 50px;
-    float: left;
-    padding: 0 10px;
-  }
+  //导航
   .breadcrumb-container {
     float: left;
   }
-  .errLog-container {
-    display: inline-block;
-    vertical-align: top;
-  }
+  //右边菜单
   .right-menu {
     float: right;
-    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    &:focus {
-      outline: none;
+    .title {
+      font-size: 0.2rem;
     }
     .right-menu-item {
       display: inline-block;
-      margin: 0 8px;
+      margin: 0 0.3rem;
     }
-    .screenfull {
-      height: 20px;
-    }
-    .international {
-      vertical-align: top;
-    }
-    .theme-switch {
-      vertical-align: 15px;
-    }
+    //切换退出按钮
     .avatar-container {
-      height: 50px;
-      margin-right: 30px;
+      height: 0.5rem;
+      margin-right: 0.3rem;
       .avatar-wrapper {
         cursor: pointer;
-        margin-top: 5px;
+        margin-top: 0.05rem;
         position: relative;
         .user-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-        .el-icon-caret-bottom {
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
+          width: 0.4rem;
+          height: 0.4rem;
+          border-radius: 0.1rem;
         }
       }
     }
