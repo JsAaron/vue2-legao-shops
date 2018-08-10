@@ -31,9 +31,9 @@
           <!-- 底部 -->
           <div class="foot">
             <!-- 忘记密码 -->
-            <div class="forgot-password">
+            <!-- <div class="forgot-password">
               <span @click="forgotPassword">忘记密码</span>
-            </div>
+            </div> -->
             <!--  登录按钮 -->
             <el-button type="primary" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
           </div>
@@ -97,7 +97,7 @@ export default {
           this.RECORD_USERINFO(this.loginForm)
             .then(() => {
               this.loading = false;
-              this.$router.push({ path: "/" });
+              this.$router.push({ path: "/home" });
             })
             .catch(() => {
               console.log("登录错误");
@@ -130,6 +130,9 @@ export default {
       padding: 12px 5px 12px 15px;
       height: 27px;
     }
+    .login-right .el-form-item {
+      float: none;
+    }
   }
   .el-button--primary {
     border-color: antiquewhite;
@@ -145,61 +148,64 @@ export default {
 
 <style lang="scss" scoped>
 .login-container {
-  position: fixed;
   height: 100%;
   width: 100%;
   background-image: url("../../images/login/background.png");
   background-size: 100% 100%;
-
+  position: relative;
   .login-box {
-    width: 900px;
-    height: 550px;
+    @include setWH(12.49rem, 7.83rem);
     @include setCenter;
-    display: flex;
-    div {
-      flex: 1;
-      @include borderRadius(5px);
+    .login-left,
+    .login-right {
+      @include borderRadius(0.1rem);
+      float: left;
     }
     .login-left {
+      @include setWH(7.28rem, 7.83rem);
       background-image: url("../../images/login/landing.png");
       background-size: 100% 100%;
     }
     .login-right {
+      @include setWH(5.21rem, 7.83rem);
       background-color: white;
       position: relative;
-    }
-    .login-form {
-      @include setCenter;
-      width: 70%;
-    }
-    .title-container {
-      margin-bottom: 10px;
-      h2 {
-        font-weight: 800;
-        margin-bottom: 5px;
-        font-size: 1.8rem;
+      .login-form {
+        @include setCenter;
+        top: 43%;
+        width: 4.25rem;
       }
-      .subtitle {
-        color: #9c9c9c;
-        font-size: 1.1rem;
+      .title-container {
+        margin-bottom: 0.3rem;
+        h2 {
+          font-weight: 800;
+          margin-bottom: 0.3rem;
+          font-size: 0.5rem;
+        }
+        .subtitle {
+          color: #9c9c9c;
+          font-size: 0.2rem;
+        }
       }
-    }
-    .show-pwd {
-      cursor: pointer;
-    }
-    .forgot-password {
-      display: inline-block;
-      cursor: pointer;
-      @include setFontColor(0.7rem, #9c9c9c);
-    }
-    .el-form-item {
-      border-bottom: 1px solid rgb(200, 200, 200);
-    }
-    .foot {
-      @include setFJ;
-      .el-button {
-        width: 150px;
-        height: 45px;
+      .show-pwd {
+        cursor: pointer;
+      }
+      .forgot-password {
+        display: inline-block;
+        cursor: pointer;
+        @include setFontColor(0.7rem, #9c9c9c);
+      }
+      .el-form-item {
+        padding: 0.1rem;
+        border-bottom: 1px solid rgb(200, 200, 200);
+      }
+      .foot {
+        @include setFJ;
+        padding-top: 0.2rem;
+        .el-button {
+          width: 1.94rem;
+          height: 0.54rem;
+        }
       }
     }
   }

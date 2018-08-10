@@ -201,15 +201,15 @@ export default {
       height: 0.05rem;
     }
     .man-layout {
+      margin-top: 0.05rem;
+      @include setWH(2.86rem, 4.5rem);
       background: transparent;
       position: relative;
       .nav-man {
         @include flexCenter(column);
-        height: 100%;
         position: absolute;
-        top: 1rem;
         img:first-child {
-          @include setWH(1.72rem, 8.7rem);
+          @include setWH(1.72rem, 1.19rem);
         }
         img:last-child {
           @include setWH(3.4rem, 3.4rem);
