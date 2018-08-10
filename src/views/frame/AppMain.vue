@@ -23,6 +23,8 @@ export default {
 <style scoped>
 .app-main {
   width: 100%;
+  /* 滚动的时候给一个滚动背景 */
+  background: white;
   position: relative;
   overflow: hidden;
 }

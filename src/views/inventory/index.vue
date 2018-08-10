@@ -75,7 +75,7 @@
         ref="multipleTable"
         :data="list"
         tooltip-effect="dark"
-        style="width: 100%"
+        style="padding:0 .5rem;"
         @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
@@ -140,17 +140,19 @@
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>
           </template>
         </el-table-column>
-
       </el-table>
+    </div>
+
+
+    <!-- 底部页码导航 -->
+    <div class="pagination-container">
+
       <div class="checked-bt">
         <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
         <el-button @click="replenishSelection()">进货确定</el-button>
         <el-button @click="returnSelection()">退回总部</el-button>
       </div>
-    </div>
 
-    <!-- 底部页码导航 -->
-    <div class="pagination-container">
       <el-pagination
         background
         @size-change="handleSizeChange"
@@ -334,24 +336,23 @@ export default {
       display: flex;
       font-weight: 800;
       height: 0.33rem;
-      // width: 1.9rem;
-      // margin-bottom: 10px;
     }
   }
   .stock-list {
-    width: 95%;
+    // width: 95%;
     margin: 0 auto;
-    .all-checkbox {
-      // margin-right: 20px;
-      // margin-left: 14px;
-    }
-    .checked-bt {
-      height: 0.4rem;
-    }
   }
   .pagination-container {
+    margin-top: 0.3rem;
+    width: 100%;
+    .checked-bt {
+      font-size: 0;
+      .all-checkbox {
+        margin: 0 0.5rem 0 0.55rem;
+      }
+    }
     .el-pagination {
-      width: 50%;
+      width: 8rem;
       float: right;
     }
   }
