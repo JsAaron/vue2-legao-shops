@@ -61,7 +61,7 @@
 
           <!-- 查询 -->
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
+            <el-button type="primary" @click="onQuery">查询</el-button>
           </el-form-item>
         </el-row>
 
@@ -75,7 +75,6 @@
         ref="multipleTable"
         :data="list"
         tooltip-effect="dark"
-        style="padding:0 .5rem;"
         @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
@@ -149,8 +148,8 @@
 
       <div class="checked-bt">
         <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
-        <el-button @click="replenishSelection()">进货确定</el-button>
-        <el-button @click="returnSelection()">退回总部</el-button>
+        <el-button type="primary" @click="replenishSelection()">进货确定</el-button>
+        <el-button type="primary" @click="returnSelection()">退回总部</el-button>
       </div>
 
       <el-pagination
@@ -164,6 +163,8 @@
       </el-pagination>
     </div>
 
+     <!-- 管理修改 -->
+    <edit-modify :dialogVisible="dialogVisible"></edit-modify>
 
   </div>
 </template>
@@ -171,12 +172,15 @@
 <script>
 import { fetchList } from "@/api/inventory";
 import Button from "./button";
+import EditModify from "./editModify";
 export default {
   components: {
-    Button
+    Button,
+    EditModify
   },
   data() {
     return {
+      dialogVisible: true,
       //数据列表
       list: null,
       total: null,
@@ -263,8 +267,11 @@ export default {
     this.getList();
   },
   methods: {
-    test() {
-      console.log(123);
+    /**
+     * 点击管理
+     */
+    handleUpdate() {
+      this.dialogVisible = true;
     },
     /**
      * 获取数据列表
@@ -320,7 +327,10 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    onSubmit() {
+    /**
+     * 查询
+     */
+    onQuery() {
       console.log(this.form);
     }
   }
@@ -339,7 +349,7 @@ export default {
     }
   }
   .stock-list {
-    // width: 95%;
+    width: 95%;
     margin: 0 auto;
   }
   .pagination-container {
@@ -348,7 +358,7 @@ export default {
     .checked-bt {
       font-size: 0;
       .all-checkbox {
-        margin: 0 0.5rem 0 0.55rem;
+        margin: 0 0.2rem 0 0.55rem;
       }
     }
     .el-pagination {

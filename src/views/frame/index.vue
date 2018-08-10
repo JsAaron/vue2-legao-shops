@@ -59,6 +59,7 @@ export default {
   .sidebar-container {
     width: 2.65rem;
     position: fixed;
+    z-index: 1;
     font-size: 0px;
     top: 0;
     bottom: 0;
