@@ -1,9 +1,9 @@
 <template>
-  <section class="app-main">
+  <div class="app-main">
     <transition name="fade-transform" mode="out-in">
       <router-view></router-view>
     </transition>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -22,8 +22,7 @@ export default {
 
 <style scoped>
 .app-main {
-  /*84 = navbar + tags-view = 50 +34 */
-  min-height: calc(100vh - 84px);
+  width: 100%;
   position: relative;
   overflow: hidden;
 }

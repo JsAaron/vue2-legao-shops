@@ -1,6 +1,6 @@
 `<template>
   <el-menu class="legao-navbar" mode="horizontal">
-    <h2>读酷儿童智力馆门店管理系统</h2>
+    <h1>读酷儿童智力馆门店管理系统</h1>
     <breadcrumb class="breadcrumb-container"></breadcrumb> 
 
     <!-- 右边菜单，有退出 -->
@@ -68,10 +68,10 @@ export default {
 
 <style lang="scss" scoped>
 .legao-navbar {
-  height: 2rem;
-  color: white;
-  h2 {
-    font-size: 0.6rem;
+  height: 100%; //外部容器定义高度
+  color: #242424;
+  h1 {
+    font-size: 0.4rem;
     text-align: center;
     padding: 0.2rem;
   }

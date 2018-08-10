@@ -1,6 +1,3 @@
-/* Layout */
-import Main from "@/views/main";
-
 export default [
   {
     path: "/login",

@@ -113,11 +113,10 @@ export default {
 <style lang="scss" scope>
 .home-container {
   height: 100%;
-  background-size: 100% 100%;
-  background-image: url("../../images/login/background.png");
 }
 .home-header {
   width: 17rem;
+  height: 2rem;
   margin: 0 auto;
 }
 .home-nav {

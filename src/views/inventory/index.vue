@@ -3,7 +3,6 @@
 
     <!-- 搜索，过滤 -->
     <div class="filter-container">
-
       <el-form :model="form">
         <el-row>
           <el-col :span="8">
@@ -143,7 +142,7 @@
         </el-table-column>
 
       </el-table>
-      <div style="margin-top: 20px">
+      <div class="checked-bt">
         <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
         <el-button @click="replenishSelection()">进货确定</el-button>
         <el-button @click="returnSelection()">退回总部</el-button>
@@ -184,7 +183,7 @@ export default {
       //列表查询条件
       listQuery: {
         page: 1, //取第几个页面
-        limit: 5 //多少条数据
+        limit: 10 //多少条数据
       },
       form: {
         id: "", //产品编号
@@ -331,24 +330,26 @@ export default {
   .filter-container {
     width: 90%;
     margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 20px;
     .el-form-item {
       display: flex;
       font-weight: 800;
-      margin-bottom: 10px;
+      height: 0.33rem;
+      // width: 1.9rem;
+      // margin-bottom: 10px;
     }
   }
   .stock-list {
     width: 95%;
     margin: 0 auto;
     .all-checkbox {
-      margin-right: 20px;
-      margin-left: 14px;
+      // margin-right: 20px;
+      // margin-left: 14px;
+    }
+    .checked-bt {
+      height: 0.4rem;
     }
   }
   .pagination-container {
-    margin-top: 20px;
     .el-pagination {
       width: 50%;
       float: right;
@@ -360,8 +361,8 @@ export default {
 <style lang="scss">
 .stock-container {
   .el-table__header th {
-    background-color: rgb(48, 65, 86);
-    @include setFontColor(0.9rem, white);
+    background-color: #4b91cd;
+    @include setFontColor(0.15rem, white);
   }
   .el-table__header th:nth-child(n + 3):before {
     content: "|";

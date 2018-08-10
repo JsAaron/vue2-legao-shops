@@ -150,8 +150,6 @@ export default {
 .login-container {
   height: 100%;
   width: 100%;
-  background-image: url("../../images/login/background.png");
-  background-size: 100% 100%;
   position: relative;
   .login-box {
     @include setWH(12.49rem, 7.83rem);

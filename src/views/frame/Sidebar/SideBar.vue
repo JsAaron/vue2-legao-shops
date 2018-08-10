@@ -63,9 +63,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-menu {
+  border: none;
+}
+.menu-wrapper li {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+.menu-wrapper :hover {
+  background: #ffffff;
+  opacity: 0.3;
+}
 .el-menu-item span {
   color: white;
   font-weight: 800;
-  margin-left: 5px;
+  margin-left: 0.05rem;
 }
 </style>

@@ -1,4 +1,4 @@
-import Main from "@/views/main";
+import Frame from "@/views/frame";
 
 /**
  * 异步路由
@@ -11,7 +11,7 @@ export default [
   //1.库存管理
   {
     path: "/inventory",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -29,7 +29,7 @@ export default [
   //2 订单管理
   {
     path: "/order",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -47,7 +47,7 @@ export default [
   //3.会员管理
   {
     path: "/member",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -65,7 +65,7 @@ export default [
   //4 会员卡销售
   {
     path: "/sell",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -83,7 +83,7 @@ export default [
   //5 会员卡查询
   {
     path: "/query",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -101,7 +101,7 @@ export default [
   //6.产品扫码
   {
     path: "/scanCode",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -119,7 +119,7 @@ export default [
   //7订单扫码销核
   {
     path: "/scanDestroy",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -137,7 +137,7 @@ export default [
   //8 店铺管理
   {
     path: "/shop",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -155,7 +155,7 @@ export default [
   //9 资产管理
   {
     path: "/asset",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",
@@ -173,7 +173,7 @@ export default [
   //10 数据统计
   {
     path: "/statistics",
-    component: Main,
+    component: Frame,
     children: [
       {
         path: "index",

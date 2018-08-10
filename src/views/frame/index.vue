@@ -5,7 +5,9 @@
     <!-- 右边内容 -->
     <div class="main-container">
       <!-- 顶部导航条 -->
-      <head-top></head-top>
+      <div class="head-top">
+        <head-top></head-top>
+      </div>
       <!-- 底部内容 -->
       <app-main></app-main>
     </div>
@@ -30,30 +32,25 @@ export default {
 
 <style lang="scss" scoped>
 .app-wrapper {
-  @include clearfix;
-  position: relative;
   height: 100%;
   width: 100%;
-  //内容栏
+  .sidebar-container,
   .main-container {
-    min-height: 100%;
-    transition: margin-left 0.28s;
-    margin-left: 180px;
-    position: relative;
+    float: left;
+    height: 100%;
   }
-
   // 侧边栏
   .sidebar-container {
-    transition: width 0.28s;
-    width: 180px !important;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1001;
-    overflow: hidden;
-    background-color: rgb(48, 65, 86);
+    width: 2.65rem;
+  }
+  //内容栏
+  .main-container {
+    width: 16.55rem;
+    background-color: white;
+    //重新定义高度
+    .head-top {
+      height: 1.5rem;
+    }
   }
 }
 </style>
