@@ -1,36 +1,81 @@
 <template>
-  <div class="tab-container">
-    <el-tag>mounted times ：{{createdTimes}}</el-tag>
-    <el-alert style="width:200px;display:inline-block;vertical-align: middle;margin-left:30px;" title="Tab with keep-alive" type="success" :closable="false">
-    </el-alert>
-    <el-tabs style='margin-top:15px;' v-model="activeName" type="border-card">
-      <el-tab-pane v-for="item in tabMapOptions" :label="item.label" :key='item.key' :name="item.key">
-      </el-tab-pane>
-    </el-tabs>
+  <div class="order-container">
+    <!-- 搜索，过滤 -->
+    <div class="filter-container">
+      <el-form :model="form">
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="订单编号：">
+              <el-input v-model="form.id"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="会员姓名：">
+              <el-input v-model="form.poductId"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="手机号码：">
+              <el-input v-model="form.poductId"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="产品货号：">
+              <el-input v-model="form.poductId"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="所属门店：">
+              <el-input v-model="form.id"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="订单状态：">
+              <el-input v-model="form.poductId"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="时间：">
+              <el-date-picker
+                v-model="value"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-button type="primary" @click="onQuery">查询</el-button>
+          </el-col>
+        </el-row>
+
+      </el-form>
+    </div>
+
   </div>
 </template>
 
 <script>
+/**
+ * 订单管理
+ */
 export default {
-  name: "tab",
-  components: { tabPane },
   data() {
     return {
-      tabMapOptions: [
-        { label: "China", key: "CN" },
-        { label: "USA", key: "US" },
-        { label: "Japan", key: "JP" },
-        { label: "Eurozone", key: "EU" }
-      ],
-      activeName: "CN",
-      createdTimes: 0
+      value: "",
+      form: {
+        id: "", //产品编号
+        poductId: "", //产品货号
+        cadrValue: "读库通用铂金卡",
+        stockValue: "进货确定",
+        shopValue: "长沙喜盈门范城店"
+      }
     };
   }
 };
 </script>
 
-<style scoped>
-.tab-container {
-  margin: 30px;
-}
-</style>

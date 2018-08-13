@@ -165,17 +165,17 @@
 
      <!-- 管理修改 -->
     <edit-modify  @close-dialog="closeDialog" :dialogVisible="dialogVisible"></edit-modify>
+    <!-- 确认进货 -->
+    
 
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/inventory";
-import Button from "./button";
 import EditModify from "./editModify";
 export default {
   components: {
-    Button,
     EditModify
   },
   data() {
@@ -324,6 +324,7 @@ export default {
     replenishSelection() {
       if (this.multipleSelection.length) {
         const list = this.multipleSelection;
+        console.log(list);
       }
     },
     /**

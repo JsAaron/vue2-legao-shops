@@ -106,55 +106,31 @@ body {
   zoom: 1;
 }
 
-.back_img {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
+//全局el样式设置
 
-.margin {
-  margin: 0 auto;
-}
-
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.hide {
-  display: none;
-}
-
-.show {
-  display: block;
-}
-
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.paddingTop {
-  padding-top: 1.95rem;
-}
-
-@keyframes backOpacity {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
+/**
+  订单管理：
+  1 过滤搜索栏
+**/
+.order-container {
+  .filter-container {
+    // width: 90%;
+    margin-left: 0.2rem;
+    .el-form-item__label {
+    }
+    .el-form-item__content {
+      display: inline-block;
+      width: 1.92rem;
+    }
+    .el-form-item {
+      margin-bottom: 0.1rem;
+      display: inline-block;
+      width: 4.5rem;
+    }
+    .el-form-item__label,
+    .el-form-item__content {
+      font-size: 0.15rem;
+      font-weight: 600;
+    }
   }
 }
