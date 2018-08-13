@@ -117,7 +117,7 @@ export default {
 <style lang="scss" >
 .stock-container {
   .el-dialog {
-    @include setWH(8.14rem, 5.92rem);
+    @include setWH(8.14rem, auto);
     @include borderRadius(0.2rem);
     background: #4b91cd;
     .el-dialog__header {
@@ -136,8 +136,8 @@ export default {
       height: 4rem;
       background: #ffffff;
       display: flex;
-      padding-top: 0.2rem;
-      align-items: center;
+      padding-top: 。6rem;
+      // align-items: center;
       img {
         @include setWH(2.92rem, 2.92rem);
       }
@@ -171,7 +171,7 @@ export default {
       }
     }
     .el-dialog__footer {
-      height: 1.3rem;
+      align-items: center;
       background: #ffffff;
       border-bottom-left-radius: 0.2rem;
       border-bottom-right-radius: 0.2rem;
