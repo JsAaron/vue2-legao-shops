@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Message } from "element-ui";
-import store from "@/store";
+import getters from "../store/getters"; //index错误
 import { getToken } from "@/utils/auth";
 
 // create an axios instance
@@ -20,9 +20,8 @@ service.interceptors.request.use(
     //   }
     //   return q.toString();
     // }];
-
     //请求的时候头部带上X-Token
-    if (store.getters.token) {
+    if (getters.token) {
       // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
       config.headers["X-Token"] = getToken();
     }

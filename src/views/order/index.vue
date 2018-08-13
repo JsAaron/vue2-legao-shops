@@ -106,7 +106,7 @@
 </template>
 
 <script>
-// import { fetchList } from "@/api/order";
+import { fetchList } from "@/api/order";
 /**
  * 订单管理
  */
@@ -134,7 +134,9 @@ export default {
   },
   methods: {
     getList() {
-      // fetchList(this.listQuery).then(response => {});
+      fetchList(this.listQuery).then(response => {
+        console.log(response);
+      });
     },
     onQuery() {},
     handleUpdate() {}

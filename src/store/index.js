@@ -8,7 +8,9 @@ import getters from "./getters";
 import tagsView from "./modules/tagsView";
 
 Vue.use(Vuex);
-
+//这里到处，注意循环引用
+//store给new vue用
+//gettters直接引用文件
 export default new Vuex.Store({
   modules: {
     app,

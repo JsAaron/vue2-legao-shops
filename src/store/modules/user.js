@@ -62,6 +62,7 @@ const user = {
             resolve();
           })
           .catch(error => {
+            console.log(3);
             reject(error);
           });
       });
