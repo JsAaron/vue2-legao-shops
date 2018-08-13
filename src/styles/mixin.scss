@@ -1,11 +1,3 @@
-//定位上下左右居中
-@mixin setCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 //字体大小，颜色
 @mixin setFontColor($size, $color) {
   font-size: $size;
@@ -19,6 +11,14 @@
   -ms-border-radius: $radius;
   -o-border-radius: $radius;
   border-radius: $radius;
+}
+
+//定位上下左右居中
+@mixin setCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 //flex方式居中

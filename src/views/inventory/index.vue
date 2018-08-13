@@ -164,7 +164,7 @@
     </div>
 
      <!-- 管理修改 -->
-    <edit-modify :dialogVisible="dialogVisible"></edit-modify>
+    <edit-modify  @close-dialog="closeDialog" :dialogVisible="dialogVisible"></edit-modify>
 
   </div>
 </template>
@@ -180,7 +180,7 @@ export default {
   },
   data() {
     return {
-      dialogVisible: true,
+      dialogVisible: false,
       //数据列表
       list: null,
       total: null,
@@ -267,6 +267,12 @@ export default {
     this.getList();
   },
   methods: {
+    /**
+     * 子组件改变dialog的装填
+     */
+    closeDialog() {
+      this.dialogVisible = false;
+    },
     /**
      * 点击管理
      */
