@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { fetchList } from "@/api/order";
+// import { fetchList } from "@/api/order";
 /**
  * 订单管理
  */
