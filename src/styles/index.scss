@@ -105,32 +105,3 @@ body {
 .clear {
   zoom: 1;
 }
-
-//全局el样式设置
-
-/**
-  订单管理：
-  1 过滤搜索栏
-**/
-.order-container {
-  .filter-container {
-    // width: 90%;
-    margin-left: 0.2rem;
-    .el-form-item__label {
-    }
-    .el-form-item__content {
-      display: inline-block;
-      width: 1.92rem;
-    }
-    .el-form-item {
-      margin-bottom: 0.1rem;
-      display: inline-block;
-      width: 4.5rem;
-    }
-    .el-form-item__label,
-    .el-form-item__content {
-      font-size: 0.15rem;
-      font-weight: 600;
-    }
-  }
-}

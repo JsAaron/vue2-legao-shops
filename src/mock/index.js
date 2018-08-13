@@ -1,6 +1,7 @@
 import Mock from "mockjs";
 import loginAPI from "./login";
 import InventoryAPI from "./inventory";
+// import OrderAPI from "./order";
 
 // const Random = Mock.Random
 // Random.domain() //   "nhou.org.cn"
@@ -13,5 +14,7 @@ Mock.mock(/\/user\/info\.*/, "get", loginAPI.getUserInfo);
 
 //库存
 Mock.mock(/\/inventory\/list/, "get", InventoryAPI.getList);
+//订单
+// Mock.mock(/\/order\/list/, "get", OrderAPI.getList);
 
 export default Mock;
