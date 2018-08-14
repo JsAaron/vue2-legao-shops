@@ -89,7 +89,7 @@
         </el-table-column>
         <el-table-column
           prop="typeId"
-          label="产品货号"
+          label="颗粒数"
           align="center"
           width="100">
         </el-table-column>
@@ -133,7 +133,7 @@
 
         <el-table-column 
           align="center" 
-          width="120" 
+          width="100" 
           label="操作"> 
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>

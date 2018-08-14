@@ -5,24 +5,19 @@ const List = [];
 const count = 1000;
 
 var temp = {
-  shop: {
-    id: "D23491390239E023423-120313",
-    plat: "微信支付",
-    unique: "0000000",
-    img: "aaa.png",
-    name: "狐狸喷气机:蝙蝠战车空中攻击",
-    number: "749234-123-43-41"
-  },
-  buyer: {
-    name: "张三",
-    tel: "134879098767"
-  },
-  time: {
-    data: "2018-09-09",
-    time: "11:34:51"
-  },
-  meney: "329:00",
-  state: "待发货"
+  orderId: "D23491390239E023423-120313", //订单ID
+  transactionId: "0000000", //交易ID
+  productId: "749234-123-43-41", //产品ID
+  plat: "微信支付",
+  image: "man.png",
+  title: "狐狸喷气机:蝙蝠战车空中攻击", //标题
+  subtitle: "通用读库皇冠卡 第二批", //副标题
+  username: "张三", //用户
+  phone: "134879098767", //电话号码
+  data: "2018-09-09", //交易日期
+  time: "11:34:51", //交易时间
+  meney: "329:00", //交易金额
+  state: "待发货" //交易状态
 };
 
 for (let i = 1; i < count; i++) {

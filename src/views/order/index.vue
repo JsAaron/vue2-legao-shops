@@ -62,44 +62,87 @@
         ref="multipleTable"
         :data="list"
         tooltip-effect="dark">
+
         <el-table-column
           prop="shop"
           label="商品"
-          min-width="300"
+          min-width="250"
           align="center">
           <template slot-scope="scope">
-            {{scope.row.id}}
+            <div class="shop-id">
+              <div><label>订单编号:</label><span> {{scope.row.orderId}}</span></div>
+              <div><span> {{scope.row.plat}}</span></div>
+              <div><label>支付交易号:</label><span> {{scope.row.transactionId}}</span></div>
+            </div>
+            <div class="shop-container">
+              <section class="shop-left"><img :src="scope.row.image"></section>
+              <hgroup class="shop-right">
+                <h4>{{scope.row.title}}</h4>
+                <h5>{{scope.row.productId}}</h5>
+                <h5>{{scope.row.subtitle}}</h5>
+              </hgroup>
+            </div>
           </template>
         </el-table-column>
+
         <el-table-column
           prop="buyer"
           label="买家信息"
           align="center">
+          <template slot-scope="scope">
+            <h5>{{scope.row.username}}</h5>
+            <h5>{{scope.row.phone}}</h5>
+          </template>
         </el-table-column>
+
         <el-table-column
           prop="time"
           label="下单时间"
           align="center">
+          <template slot-scope="scope">
+            <h5>{{scope.row.data}}</h5>
+            <h5>{{scope.row.time}}</h5>
+          </template>
         </el-table-column>
         <el-table-column
           prop="money"
           label="实付金额"
           align="center">
+          <template slot-scope="scope">
+            <h5>{{scope.row.meney}}</h5>
+          </template>
         </el-table-column>
         <el-table-column
           prop="state"
           align="center"
           label="订单状态">
+          <template slot-scope="scope">
+            <h5>{{scope.row.state}}</h5>
+            <h5 @click="cancelOrder" class="cancel-order">取消订单</h5>
+          </template>
         </el-table-column>
         <el-table-column 
           align="center" 
-          width="100" 
+          width="120" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary"  @click="handleUpdate(scope.row)">管理</el-button>
+            <el-button type="primary"  @click="handleUpdate(scope.row)">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
+    </div>
+
+    <!-- 底部页码显示 -->
+    <div class="order-page">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :page-sizes="[4,10,20,50,100]"
+        :page-size="listQuery.limit"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total">
+      </el-pagination>
     </div>
 
   </div>
@@ -121,11 +164,13 @@ export default {
         stockValue: "进货确定",
         shopValue: "长沙喜盈门范城店"
       },
+      //总数据量
+      total: null,
       list: null,
       //列表查询条件
       listQuery: {
         page: 1, //取第几个页面
-        limit: 10 //多少条数据
+        limit: 4 //多少条数据
       }
     };
   },
@@ -133,9 +178,42 @@ export default {
     this.getList();
   },
   methods: {
+    /**
+     * 取消订单
+     */
+    cancelOrder() {},
+    /**
+     * 管理
+     */
+    handleUpdate() {
+      alert(1);
+    },
+    /**
+     * 改变每页显示的数量
+     */
+    handleSizeChange(val) {
+      this.listQuery.limit = val;
+      this.getList();
+    },
+    /**
+     * 改变当前页码
+     */
+    handleCurrentChange(val) {
+      this.listQuery.page = val;
+      this.getList();
+    },
+    /**
+     * 获取数据
+     */
     getList() {
       fetchList(this.listQuery).then(response => {
-        console.log(response);
+        this.list = response.data.items.map(function(item) {
+          if (item.image) {
+            item.image = require("../../images/home/" + item.image);
+          }
+          return item;
+        });
+        this.total = response.data.total;
       });
     },
     onQuery() {},
@@ -151,8 +229,8 @@ export default {
 **/
 .order-container {
   .filter-container {
-    // width: 90%;
-    margin-left: 0.2rem;
+    width: 90%;
+    margin: 0 auto;
     .el-form-item__label {
     }
     .el-form-item__content {
@@ -174,12 +252,50 @@ export default {
     width: 95%;
     margin: 0 auto;
     .el-table__header th {
+      height: 0.47rem;
       background-color: #4b91cd;
       @include setFontColor(0.15rem, white);
     }
     .el-table__header th:nth-child(n + 2):before {
       content: "|";
       color: white;
+    }
+    .shop-id {
+      color: #111111;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.1rem;
+      border-bottom: 1px solid #cccccc;
+    }
+    .shop-container {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      .shop-left {
+        margin-top: 0.05rem;
+        img {
+          @include setWH(0.87rem, 0.87rem);
+          border: 1px solid #ccc;
+        }
+      }
+      .shop-right {
+        margin-left: 0.1rem;
+        color: #111111;
+        h5 {
+          opacity: 0.52;
+        }
+      }
+    }
+    .cancel-order {
+      color: #4b91cd;
+    }
+  }
+  .order-page {
+    margin-top: 0.3rem;
+    margin-right: 0.3rem;
+    margin-bottom: 1rem;
+    div {
+      float: right;
     }
   }
 }
