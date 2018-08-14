@@ -1,12 +1,19 @@
 `<template>
   <el-menu class="legao-navbar" mode="horizontal">
     <h1>读酷儿童智力馆门店管理系统</h1>
+    <!-- 位置 -->
     <breadcrumb class="breadcrumb-container"></breadcrumb> 
 
     <!-- 右边菜单，有退出 -->
     <div class="right-menu">
-      <span class="title">长沙喜盈门范城店</span>
-      <el-dropdown class="avatar-container right-menu-item" trigger="click">
+      <label>账号：</label><span>店员:01</span>
+      <div @click="logout" class="menu-operate">
+        <span>退出</span>
+        <span>/</span>
+        <span>切换账号</span>
+      </div>
+
+      <!-- <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
           <i class="el-icon-caret-bottom"></i>
@@ -21,7 +28,7 @@
             <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
     </div>
 
   </el-menu>
@@ -85,27 +92,16 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    .menu-operate {
+      cursor: pointer;
+      margin-left: 0.5rem;
+      margin-right: 1rem;
+    }
+    .menu-operate:hover {
+      color: #eeb339;
+    }
     .title {
       font-size: 0.2rem;
-    }
-    .right-menu-item {
-      display: inline-block;
-      margin: 0 0.3rem;
-    }
-    //切换退出按钮
-    .avatar-container {
-      height: 0.5rem;
-      margin-right: 0.3rem;
-      .avatar-wrapper {
-        cursor: pointer;
-        margin-top: 0.05rem;
-        position: relative;
-        .user-avatar {
-          width: 0.4rem;
-          height: 0.4rem;
-          border-radius: 0.1rem;
-        }
-      }
     }
   }
 }

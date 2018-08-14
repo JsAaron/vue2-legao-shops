@@ -140,18 +140,17 @@
           </template>
         </el-table-column>
       </el-table>
+      <!-- 确定按钮 -->
+      <div class="checked-bt">
+          <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
+          <el-button type="primary" @click="replenishSelection()">进货确定</el-button>
+          <el-button type="primary" @click="returnSelection()">退回总部</el-button>
+      </div>
     </div>
 
 
     <!-- 底部页码导航 -->
     <div class="pagination-container">
-
-      <div class="checked-bt">
-        <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
-        <el-button type="primary" @click="replenishSelection()">进货确定</el-button>
-        <el-button type="primary" @click="returnSelection()">退回总部</el-button>
-      </div>
-
       <el-pagination
         background
         @size-change="handleSizeChange"
@@ -358,18 +357,18 @@ export default {
   .stock-list {
     width: 95%;
     margin: 0 auto;
-  }
-  .pagination-container {
-    margin-top: 0.3rem;
-    width: 100%;
     .checked-bt {
       font-size: 0;
       .all-checkbox {
-        margin: 0 0.2rem 0 0.55rem;
+        margin: 0.2rem 0.15rem;
       }
     }
-    .el-pagination {
-      width: 8rem;
+  }
+  .pagination-container {
+    margin-top: 0.3rem;
+    margin-right: 0.3rem;
+    margin-bottom: 1rem;
+    div {
       float: right;
     }
   }
