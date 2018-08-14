@@ -164,8 +164,6 @@
 
      <!-- 管理修改 -->
     <edit-modify  @close-dialog="closeDialog" :dialogVisible="dialogVisible"></edit-modify>
-    <!-- 确认进货 -->
-    
 
   </div>
 </template>

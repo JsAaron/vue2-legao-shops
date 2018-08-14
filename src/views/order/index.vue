@@ -79,7 +79,7 @@
               <hgroup class="shop-right">
                 <h4>{{scope.row.title}}</h4>
                 <h5>{{scope.row.productId}}</h5>
-                <h5>{{scope.row.subtitle}}</h5>
+                <h5>{{scope.row.cardType}}<span>{{scope.row.batch}}</span></h5>
               </hgroup>
             </div>
           </template>
@@ -145,15 +145,34 @@
       </el-pagination>
     </div>
 
+    <!-- 订单详情 -->
+    <order-details @close-dialog="closeDialog"  :dialogDetailsVisible="dialogDetailsVisible"></order-details>
+
+    <!-- 取消订单 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogCancelVisible"
+      width="30%">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <!-- <el-button @click="dialogDetailsVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogDetailsVisible = false">确 定</el-button> -->
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/order";
+import OrderDetails from "./details";
 /**
  * 订单管理
  */
 export default {
+  components: {
+    OrderDetails
+  },
   data() {
     return {
       value: "",
@@ -171,22 +190,41 @@ export default {
       listQuery: {
         page: 1, //取第几个页面
         limit: 4 //多少条数据
-      }
+      },
+      //详情
+      dialogDetailsVisible: true,
+      //取消订单
+      dialogCancelVisible: false
     };
   },
   created() {
     this.getList();
   },
   methods: {
+    handleCancelClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
+    /**
+     * 子组件改变dialog的装填
+     */
+    closeDialog() {
+      this.dialogDetailsVisible = false;
+    },
     /**
      * 取消订单
      */
-    cancelOrder() {},
+    cancelOrder() {
+      this.dialogCancelVisible = true;
+    },
     /**
      * 管理
      */
     handleUpdate() {
-      alert(1);
+      this.dialogDetailsVisible = true;
     },
     /**
      * 改变每页显示的数量
@@ -216,8 +254,7 @@ export default {
         this.total = response.data.total;
       });
     },
-    onQuery() {},
-    handleUpdate() {}
+    onQuery() {}
   }
 };
 </script>
@@ -265,7 +302,7 @@ export default {
       display: flex;
       justify-content: space-between;
       font-size: 0.1rem;
-      border-bottom: 1px solid #cccccc;
+      border-bottom: 1px solid #ebeef5;
     }
     .shop-container {
       display: flex;
@@ -283,11 +320,18 @@ export default {
         color: #111111;
         h5 {
           opacity: 0.52;
+          span {
+            margin-left: 0.1rem;
+          }
         }
       }
     }
     .cancel-order {
       color: #4b91cd;
+      cursor: pointer;
+    }
+    .cancel-order:hover {
+      color: #eeb339;
     }
   }
   .order-page {
