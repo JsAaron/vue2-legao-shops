@@ -146,7 +146,7 @@
     </div>
 
     <!-- 订单详情 -->
-    <order-details @close-dialog="closeDialog"  :dialogDetailsVisible="dialogDetailsVisible"></order-details>
+    <order-details @close-dialog="closeDialog" :detailsData="detailsData" :dialogDetailsVisible="dialogDetailsVisible"></order-details>
 
     <!-- 取消订单 -->
     <el-dialog
@@ -191,6 +191,8 @@ export default {
         page: 1, //取第几个页面
         limit: 4 //多少条数据
       },
+      //详情数据
+      detailsData: null,
       //详情
       dialogDetailsVisible: true,
       //取消订单
