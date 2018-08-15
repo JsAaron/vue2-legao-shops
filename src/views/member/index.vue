@@ -323,7 +323,7 @@ export default {
 </style>
 
 <style lang="scss">
-.stock-container {
+.member-container {
   .el-table__header th {
     background-color: #4b91cd;
     @include setFontColor(0.15rem, white);
