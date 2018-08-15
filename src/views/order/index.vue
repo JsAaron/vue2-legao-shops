@@ -194,7 +194,7 @@ export default {
       //详情数据
       detailsData: null,
       //详情
-      dialogDetailsVisible: true,
+      dialogDetailsVisible: false,
       //取消订单
       dialogCancelVisible: false
     };
