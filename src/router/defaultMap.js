@@ -12,6 +12,18 @@ export default [
   {
     path: "/home",
     component: () => import("@/views/home"),
-    hidden: true //路由列表中，不显示
+    special: true, //特殊显示，首页显示模块，内容显示导航
+    children: [
+      {
+        path: "index",
+        name: "home",
+        meta: {
+          title: "home",
+          icon: "home",
+          url: "home.png",
+          group: "top"
+        }
+      }
+    ]
   }
 ];

@@ -1,34 +1,25 @@
 <template>
-  <div v-if="!item.hidden&&item.children" class="menu-wrapper">
-    <router-link v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item 
-          :index="resolvePath(onlyOneChild.path)" 
-          :class="{'submenu-title-noDropdown':!isNest}">
-            <icon v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :name="onlyOneChild.meta.icon" :scale="1.5"></icon>
-            <span v-if="onlyOneChild.meta&&onlyOneChild.meta.title" slot="title">{{generateTitle(onlyOneChild.meta.title)}}</span>
-        </el-menu-item>
-    </router-link>
+  <div>
+    <div v-for="route in permission_routers" :key="route.name">
+       <div v-if="!route.hidden&&route.children" class="menu-wrapper">
+        <router-link :to="resolvePath(route)">
+          <el-menu-item :index="resolvePath(route)" >
+            <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
+            <span slot="title">{{generateTitle(route.children[0].meta.title)}}</span>
+          </el-menu-item>
+        </router-link>
+       </div>
+    </div>
   </div>
 </template>
 
 <script>
 import path from "path";
 import { generateTitle } from "@/utils/i18n.js";
+import { mapGetters } from "vuex";
 export default {
-  props: {
-    // route object
-    item: {
-      type: Object,
-      required: true
-    },
-    isNest: {
-      type: Boolean,
-      default: false
-    },
-    basePath: {
-      type: String,
-      default: ""
-    }
+  computed: {
+    ...mapGetters(["permission_routers"])
   },
   data() {
     return {
@@ -36,26 +27,11 @@ export default {
     };
   },
   methods: {
-    hasOneShowingChild(children) {
-      const showingChildren = children.filter(item => {
-        if (item.hidden) {
-          return false;
-        } else {
-          // temp set(will be used if only has one showing child )
-          this.onlyOneChild = item;
-          return true;
-        }
-      });
-      if (showingChildren.length === 1) {
-        return true;
-      }
-      return false;
-    },
     /**
      * 解析出路由地址
      */
-    resolvePath(...paths) {
-      return path.resolve(this.basePath, ...paths);
+    resolvePath(route) {
+      return path.resolve(route.path, route.children[0].path);
     },
     generateTitle
   }

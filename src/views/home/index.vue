@@ -26,9 +26,9 @@
       <div class="nav-right">
         <ul>
           <li v-for="item in routers.top" :key="item.id">
-            <router-link :to="item.path">
+            <router-link :to="item.newPath">
               <figure>
-                <img :src="item.url"/>
+                <img :src="item.newUrl"/>
                 <figcaption>{{generateTitle(item.title)}}</figcaption>
               </figure>
             </router-link>
@@ -38,7 +38,7 @@
         <ul>
           <li v-for="item in routers.middle" :key="item.id">
            <figure>
-              <img :src="item.url"/>
+              <img :src="item.newUrl"/>
               <figcaption>{{generateTitle(item.title)}}</figcaption>
             </figure>
           </li>
@@ -53,7 +53,7 @@
         <ul>
           <li v-for="item in routers.bottom" :key="item.id">
            <figure>
-              <img :src="item.url"/>
+              <img :src="item.newUrl"/>
               <figcaption>{{generateTitle(item.title)}}</figcaption>
             </figure>
           </li>
@@ -92,13 +92,16 @@ export default {
     //初始化路由表结构
     this.permission_routers.forEach(
       function(item, index, array) {
-        if (!item.hidden) {
+        if (!item.hidden && !item.special) {
           const meta = item.children[0].meta;
           const pos = meta.group;
           if (this.routers[pos]) {
-            meta.url = require("../../images/home/" + meta.url);
-            meta.path = path.resolve(item.path, item.children[0].path);
-            this.routers[pos].push(meta);
+            //不能直接修改meta，重复进页面就会出错，因为会叠加
+            this.routers[pos].push({
+              newUrl: require("../../images/home/" + meta.url),
+              newPath: path.resolve(item.path, item.children[0].path),
+              title: meta.title
+            });
           }
         }
       }.bind(this)

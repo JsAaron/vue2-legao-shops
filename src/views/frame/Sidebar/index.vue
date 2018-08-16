@@ -17,7 +17,7 @@
         :default-active="$route.path" 
         background-color="transparent" 
         text-color="white" >
-        <sideBar-item v-for="route in permission_routers" :key="route.name" :item="route" :base-path="route.path"></sideBar-item>
+        <sideBar-item></sideBar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -28,10 +28,7 @@ import { mapGetters } from "vuex";
 import sideBarItem from "./SideBar";
 
 export default {
-  components: { sideBarItem },
-  computed: {
-    ...mapGetters(["permission_routers"])
-  }
+  components: { sideBarItem }
 };
 </script>
 
