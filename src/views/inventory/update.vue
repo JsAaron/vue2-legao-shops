@@ -128,7 +128,10 @@ export default {
     submitDialogClose() {
       this.submitDialogVisible = false;
     },
-    submitDialogUpdate() {},
+    submitDialogUpdate() {
+      this.submitDialogClose();
+      this.handleClose();
+    },
     handleClose() {
       this.$emit("close-dialog");
     },
@@ -144,7 +147,8 @@ export default {
 .update-dialog,
 .submit-dialog {
   .el-dialog {
-    background: transparent;
+    @include borderRadius(0.2rem);
+    // background: transparent;
     margin-top: 0 !important;
     @include setCenter;
     .el-dialog__header {
@@ -204,7 +208,7 @@ export default {
     }
     .el-dialog__body {
       display: flex;
-      padding-top: 0.6rem;
+      padding-top: 0.3rem;
       align-items: center;
       img {
         @include setWH(2.92rem, 2.92rem);
