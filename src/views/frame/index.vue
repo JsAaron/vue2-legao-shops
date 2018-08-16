@@ -55,6 +55,7 @@ export default {
     float: left;
     height: 100%;
   }
+
   // 侧边栏
   .sidebar-container {
     width: 2.65rem;

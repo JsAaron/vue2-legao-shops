@@ -13,9 +13,9 @@
     <!-- https://qiqihaobenben.github.io/Front-End-Basics/project/el-scrollbar -->
     <el-scrollbar class="scrollbar-wrapper">
       <el-menu mode="vertical" 
-        :show-timeout="200" 
         :default-active="$route.path" 
         background-color="transparent" 
+        active-text-color="#eeb339"
         text-color="white" >
         <sideBar-item></sideBar-item>
       </el-menu>
@@ -75,7 +75,8 @@ export default {
     margin-top: 0.3rem;
     width: 100%;
     height: 6.68rem;
-    margin-left: 0.6rem;
+    padding-left: 0.45rem;
+    // margin-left: 0.6rem;
   }
 }
 </style>
