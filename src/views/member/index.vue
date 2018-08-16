@@ -3,40 +3,36 @@
 
     <!-- 搜索，过滤 -->
     <div class="member-filter">
-      <el-form :model="form">
+      <el-form :model="filterForm">
         <el-row>
           <el-col :span="8">
             <el-form-item label="手机号码：">
-              <el-input v-model="form.id"></el-input>
+              <el-input v-model="filterForm.phone"></el-input>
             </el-form-item>
           </el-col>
-
           <el-col :span="8">
             <el-form-item label="卡类型：">
-              <el-input v-model="form.poductId"></el-input>
+              <el-input v-model="filterForm.cardType"></el-input>
             </el-form-item>
           </el-col>
-
         </el-row>
-
         <el-row>
           <el-col :span="8">
             <el-form-item label="时间：">
-                <el-date-picker
-                  v-model="value"
-                  type="daterange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期">
-                </el-date-picker>
+              <el-date-picker
+                v-model="filterForm.date"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
               </el-form-item>
           </el-col>
-
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item label="状态：">
-              <el-select v-model="form.stockValue">
+              <el-select v-model="filterForm.state">
                 <el-option
-                  v-for="state in stockState"
+                  v-for="state in filterForm.stateValue"
                   :key="state.value"
                   :label="state.label"
                   :value="state.value">
@@ -44,7 +40,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-
           <!-- 查询 -->
           <el-col :span="6">
             <el-form-item>
@@ -52,8 +47,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        
-
       </el-form>
     </div>
 
@@ -62,15 +55,15 @@
       <el-table
         v-loading="listLoading" 
         ref="multipleTable"
-        :data="list"
+        :data="listData"
         tooltip-effect="dark">
         <el-table-column
-          prop="id"
+          prop="username"
           label="会员姓名"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="typeId"
+          prop="phone"
           label="手机号码"
           align="center">
         </el-table-column>
@@ -80,21 +73,24 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="poductId"
           align="center"
           label="开始时间">
+          <template slot-scope="scope">
+              {{scope.row.startTime}}
+          </template>
         </el-table-column>
         <el-table-column
-          prop="shopName"
           align="center"
           label="结束时间">
+          <template slot-scope="scope">
+              {{scope.row.endTime}}
+          </template>
         </el-table-column>
         <el-table-column
-          prop="inventory"
+          prop="state"
           align="center"
           label="状态">
         </el-table-column>
-
         <el-table-column 
           align="center" 
           label="操作"> 
@@ -108,13 +104,12 @@
     <!-- 底部页码导航 -->
     <div class="member-pagination">
       <el-pagination
-        background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :page-sizes="[5,10,20,50,100]"
         :page-size="listQuery.limit"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
+        :total="listTotal">
       </el-pagination>
     </div>
 
@@ -122,97 +117,59 @@
 </template>
 
 <script>
-import { fetchList } from "@/api/inventory";
+import { fetchList } from "@/api/member";
 export default {
   data() {
     return {
-      dialogVisible: false,
-      //数据列表
-      list: null,
-      total: null,
+      //====================
+      //过滤表单
+      filterForm: {
+        phone: "", //产品编号
+        cardType: "", //卡类型
+        date: "", //日期
+        state: "", //状态
+        //会员状态
+        stateValue: [
+          {
+            value: "选项1",
+            label: "使用中"
+          },
+          {
+            value: "选项2",
+            label: "已归还"
+          }
+        ]
+      },
+      //====================
       //加载进度条
       listLoading: true,
+      //数据列表
+      listData: null,
+      listTotal: null,
       //列表查询条件
       listQuery: {
         page: 1, //取第几个页面
         limit: 10 //多少条数据
       },
-      form: {
-        id: "", //产品编号
-        poductId: "", //产品货号
-        cadrValue: "读库通用铂金卡",
-        stockValue: "进货确定",
-        shopValue: "长沙喜盈门范城店"
-      },
-      //所属卡
-      cardType: [
-        {
-          value: "选项1",
-          label: "铂金卡1"
-        },
-        {
-          value: "选项2",
-          label: "铂金卡2"
-        },
-        {
-          value: "选项3",
-          label: "铂金卡3"
-        },
-        {
-          value: "选项4",
-          label: "铂金卡4"
-        },
-        {
-          value: "选项5",
-          label: "铂金卡5"
-        }
-      ],
-      //店铺名
-      shopName: [
-        {
-          value: "选项1",
-          label: "乐高实体店1"
-        },
-        {
-          value: "选项2",
-          label: "乐高实体店2"
-        },
-        {
-          value: "选项3",
-          label: "乐高实体店3"
-        },
-        {
-          value: "选项4",
-          label: "乐高实体店4"
-        },
-        {
-          value: "选项5",
-          label: "乐高实体店5"
-        }
-      ],
-      //货状态
-      stockState: [
-        {
-          value: "选项1",
-          label: "进货确定"
-        },
-        {
-          value: "选项2",
-          label: "出货确定"
-        }
-      ],
-      //多选项内容
-      multipleSelection: [],
-      //全选
-      checked: false,
-      //分页数据
-      pageDate: {}
+      //====================
+      dialogVisible: false
     };
   },
   created() {
     this.getList();
   },
   methods: {
+    /**
+     * 获取数据列表
+     */
+    getList() {
+      this.listLoading = true; //每次重新获取，需要处理
+      fetchList(this.listQuery).then(response => {
+        this.listData = response.data.items;
+        this.listTotal = response.data.total;
+        this.listLoading = false;
+      });
+    },
     /**
      * 子组件改变dialog的装填
      */
@@ -224,19 +181,6 @@ export default {
      */
     handleUpdate() {
       this.dialogVisible = true;
-    },
-    /**
-     * 获取数据列表
-     */
-    getList() {
-      this.listLoading = true; //每次重新获取，需要处理
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items;
-        this.total = response.data.total;
-        setTimeout(() => {
-          this.listLoading = false;
-        }, 200);
-      });
     },
     /**
      * 改变每页显示的数量
@@ -284,7 +228,7 @@ export default {
      * 查询
      */
     onQuery() {
-      console.log(this.form);
+      // console.log(this.form);
     }
   }
 };

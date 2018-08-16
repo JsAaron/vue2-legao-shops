@@ -170,7 +170,7 @@
 
 <script>
 import { fetchList } from "@/api/inventory";
-import EditModify from "./editModify";
+import EditModify from "./update";
 export default {
   components: {
     EditModify
@@ -284,9 +284,7 @@ export default {
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items;
         this.total = response.data.total;
-        setTimeout(() => {
-          this.listLoading = false;
-        }, 200);
+        this.listLoading = false;
       });
     },
     /**

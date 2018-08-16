@@ -20,7 +20,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<script lang="scss">
+.app-main {
+  /*日期中间的汉字*/
+  .el-date-editor .el-range-separator {
+    width: 8%;
+  }
+  .el-form-item__label {
+    font-size: 0.15rem;
+  }
+}
+</script>
+
+<style lang="scss" scoped>
 .app-main {
   width: 100%;
   /* 滚动的时候给一个滚动背景 */
