@@ -50,7 +50,7 @@
     </el-dialog>
 
     <!-- 弹出确定框 -->
-    <el-dialog class="submit-dialog" title="进货确定" :visible.sync="submitDialogVisible" :before-close="submitDialogClose" modal=false>
+    <el-dialog class="submit-dialog" title="进货确定" :visible.sync="submitDialogVisible" :before-close="submitDialogClose">
       <div class="title">
         <p>共选择商品(件): 4</p>
         <p>总金额(元): 3453234</p>

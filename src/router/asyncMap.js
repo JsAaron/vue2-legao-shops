@@ -64,12 +64,12 @@ export default [
   },
   //4 会员卡销售
   {
-    path: "/sell",
+    path: "/member-sell",
     component: Frame,
     children: [
       {
         path: "index",
-        component: () => import("@/views/sell/index"),
+        component: () => import("@/views/member-sell/index"),
         name: "sell",
         meta: {
           title: "sell",

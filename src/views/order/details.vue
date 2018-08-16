@@ -82,7 +82,7 @@
     </el-dialog>
 
     <!-- 清点信息录入 -->
-    <el-dialog class="dialogDetailsVisible" title="清点信息录入" modal=false :visible.sync="dialogTypeInVisible" :before-close="typeInClose" >
+    <el-dialog class="dialogDetailsVisible" title="清点信息录入"  :visible.sync="dialogTypeInVisible" :before-close="typeInClose" >
       <dl class="details-group">
         <dt>租借信息</dt>
         <dd>
