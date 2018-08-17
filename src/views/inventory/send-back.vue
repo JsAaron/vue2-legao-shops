@@ -1,34 +1,30 @@
 <template>
   <el-dialog class="sendBack-dialog" title="归还清单" :visible.sync="dialogVisible" :before-close="handleClose" >
     <el-table
-      v-loading="listLoading" 
-      ref="multipleTable"
       :data="list"
-      tooltip-effect="dark"
-      @selection-change="handleSelectionChange">
+      tooltip-effect="dark">
       <el-table-column
-        prop="typeId"
+        prop="productName"
         label="产品名称"
         align="center">
       </el-table-column>
       <el-table-column
-        prop="cardType"
+        prop="productId"
         label="产品货号"
-        align="center"
-        width="100">
+        align="center">
       </el-table-column>
       <el-table-column
-        prop="productName"
+        prop="cashPledge"
         label="押金价"
         align="center">
       </el-table-column>
       <el-table-column
-        prop="poductId"
+        prop="purchasePrice"
         align="center"
         label="进货价">
       </el-table-column>
       <el-table-column
-        prop="shopName"
+        prop="productStatus"
         align="center"
         label="产品状态">
       </el-table-column>
@@ -37,16 +33,11 @@
         align="center"
         label="完整性">
       </el-table-column>
-      <el-table-column
-        prop="inventory"
-        align="center"
-        label="库存状态">
-      </el-table-column>
       <el-table-column 
         align="center" 
         label="操作"> 
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>
+          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -67,7 +58,17 @@ export default {
         type: [],
         resource: "",
         desc: ""
-      }
+      },
+      list: [
+        {
+          productName: "张三",
+          productId: "04-23-4-5-6-23-32",
+          cashPledge: 1000,
+          purchasePrice: 200,
+          productStatus: "新品",
+          integrity: "完整"
+        }
+      ]
     };
   },
   methods: {
@@ -103,7 +104,7 @@ export default {
     }
   }
   .el-table__header th:nth-child(n + 2):before {
-    content: "|";
+    // content: "|";
   }
 }
 </style>

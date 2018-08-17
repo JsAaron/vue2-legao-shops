@@ -142,7 +142,7 @@
       </el-table>
       <!-- 确定按钮 -->
       <div class="checked-bt">
-          <el-checkbox v-model="checked" @change="toggleSelection(list)" class="all-checkbox">全选</el-checkbox>
+          <el-checkbox v-model="checkedAll" @change="toggleAllSelection(list)" class="all-checkbox">全选</el-checkbox>
           <el-button type="primary" @click="replenishSelection()">进货确定</el-button>
           <el-button type="primary" @click="returnSelection()">退回总部</el-button>
       </div>
@@ -282,7 +282,7 @@ export default {
       //多选项内容
       multipleSelection: [],
       //全选
-      checked: false,
+      checkedAll: false,
       //分页数据
       pageDate: {}
     };
@@ -308,6 +308,9 @@ export default {
     //===================
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      if (val.length === 0) {
+        this.checkedAll = false;
+      }
     },
 
     //===================
@@ -316,7 +319,6 @@ export default {
     replenishSelection() {
       if (this.multipleSelection.length) {
         this.stockDialogVisible = true;
-        // const list = this.multipleSelection;
       }
     },
     stockDialogClose() {
@@ -329,6 +331,26 @@ export default {
     //===================
     // 退回总部
     //===================
+    toggleAllSelection(rows) {
+      const multipleSelectionCount = this.multipleSelection.length;
+      //默认情况
+      if (multipleSelectionCount == 0) {
+        this.$refs.multipleTable.toggleAllSelection();
+        this.checkedAll = true;
+      }
+      if (multipleSelectionCount === this.list.length) {
+        this.$refs.multipleTable.clearSelection();
+        this.checkedAll = false;
+      }
+      //如果只选中几个的情况
+      if (
+        multipleSelectionCount > 0 &&
+        multipleSelectionCount < this.list.length
+      ) {
+        this.$refs.multipleTable.toggleAllSelection();
+        this.checkedAll = true;
+      }
+    },
     returnSelection() {
       if (this.multipleSelection.length) {
         this.sendBackDialogVisible = true;
@@ -358,15 +380,6 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.page = val;
       this.getList();
-    },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
     },
 
     //===================
