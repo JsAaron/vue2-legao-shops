@@ -4,7 +4,7 @@
       <img />
       <p>三张</p>
     </div>
-    <div class="container">
+    <div class="container fontWeight">
       <p>
         <label>手机号码：</label><span>13488888888</span>
       </p>
@@ -16,6 +16,13 @@
         <label>零件余额保证金：</label><span>100:00</span>
         <span class="float-right">充值</span>
       </p>
+    </div>
+    <div class="m-button">
+      <el-button type="primary">租借产品</el-button>
+      <el-button type="primary">次卡消费</el-button>
+    </div>
+    <div class="m-container">
+      123
     </div>
   </el-dialog>
 </template>
@@ -61,6 +68,8 @@ export default {
   }
 
   .el-dialog__body {
+    margin: 0 auto;
+    width: 7.08rem;
     .title {
       text-align: center;
       img {
@@ -73,9 +82,23 @@ export default {
       color: #4b91cd;
     }
     .container {
+      border-bottom: 1px solid #cccccc;
+      padding-bottom: 0.15rem;
       p {
         margin-top: 0.1rem;
       }
+    }
+    .m-button {
+      margin: 0.2rem 0;
+      display: flex;
+      justify-content: space-between;
+      .el-button {
+        @include setWH(1.87rem, 0.58rem);
+      }
+    }
+    .m-container {
+      height: 3.05rem;
+      border: 1px solid #ccc;
     }
   }
 }

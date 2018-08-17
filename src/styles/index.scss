@@ -105,3 +105,13 @@ body {
 .clear {
   zoom: 1;
 }
+
+//统一文字加粗
+.fontWeight {
+  p {
+    font-weight: 700;
+  }
+  span {
+    font-weight: 700;
+  }
+}
