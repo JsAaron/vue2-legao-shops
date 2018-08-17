@@ -40,78 +40,20 @@
           </el-select>
         </el-form-item>
       </el-form>
-
       <!-- 底部按钮 -->
       <span slot="footer" class="dialog-footer">
         <el-button type="primary"  @click="handleClose">取 消</el-button>
         <el-button type="primary" @click="handleUpdate">确 定</el-button>
       </span>
-
-    </el-dialog>
-
-    <!-- 弹出确定框 -->
-    <el-dialog class="submit-dialog" title="进货确定" :visible.sync="submitDialogVisible" :before-close="submitDialogClose">
-      <div class="title">
-        <p>共选择商品(件): 4</p>
-        <p>总金额(元): 3453234</p>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitDialogClose">取 消</el-button>
-        <el-button type="primary" @click="submitDialogUpdate">确 定</el-button>
-      </span>
     </el-dialog>
   </div>
 </template>
-
 
 <script>
 export default {
   props: ["dialogVisible"],
   data() {
     return {
-      //弹出框状态
-      submitDialogVisible: false,
-      //弹出盒数据
-      submitDialogData: {
-        title: ""
-      },
-
-      password: "",
-      password_sure: "",
-      gridData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }
-      ],
-      dialogTableVisible: false,
-      dialogFormVisible: false,
-      form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      },
       editForm: {
         name: "",
         region: "",
@@ -125,19 +67,11 @@ export default {
     };
   },
   methods: {
-    submitDialogClose() {
-      this.submitDialogVisible = false;
-    },
-    submitDialogUpdate() {
-      this.submitDialogClose();
-      this.handleClose();
-    },
     handleClose() {
       this.$emit("close-dialog");
     },
     handleUpdate() {
-      this.submitDialogData.title = "进货确定";
-      this.submitDialogVisible = true;
+      this.$emit("close-dialog");
     }
   }
 };
@@ -176,30 +110,7 @@ export default {
   }
 }
 
-// **提交确定
-.submit-dialog {
-  .el-dialog {
-    @include setWH(4.3rem, auto);
-  }
-  .el-dialog__header {
-    height: 0.56rem;
-  }
-  .el-dialog__body {
-    .title {
-      text-align: center;
-    }
-    p {
-      padding-top: 0.1rem;
-      font-size: 0.2rem;
-    }
-  }
-  .el-dialog__footer {
-    display: flex;
-    justify-content: space-around;
-  }
-}
-
-// **管理
+//管理
 .update-dialog {
   .el-dialog {
     @include setWH(8.14rem, auto);

@@ -1,5 +1,5 @@
 <template>
-  <div class="stock-container">
+  <div class="inventory-container">
 
     <!-- 搜索，过滤 -->
     <div class="filter-container">
@@ -69,7 +69,7 @@
     </div>
 
     <!-- 主体列表查询 -->
-    <div class="stock-list">
+    <div class="list-container">
       <el-table
         v-loading="listLoading" 
         ref="multipleTable"
@@ -148,7 +148,6 @@
       </div>
     </div>
 
-
     <!-- 底部页码导航 -->
     <div class="pagination-container">
       <el-pagination
@@ -162,22 +161,43 @@
       </el-pagination>
     </div>
 
-     <!-- 管理修改 -->
-    <edit-modify  @close-dialog="closeDialog" :dialogVisible="dialogVisible"></edit-modify>
+    <!-- 管理修改 -->
+    <manage-dialog @close-dialog="closeManageDialog" :dialogVisible="manageDialogVisible"></manage-dialog>
+
+    <!-- 进货确定框 -->
+    <stock-dialog class="stock-dialog-container" @close-dialog="stockDialogClose" :visible="stockDialogVisible" :data="stockDialogData"></stock-dialog>
 
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/inventory";
-import EditModify from "./update";
+import ManageDialog from "./manage";
+import StockDialog from "@/views/common/dialog";
+
 export default {
   components: {
-    EditModify
+    StockDialog,
+    ManageDialog
   },
   data() {
     return {
-      dialogVisible: false,
+      //===================
+      //  进货确定按钮
+      //===================
+      stockDialogVisible: false,
+      stockDialogData: {
+        title: "进货确定"
+      },
+
+      //===================
+      //  管理按钮
+      //===================
+      manageDialogVisible: false,
+
+      //===================
+      // 数据列表
+      //===================
       //数据列表
       list: null,
       total: null,
@@ -264,21 +284,9 @@ export default {
     this.getList();
   },
   methods: {
-    /**
-     * 子组件改变dialog的装填
-     */
-    closeDialog() {
-      this.dialogVisible = false;
-    },
-    /**
-     * 点击管理
-     */
-    handleUpdate() {
-      this.dialogVisible = true;
-    },
-    /**
-     * 获取数据列表
-     */
+    //===================
+    //  获取数据
+    //===================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
@@ -287,23 +295,56 @@ export default {
         this.listLoading = false;
       });
     },
-    /**
-     * 改变每页显示的数量
-     */
+
+    //===================
+    //  全选
+    //===================
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+
+    //===================
+    //  进货确定关闭按钮
+    //===================
+    replenishSelection() {
+      if (this.multipleSelection.length) {
+        this.stockDialogVisible = true;
+        // const list = this.multipleSelection;
+      }
+    },
+    stockDialogClose() {
+      this.stockDialogVisible = false;
+    },
+    stockDialogUpdate() {
+      this.stockDialogClose();
+    },
+
+    //===================
+    // 退回总部
+    //===================
+    returnSelection() {},
+
+    //===================
+    //  管理按钮
+    //===================
+    handleUpdate() {
+      this.manageDialogVisible = true;
+    },
+    closeManageDialog() {
+      this.manageDialogVisible = false;
+    },
+
+    //===================
+    //  底部页面
+    //===================
     handleSizeChange(val) {
       this.listQuery.limit = val;
       this.getList();
     },
-    /**
-     * 改变当前页码
-     */
     handleCurrentChange(val) {
       this.listQuery.page = val;
       this.getList();
     },
-    /**
-     * 选择row
-     */
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -313,25 +354,10 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
-    /**
-     * 进货确定
-     */
-    replenishSelection() {
-      if (this.multipleSelection.length) {
-        const list = this.multipleSelection;
-        console.log(list);
-      }
-    },
-    /**
-     * 退回总部
-     */
-    returnSelection() {},
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    /**
-     * 查询
-     */
+
+    //===================
+    //  查询
+    //===================
     onQuery() {
       console.log(this.form);
     }
@@ -340,7 +366,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stock-container {
+.inventory-container {
   .filter-container {
     width: 90%;
     margin: 0 auto;
@@ -350,7 +376,7 @@ export default {
       height: 0.33rem;
     }
   }
-  .stock-list {
+  .list-container {
     width: 95%;
     margin: 0 auto;
     .checked-bt {
@@ -368,11 +394,13 @@ export default {
       float: right;
     }
   }
+  .stock-dialog-container {
+  }
 }
 </style>
 
 <style lang="scss">
-.stock-container {
+.inventory-container {
   .el-table__header th {
     background-color: #4b91cd;
     @include setFontColor(0.15rem, white);
