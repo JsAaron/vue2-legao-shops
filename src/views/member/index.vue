@@ -43,7 +43,7 @@
           <!-- 查询 -->
           <el-col :span="6">
             <el-form-item>
-              <el-button type="primary" @click="onQuery">查询</el-button>
+              <el-button type="primary" @click="filterQuery">查询</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -76,18 +76,20 @@
           align="center"
           label="开始时间">
           <template slot-scope="scope">
-              {{scope.row.startTime}}
+            <p>{{scope.row.startTime}}</p>
+            <p>11:11:11</p>
           </template>
         </el-table-column>
         <el-table-column
           align="center"
           label="结束时间">
           <template slot-scope="scope">
-              {{scope.row.endTime}}
+            <p>{{scope.row.endTime}}</p>
+            <p>11:11:11</p>
           </template>
         </el-table-column>
         <el-table-column
-          prop="state"
+          prop="status"
           align="center"
           label="状态">
         </el-table-column>
@@ -95,7 +97,7 @@
           align="center" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">查询</el-button>
+            <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -106,23 +108,36 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[5,10,20,50,100]"
+        :page-sizes="[8,10,20,50,100]"
         :page-size="listQuery.limit"
         layout="total, sizes, prev, pager, next, jumper"
         :total="listTotal">
       </el-pagination>
     </div>
 
+      <!-- 管理 -->
+    <manage @close-dialog="manageDialogClose" :visible="manageDialogVisible"></manage>
+
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/member";
+import Manage from "./manage";
 export default {
+  components: {
+    Manage
+  },
   data() {
     return {
       //====================
-      //过滤表单
+      // 管理目录
+      //====================
+      manageDialogVisible: true,
+
+      //====================
+      // 过滤表单
+      //====================
       filterForm: {
         phone: "", //产品编号
         cardType: "", //卡类型
@@ -140,17 +155,21 @@ export default {
           }
         ]
       },
+
       //====================
-      //加载进度条
+      // 数据列表
+      //====================
       listLoading: true,
-      //数据列表
       listData: null,
       listTotal: null,
       //列表查询条件
       listQuery: {
         page: 1, //取第几个页面
-        limit: 10 //多少条数据
+        limit: 8 //多少条数据
       },
+
+      //====================
+      // 管理菜单
       //====================
       dialogVisible: false
     };
@@ -159,9 +178,16 @@ export default {
     this.getList();
   },
   methods: {
-    /**
-     * 获取数据列表
-     */
+    //=============
+    //  管理
+    //=============
+    manageDialogClose() {
+      this.manageDialogVisible = false;
+    },
+
+    //=============
+    //  获取数据
+    //=============
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
@@ -170,66 +196,17 @@ export default {
         this.listLoading = false;
       });
     },
-    /**
-     * 子组件改变dialog的装填
-     */
-    closeDialog() {
-      this.dialogVisible = false;
-    },
-    /**
-     * 点击管理
-     */
-    handleUpdate() {
-      this.dialogVisible = true;
-    },
-    /**
-     * 改变每页显示的数量
-     */
-    handleSizeChange(val) {
-      this.listQuery.limit = val;
-      this.getList();
-    },
-    /**
-     * 改变当前页码
-     */
-    handleCurrentChange(val) {
-      this.listQuery.page = val;
-      this.getList();
-    },
-    /**
-     * 选择row
-     */
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    /**
-     * 进货确定
-     */
-    replenishSelection() {
-      if (this.multipleSelection.length) {
-        const list = this.multipleSelection;
-        console.log(list);
-      }
-    },
-    /**
-     * 退回总部
-     */
-    returnSelection() {},
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    /**
-     * 查询
-     */
-    onQuery() {
-      // console.log(this.form);
-    }
+
+    //=============
+    //  过滤查询
+    //=============
+    filterQuery() {},
+
+    //=============
+    //  页码
+    //=============
+    handleSizeChange() {},
+    handleCurrentChange() {}
   }
 };
 </script>

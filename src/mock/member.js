@@ -10,7 +10,7 @@ var temp = {
   cardType: "通用读库皇冠卡", //卡类型
   startTime: "2018-09-09", //开始时间
   endTime: "2019-09-09", //结束时间
-  state: "待发货" //交易状态
+  status: "无效卡" //交易状态
 };
 
 for (let i = 1; i < count; i++) {
