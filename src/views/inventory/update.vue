@@ -3,7 +3,7 @@
     <!-- 管理编辑 -->
     <el-dialog class="update-dialog" title="商品信息" :visible.sync="dialogVisible" :before-close="handleClose" >
       <!-- 左图 -->
-      <section><img src="../../images/logo.png"></section>
+      <section><img src="../../images/common/logo.png"></section>
       <!-- 右表单 -->
       <el-form ref="editForm"  :model="editForm" >
         <el-form-item label="产品名称 :">气球气球气球</el-form-item>

@@ -14,7 +14,7 @@ export default {
 <style lang="scss" scoped>
 #app {
   @include setWH(100%, 100%);
-  background-image: url("./images/background.png");
+  background-image: url("./images/common/background.png");
   background-size: 100% 100%;
   .router-fade-enter-active,
   .router-fade-leave-active {

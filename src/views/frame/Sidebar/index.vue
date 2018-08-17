@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
     <!-- logo -->
     <header>
-      <img src="../../../images/logo.png" />
+      <img src="../../../images/common/logo.png" />
       <div>
         <p></p>
         <span>长沙喜盈门范城店</span>
