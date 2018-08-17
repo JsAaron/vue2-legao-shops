@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+		<transition name="router-fade" mode="out-in">
+      <router-view></router-view>
+		</transition>
   </div>
 </template>
 
@@ -14,6 +16,14 @@ export default {
   @include setWH(100%, 100%);
   background-image: url("./images/background.png");
   background-size: 100% 100%;
+  .router-fade-enter-active,
+  .router-fade-leave-active {
+    transition: opacity 0.3s;
+  }
+  .router-fade-enter,
+  .router-fade-leave-active {
+    opacity: 0;
+  }
 }
 </style>
 

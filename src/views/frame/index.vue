@@ -2,7 +2,6 @@
   <div class="app-wrapper">
     <!-- 左边导航 -->
     <sidebar class="sidebar-container"></sidebar>
-
     <!-- 右边内容 -->
     <el-scrollbar wrapClass="scrollbar-wrapper">
       <div class="main-container">
@@ -14,7 +13,6 @@
         <app-main></app-main>
       </div>
     </el-scrollbar>
-
   </div>
 </template>
 
