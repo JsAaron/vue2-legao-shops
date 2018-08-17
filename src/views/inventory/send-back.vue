@@ -1,46 +1,51 @@
 <template>
   <el-dialog class="sendBack-dialog" title="归还清单" :visible.sync="dialogVisible" :before-close="handleClose" >
     <el-table
-      :data="list"
-      tooltip-effect="dark">
-      <el-table-column
-        prop="productName"
-        label="产品名称"
-        align="center">
-      </el-table-column>
-      <el-table-column
-        prop="productId"
-        label="产品货号"
-        align="center">
-      </el-table-column>
-      <el-table-column
-        prop="cashPledge"
-        label="押金价"
-        align="center">
-      </el-table-column>
-      <el-table-column
-        prop="purchasePrice"
-        align="center"
-        label="进货价">
-      </el-table-column>
-      <el-table-column
-        prop="productStatus"
-        align="center"
-        label="产品状态">
-      </el-table-column>
-      <el-table-column
-        prop="integrity"
-        align="center"
-        label="完整性">
-      </el-table-column>
-      <el-table-column 
-        align="center" 
-        label="操作"> 
-        <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    :data="list"
+    tooltip-effect="dark">
+    <el-table-column
+      prop="productName"
+      label="产品名称"
+      align="center">
+    </el-table-column>
+    <el-table-column
+      prop="productId"
+      label="产品货号"
+      align="center">
+    </el-table-column>
+    <el-table-column
+      prop="cashPledge"
+      label="押金价"
+      align="center">
+    </el-table-column>
+    <el-table-column
+      prop="purchasePrice"
+      align="center"
+      label="进货价">
+    </el-table-column>
+    <el-table-column
+      prop="productStatus"
+      align="center"
+      label="产品状态">
+    </el-table-column>
+    <el-table-column
+      prop="integrity"
+      align="center"
+      label="完整性">
+    </el-table-column>
+    <el-table-column 
+      align="center" 
+      label="操作"> 
+      <template slot-scope="scope">
+        <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  <!-- 底部按钮 -->
+  <span slot="footer" class="dialog-footer">
+    <el-button type="primary"  @click="handleClose">取 消</el-button>
+    <el-button type="primary" @click="handleUpdate">确 定</el-button>
+  </span>
   </el-dialog>
 </template>
 
@@ -102,9 +107,14 @@ export default {
         font-size: 0.3rem;
       }
     }
+    .el-dialog__footer {
+      width: 60%;
+      margin: 0 auto;
+      text-align: center;
+    }
   }
   .el-table__header th:nth-child(n + 2):before {
-    // content: "|";
+    content: "|";
   }
 }
 </style>
