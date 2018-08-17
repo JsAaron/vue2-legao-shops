@@ -162,33 +162,40 @@
     </div>
 
     <!-- 管理修改 -->
-    <manage-dialog @close-dialog="closeManageDialog" :dialogVisible="manageDialogVisible"></manage-dialog>
-
+    <manage-dialog @close-dialog="manageDialogClose" :dialogVisible="manageDialogVisible"></manage-dialog>
     <!-- 进货确定框 -->
-    <stock-dialog class="stock-dialog-container" @close-dialog="stockDialogClose" :visible="stockDialogVisible" :data="stockDialogData"></stock-dialog>
-
+    <stock-dialog @close-dialog="stockDialogClose" :visible="stockDialogVisible" :data="stockDialogData"></stock-dialog>
+    <!-- 退回清单 -->
+    <sendBack-dialog @close-dialog="sendBackDialogClose" :dialogVisible="sendBackDialogVisible"></sendBack-dialog>
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/inventory";
 import ManageDialog from "./manage";
+import SendBackDialog from "./send-back";
 import StockDialog from "@/views/common/dialog";
 
 export default {
   components: {
     StockDialog,
-    ManageDialog
+    ManageDialog,
+    SendBackDialog
   },
   data() {
     return {
       //===================
-      //  进货确定按钮
+      //  进货确定
       //===================
       stockDialogVisible: false,
       stockDialogData: {
         title: "进货确定"
       },
+
+      //===================
+      //  退回总部
+      //===================
+      sendBackDialogVisible: false,
 
       //===================
       //  管理按钮
@@ -322,7 +329,14 @@ export default {
     //===================
     // 退回总部
     //===================
-    returnSelection() {},
+    returnSelection() {
+      if (this.multipleSelection.length) {
+        this.sendBackDialogVisible = true;
+      }
+    },
+    sendBackDialogClose() {
+      this.sendBackDialogVisible = false;
+    },
 
     //===================
     //  管理按钮
@@ -330,7 +344,7 @@ export default {
     handleUpdate() {
       this.manageDialogVisible = true;
     },
-    closeManageDialog() {
+    manageDialogClose() {
       this.manageDialogVisible = false;
     },
 
@@ -393,8 +407,6 @@ export default {
     div {
       float: right;
     }
-  }
-  .stock-dialog-container {
   }
 }
 </style>
