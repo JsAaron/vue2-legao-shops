@@ -107,7 +107,7 @@
       <template class="main" slot="main">
         <div class="title">
           <label>产品货号：</label>
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="rentPoductValue" placeholder="请输入内容"></el-input>
         </div>
       </template>
       <template slot="footer">
