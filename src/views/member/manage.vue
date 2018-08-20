@@ -116,6 +116,32 @@
       </template>
     </common-dialog>
 
+    <!-- 提交成功 -->
+    <common-dialog class="success-dialog el-dialog-mini el-dialog-white" @close-self="successDialogClose" :visible="successDialogVisible" >
+      <div class="main" slot="main">
+        <img src="../../images/menber/success.png"/>
+        <p>下单成功</p>
+        <p><span>88234-213-3-53</span><span>已发货</span></p>
+        <p>订单编号：D234234234J234UOI</p>
+      </div>
+      <template slot="footer">
+        <el-button type="primary" @click="rentPoductDialogSave">5秒后自动跳回首页</el-button>
+      </template>
+    </common-dialog>
+
+    <!-- 提交失败 -->
+    <common-dialog class="fail-dialog el-dialog-mini el-dialog-white" @close-self="failDialogClose" :visible="failDialogVisible" >
+      <div class="main" slot="main">
+        <img src="../../images/menber/fail.png"/>
+        <p>下单失败</p>
+        <p>这是皇冠卡产品，等级不够，需要升级</p>
+      </div>
+      <template slot="footer">
+        <el-button type="primary" @click="rentPoductDialogSave">重新下单</el-button>
+        <el-button type="primary" @click="rentPoductDialogSave">回到主页</el-button>
+      </template>
+    </common-dialog>
+
   </div>
 
 </template>
@@ -171,6 +197,10 @@ export default {
       rentPoductDialogVisible: false,
       rentPoductTitle: "产品借出",
       rentPoductValue: null,
+      //下单成功
+      successDialogVisible: false,
+      //下单失败
+      failDialogVisible: false,
       //===================
       //  次卡消费
       //===================
@@ -260,7 +290,14 @@ export default {
       this.rentPoductDialogVisible = false;
     },
     rentPoductDialogSave() {
-      this.rentPoductDialogClose();
+      alert(1);
+      // this.rentPoductDialogClose();
+    },
+    successDialogClose() {
+      this.secondCardDialogVisible = false;
+    },
+    failDialogClose() {
+      this.failDialogVisible = false;
     }
   }
 };
@@ -373,5 +410,18 @@ export default {
   }
 }
 .rent-poduct-dialog {
+}
+.success-dialog,
+.fail-dialog {
+  .el-dialog__header {
+    height: 0 !important;
+  }
+  .main {
+    @include flexCenter;
+    flex-direction: column;
+    img {
+      @include setWH(0.78rem, 0.78rem);
+    }
+  }
 }
 </style>

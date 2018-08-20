@@ -36,7 +36,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Breadcrumb from "./Breadcrumb";
+import Breadcrumb from "./breadcrumb";
 
 export default {
   components: {

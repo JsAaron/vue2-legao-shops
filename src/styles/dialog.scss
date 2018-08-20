@@ -16,6 +16,16 @@
   }
 }
 
+//头部白色
+.el-dialog-white {
+  .el-dialog__header {
+    background-color: white !important;
+    .el-dialog__close {
+      color: #606060 !important;
+    }
+  }
+}
+
 //公共弹出框
 .dialog-common {
   .el-dialog {
@@ -26,7 +36,7 @@
       height: 0.56rem;
       border-top-left-radius: 0.2rem;
       border-top-right-radius: 0.2rem;
-      background: #4b91cd;
+      background-color: #4b91cd;
       position: relative;
       .el-dialog__title {
         @include setCenter;
