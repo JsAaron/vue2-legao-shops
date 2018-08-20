@@ -1,0 +1,59 @@
+//===================
+// 弹出框的公共样式
+//===================
+
+//尺寸小
+.el-dialog-mini {
+  .el-dialog {
+    width: 4.3rem;
+  }
+}
+
+//尺寸中
+.el-dialog-middle {
+  .el-dialog {
+    width: 6.6rem;
+  }
+}
+
+//公共弹出框
+.dialog-common {
+  .el-dialog {
+    @include borderRadius(0.2rem);
+    margin-top: 0 !important;
+    @include setCenter;
+    .el-dialog__header {
+      height: 0.56rem;
+      border-top-left-radius: 0.2rem;
+      border-top-right-radius: 0.2rem;
+      background: #4b91cd;
+      position: relative;
+      .el-dialog__title {
+        @include setCenter;
+      }
+      .el-dialog__title,
+      .el-dialog__close {
+        font-size: 0.22rem;
+        color: #ffffff;
+      }
+    }
+    .el-dialog__body {
+      width: auto !important;
+      .title {
+        text-align: center;
+      }
+      p {
+        padding-top: 0.1rem;
+        font-size: 0.2rem;
+      }
+      background: #ffffff;
+    }
+    .el-dialog__footer {
+      display: flex;
+      justify-content: space-around;
+      background: #ffffff;
+      border-bottom-left-radius: 0.2rem;
+      border-bottom-right-radius: 0.2rem;
+    }
+  }
+}
