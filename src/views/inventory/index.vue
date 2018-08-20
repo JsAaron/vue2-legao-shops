@@ -164,7 +164,7 @@
     <!-- 管理修改 -->
     <manage-dialog @close-dialog="manageDialogClose" :dialogVisible="manageDialogVisible"></manage-dialog>
     <!-- 进货确定框 -->
-    <stock-dialog @close-dialog="stockDialogClose" :visible="stockDialogVisible" :data="stockDialogData">
+    <stock-dialog class="el-dialog-mini" @close-dialog="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
       <div class="title" slot="main">
         <p>共选择商品(件): 4</p>
         <p>总金额(元): 3453234</p>
@@ -197,9 +197,7 @@ export default {
       //  进货确定
       //===================
       stockDialogVisible: false,
-      stockDialogData: {
-        title: "进货确定"
-      },
+      stockDialogTitle: "进货确定",
 
       //===================
       //  退回总部

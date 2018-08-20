@@ -119,3 +119,21 @@ body {
 .pointer {
   cursor: pointer;
 }
+
+//===================
+// 弹出框的公共样式
+//===================
+
+//尺寸小
+.el-dialog-mini {
+  .el-dialog {
+    width: 4.3rem;
+  }
+}
+
+//尺寸中
+.el-dialog-middle {
+  .el-dialog {
+    width: 6.6rem;
+  }
+}

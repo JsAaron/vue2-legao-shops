@@ -1,6 +1,6 @@
 <template>
   <div class="dialog-common">
-    <el-dialog :title="data.title" :visible.sync="visible" :before-close="dialogClose">
+    <el-dialog :title="title" :visible.sync="visible" :before-close="dialogClose">
       <!-- 内容 -->
       <slot name="main"></slot>
       <span slot="footer" class="dialog-footer">
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  props: ["data", "visible"],
+  props: ["title", "visible"],
   methods: {
     dialogClose() {
       this.$emit("close-dialog");
@@ -24,7 +24,6 @@ export default {
 <style lang="scss" >
 .dialog-common {
   .el-dialog {
-    @include setWH(4.3rem, 2.79rem);
     @include borderRadius(0.2rem);
     // background: transparent;
     margin-top: 0 !important;
@@ -55,9 +54,6 @@ export default {
 }
 
 .dialog-common {
-  .el-dialog {
-    @include setWH(4.3rem, auto);
-  }
   .el-dialog__header {
     height: 0.56rem;
   }
