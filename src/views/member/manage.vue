@@ -2,29 +2,31 @@
   <div>
     <!-- 个人主页 -->
     <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="homeDialogClose">
-      <div class="title">
-        <img />
-        <p>三张</p>
-      </div>
-      <div class="container fontWeight">
-        <p>
-          <label>手机号码：</label><span>13488888888</span>
-        </p>
-        <p>
-          <label>会员卡类型：</label><span>读酷黄光通用卡</span>
-          <span @click="addManage" class="float-right pointer">管理</span>
-        </p>
-        <p>
-          <label>零件余额保证金：</label><span>100:00</span>
-          <span @click="addMoney" class="float-right pointer">充值</span>
-        </p>
-      </div>
-      <div class="homepage-button">
-        <el-button @click="rentPoductOpen" type="primary">租借产品</el-button>
-        <el-button @click="secondCardOpen" type="primary">次卡消费</el-button>
-      </div>
-      <div class="homepage-container">
-        123
+      <div class="homepage-box">
+        <div class="title">
+          <img />
+          <p>三张</p>
+        </div>
+        <div class="container fontWeight">
+          <p>
+            <label>手机号码：</label><span>13488888888</span>
+          </p>
+          <p>
+            <label>会员卡类型：</label><span>读酷黄光通用卡</span>
+            <span @click="addManage" class="float-right pointer">管理</span>
+          </p>
+          <p>
+            <label>零件余额保证金：</label><span>100:00</span>
+            <span @click="addMoney" class="float-right pointer">充值</span>
+          </p>
+        </div>
+        <div class="button">
+          <el-button @click="rentPoductOpen" type="primary">租借产品</el-button>
+          <el-button @click="secondCardOpen" type="primary">次卡消费</el-button>
+        </div>
+        <div class="update-list">
+          123
+        </div>
       </div>
     </el-dialog>
 
@@ -309,13 +311,11 @@ export default {
     @include setWH(8.39rem, auto);
     @include borderRadius(0.2rem);
     margin-top: 0 !important;
+    background: #4b91cd;
     @include setCenter;
     .el-dialog__header {
-      border-top-left-radius: 0.2rem;
-      border-top-right-radius: 0.2rem;
       height: 0.67rem;
       position: relative;
-      background: #4b91cd;
       .el-dialog__title {
         @include setCenter;
       }
@@ -326,37 +326,40 @@ export default {
       }
     }
     .el-dialog__body {
-      margin: 0 auto;
-      width: 7.08rem;
-      .title {
-        text-align: center;
-        img {
-          margin: 0 auto;
-          @include setWH(0.83rem, 0.83rem);
+      background: #ffffff;
+      .homepage-box {
+        margin: 0 auto;
+        width: 7.08rem;
+        .title {
+          text-align: center;
+          img {
+            margin: 0 auto;
+            @include setWH(0.83rem, 0.83rem);
+          }
         }
-      }
-      .float-right {
-        float: right;
-        color: #4b91cd;
-      }
-      .container {
-        border-bottom: 1px solid #cccccc;
-        padding-bottom: 0.15rem;
-        p {
-          margin-top: 0.1rem;
+        .float-right {
+          float: right;
+          color: #4b91cd;
         }
-      }
-      .homepage-button {
-        margin: 0.2rem 0;
-        display: flex;
-        justify-content: space-between;
-        .el-button {
-          @include setWH(1.87rem, 0.58rem);
+        .container {
+          border-bottom: 1px solid #cccccc;
+          padding-bottom: 0.15rem;
+          p {
+            margin-top: 0.1rem;
+          }
         }
-      }
-      .homepage-container {
-        height: 3.05rem;
-        border: 1px solid #ccc;
+        .button {
+          margin: 0.2rem 0;
+          display: flex;
+          justify-content: space-between;
+          .el-button {
+            @include setWH(1.87rem, 0.58rem);
+          }
+        }
+        .update-list {
+          height: 3.05rem;
+          border: 1px solid #ccc;
+        }
       }
     }
   }
