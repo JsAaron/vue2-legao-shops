@@ -136,15 +136,15 @@
           width="100" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>
+            <el-button type="primary" size="mini" @click="clickManageUpdate(scope.row)">管理</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!-- 确定按钮 -->
       <div class="checked-bt">
           <el-checkbox v-model="checkedAll" @change="toggleAllSelection(list)" class="all-checkbox">全选</el-checkbox>
-          <el-button type="primary" @click="replenishSelection()">进货确定</el-button>
-          <el-button type="primary" @click="returnSelection()">退回总部</el-button>
+          <el-button type="primary" @click="clickStockSelection()">进货确定</el-button>
+          <el-button type="primary" @click="clickReturnSelection()">退回总部</el-button>
       </div>
     </div>
 
@@ -161,38 +161,145 @@
       </el-pagination>
     </div>
 
-    <!-- 管理修改 -->
-    <manage-dialog @close-dialog="manageDialogClose" :dialogVisible="manageDialogVisible"></manage-dialog>
+    <!-- 管理更新 -->
+    <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageDialogTitle">
+      <template class="main" slot="main">
+        <!-- 左图 -->
+        <section><img src="../../images/common/logo.png"></section>
+        <!-- 右表单 -->
+        <el-form ref="manageDialogForm"  :model="manageDialogForm" >
+          <el-form-item label="产品名称 :">气球气球气球</el-form-item>
+          <div class="between">
+            <el-form-item label="产品货号 :">22222-41-13</el-form-item>
+            <el-form-item label="颗 粒 数 :">542</el-form-item>
+          </div>
+          <div class="between">
+            <el-form-item label="押 金 价 :">951.00</el-form-item>
+            <el-form-item label="进 货 价 :">844.00</el-form-item>
+          </div>
+          <el-form-item label="产品状态 :">
+            <el-select v-model="manageDialogForm.region" placeholder="二手">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="完 整 性 :">
+            <el-select v-model="manageDialogForm.region" placeholder="二手">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="所属门店 :">
+            <el-select v-model="manageDialogForm.region" placeholder="长沙喜盈门范城">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="功能管理 :">
+            <el-select v-model="manageDialogForm.region" placeholder="可租借">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </template>
+      <template slot="footer">
+        <el-button type="primary" @click="manageDialogClose">取消</el-button>
+        <el-button type="primary" @click="manageDialogSave">确定</el-button>
+      </template>
+    </common-dialog>
+
     <!-- 进货确定框 -->
-    <stock-dialog class="el-dialog-mini" @close-self="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
+    <common-dialog class="stock-dialog el-dialog-mini" @close-self="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
       <div class="title" slot="main">
         <p>共选择商品(件): 4</p>
         <p>总金额(元): 3453234</p>
       </div>
       <template slot="footer">
           <el-button type="primary" @click="stockDialogClose">取 消</el-button>
-          <el-button type="primary" @click="stockDialogUpdate">确 定</el-button>
+          <el-button type="primary" @click="stockDialogSave">确 定</el-button>
       </template>
-    </stock-dialog>
-    <!-- 退回清单 -->
-    <sendBack-dialog @close-dialog="sendBackDialogClose" :dialogVisible="sendBackDialogVisible"></sendBack-dialog>
+    </common-dialog>
+
+    <!-- 退回总部 -->
+    <common-dialog class="sendBack-dialog" @close-self="sendBackDialogClose" :visible="sendBackDialogVisible"  :title="sendBackDialogTitle">
+      <template class="main" slot="main">
+        <el-table
+        :data="sendBackList"
+        tooltip-effect="dark">
+        <el-table-column
+          prop="productName"
+          label="产品名称"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="productId"
+          label="产品货号"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="cashPledge"
+          label="押金价"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="purchasePrice"
+          align="center"
+          label="进货价">
+        </el-table-column>
+        <el-table-column
+          prop="productStatus"
+          align="center"
+          label="产品状态">
+        </el-table-column>
+        <el-table-column
+          prop="integrity"
+          align="center"
+          label="完整性">
+        </el-table-column>
+        <el-table-column 
+          align="center" 
+          label="操作"> 
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini" @click="sendBackDelete(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      </template>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary"  @click="sendBackDialogClose">取 消</el-button>
+        <el-button type="primary" @click="sendBackDialogSave">确 定</el-button>
+      </span>
+    </common-dialog>
+
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/inventory";
-import ManageDialog from "./manage";
-import SendBackDialog from "./send-back";
-import StockDialog from "@/views/common/dialog";
-
+import CommonDialog from "@/views/common/dialog";
 export default {
   components: {
-    StockDialog,
-    ManageDialog,
-    SendBackDialog
+    CommonDialog
   },
   data() {
     return {
+      //===================
+      //  管理 更新
+      //===================
+      manageDialogTitle: "商品信息",
+      manageDialogVisible: false,
+      manageDialogForm: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      },
+
       //===================
       //  进货确定
       //===================
@@ -203,11 +310,27 @@ export default {
       //  退回总部
       //===================
       sendBackDialogVisible: false,
-
-      //===================
-      //  管理按钮
-      //===================
-      manageDialogVisible: false,
+      sendBackDialogTitle: "归还清单",
+      sendBackForm: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      },
+      sendBackList: [
+        {
+          productName: "张三",
+          productId: "04-23-4-5-6-23-32",
+          cashPledge: 1000,
+          purchasePrice: 200,
+          productStatus: "新品",
+          integrity: "完整"
+        }
+      ],
 
       //===================
       // 数据列表
@@ -321,9 +444,20 @@ export default {
     },
 
     //===================
+    //  管理按钮
+    //===================
+    clickManageUpdate() {
+      this.manageDialogVisible = true;
+    },
+    manageDialogClose() {
+      this.manageDialogVisible = false;
+    },
+    manageDialogSave() {},
+
+    //===================
     //  进货确定关闭按钮
     //===================
-    replenishSelection() {
+    clickStockSelection() {
       if (this.multipleSelection.length) {
         this.stockDialogVisible = true;
       }
@@ -331,7 +465,7 @@ export default {
     stockDialogClose() {
       this.stockDialogVisible = false;
     },
-    stockDialogUpdate() {
+    stockDialogSave() {
       this.stockDialogClose();
     },
 
@@ -358,23 +492,17 @@ export default {
         this.checkedAll = true;
       }
     },
-    returnSelection() {
+    clickReturnSelection() {
       if (this.multipleSelection.length) {
         this.sendBackDialogVisible = true;
       }
     },
+    sendBackDelete() {},
     sendBackDialogClose() {
       this.sendBackDialogVisible = false;
     },
-
-    //===================
-    //  管理按钮
-    //===================
-    handleUpdate() {
-      this.manageDialogVisible = true;
-    },
-    manageDialogClose() {
-      this.manageDialogVisible = false;
+    sendBackDialogSave() {
+      this.sendBackDialogClose();
     },
 
     //===================
@@ -440,6 +568,84 @@ export default {
   .el-table__header th:nth-child(n + 3):before {
     content: "|";
     color: white;
+  }
+  //管理更新
+  .manage-dialog {
+    .el-dialog {
+      @include setWH(8.14rem, auto);
+      .el-dialog__header {
+        height: 0.62rem;
+      }
+      .el-dialog__body {
+        display: flex;
+        padding-top: 0.3rem;
+        align-items: center;
+        img {
+          @include setWH(2.92rem, 2.92rem);
+        }
+        .el-form {
+          width: 4.6rem;
+          height: 2.92rem;
+          margin-left: 0.1rem;
+          .between {
+            display: flex;
+          }
+          .between div:first-child {
+            width: 2.7rem;
+          }
+          .el-form-item {
+            margin-bottom: 0.05rem;
+            display: flex;
+            align-items: center;
+          }
+          .el-form-item__label {
+            width: 0.8rem;
+            text-align: left;
+          }
+          .el-form-item__label,
+          .el-form-item__content {
+            line-height: 0.4rem;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 0.15rem;
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+  //进货确定
+  .stock-dialog {
+  }
+  //退回总部
+  .sendBack-dialog {
+    .el-dialog {
+      @include setWH(14.5rem, 8.5rem);
+      @include borderRadius(0.2rem);
+      margin-top: 0 !important;
+      background: #ffffff;
+      @include setCenter;
+      .el-dialog__header {
+        height: 1rem;
+        position: relative;
+        .el-dialog__title {
+          @include setCenter;
+          color: #111111;
+        }
+        .el-dialog__title,
+        .el-dialog__close {
+          font-size: 0.3rem;
+        }
+      }
+      .el-dialog__footer {
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+    .el-table__header th:nth-child(n + 2):before {
+      content: "|";
+    }
   }
 }
 </style>
