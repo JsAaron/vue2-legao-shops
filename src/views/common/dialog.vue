@@ -15,7 +15,7 @@ export default {
   props: ["title", "visible"],
   methods: {
     dialogClose() {
-      this.$emit("close-dialog");
+      this.$emit("close-self");
     }
   }
 };

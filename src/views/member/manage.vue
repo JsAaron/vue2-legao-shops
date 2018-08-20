@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="dialogClose">
+    <!-- 个人主页 -->
+    <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="homeDialogClose">
       <div class="title">
         <img />
         <p>三张</p>
@@ -11,34 +12,34 @@
         </p>
         <p>
           <label>会员卡类型：</label><span>读酷黄光通用卡</span>
-          <span class="float-right pointer">管理</span>
+          <span @click="addManage" class="float-right pointer">管理</span>
         </p>
         <p>
           <label>零件余额保证金：</label><span>100:00</span>
           <span @click="addMoney" class="float-right pointer">充值</span>
         </p>
       </div>
-      <div class="m-button">
-        <el-button type="primary">租借产品</el-button>
-        <el-button type="primary">次卡消费</el-button>
+      <div class="homepage-button">
+        <el-button @click="rentPoductOpen" type="primary">租借产品</el-button>
+        <el-button @click="secondCardOpen" type="primary">次卡消费</el-button>
       </div>
-      <div class="m-container">
+      <div class="homepage-container">
         123
       </div>
     </el-dialog>
 
     <!-- 充值 -->
-    <money-dialog class="money-dialog el-dialog-mini" @close-dialog="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
+    <common-dialog class="money-dialog el-dialog-mini" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
       <div class="main" slot="main">
         <label>充值金额：</label><el-input v-model="moneyValue" placeholder="请输入金额"></el-input>
       </div>
       <template slot="footer">
         <el-button type="primary" @click="ensurePay">立即支付</el-button>
       </template>
-    </money-dialog>
+    </common-dialog>
 
     <!-- 管理 -->
-    <manage-dialog class="manage-dialog el-dialog-middle" @close-dialog="manageDialogClose" :visible="manageDialogVisible" :title="manageTitle">
+    <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageTitle">
       <div class="main" slot="main">
         <img src="../../images/menber-sell/1-1.png" />
         <p>
@@ -64,26 +65,68 @@
           </el-select>
         </p>
       </div>
-      <!-- 底部按钮 -->
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary"  @click="handleClose">取 消</el-button>
-        <el-button type="primary" @click="handleUpdate">保 存</el-button>
+        <el-button type="primary"  @click="manageDialogClose">取 消</el-button>
+        <el-button type="primary" @click="manageDialogSave">保 存</el-button>
       </span>
-    </manage-dialog>
+    </common-dialog>
+
+     <!-- 次卡消费 -->
+    <common-dialog class="second-card-dialog el-dialog-mini" @close-self="secondCardDialogClose" :visible="secondCardDialogVisible" :title="secondCardTitle">
+      <template class="main" slot="main">
+        <dl>
+          <dt>会员姓名：</dt>
+          <dd>张三</dd>
+        </dl>
+        <dl>
+          <dt>手机号码：</dt>
+          <dd>13888888888</dd>
+        </dl>
+        <dl>
+          <dt>本次消费人数：</dt>
+          <dd>  
+            <el-select v-model="secondCardValue" placeholder="1">
+              <el-option
+                v-for="item in secondCardOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </dd>
+        </dl>
+      </template>
+      <template slot="footer">
+        <el-button type="primary" @click="secondCardDialogClose">取消</el-button>
+        <el-button type="primary" @click="secondCardDialogSave">确定</el-button>
+      </template>
+    </common-dialog>
+
+     <!-- 租借产品 -->
+    <common-dialog class="rent-poduct-dialog el-dialog-middle" @close-self="rentPoductDialogClose" :visible="rentPoductDialogVisible" :title="rentPoductTitle">
+      <template class="main" slot="main">
+        <div class="title">
+          <label>产品货号：</label>
+          <el-input v-model="input" placeholder="请输入内容"></el-input>
+        </div>
+      </template>
+      <template slot="footer">
+        <el-button type="primary" @click="rentPoductDialogClose">取消</el-button>
+        <el-button type="primary" @click="rentPoductDialogSave">确定</el-button>
+      </template>
+    </common-dialog>
 
   </div>
 
 </template>
 
 <script>
-import MoneyDialog from "@/views/common/dialog";
-import ManageDialog from "@/views/common/dialog";
+import CommonDialog from "@/views/common/dialog";
 export default {
   components: {
-    MoneyDialog,
-    ManageDialog
+    CommonDialog
   },
-  props: ["data", "visible"],
+  props: ["visible"],
   data() {
     return {
       //===================
@@ -95,12 +138,46 @@ export default {
       //===================
       //  管理
       //===================
-      manageDialogVisible: true,
-      manageValue: null, //充值金额
+      manageDialogVisible: false,
+      manageValue: null,
       manageTimeValue: null,
       manageTitle: "会员卡管理界面",
       manageSelectValue: "",
       manageOptions: [
+        {
+          value: "选项1",
+          label: "黄金糕"
+        },
+        {
+          value: "选项2",
+          label: "双皮奶"
+        },
+        {
+          value: "选项3",
+          label: "蚵仔煎"
+        },
+        {
+          value: "选项4",
+          label: "龙须面"
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭"
+        }
+      ],
+      //===================
+      //  租借产品
+      //===================
+      rentPoductDialogVisible: false,
+      rentPoductTitle: "产品借出",
+      rentPoductValue: null,
+      //===================
+      //  次卡消费
+      //===================
+      secondCardDialogVisible: false,
+      secondCardTitle: "次卡消费界面",
+      secondCardValue: null,
+      secondCardOptions: [
         {
           value: "选项1",
           label: "黄金糕"
@@ -126,6 +203,19 @@ export default {
   },
   methods: {
     //===================
+    //  主页
+    //===================
+    homeDialogClose() {
+      this.$emit("close-self");
+    },
+    rentPoductOpen() {
+      this.rentPoductDialogVisible = true;
+    },
+    secondCardOpen() {
+      this.secondCardDialogVisible = true;
+    },
+
+    //===================
     //  充值
     //===================
     //点击充值
@@ -139,18 +229,38 @@ export default {
     moneyDialogClose() {
       this.moneyDialogVisible = false;
     },
+
     //===================
     //  管理
     //===================
+    addManage() {
+      this.manageDialogVisible = true;
+    },
     manageDialogClose() {
       this.manageDialogVisible = false;
     },
-
-    dialogClose() {
-      this.$emit("close-dialog");
+    manageDialogSave() {
+      this.manageDialogClose();
     },
-    dialogUpdate() {
-      this.dialogClose();
+
+    //===================
+    //  次卡消费
+    //===================
+    secondCardDialogClose() {
+      this.secondCardDialogVisible = false;
+    },
+    secondCardDialogSave() {
+      this.secondCardDialogClose();
+    },
+
+    //===================
+    //  租借产品
+    //===================
+    rentPoductDialogClose() {
+      this.rentPoductDialogVisible = false;
+    },
+    rentPoductDialogSave() {
+      this.rentPoductDialogClose();
     }
   }
 };
@@ -199,7 +309,7 @@ export default {
           margin-top: 0.1rem;
         }
       }
-      .m-button {
+      .homepage-button {
         margin: 0.2rem 0;
         display: flex;
         justify-content: space-between;
@@ -207,7 +317,7 @@ export default {
           @include setWH(1.87rem, 0.58rem);
         }
       }
-      .m-container {
+      .homepage-container {
         height: 3.05rem;
         border: 1px solid #ccc;
       }
@@ -252,5 +362,16 @@ export default {
       margin-left: 0.1rem;
     }
   }
+}
+.second-card-dialog {
+  .el-dialog__body {
+    dl {
+      display: flex;
+      padding: 0.05rem;
+      align-items: center;
+    }
+  }
+}
+.rent-poduct-dialog {
 }
 </style>

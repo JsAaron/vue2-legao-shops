@@ -164,7 +164,7 @@
     <!-- 管理修改 -->
     <manage-dialog @close-dialog="manageDialogClose" :dialogVisible="manageDialogVisible"></manage-dialog>
     <!-- 进货确定框 -->
-    <stock-dialog class="el-dialog-mini" @close-dialog="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
+    <stock-dialog class="el-dialog-mini" @close-self="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
       <div class="title" slot="main">
         <p>共选择商品(件): 4</p>
         <p>总金额(元): 3453234</p>

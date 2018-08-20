@@ -97,7 +97,7 @@
           align="center" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">管理</el-button>
+            <el-button type="primary" size="mini" @click="manageDialogOpen(scope.row)">管理</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -116,7 +116,7 @@
     </div>
 
       <!-- 管理 -->
-    <manage @close-dialog="manageDialogClose" :visible="manageDialogVisible"></manage>
+    <manage @close-self="manageDialogClose" :visible="manageDialogVisible"></manage>
 
   </div>
 </template>
@@ -133,8 +133,7 @@ export default {
       //====================
       // 管理目录
       //====================
-      manageDialogVisible: true,
-
+      manageDialogVisible: false,
       //====================
       // 过滤表单
       //====================
@@ -155,7 +154,6 @@ export default {
           }
         ]
       },
-
       //====================
       // 数据列表
       //====================
@@ -167,7 +165,6 @@ export default {
         page: 1, //取第几个页面
         limit: 8 //多少条数据
       },
-
       //====================
       // 管理菜单
       //====================
@@ -178,16 +175,9 @@ export default {
     this.getList();
   },
   methods: {
-    //=============
-    //  管理
-    //=============
-    manageDialogClose() {
-      this.manageDialogVisible = false;
-    },
-
-    //=============
+    //====================
     //  获取数据
-    //=============
+    //====================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
@@ -197,14 +187,24 @@ export default {
       });
     },
 
-    //=============
+    //====================
+    //  管理
+    //====================
+    manageDialogOpen() {
+      this.manageDialogVisible = true;
+    },
+    manageDialogClose() {
+      this.manageDialogVisible = false;
+    },
+
+    //====================
     //  过滤查询
-    //=============
+    //====================
     filterQuery() {},
 
-    //=============
+    //====================
     //  页码
-    //=============
+    //====================
     handleSizeChange() {},
     handleCurrentChange() {}
   }
