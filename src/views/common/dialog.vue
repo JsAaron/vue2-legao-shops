@@ -1,13 +1,10 @@
 <template>
   <div class="dialog-common">
     <el-dialog :title="data.title" :visible.sync="visible" :before-close="dialogClose">
-      <div class="title">
-        <p>共选择商品(件): 4</p>
-        <p>总金额(元): 3453234</p>
-      </div>
+      <!-- 内容 -->
+      <slot name="main"></slot>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogClose">取 消</el-button>
-        <el-button type="primary" @click="dialogUpdate">确 定</el-button>
+        <slot name="footer"></slot>
       </span>
     </el-dialog>
   </div>
@@ -16,15 +13,9 @@
 <script>
 export default {
   props: ["data", "visible"],
-  data() {
-    return {};
-  },
   methods: {
     dialogClose() {
       this.$emit("close-dialog");
-    },
-    dialogUpdate() {
-      this.dialogClose();
     }
   }
 };
@@ -71,6 +62,7 @@ export default {
     height: 0.56rem;
   }
   .el-dialog__body {
+    width: auto !important;
     .title {
       text-align: center;
     }

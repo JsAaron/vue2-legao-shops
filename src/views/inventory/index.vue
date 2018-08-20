@@ -164,7 +164,16 @@
     <!-- 管理修改 -->
     <manage-dialog @close-dialog="manageDialogClose" :dialogVisible="manageDialogVisible"></manage-dialog>
     <!-- 进货确定框 -->
-    <stock-dialog @close-dialog="stockDialogClose" :visible="stockDialogVisible" :data="stockDialogData"></stock-dialog>
+    <stock-dialog @close-dialog="stockDialogClose" :visible="stockDialogVisible" :data="stockDialogData">
+      <div class="title" slot="main">
+        <p>共选择商品(件): 4</p>
+        <p>总金额(元): 3453234</p>
+      </div>
+      <template slot="footer">
+          <el-button type="primary" @click="stockDialogClose">取 消</el-button>
+          <el-button type="primary" @click="stockDialogUpdate">确 定</el-button>
+      </template>
+    </stock-dialog>
     <!-- 退回清单 -->
     <sendBack-dialog @close-dialog="sendBackDialogClose" :dialogVisible="sendBackDialogVisible"></sendBack-dialog>
   </div>
