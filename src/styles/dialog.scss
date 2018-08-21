@@ -16,6 +16,13 @@
   }
 }
 
+//大尺寸
+.el-dialog-large {
+  .el-dialog {
+    width: 8.14rem;
+  }
+}
+
 //头部白色
 .el-dialog-white {
   .el-dialog__header {

@@ -2,7 +2,7 @@
   <div class="inventory-container">
 
     <!-- 搜索，过滤 -->
-    <div class="filter-container">
+    <div class="inventory-filter">
       <el-form :model="form">
         <el-row>
           <el-col :span="8">
@@ -69,7 +69,7 @@
     </div>
 
     <!-- 主体列表查询 -->
-    <div class="list-container">
+    <div class="inventory-list">
       <el-table
         v-loading="listLoading" 
         ref="multipleTable"
@@ -149,7 +149,7 @@
     </div>
 
     <!-- 底部页码导航 -->
-    <div class="pagination-container">
+    <div class="inventory-pagination">
       <el-pagination
         background
         @size-change="handleSizeChange"
@@ -162,7 +162,7 @@
     </div>
 
     <!-- 管理更新 -->
-    <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageDialogTitle">
+    <common-dialog class="manage-dialog el-dialog-large" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageDialogTitle">
       <template class="main" slot="main">
         <!-- 左图 -->
         <section><img src="../../images/common/logo.png"></section>
@@ -529,7 +529,7 @@ export default {
 
 <style lang="scss" scoped>
 .inventory-container {
-  .filter-container {
+  .inventory-filter {
     width: 90%;
     margin: 0 auto;
     .el-form-item {
@@ -538,7 +538,7 @@ export default {
       height: 0.33rem;
     }
   }
-  .list-container {
+  .inventory-list {
     width: 95%;
     margin: 0 auto;
     .checked-bt {
@@ -548,7 +548,7 @@ export default {
       }
     }
   }
-  .pagination-container {
+  .inventory-pagination {
     margin-top: 0.3rem;
     margin-right: 0.3rem;
     margin-bottom: 1rem;
@@ -572,10 +572,6 @@ export default {
   //管理更新
   .manage-dialog {
     .el-dialog {
-      @include setWH(8.14rem, auto);
-      .el-dialog__header {
-        height: 0.62rem;
-      }
       .el-dialog__body {
         display: flex;
         padding-top: 0.3rem;
@@ -614,15 +610,10 @@ export default {
       }
     }
   }
-  //进货确定
-  .stock-dialog {
-  }
   //退回总部
   .sendBack-dialog {
     .el-dialog {
       @include setWH(14.5rem, 8.5rem);
-      @include borderRadius(0.2rem);
-      margin-top: 0 !important;
       background: #ffffff;
       @include setCenter;
       .el-dialog__header {

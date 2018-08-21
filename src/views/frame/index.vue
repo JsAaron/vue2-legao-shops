@@ -74,7 +74,7 @@ export default {
     background: white;
     //重新定义高度
     .head-top {
-      height: 1.5rem;
+      // height: 1.5rem;
     }
   }
 }
