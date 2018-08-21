@@ -451,21 +451,29 @@ export default {
     manageDialogSave() {
       const query = {};
       //必须是修改了数据，并且是有效值
+      //0的数据,判断复杂
       let flagValue = this.manageDialogForm.flagValue;
-      if ((flagValue || flagValue == 0) && flagValue != this.activeData.flag) {
+      if (
+        (flagValue && flagValue != this.activeData.flag) ||
+        (flagValue == 0 && this.activeData.flag && this.activeData.flag != 0)
+      ) {
         query["flag"] = flagValue;
       }
       let is_newValue = this.manageDialogForm.is_newValue;
       if (
-        (is_newValue || is_newValue == 0) &&
-        is_newValue != this.activeData.is_new
+        (is_newValue && is_newValue != this.activeData.is_new) ||
+        (is_newValue == 0 &&
+          this.activeData.is_new &&
+          this.activeData.is_new != 0)
       ) {
         query["is_new"] = is_newValue;
       }
       let extflagValue = this.manageDialogForm.extflagValue;
       if (
-        (extflagValue || extflagValue == 0) &&
-        extflagValue != this.activeData.extflag
+        (extflagValue && extflagValue != this.activeData.extflag) ||
+        (extflagValue == 0 &&
+          this.activeData.extflag &&
+          this.activeData.extflag != 0)
       ) {
         query["extflag"] = extflagValue;
       }
