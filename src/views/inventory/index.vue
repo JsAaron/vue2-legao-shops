@@ -172,17 +172,17 @@
           </div>
           <el-form-item label="库存状态 :">
             <el-select v-model="manageDialogForm.flag" >
-              <el-option v-for="(value,key) in inventoryStatus" :key="key" :label="value" :value="value"></el-option>
+              <el-option v-for="(value,key) in inventoryStatus" :key="key" :label="value" :value="key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="完 整 性 :">
             <el-select v-model="manageDialogForm.is_new" >
-              <el-option v-for="(value,key) in productStatus" :key="key" :label="value" :value="value"></el-option>
+              <el-option v-for="(value,key) in productStatus" :key="key" :label="value" :value="key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="功能管理 :">
             <el-select v-model="manageDialogForm.extflag">
-              <el-option v-for="(value,key) in extStatus" :key="key" :label="value" :value="value"></el-option>
+              <el-option v-for="(value,key) in extStatus" :key="key" :label="value" :value="key"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -437,7 +437,7 @@ export default {
     //===================
     clickManageUpdate(data) {
       this.manageDialogVisible = true;
-      this.manageDialogForm = data;
+      this.manageDialogForm = Object.assign({}, data);
     },
     manageDialogClose() {
       this.manageDialogVisible = false;
