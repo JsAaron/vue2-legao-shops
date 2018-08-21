@@ -1,7 +1,8 @@
 <template>
   <div class="order-container">
+
     <!-- 搜索，过滤 -->
-    <div class="filter-container">
+    <div class="order-filter">
       <el-form :model="form">
         <el-row>
           <el-col :span="6">
@@ -166,12 +167,14 @@
 <script>
 import { fetchList } from "@/api/order";
 import OrderDetails from "./details";
+import CommonDialog from "@/views/common/dialog";
 /**
  * 订单管理
  */
 export default {
   components: {
-    OrderDetails
+    OrderDetails,
+    CommonDialog
   },
   data() {
     return {
@@ -267,7 +270,7 @@ export default {
   1 过滤搜索栏
 **/
 .order-container {
-  .filter-container {
+  .order-filter {
     width: 90%;
     margin: 0 auto;
     .el-form-item__label {

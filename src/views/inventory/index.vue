@@ -3,23 +3,23 @@
 
     <!-- 搜索，过滤 -->
     <div class="inventory-filter">
-      <el-form :model="form">
+      <el-form :model="filterForm">
         <el-row>
           <el-col :span="8">
             <el-form-item label="产品编号：">
-              <el-input v-model="form.id"></el-input>
+              <el-input v-model="filterForm.id"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="产品货号：">
-              <el-input v-model="form.poductId"></el-input>
+              <el-input v-model="filterForm.poductId"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="所属卡：">
-              <el-select v-model="form.cadrValue">
+              <el-select v-model="filterForm.cadrValue">
               <el-option
                 v-for="type in cardType"
                 :key="type.value"
@@ -35,7 +35,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="所属门店：">
-              <el-select v-model="form.shopValue">
+              <el-select v-model="filterForm.shopValue">
                 <el-option
                   v-for="name in shopName"
                   :key="name.value"
@@ -48,12 +48,12 @@
 
           <el-col :span="8">
             <el-form-item label="库存状态：">
-              <el-select v-model="form.stockValue">
+              <el-select v-model="filterForm.stockValue">
                 <el-option
-                  v-for="state in stockState"
-                  :key="state.value"
-                  :label="state.label"
-                  :value="state.value">
+                  v-for="(value,key) in inventoryStatus"
+                  :key="key"
+                  :label="value"
+                  :value="key">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -82,58 +82,51 @@
           width="35">
         </el-table-column>
         <el-table-column
-          prop="id"
+          prop="code"
           label="产品编号"
           align="center"
           width="80">
         </el-table-column>
         <el-table-column
-          prop="typeId"
+          prop="number"
           label="颗粒数"
-          align="center"
-          width="100">
+          align="center">
         </el-table-column>
         <el-table-column
           prop="cardType"
           label="所属卡"
-          align="center"
-          width="100">
+          align="center">
         </el-table-column>
         <el-table-column
-          prop="productName"
+          prop="name"
           label="产品名称"
+          min-width="200"
           align="center"
-          show-overflow-tooltip
-          min-width="200">
+          show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-          prop="poductId"
+          prop="storeid"
           align="center"
-          width="150"
+          min-width="120"
           label="产品货号">
         </el-table-column>
         <el-table-column
-          prop="shopName"
+          prop="shopname"
           align="center"
-          width="100"
           label="所属门店">
         </el-table-column>
         <el-table-column
-          prop="integrity"
+          prop="is_new"
           align="center"
-          width="100"
           label="完整性">
         </el-table-column>
         <el-table-column
-          prop="inventory"
+          prop="flag"
           align="center"
-          width="100"
           label="库存状态">
         </el-table-column>
-
         <el-table-column 
           align="center" 
-          width="100" 
           label="操作"> 
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="clickManageUpdate(scope.row)">管理</el-button>
@@ -168,37 +161,28 @@
         <section><img src="../../images/common/logo.png"></section>
         <!-- 右表单 -->
         <el-form ref="manageDialogForm"  :model="manageDialogForm" >
-          <el-form-item label="产品名称 :">气球气球气球</el-form-item>
+          <el-form-item label="产品名称 :">{{manageDialogForm.name}}</el-form-item>
           <div class="between">
-            <el-form-item label="产品货号 :">22222-41-13</el-form-item>
-            <el-form-item label="颗 粒 数 :">542</el-form-item>
+            <el-form-item label="产品货号 :">{{manageDialogForm.storeid}}</el-form-item>
+            <el-form-item label="颗 粒 数 :">{{manageDialogForm.number}}</el-form-item>
           </div>
           <div class="between">
-            <el-form-item label="押 金 价 :">951.00</el-form-item>
-            <el-form-item label="进 货 价 :">844.00</el-form-item>
+            <el-form-item label="押 金 价 :">{{manageDialogForm.price}}</el-form-item>
+            <el-form-item label="进 货 价 :">{{manageDialogForm.origin_price}}</el-form-item>
           </div>
-          <el-form-item label="产品状态 :">
-            <el-select v-model="manageDialogForm.region" placeholder="二手">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item label="库存状态 :">
+            <el-select v-model="manageDialogForm.flag" >
+              <el-option v-for="(value,key) in inventoryStatus" :key="key" :label="value" :value="value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="完 整 性 :">
-            <el-select v-model="manageDialogForm.region" placeholder="二手">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="所属门店 :">
-            <el-select v-model="manageDialogForm.region" placeholder="长沙喜盈门范城">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+            <el-select v-model="manageDialogForm.is_new" >
+              <el-option v-for="(value,key) in productStatus" :key="key" :label="value" :value="value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="功能管理 :">
-            <el-select v-model="manageDialogForm.region" placeholder="可租借">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+            <el-select v-model="manageDialogForm.extflag">
+              <el-option v-for="(value,key) in extStatus" :key="key" :label="value" :value="value"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -278,6 +262,15 @@
 <script>
 import { fetchList } from "@/api/inventory";
 import CommonDialog from "@/views/common/dialog";
+import {
+  extStatus,
+  productStatus,
+  inventoryStatus,
+  transformExtStatus,
+  transformProductStatus,
+  transformInventoryStatus
+} from "@/utils";
+
 export default {
   components: {
     CommonDialog
@@ -289,26 +282,19 @@ export default {
       //===================
       manageDialogTitle: "商品信息",
       manageDialogVisible: false,
-      manageDialogForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      },
+      manageDialogForm: {},
 
       //===================
       //  进货确定
       //===================
+      multipleSelection: [], //多选项内容
       stockDialogVisible: false,
       stockDialogTitle: "进货确定",
 
       //===================
       //  退回总部
       //===================
+      checkedAll: false, //全选
       sendBackDialogVisible: false,
       sendBackDialogTitle: "归还清单",
       sendBackForm: {
@@ -333,6 +319,20 @@ export default {
       ],
 
       //===================
+      // 数据查询
+      //===================
+      inventoryStatus, //库存状态
+      productStatus, //完整性
+      extStatus, //扩展状态
+      filterForm: {
+        id: "", //产品编号
+        poductId: "", //产品货号
+        cadrValue: "",
+        stockValue: "",
+        shopValue: ""
+      },
+
+      //===================
       // 数据列表
       //===================
       //数据列表
@@ -342,15 +342,8 @@ export default {
       listLoading: true,
       //列表查询条件
       listQuery: {
-        page: 1, //取第几个页面
+        pages: 1, //取第几个页面
         limit: 10 //多少条数据
-      },
-      form: {
-        id: "", //产品编号
-        poductId: "", //产品货号
-        cadrValue: "读库通用铂金卡",
-        stockValue: "进货确定",
-        shopValue: "长沙喜盈门范城店"
       },
       //所属卡
       cardType: [
@@ -397,38 +390,34 @@ export default {
           value: "选项5",
           label: "乐高实体店5"
         }
-      ],
-      //货状态
-      stockState: [
-        {
-          value: "选项1",
-          label: "进货确定"
-        },
-        {
-          value: "选项2",
-          label: "出货确定"
-        }
-      ],
-      //多选项内容
-      multipleSelection: [],
-      //全选
-      checkedAll: false,
-      //分页数据
-      pageDate: {}
+      ]
     };
   },
   created() {
     this.getList();
   },
   methods: {
+    transformExtStatus,
     //===================
     //  获取数据
     //===================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.items;
-        this.total = response.data.total;
+        const newData = [...response.data.data];
+        newData.map(function(data) {
+          if (data.is_new) {
+            //完整性
+            data.is_new = transformProductStatus(data.is_new);
+          }
+          if (data.flag) {
+            //库存状态
+            data.flag = transformInventoryStatus(data.flag);
+          }
+        });
+        this.list = newData;
+        this.total = Number(response.data.count);
+        console.log(newData[0]);
         this.listLoading = false;
       });
     },
@@ -446,8 +435,9 @@ export default {
     //===================
     //  管理按钮
     //===================
-    clickManageUpdate() {
+    clickManageUpdate(data) {
       this.manageDialogVisible = true;
+      this.manageDialogForm = data;
     },
     manageDialogClose() {
       this.manageDialogVisible = false;
@@ -513,7 +503,7 @@ export default {
       this.getList();
     },
     handleCurrentChange(val) {
-      this.listQuery.page = val;
+      this.listQuery.pages = val;
       this.getList();
     },
 
@@ -617,7 +607,6 @@ export default {
       background: #ffffff;
       @include setCenter;
       .el-dialog__header {
-        height: 1rem;
         position: relative;
         .el-dialog__title {
           @include setCenter;
