@@ -50,10 +50,10 @@
             <el-form-item label="库存状态：">
               <el-select v-model="filterForm.stockValue">
                 <el-option
-                  v-for="(value,key) in inventoryStatus"
-                  :key="key"
-                  :label="value"
-                  :value="key">
+                  v-for="(item,index) in inventoryStatus"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -119,11 +119,17 @@
           prop="is_new"
           align="center"
           label="完整性">
+          <template slot-scope="scope">
+            {{transformProductStatus(scope.row.is_new)}}
+          </template>
         </el-table-column>
         <el-table-column
           prop="flag"
           align="center"
           label="库存状态">
+          <template slot-scope="scope">
+            {{transformInventoryStatus(scope.row.flag)}}
+          </template>
         </el-table-column>
         <el-table-column 
           align="center" 
@@ -171,18 +177,18 @@
             <el-form-item label="进 货 价 :">{{manageDialogForm.origin_price}}</el-form-item>
           </div>
           <el-form-item label="库存状态 :">
-            <el-select v-model="manageDialogForm.flag" >
-              <el-option v-for="(value,key) in inventoryStatus" :key="key" :label="value" :value="key"></el-option>
+            <el-select  v-model="manageDialogForm.flagValue" :placeholder="transformInventoryStatus(manageDialogForm.flag)">
+              <el-option v-for="(item,index) in inventoryStatus" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="完 整 性 :">
-            <el-select v-model="manageDialogForm.is_new" >
-              <el-option v-for="(value,key) in productStatus" :key="key" :label="value" :value="key"></el-option>
+            <el-select v-model="manageDialogForm.is_newValue" :placeholder="transformProductStatus(manageDialogForm.is_new)">
+              <el-option v-for="(item,index) in productStatus" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="功能管理 :">
-            <el-select v-model="manageDialogForm.extflag">
-              <el-option v-for="(value,key) in extStatus" :key="key" :label="value" :value="key"></el-option>
+            <el-select v-model="manageDialogForm.extflagValue" :placeholder="transformExtStatus(manageDialogForm.extflag)">
+              <el-option v-for="(item,index) in extStatus" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -190,6 +196,10 @@
       <template slot="footer">
         <el-button type="primary" @click="manageDialogClose">取消</el-button>
         <el-button type="primary" @click="manageDialogSave">确定</el-button>
+      </template>
+      <!-- 消息提示 -->
+      <template>
+        <el-button plain @click="openNotification"></el-button>
       </template>
     </common-dialog>
 
@@ -260,7 +270,7 @@
 </template>
 
 <script>
-import { fetchList } from "@/api/inventory";
+import { fetchList, updateInventory } from "@/api/inventory";
 import CommonDialog from "@/views/common/dialog";
 import {
   extStatus,
@@ -319,11 +329,12 @@ export default {
       ],
 
       //===================
-      // 数据查询
+      // 数据查询/过滤
       //===================
       inventoryStatus, //库存状态
       productStatus, //完整性
       extStatus, //扩展状态
+      activeData: null, //激活的当前数据
       filterForm: {
         id: "", //产品编号
         poductId: "", //产品货号
@@ -335,13 +346,13 @@ export default {
       //===================
       // 数据列表
       //===================
-      //数据列表
-      list: null,
+      list: null, //数据列表
       total: null,
-      //加载进度条
-      listLoading: true,
-      //列表查询条件
+      listLoading: true, //加载进度条
+      activeFlag: "", //动态改变的库存状态
+      activeIs_new: "", //动态改变的完整性
       listQuery: {
+        //列表查询条件
         pages: 1, //取第几个页面
         limit: 10 //多少条数据
       },
@@ -398,26 +409,16 @@ export default {
   },
   methods: {
     transformExtStatus,
+    transformProductStatus,
+    transformInventoryStatus,
     //===================
     //  获取数据
     //===================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
-        const newData = [...response.data.data];
-        newData.map(function(data) {
-          if (data.is_new) {
-            //完整性
-            data.is_new = transformProductStatus(data.is_new);
-          }
-          if (data.flag) {
-            //库存状态
-            data.flag = transformInventoryStatus(data.flag);
-          }
-        });
-        this.list = newData;
+        this.list = [...response.data.data];
         this.total = Number(response.data.count);
-        console.log(newData[0]);
         this.listLoading = false;
       });
     },
@@ -436,13 +437,87 @@ export default {
     //  管理按钮
     //===================
     clickManageUpdate(data) {
+      this.activeData = data;
       this.manageDialogVisible = true;
-      this.manageDialogForm = Object.assign({}, data);
+      this.manageDialogForm = Object.assign({}, data, {
+        flagValue: "", //库存值
+        is_newtValue: "", //完整性
+        extflagValue: "" //额外功能
+      });
     },
     manageDialogClose() {
       this.manageDialogVisible = false;
     },
-    manageDialogSave() {},
+    manageDialogSave() {
+      const query = {};
+      //必须是修改了数据，并且是有效值
+      let flagValue = this.manageDialogForm.flagValue;
+      if ((flagValue || flagValue == 0) && flagValue != this.activeData.flag) {
+        query["flag"] = flagValue;
+      }
+      let is_newValue = this.manageDialogForm.is_newValue;
+      if (
+        (is_newValue || is_newValue == 0) &&
+        is_newValue != this.activeData.is_new
+      ) {
+        query["is_new"] = is_newValue;
+      }
+      let extflagValue = this.manageDialogForm.extflagValue;
+      if (
+        (extflagValue || extflagValue == 0) &&
+        extflagValue != this.activeData.extflag
+      ) {
+        query["extflag"] = extflagValue;
+      }
+
+      if (!Object.keys(query).length) {
+        this.openNotification("没有选择提交的数据!");
+        return;
+      }
+      query["id"] = this.manageDialogForm.id;
+      updateInventory(query).then(
+        () => {
+          if (query["flag"] || query["flag"] == 0) {
+            this.activeData.flag = flagValue;
+          }
+          if (query["is_new"] || query["is_new"] == 0) {
+            this.activeData.is_new = is_newValue;
+          }
+          this.openNotification("数据更新成功!", "success");
+          setTimeout(() => {
+            this.manageDialogClose();
+          }, 1000);
+        },
+        () => {
+          this.openNotification("数据更新失败!", "warning");
+        }
+      );
+    },
+    openNotification(message, type = "info") {
+      if (type === "success") {
+        this.$notify({
+          type,
+          title: "成功",
+          message,
+          offset: 100
+        });
+      }
+      if (type === "info") {
+        this.$notify.info({
+          title: "通知",
+          message,
+          offset: 100
+        });
+      }
+      if (type === "warning") {
+        this.$notify({
+          title: "警告",
+          message,
+          type: "warning",
+          offset: 100
+        });
+      }
+    },
 
     //===================
     //  进货确定关闭按钮
