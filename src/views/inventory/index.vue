@@ -499,28 +499,42 @@ export default {
       );
     },
     openNotification(message, type = "info") {
+      const config = {
+        duration: 1000,
+        message,
+        offset: 100
+      };
       if (type === "success") {
-        this.$notify({
-          type,
-          title: "成功",
-          message,
-          offset: 100
-        });
+        this.$notify(
+          Object.assign(
+            {
+              type,
+              title: "成功"
+            },
+            config
+          )
+        );
       }
       if (type === "info") {
-        this.$notify.info({
-          title: "通知",
-          message,
-          offset: 100
-        });
+        this.$notify.info(
+          Object.assign(
+            {
+              title: "通知"
+            },
+            config
+          )
+        );
       }
       if (type === "warning") {
-        this.$notify({
-          title: "警告",
-          message,
-          type: "warning",
-          offset: 100
-        });
+        this.$notify(
+          Object.assign(
+            {
+              title: "警告",
+              type: "warning"
+            },
+            config
+          )
+        );
       }
     },
 
