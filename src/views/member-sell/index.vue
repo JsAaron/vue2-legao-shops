@@ -129,6 +129,7 @@ export default {
         text-align: center;
         p {
           font-size: 0.2rem;
+          padding: 0.1rem;
         }
       }
     }
