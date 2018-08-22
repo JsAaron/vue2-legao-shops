@@ -3,52 +3,35 @@
 
     <!-- 搜索，过滤 -->
     <div class="inventory-filter">
-      <el-form :model="filterForm">
+      <el-form :model="listQuery">
         <el-row>
           <el-col :span="8">
             <el-form-item label="产品编号：">
-              <el-input v-model="filterForm.code"></el-input>
+              <el-input v-model="listQuery.code" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-
           <el-col :span="8">
             <el-form-item label="产品货号：">
-              <el-input v-model="filterForm.storeid"></el-input>
+              <el-input v-model="listQuery.storeid" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-
-          <el-col :span="8">
-            <el-form-item label="所属卡：">
-              <el-select v-model="filterForm.card">
-              <el-option
-                v-for="type in cardType"
-                :key="type.value"
-                :label="type.label"
-                :value="type.value">
-              </el-option>
-            </el-select>
-            </el-form-item>
-          </el-col>
-
         </el-row>
-
         <el-row>
           <el-col :span="8">
-            <el-form-item label="所属门店：">
-              <el-select v-model="filterForm.shopValue">
-                <el-option
-                  v-for="name in shopName"
-                  :key="name.value"
-                  :label="name.label"
-                  :value="name.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
+            <el-form-item label="所属卡：">
+                  <el-select v-model="listQuery.card" clearable>
+                  <el-option
+                    v-for="type in cardType"
+                    :key="type.value"
+                    :label="type.label"
+                    :value="type.value">
+                  </el-option>
+                </el-select>
+                </el-form-item>
           </el-col>
-
           <el-col :span="8">
             <el-form-item label="库存状态：">
-              <el-select v-model="filterForm.flag">
+              <el-select v-model="listQuery.flag" clearable>
                 <el-option
                   v-for="(item,index) in inventoryStatus"
                   :key="index"
@@ -58,10 +41,9 @@
               </el-select>
             </el-form-item>
           </el-col>
-
           <!-- 查询 -->
           <el-form-item>
-            <el-button type="primary" @click="onQuery">查询</el-button>
+            <el-button type="primary" @click="getList">查询</el-button>
           </el-form-item>
         </el-row>
 
@@ -335,13 +317,6 @@ export default {
       productStatus, //完整性
       extStatus, //扩展状态
       activeData: null, //激活的当前数据
-      filterForm: {
-        code: "", //产品编号
-        storeid: "", //产品货号
-        card: "", //所属卡
-        flag: "", //库存状态
-        shopValue: ""
-      },
 
       //===================
       // 数据列表
@@ -599,13 +574,6 @@ export default {
     handleCurrentChange(val) {
       this.listQuery.pages = val;
       this.getList();
-    },
-
-    //===================
-    //  查询
-    //===================
-    onQuery() {
-      console.log(this.form);
     }
   }
 };

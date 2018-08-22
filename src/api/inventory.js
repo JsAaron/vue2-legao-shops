@@ -7,7 +7,6 @@ import request from "@/utils/request";
  */
 export function fetchList(query) {
   return request({
-    // url: "/inventory/list",
     url: "/goods/getpages",
     method: "get",
     params: query
