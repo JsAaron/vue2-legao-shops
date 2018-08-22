@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Message } from "element-ui";
-import getters from "../store/getters"; //index错误
+// import getters from "../store/getters"; //index错误
+import getters from "@/store/getters";
 import { getToken } from "@/utils/auth";
 
 // create an axios instance
@@ -12,7 +13,8 @@ const service = axios.create({
 // 添加一个请求拦截器
 service.interceptors.request.use(
   config => {
-    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+    // config.headers["withCredentials"] = true;
     // config.transformRequest = [function (data, headers) {
     //   let q = new URLSearchParams();
     //   for (let i in data) {
@@ -21,15 +23,18 @@ service.interceptors.request.use(
     //   return q.toString();
     // }];
     //请求的时候头部带上X-Token
-    if (getters.token) {
-      // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-      // config.headers["X-Token"] = getToken();
+    const tokens = getToken();
+    if (tokens) {
+      const data = tokens.split("-");
+      config.headers["userid"] = data[0];
+      config.headers["token"] = data[1];
     }
+    // console.log("发送", config);
     return config;
   },
   error => {
     //请求出错
-    console.log(error);
+    console.log("发送错误", error);
     Promise.reject(error);
   }
 );
@@ -71,12 +76,14 @@ service.interceptors.response.use(
   //   }
   // },
   error => {
-    console.log("err" + error); // for debug
-    Message({
-      message: error.message,
-      type: "error",
-      duration: 5 * 1000
-    });
+    // console.log("服务器请求失败，请检查服务器或者网络"); // for debug
+    // Message({
+    //   message: "服务器请求失败，请检查服务器或者网络连接",
+    //   // message: error.message,
+    //   type: "error",
+    //   duration: 5 * 1000
+    // });
+    console.log("响应错误", error);
     return Promise.reject(error);
   }
 );

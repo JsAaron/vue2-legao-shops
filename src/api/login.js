@@ -1,15 +1,10 @@
 import request from "@/utils/request";
 
 export function loginByUsername(username, password) {
-  const data = {
-    username,
-    password
-  };
-
   return request({
-    url: "/login/login",
+    url: "/admin/login",
     method: "post",
-    data
+    params: { user: username, psw: password }
   });
 }
 
@@ -20,12 +15,14 @@ export function logout() {
   });
 }
 
-export function getUserInfo(token) {
+/**
+ * token存在，处理
+ * @param {*} userid
+ * @param {*} token
+ */
+export function getUserInfo() {
   return request({
-    url: "/user/info",
-    method: "get",
-    params: {
-      token
-    }
+    url: "/admin/token",
+    method: "POST"
   });
 }

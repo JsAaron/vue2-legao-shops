@@ -27,13 +27,16 @@
               <icon name="eye" :scale="1.5"></icon>
             </span>
           </el-form-item>
+          <div class="alert-show">
+            <el-alert
+              v-if="errorShow"
+              title="账号或者密码错误"
+              type="error"
+              show-icon>
+            </el-alert>
+          </div>
           <!-- 底部 -->
           <div class="foot">
-            <!-- 忘记密码 -->
-            <!-- <div class="forgot-password">
-              <span @click="forgotPassword">忘记密码</span>
-            </div> -->
-            <!--  登录按钮 -->
             <el-button type="primary" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
           </div>
         </el-form>
@@ -49,8 +52,9 @@ export default {
   name: "login",
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error("Please enter the correct user name"));
+      const data = isvalidUsername(value);
+      if (data) {
+        callback(new Error(data));
       } else {
         callback();
       }
@@ -77,7 +81,8 @@ export default {
       },
       passwordType: "password",
       loading: false,
-      showDialog: false
+      showDialog: false,
+      errorShow: false //显示错误框
     };
   },
   methods: {
@@ -89,33 +94,36 @@ export default {
         this.passwordType = "password";
       }
     },
+    showAlert() {
+      this.errorShow = true;
+      setTimeout(() => {
+        this.errorShow = false;
+      }, 2000);
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
+          //请求登录
           this.RECORD_USERINFO(this.loginForm)
             .then(() => {
               this.loading = false;
               this.$router.push({ path: "/home" });
             })
             .catch(() => {
-              console.log("登录错误");
+              this.showAlert();
             });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
     },
-    forgotPassword() {
-      console.log(123);
-    }
+    forgotPassword() {}
   }
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-/* reset element-ui css */
+<style lang="scss">
 .login-container {
   .el-input {
     display: inline-block;
@@ -135,7 +143,6 @@ export default {
   }
   .el-button--primary {
     border-color: antiquewhite;
-    // box-shadow: 2px 2px 2px 2px antiquewhite;
     span {
       color: white;
       font-size: 16px;
@@ -196,9 +203,16 @@ export default {
         padding: 0.1rem;
         border-bottom: 1px solid rgb(200, 200, 200);
       }
+      .alert-show {
+        position: relative;
+        .el-alert {
+          position: absolute;
+          top: -0.1rem;
+        }
+      }
       .foot {
         @include setFJ;
-        padding-top: 0.2rem;
+        padding-top: 0.4rem;
         .el-button {
           width: 1.94rem;
           height: 0.54rem;

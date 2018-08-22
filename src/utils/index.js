@@ -33,7 +33,8 @@ export const inventoryStatus = [
   { value: -2, label: "门店收货" },
   { value: -1, label: "已借出" },
   { value: 0, label: "清点中" },
-  { value: 1, label: "在仓库" }
+  { value: 1, label: "在仓库" },
+  { value: -9, label: "已出库" }
 ];
 
 /**

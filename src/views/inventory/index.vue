@@ -7,19 +7,19 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="产品编号：">
-              <el-input v-model="filterForm.id"></el-input>
+              <el-input v-model="filterForm.code"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="产品货号：">
-              <el-input v-model="filterForm.poductId"></el-input>
+              <el-input v-model="filterForm.storeid"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="所属卡：">
-              <el-select v-model="filterForm.cadrValue">
+              <el-select v-model="filterForm.card">
               <el-option
                 v-for="type in cardType"
                 :key="type.value"
@@ -48,7 +48,7 @@
 
           <el-col :span="8">
             <el-form-item label="库存状态：">
-              <el-select v-model="filterForm.stockValue">
+              <el-select v-model="filterForm.flag">
                 <el-option
                   v-for="(item,index) in inventoryStatus"
                   :key="index"
@@ -93,7 +93,7 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="cardType"
+          prop="cardname"
           label="所属卡"
           align="center">
         </el-table-column>
@@ -336,10 +336,10 @@ export default {
       extStatus, //扩展状态
       activeData: null, //激活的当前数据
       filterForm: {
-        id: "", //产品编号
-        poductId: "", //产品货号
-        cadrValue: "",
-        stockValue: "",
+        code: "", //产品编号
+        storeid: "", //产品货号
+        card: "", //所属卡
+        flag: "", //库存状态
         shopValue: ""
       },
 

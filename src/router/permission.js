@@ -54,13 +54,11 @@ export default function(router) {
         }
       }
     } else {
-      console.log(4);
       //如果目标是登录页面
       //跳过不处理
       if (~["/login", "/authredirect"].indexOf(to.path)) {
         next();
       } else {
-        console.log(5);
         // 否则全部重定向到登录页
         next("/login");
       }

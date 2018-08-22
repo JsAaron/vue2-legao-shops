@@ -1,6 +1,7 @@
 npm i - g increase - memory - limit
 increase - memory - limit
 
+open - n / Applications / Google\ Chrome.app / --args --disable - web - security--user - data - dir=/Users/Aaron / project / git / jsAaron / MyChromeDevUserData
 
 
 {
