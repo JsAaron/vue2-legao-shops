@@ -13,20 +13,43 @@
   border-radius: $radius;
 }
 
-//定位上下左右居中
-@mixin setCenter {
+//translate中间居中
+//设置子元素
+@mixin translateCenter {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-//flex方式居中
+//flex方式中间居中
+//设置父元素
 @mixin flexCenter($direction: row) {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: $direction;
+}
+
+//定位居中
+//设置子元素
+//父元素设置position:relative;
+@mixin positionCenter() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+//table居中
+//设置父元素
+//子元素设置display:inline-block;
+@mixin positionCenter() {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
 
 //定位全屏

@@ -82,12 +82,12 @@ export default [
   },
   //5 会员卡查询
   {
-    path: "/query",
+    path: "/member-query",
     component: Frame,
     children: [
       {
         path: "index",
-        component: () => import("@/views/query/index"),
+        component: () => import("@/views/member-query/index"),
         name: "query",
         meta: {
           title: "query",

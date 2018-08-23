@@ -159,7 +159,7 @@ export default {
   position: relative;
   .login-box {
     @include setWH(12.49rem, 7.83rem);
-    @include setCenter;
+    @include translateCenter;
     .login-left,
     .login-right {
       @include borderRadius(0.1rem);
@@ -175,7 +175,7 @@ export default {
       background-color: white;
       position: relative;
       .login-form {
-        @include setCenter;
+        @include translateCenter;
         top: 43%;
         width: 4.25rem;
       }

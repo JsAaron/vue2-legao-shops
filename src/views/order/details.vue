@@ -313,7 +313,7 @@ export default {
         height: 0.69rem;
         position: relative;
         .el-dialog__title {
-          @include setCenter;
+          @include translateCenter;
         }
         .el-dialog__title,
         .el-dialog__close {

@@ -312,12 +312,12 @@ export default {
     @include borderRadius(0.2rem);
     margin-top: 0 !important;
     background: #4b91cd;
-    @include setCenter;
+    @include translateCenter;
     .el-dialog__header {
       height: 0.67rem;
       position: relative;
       .el-dialog__title {
-        @include setCenter;
+        @include translateCenter;
       }
       .el-dialog__title,
       .el-dialog__close {

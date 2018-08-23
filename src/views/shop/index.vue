@@ -1,13 +1,13 @@
 <template>
   <div class="shop-container">
     <el-table class="shop-layout" :data="tableData" highlight-current-row>
-      <el-table-column prop="user" label="日期">
+      <el-table-column prop="user" label="账号类别">
       </el-table-column>
-      <el-table-column prop="name" label="姓名">
+      <el-table-column prop="name" label="账号">
       </el-table-column>
       <el-table-column label="设置">
         <template slot-scope="scope">
-          <el-button type="danger" @click="handleModify(scope.$index, scope.row)">修改密码</el-button>
+          <el-button type="primary" @click="handleModify(scope.$index, scope.row)">修改密码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -85,13 +85,17 @@ export default {
 <style lang="scss" >
 // 重写th的优先级
 .shop-container {
+  margin-top: 1.2rem;
+  .shop-layout {
+    border: 1px solid #d5d5d5;
+  }
   .el-table th {
-    background: #304156;
+    background: #4b91cd;
     text-align: center;
-    padding: 15px;
+    padding: 0.2rem;
     .cell {
       font-weight: 800;
-      @include setFontColor(1.1rem, white);
+      @include setFontColor(0.2rem, white);
     }
   }
   .el-table__body-wrapper {

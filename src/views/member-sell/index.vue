@@ -21,8 +21,8 @@
         <li class="sell-account">
           <p>共1件商品</p>
           <p>
-            <laber>应收:</laber><span>899.00</span>
-            <laber>实收:</laber><span>899.00</span>
+            <label>应收:</label><span>899.00</span>
+            <label>实收:</label><span>899.00</span>
           </p>
         </li>
       </ul>
@@ -49,16 +49,15 @@
           </li>
         </ul>
         <ul class="pay-plat">
-          <li><el-button type="primary" @click="weixin">微信支付</el-button></li>
-          <li><el-button type="primary" @click="zhifubao">支付宝支付</el-button></li>
-          <li><el-button type="primary" @click="cash">现金支付</el-button></li>
+          <li><el-button type="primary" @click="pay(weixin)">微信支付</el-button></li>
+          <li><el-button type="primary" @click="pay(zhifubao)">支付宝支付</el-button></li>
+          <li><el-button type="primary" @click="pay(cash)">现金支付</el-button></li>
         </ul>
         <div class="put-money">
           <div>
             <label>实收：</label>
             <el-input
               placeholder="请输入收款金额"
-              v-model="input10"
               clearable>
             </el-input>
           </div>
@@ -68,11 +67,11 @@
           </div>
         </div>
         <div class="handle-button">
-          <el-button type="primary" @click="cash">结算</el-button>
-          <el-button type="primary" @click="cash">清空</el-button>
+          <el-button type="primary" >结算</el-button>
+          <el-button type="primary" >清空</el-button>
         </div>
         <p class="notice" >
-          <el-checkbox v-model="checked">阅读并同意读库会员借还须知</el-checkbox>
+          <el-checkbox>阅读并同意读库会员借还须知</el-checkbox>
         </p>
       </div>
     </div>
@@ -99,6 +98,9 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    pay() {}
   }
 };
 </script>

@@ -667,11 +667,11 @@ export default {
     .el-dialog {
       @include setWH(14.5rem, 8.5rem);
       background: #ffffff;
-      @include setCenter;
+      @include translateCenter;
       .el-dialog__header {
         position: relative;
         .el-dialog__title {
-          @include setCenter;
+          @include translateCenter;
           color: #111111;
         }
         .el-dialog__title,

@@ -75,7 +75,7 @@
               <div><span> {{scope.row.plat}}</span></div>
               <div><label>支付交易号:</label><span> {{scope.row.transactionId}}</span></div>
             </div>
-            <div class="shop-container">
+            <div class="order-main">
               <section class="shop-left"><img :src="scope.row.image"></section>
               <hgroup class="shop-right">
                 <h4>{{scope.row.title}}</h4>
@@ -309,7 +309,7 @@ export default {
       font-size: 0.1rem;
       border-bottom: 1px solid #ebeef5;
     }
-    .shop-container {
+    .order-main {
       display: flex;
       align-items: center;
       text-align: left;

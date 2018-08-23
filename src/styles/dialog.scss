@@ -38,13 +38,13 @@
   .el-dialog {
     margin-top: 0 !important;
     @include borderRadius(0.2rem);
-    @include setCenter;
+    @include translateCenter;
     background-color: #4b91cd;
     .el-dialog__header {
       height: 0.56rem;
       position: relative;
       .el-dialog__title {
-        @include setCenter;
+        @include translateCenter;
       }
       .el-dialog__title,
       .el-dialog__close {
