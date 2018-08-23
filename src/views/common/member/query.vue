@@ -18,7 +18,7 @@
       </template>
     </common-dialog>
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible" :appendBody="true"></member-manage>
+    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible"></member-manage>
   </div>
 </template>
 
