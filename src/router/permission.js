@@ -20,6 +20,12 @@ export default function(router) {
   router.beforeEach((to, from, next) => {
     //js-cookies
     if (getToken()) {
+      // 会员卡查询，不跳转了
+      if (to.path === "/member-query-nav/index") {
+        next(false);
+        return;
+      }
+
       //有token
       if (to.path === "/login") {
         next({ path: "/" });

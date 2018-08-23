@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <!-- 左边导航 -->
-    <sidebar class="sidebar-container"></sidebar>
+    <sidebar class="sidebar-container" @memberQuery-active="memberQueryDialogAcitve" ></sidebar>
     <!-- 右边内容 -->
     <el-scrollbar wrapClass="scrollbar-wrapper">
       <div class="main-container">
@@ -13,6 +13,8 @@
         <app-main></app-main>
       </div>
     </el-scrollbar>
+    <!-- 快速查询 -->
+    <member-query @close="memberQueryDialogClose" :visible="memberQueryVisible"></member-query>
   </div>
 </template>
 
@@ -20,14 +22,26 @@
 import Sidebar from "./Sidebar";
 import HeadTop from "../common/header";
 import AppMain from "./AppMain";
+import MemberQuery from "@/views/common/member-query";
 export default {
   data() {
-    return {};
+    return {
+      memberQueryVisible: true
+    };
+  },
+  methods: {
+    memberQueryDialogClose() {
+      this.memberQueryVisible = false;
+    },
+    memberQueryDialogAcitve() {
+      this.memberQueryVisible = true;
+    }
   },
   components: {
     HeadTop,
     Sidebar,
-    AppMain
+    AppMain,
+    MemberQuery
   }
 };
 </script>
@@ -76,6 +90,10 @@ export default {
     .head-top {
       // height: 1.5rem;
     }
+  }
+
+  //会员卡查询
+  .member-query-dialog {
   }
 }
 </style>

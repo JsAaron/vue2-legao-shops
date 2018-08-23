@@ -35,12 +35,15 @@
 
 //公共弹出框
 .dialog-common {
+  @include flexCenter;
   .el-dialog {
     margin-top: 0 !important;
     @include borderRadius(0.2rem);
     @include translateCenter;
-    background-color: #4b91cd;
     .el-dialog__header {
+      border-top-left-radius: 0.2rem;
+      border-top-right-radius: 0.2rem;
+      background-color: #4b91cd;
       height: 0.56rem;
       position: relative;
       .el-dialog__title {
@@ -64,11 +67,19 @@
       background-color: #ffffff;
     }
     .el-dialog__footer {
-      display: flex;
-      justify-content: space-around;
+      .dialog-footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+      }
       background-color: #ffffff;
       border-bottom-left-radius: 0.2rem;
       border-bottom-right-radius: 0.2rem;
+      .el-button {
+        width: 1.56rem;
+        height: 0.49rem;
+        font-size: 0.16rem;
+      }
     }
   }
 }

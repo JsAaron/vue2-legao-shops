@@ -103,6 +103,9 @@ export default {
     .cell {
       font-weight: 800;
     }
+    td {
+      padding: 0.15rem;
+    }
   }
 }
 </style>

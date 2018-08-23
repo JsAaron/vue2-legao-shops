@@ -10,6 +10,11 @@ export default [
     hidden: true //路由列表中，不显示
   },
   {
+    path: "/mumber-query",
+    component: () => import("@/views/member-query"),
+    hidden: true //路由列表中，不显示
+  },
+  {
     path: "/home",
     component: () => import("@/views/home"),
     special: true, //特殊显示，首页显示模块，内容显示导航

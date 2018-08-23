@@ -1,8 +1,8 @@
 <template>
   <div>
     <div v-for="route in permission_routers" :key="route.name">
-       <div v-if="!route.hidden&&route.children" class="menu-wrapper">
-        <router-link :to="resolvePath(route)">
+       <div @click="activeCurrentNav(route)" v-if="!route.hidden&&route.children" class="menu-wrapper">
+        <router-link  :to="resolvePath(route)">
           <el-menu-item :index="resolvePath(route)" >
             <template slot="title">
               <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
@@ -29,9 +29,11 @@ export default {
     };
   },
   methods: {
-    /**
-     * 解析出路由地址
-     */
+    activeCurrentNav(route) {
+      if (route.path === "/member-query-nav") {
+        this.$emit("memberQuery-active");
+      }
+    },
     resolvePath(route) {
       return path.resolve(route.path, route.children[0].path);
     },
