@@ -43,7 +43,7 @@
     <!-- 管理 -->
     <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageTitle">
       <div class="main" slot="main">
-        <img src="../../images/menber-sell/1-1.png" />
+        <img src="../../../../images/menber-sell/1-1.png" />
         <p>
           <label>有效期</label>
           <el-date-picker
@@ -121,7 +121,7 @@
     <!-- 提交成功 -->
     <common-dialog class="success-dialog el-dialog-mini el-dialog-white" @close-self="successDialogClose" :visible="successDialogVisible" >
       <div class="main" slot="main">
-        <img src="../../images/menber/success.png"/>
+        <img src="../../../../images/menber/success.png"/>
         <p>下单成功</p>
         <p><span>88234-213-3-53</span><span>已发货</span></p>
         <p>订单编号：D234234234J234UOI</p>
@@ -134,7 +134,7 @@
     <!-- 提交失败 -->
     <common-dialog class="fail-dialog el-dialog-mini el-dialog-white" @close-self="failDialogClose" :visible="failDialogVisible" >
       <div class="main" slot="main">
-        <img src="../../images/menber/fail.png"/>
+        <img src="../../../../images/menber/fail.png"/>
         <p>下单失败</p>
         <p>这是皇冠卡产品，等级不够，需要升级</p>
       </div>

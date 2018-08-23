@@ -7,7 +7,6 @@
         <p></p>
         <span>长沙喜盈门范城店</span>
       </div>
-
     </header>
     <!-- 列表 -->
     <!-- https://qiqihaobenben.github.io/Front-End-Basics/project/el-scrollbar -->

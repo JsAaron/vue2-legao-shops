@@ -151,12 +151,13 @@ export default [
 
   //5 会员卡查询
   {
-    path: "/member-query-nav",
+    path: "/member-query",
     component: Frame,
+    onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
         path: "index",
-        component: () => import("@/views/member-query/index"),
+        // component: () => import("@/views/member-query/index"),
         name: "query",
         meta: {
           title: "query",
@@ -173,6 +174,7 @@ export default [
     sort: 8,
     path: "/scanCode",
     component: Frame,
+    onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
         path: "index",
@@ -193,6 +195,7 @@ export default [
     sort: 9,
     path: "/scanDestroy",
     component: Frame,
+    onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
         path: "index",

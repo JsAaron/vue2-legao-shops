@@ -1,8 +1,9 @@
 <template>
   <div>
     <div v-for="route in permission_routers" :key="route.name">
-       <div @click="activeCurrentNav(route)" v-if="!route.hidden&&route.children" class="menu-wrapper">
-        <router-link  :to="resolvePath(route)">
+       <div onlyClick v-if="!route.hidden&&route.children" class="menu-wrapper">
+        <!-- 选择是否可跳转与可点击的导航 -->
+        <router-link v-if="!route.onlyClick" :to="resolvePath(route)">
           <el-menu-item :index="resolvePath(route)" >
             <template slot="title">
               <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
@@ -10,6 +11,12 @@
             </template>
           </el-menu-item>
         </router-link>
+        <el-menu-item v-else :index="resolvePath(route)"  @click="handleOpen(route)" >
+            <template slot="title">
+              <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
+              <span slot="title">{{generateTitle(route.children[0].meta.title)}}</span>
+            </template>
+        </el-menu-item>
        </div>
     </div>
   </div>
@@ -29,8 +36,8 @@ export default {
     };
   },
   methods: {
-    activeCurrentNav(route) {
-      if (route.path === "/member-query-nav") {
+    handleOpen(route) {
+      if (route.path === "/member-query") {
         this.$emit("memberQuery-active");
       }
     },

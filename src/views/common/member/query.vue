@@ -17,26 +17,36 @@
         <el-button type="primary" @click="memberQueryDialogSave">确定</el-button>
       </template>
     </common-dialog>
+    <!-- 管理 -->
+    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible" :appendBody="true"></member-manage>
   </div>
 </template>
 
 <script>
+import MemberManage from "@/views/common/member/manage";
 import CommonDialog from "@/views/common/dialog";
 export default {
   props: ["visible"],
   data() {
     return {
       phone: "",
-      memberQueryTitle: "会员卡快速查询"
+      memberQueryTitle: "会员卡快速查询",
+      manageDialogVisible: false
     };
   },
   methods: {
+    manageDialogClose() {
+      this.manageDialogVisible = false;
+    },
     memberQueryDialogClose() {
       this.$emit("close");
     },
-    memberQueryDialogSave() {}
+    memberQueryDialogSave() {
+      this.manageDialogVisible = true;
+    }
   },
   components: {
+    MemberManage,
     CommonDialog
   }
 };

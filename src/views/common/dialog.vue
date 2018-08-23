@@ -1,6 +1,6 @@
 <template>
   <div class="dialog-common">
-    <el-dialog :title="title" :visible.sync="visible" :modal="modal" :before-close="dialogClose">
+    <el-dialog :title="title" :visible.sync="visible" :modal="modal" :before-close="dialogClose" :append-to-body="appendBody">
       <!-- 内容 -->
       <slot name="main"></slot>
       <!-- 底部 -->
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props: ["title", "visible", "modal"],
+  props: ["title", "visible", "modal", "appendBody"],
   methods: {
     dialogClose() {
       this.$emit("close-self");

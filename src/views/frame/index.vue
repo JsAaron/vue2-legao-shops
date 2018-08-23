@@ -22,11 +22,11 @@
 import Sidebar from "./Sidebar";
 import HeadTop from "../common/header";
 import AppMain from "./AppMain";
-import MemberQuery from "@/views/common/member-query";
+import MemberQuery from "@/views/common/member/query";
 export default {
   data() {
     return {
-      memberQueryVisible: true
+      memberQueryVisible: false
     };
   },
   methods: {

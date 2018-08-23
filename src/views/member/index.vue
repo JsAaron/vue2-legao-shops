@@ -115,18 +115,18 @@
       </el-pagination>
     </div>
 
-      <!-- 管理 -->
-    <manage @close-self="manageDialogClose" :visible="manageDialogVisible"></manage>
+    <!-- 管理 -->
+    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible"></member-manage>
 
   </div>
 </template>
 
 <script>
 import { fetchList } from "@/api/member";
-import Manage from "./manage";
+import MemberManage from "@/views/common/member/manage";
 export default {
   components: {
-    Manage
+    MemberManage
   },
   data() {
     return {
