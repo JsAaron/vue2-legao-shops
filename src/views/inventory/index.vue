@@ -619,7 +619,7 @@ export default {
           .between {
             display: flex;
           }
-          .between div:first-child {
+          & div:first-child {
             width: 2.7rem;
           }
           .el-form-item {
