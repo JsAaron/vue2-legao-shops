@@ -1,0 +1,32 @@
+//搜索
+.legao-filter {
+  width: 90%;
+  margin: 0 auto;
+  .el-form-item {
+    display: flex;
+    font-weight: 800;
+    height: 0.33rem;
+  }
+  .el-button {
+    // @include setWH(0.78rem, 0.41rem);
+  }
+}
+
+//表单
+.legao-list {
+  width: 95%;
+  margin: 0 auto;
+  .el-table__header th {
+    background-color: #4b91cd;
+    @include setFontColor(0.15rem, white);
+  }
+}
+
+.legao-pagination {
+  margin-top: 0.3rem;
+  margin-right: 0.3rem;
+  margin-bottom: 1rem;
+  div {
+    float: right;
+  }
+}

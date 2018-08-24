@@ -2,22 +2,22 @@
   <div class="inventory-container">
 
     <!-- 搜索，过滤 -->
-    <div class="inventory-filter">
+    <div class="legao-filter">
       <el-form :model="listQuery">
         <el-row>
-          <el-col :span="8">
+          <el-col :xs="10" :sm="12" :lg="7">
             <el-form-item label="产品编号：">
               <el-input v-model="listQuery.code" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :xs="10" :sm="12" :lg="7">
             <el-form-item label="产品货号：">
               <el-input v-model="listQuery.storeid" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
+          <el-col :xs="10" :sm="11" :lg="7">
             <el-form-item label="所属卡：">
                   <el-select v-model="listQuery.card" clearable>
                   <el-option
@@ -29,7 +29,7 @@
                 </el-select>
                 </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :xs="10" :sm="10" :lg="7">
             <el-form-item label="库存状态：">
               <el-select v-model="listQuery.flag" clearable>
                 <el-option
@@ -51,7 +51,7 @@
     </div>
 
     <!-- 主体列表查询 -->
-    <div class="inventory-list">
+    <div class="legao-list">
       <el-table
         v-loading="listLoading" 
         ref="multipleTable"
@@ -130,7 +130,7 @@
     </div>
 
     <!-- 底部页码导航 -->
-    <div class="inventory-pagination">
+    <div class="legao-pagination">
       <el-pagination
         background
         @size-change="handleSizeChange"
@@ -179,10 +179,6 @@
         <el-button type="primary" @click="manageDialogClose">取消</el-button>
         <el-button type="primary" @click="manageDialogSave">确定</el-button>
       </template>
-      <!-- 消息提示 -->
-      <template>
-        <el-button plain @click="openNotification"></el-button>
-      </template>
     </common-dialog>
 
     <!-- 进货确定框 -->
@@ -198,7 +194,7 @@
     </common-dialog>
 
     <!-- 退回总部 -->
-    <common-dialog class="sendBack-dialog" @close-self="sendBackDialogClose" :visible="sendBackDialogVisible"  :title="sendBackDialogTitle">
+    <common-dialog class="send-dialog" @close-self="sendBackDialogClose" :visible="sendBackDialogVisible"  :title="sendBackDialogTitle">
       <template class="main" slot="main">
         <el-table
         :data="sendBackList"
@@ -254,6 +250,7 @@
 <script>
 import { fetchList, updateInventory } from "@/api/inventory";
 import CommonDialog from "@/views/common/dialog";
+import { Message } from "element-ui";
 import {
   extStatus,
   productStatus,
@@ -451,7 +448,11 @@ export default {
       });
 
       if (!Object.keys(query).length) {
-        this.openNotification("没有选择提交的数据!");
+        Message({
+          message: "没有修改数据!",
+          type: "warning",
+          duration: 1000
+        });
         return;
       }
       query["id"] = this.manageDialogForm.id;
@@ -463,13 +464,21 @@ export default {
           if (query["is_new"] || query["is_new"] == 0) {
             this.activeData.is_new = this.manageDialogForm["is_newValue"];
           }
-          this.openNotification("数据更新成功!", "success");
+          Message({
+            message: "数据更新成功!",
+            type: "success",
+            duration: 1000
+          });
           setTimeout(() => {
             this.manageDialogClose();
           }, 1000);
         },
         () => {
-          this.openNotification("数据更新失败!", "warning");
+          Message({
+            message: "数据修改失败!",
+            type: "error",
+            duration: 2000
+          });
         }
       );
     },
@@ -579,43 +588,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .inventory-container {
-  .inventory-filter {
-    width: 90%;
-    margin: 0 auto;
-    .el-form-item {
-      display: flex;
-      font-weight: 800;
-      height: 0.33rem;
-    }
-  }
-  .inventory-list {
-    width: 95%;
-    margin: 0 auto;
+  .legao-list {
     .checked-bt {
       font-size: 0;
       .all-checkbox {
         margin: 0.2rem 0.15rem;
       }
     }
-  }
-  .inventory-pagination {
-    margin-top: 0.3rem;
-    margin-right: 0.3rem;
-    margin-bottom: 1rem;
-    div {
-      float: right;
-    }
-  }
-}
-</style>
-
-<style lang="scss">
-.inventory-container {
-  .el-table__header th {
-    background-color: #4b91cd;
-    @include setFontColor(0.15rem, white);
   }
   .el-table__header th:nth-child(n + 3):before {
     content: "|";
@@ -663,7 +644,7 @@ export default {
     }
   }
   //退回总部
-  .sendBack-dialog {
+  .send-dialog {
     .el-dialog {
       @include setWH(14.5rem, 8.5rem);
       background: #ffffff;
