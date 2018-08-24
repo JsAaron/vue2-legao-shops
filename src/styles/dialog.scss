@@ -34,10 +34,10 @@
 }
 
 //公共弹出框
-.dialog-common {
+.legao-dialog {
   @include flexCenter;
   .el-dialog {
-    margin-top: 0 !important;
+    // margin-top: 0 !important;
     @include borderRadius(0.2rem);
     @include translateCenter;
     .el-dialog__header {

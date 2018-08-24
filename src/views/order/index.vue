@@ -2,43 +2,43 @@
   <div class="order-container">
 
     <!-- 搜索，过滤 -->
-    <div class="order-filter">
+    <div class="legao-filter">
       <el-form :model="form">
         <el-row>
-          <el-col :span="6">
+          <el-col :xs="10" :sm="12" :lg="6">
             <el-form-item label="订单编号：">
-              <el-input v-model="form.id"></el-input>
+              <el-input v-model="form.id" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="10" :sm="12" :lg="6">
             <el-form-item label="会员姓名：">
-              <el-input v-model="form.poductId"></el-input>
+              <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="10" :sm="12" :lg="6">
             <el-form-item label="手机号码：">
-              <el-input v-model="form.poductId"></el-input>
+              <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="10" :sm="12" :lg="6">
             <el-form-item label="产品货号：">
-              <el-input v-model="form.poductId"></el-input>
+              <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
-          <el-col :span="6">
+          <el-col :xs="8" :sm="12" :lg="6">
             <el-form-item label="所属门店：">
               <el-input v-model="form.id"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :xs="8" :sm="4" :lg="6">
             <el-form-item label="订单状态：">
               <el-input v-model="form.poductId"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :xs="6" :sm="4" :lg="9">
             <el-form-item label="时间：">
               <el-date-picker
                 v-model="value"
@@ -49,7 +49,7 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :xs="6" :sm="4" :lg="3">
             <el-button type="primary" @click="onQuery">查询</el-button>
           </el-col>
         </el-row>
@@ -58,12 +58,11 @@
     </div>
 
     <!-- 内容区域 -->
-    <div class="order-list">
+    <div class="legao-list legao-table-line">
         <el-table
         ref="multipleTable"
         :data="list"
         tooltip-effect="dark">
-
         <el-table-column
           prop="shop"
           label="商品"
@@ -134,7 +133,7 @@
     </div>
 
     <!-- 底部页码显示 -->
-    <div class="order-page">
+    <div class="legao-pagination">
       <el-pagination
         background
         @size-change="handleSizeChange"
@@ -178,6 +177,7 @@ export default {
   },
   data() {
     return {
+      visible2: false,
       value: "",
       form: {
         id: "", //产品编号
@@ -270,38 +270,7 @@ export default {
   1 过滤搜索栏
 **/
 .order-container {
-  .order-filter {
-    width: 90%;
-    margin: 0 auto;
-    .el-form-item__label {
-    }
-    .el-form-item__content {
-      display: inline-block;
-      width: 1.92rem;
-    }
-    .el-form-item {
-      margin-bottom: 0.1rem;
-      display: inline-block;
-      width: 4.5rem;
-    }
-    .el-form-item__label,
-    .el-form-item__content {
-      font-size: 0.15rem;
-      font-weight: 600;
-    }
-  }
-  .order-list {
-    width: 95%;
-    margin: 0 auto;
-    .el-table__header th {
-      height: 0.47rem;
-      background-color: #4b91cd;
-      @include setFontColor(0.15rem, white);
-    }
-    .el-table__header th:nth-child(n + 2):before {
-      content: "|";
-      color: white;
-    }
+  .legao-list {
     .shop-id {
       color: #111111;
       display: flex;
@@ -337,14 +306,6 @@ export default {
     }
     .cancel-order:hover {
       color: #eeb339;
-    }
-  }
-  .order-page {
-    margin-top: 0.3rem;
-    margin-right: 0.3rem;
-    margin-bottom: 1rem;
-    div {
-      float: right;
     }
   }
 }

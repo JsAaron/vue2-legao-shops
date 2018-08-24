@@ -7,6 +7,14 @@
     font-weight: 800;
     height: 0.33rem;
   }
+  .el-form-item__label {
+    width: auto;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .el-form-item {
+    // margin-bottom: 0.1rem;
+  }
   .el-button {
     // @include setWH(0.78rem, 0.41rem);
   }
@@ -19,6 +27,12 @@
   .el-table__header th {
     background-color: #4b91cd;
     @include setFontColor(0.15rem, white);
+  }
+  &.legao-table-line {
+    .el-table__header th:nth-child(n + 2):before {
+      content: "|";
+      color: white;
+    }
   }
 }
 

@@ -1,6 +1,11 @@
 <template>
-  <div class="dialog-common">
-    <el-dialog :title="title" :visible.sync="visible" :modal="modal" :before-close="dialogClose" >
+  <div class="legao-dialog">
+    <el-dialog 
+    :title="title" 
+    :visible.sync="visible" 
+    :modal="modal" 
+    top=0
+    :before-close="dialogClose" >
       <!-- 内容 -->
       <slot name="main"></slot>
       <!-- 底部 -->

@@ -2,7 +2,7 @@
   <div class="member-container">
 
     <!-- 搜索，过滤 -->
-    <div class="member-filter">
+    <div class="legao-filter">
       <el-form :model="filterForm">
         <el-row>
           <el-col :span="8">
@@ -51,7 +51,7 @@
     </div>
 
     <!-- 主体列表查询 -->
-    <div class="member-list">
+    <div class="legao-list legao-table-line">
       <el-table
         v-loading="listLoading" 
         ref="multipleTable"
@@ -107,7 +107,7 @@
     </div>
 
     <!-- 底部页码导航 -->
-    <div class="member-pagination">
+    <div class="legao-pagination">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -224,50 +224,5 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.member-container {
-  .member-filter {
-    width: 90%;
-    margin: 0 auto;
-    .el-form-item {
-      display: flex;
-      font-weight: 800;
-      height: 0.33rem;
-    }
-  }
-  .member-list {
-    width: 95%;
-    margin: 0 auto;
-    .checked-bt {
-      font-size: 0;
-      .all-checkbox {
-        margin: 0.2rem 0.15rem;
-      }
-    }
-  }
-  .member-pagination {
-    margin-top: 0.3rem;
-    margin-right: 0.3rem;
-    margin-bottom: 1rem;
-    div {
-      float: right;
-    }
-  }
-}
-</style>
-
-<style lang="scss">
-.member-container {
-  .el-table__header th {
-    background-color: #4b91cd;
-    @include setFontColor(0.15rem, white);
-  }
-  .el-table__header th:nth-child(n + 3):before {
-    content: "|";
-    color: white;
-  }
-}
-</style>
 
 
