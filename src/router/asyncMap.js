@@ -1,4 +1,4 @@
-import Frame from "@/views/frame";
+import Layout from "@/views/layout";
 
 /**
  * 异步路由
@@ -12,7 +12,7 @@ export default [
   {
     sort: 1,
     path: "/inventory",
-    component: Frame,
+    component: Layout,
     children: [
       {
         path: "index",
@@ -32,7 +32,7 @@ export default [
   {
     sort: 2,
     path: "/order",
-    component: Frame,
+    component: Layout,
     children: [
       {
         path: "index",
@@ -52,7 +52,7 @@ export default [
   {
     sort: 3,
     path: "/member",
-    component: Frame,
+    component: Layout,
     children: [
       {
         path: "index",
@@ -72,7 +72,7 @@ export default [
   {
     sort: 4,
     path: "/member-sell",
-    component: Frame,
+    component: Layout,
     children: [
       {
         path: "index",
@@ -92,7 +92,7 @@ export default [
   {
     sort: 5,
     path: "/asset",
-    component: Frame,
+    component: Layout,
     children: [
       {
         path: "index",
@@ -112,7 +112,7 @@ export default [
   {
     sort: 6,
     path: "/statistics",
-    component: Frame,
+    component: Layout,
     children: [
       {
         path: "index",
@@ -132,7 +132,7 @@ export default [
   {
     sort: 7,
     path: "/shop",
-    component: Frame,
+    component: Layout,
     children: [
       {
         sort: 1,
@@ -152,7 +152,7 @@ export default [
   //5 会员卡查询
   {
     path: "/member-query",
-    component: Frame,
+    component: Layout,
     onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
@@ -173,7 +173,7 @@ export default [
   {
     sort: 8,
     path: "/scanCode",
-    component: Frame,
+    component: Layout,
     onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
@@ -194,7 +194,7 @@ export default [
   {
     sort: 9,
     path: "/scanDestroy",
-    component: Frame,
+    component: Layout,
     onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
