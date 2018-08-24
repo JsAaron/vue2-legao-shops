@@ -6,7 +6,7 @@ import request from "@/utils/request";
  */
 export function fetchList(query) {
   return request({
-    url: "/member/list",
+    url: "cardinfo/getlist",
     method: "get",
     params: query
   });

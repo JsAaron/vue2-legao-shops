@@ -9,10 +9,10 @@
         </div>
         <div class="container fontWeight">
           <p>
-            <label>手机号码：</label><span>13488888888</span>
+            <label>手机号码：</label><span>{{mobile}}</span>
           </p>
           <p>
-            <label>会员卡类型：</label><span>读酷黄光通用卡</span>
+            <label>会员卡类型：</label><span>{{name}}</span>
             <span @click="addManage" class="float-right pointer">管理</span>
           </p>
           <p>
@@ -154,9 +154,11 @@ export default {
   components: {
     CommonDialog
   },
-  props: ["visible"],
+  props: ["data", "visible"],
   data() {
     return {
+      mobile: "",
+      name: "",
       //===================
       //  充值
       //===================

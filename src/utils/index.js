@@ -37,6 +37,14 @@ export const inventoryStatus = [
   { value: -9, label: "已出库" }
 ];
 
+//会员状态
+export const memberStatus = [
+  { value: 2, label: "财务己审" },
+  { value: 1, label: "资料己核" },
+  { value: -1, label: "无效" },
+  { value: "other", label: "未知" }
+];
+
 /**
  * 匹配状态
  */
@@ -46,6 +54,14 @@ function matchStatus(items, value) {
       return items[i].label;
     }
   }
+}
+
+/**
+ * 会员状态状态
+ * @param} status
+ */
+export function transformMemberStatuss(status) {
+  return matchStatus(memberStatus, status);
 }
 
 /**

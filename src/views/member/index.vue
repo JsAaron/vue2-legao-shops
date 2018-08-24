@@ -7,7 +7,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="手机号码：">
-              <el-input v-model="filterForm.phone" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
+              <el-input v-model="filterForm.mobile" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -63,12 +63,12 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="phone"
+          prop="mobile"
           label="手机号码"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="cardType"
+          prop="name"
           label="卡类型"
           align="center">
         </el-table-column>
@@ -76,22 +76,25 @@
           align="center"
           label="开始时间">
           <template slot-scope="scope">
-            <p>{{scope.row.startTime}}</p>
-            <p>11:11:11</p>
+            <p>{{scope.row.card_start_time.split(" ")[0]}}</p>
+            <p>{{scope.row.card_start_time.split(" ")[1]}}</p>
           </template>
         </el-table-column>
         <el-table-column
           align="center"
           label="结束时间">
           <template slot-scope="scope">
-            <p>{{scope.row.endTime}}</p>
-            <p>11:11:11</p>
+            <p>{{scope.row.card_end_time.split(" ")[0]}}</p>
+            <p>{{scope.row.card_end_time.split(" ")[1]}}</p>
           </template>
         </el-table-column>
         <el-table-column
           prop="status"
           align="center"
           label="状态">
+          <template slot-scope="scope">
+            {{transformMemberStatuss(scope.row.flag)}}
+          </template>
         </el-table-column>
         <el-table-column 
           align="center" 
@@ -116,7 +119,7 @@
     </div>
 
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible"></member-manage>
+    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible" :data="personalManageData"></member-manage>
 
   </div>
 </template>
@@ -124,6 +127,8 @@
 <script>
 import { fetchList } from "@/api/member";
 import MemberManage from "@/views/common/member/manage";
+import { transformMemberStatuss } from "@/utils";
+
 export default {
   components: {
     MemberManage
@@ -134,6 +139,7 @@ export default {
       // 管理目录
       //====================
       manageDialogVisible: false,
+      personalManageData: null, //个人主页数据
       //====================
       // 过滤表单
       //====================
@@ -162,7 +168,7 @@ export default {
       listTotal: null,
       //列表查询条件
       listQuery: {
-        page: 1, //取第几个页面
+        pages: 1, //取第几个页面
         limit: 8 //多少条数据
       },
       //====================
@@ -175,14 +181,15 @@ export default {
     this.getList();
   },
   methods: {
+    transformMemberStatuss,
     //====================
     //  获取数据
     //====================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
-        this.listData = response.data.items;
-        this.listTotal = response.data.total;
+        this.listData = [...response.data.data];
+        this.listTotal = Number(response.data.count);
         this.listLoading = false;
       });
     },
@@ -190,7 +197,8 @@ export default {
     //====================
     //  管理
     //====================
-    manageDialogOpen() {
+    manageDialogOpen(data) {
+      this.personalManageData = data;
       this.manageDialogVisible = true;
     },
     manageDialogClose() {
@@ -205,8 +213,14 @@ export default {
     //====================
     //  页码
     //====================
-    handleSizeChange() {},
-    handleCurrentChange() {}
+    handleSizeChange(val) {
+      this.listQuery.limit = val;
+      this.getList();
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pages = val;
+      this.getList();
+    }
   }
 };
 </script>

@@ -55,7 +55,7 @@
       <el-table
         v-loading="listLoading" 
         ref="multipleTable"
-        :data="list"
+        :data="listData"
         tooltip-effect="dark"
         @selection-change="handleSelectionChange">
         <el-table-column
@@ -138,7 +138,7 @@
         :page-sizes="[5,10,20,50,100]"
         :page-size="listQuery.limit"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
+        :total="listTotal">
       </el-pagination>
     </div>
 
@@ -321,8 +321,8 @@ export default {
       //===================
       // 数据列表
       //===================
-      list: null, //数据列表
-      total: null,
+      listData: null, //数据列表
+      listTotal: null,
       listLoading: true, //加载进度条
       activeFlag: "", //动态改变的库存状态
       activeIs_new: "", //动态改变的完整性
@@ -392,8 +392,8 @@ export default {
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
-        this.list = [...response.data.data];
-        this.total = Number(response.data.count);
+        this.listData = [...response.data.data];
+        this.listTotal = Number(response.data.count);
         this.listLoading = false;
       });
     },
