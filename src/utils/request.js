@@ -12,10 +12,9 @@ service.interceptors.request.use(
   config => {
     config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     //请求的时候头部带上token
-    if (store.getters.token) {
-      const data = store.getters.token.split("-");
-      config.headers["userid"] = data[0];
-      config.headers["token"] = data[1];
+    if (store.getters.cookise) {
+      config.headers["userid"] = store.getters.cookise.userid;
+      config.headers["token"] = store.getters.cookise.token;
     }
     // console.log("发送", config);
     return config;

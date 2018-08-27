@@ -1,12 +1,21 @@
 import { loginByUsername, getUserInfo, logout } from "@/api/login";
 import { getToken, saveToken, removeToken } from "@/utils/cookie";
 
+let setDefaultCookise = function() {
+  const tokens = getToken();
+  if (tokens) {
+    const data = tokens.split("-");
+    return { userid: data[0], token: data[1] };
+  }
+  return [];
+};
+
 const user = {
   state: {
     shopId: "", //登录ID
     shopName: "", //商店名
     loginData: "", //用户登录数据
-    token: getToken(), //第二次加载，可能已经存在
+    cookise: setDefaultCookise(), //第二次加载，可能已经存在
     roles: "" //权限
   },
 
@@ -14,8 +23,8 @@ const user = {
     SET_SHOPID: (state, id) => {
       state.shopId = id;
     },
-    SET_TOKEN(state, token) {
-      state.token = token;
+    SET_TOKEN(state, tokens) {
+      state.token = tokens;
     },
     SET_LOGINDATA(state, token) {
       state.userData = token;
@@ -42,9 +51,11 @@ const user = {
         loginByUsername(username, userInfo.password)
           .then(response => {
             const data = response.data;
-            const token = data.data.id + "-" + data.token;
-            commit("SET_TOKEN", token);
-            saveToken(token);
+            commit("SET_TOKEN", {
+              userid: data.data.id,
+              token: data.toke
+            });
+            saveToken(data.data.id + "-" + data.token);
             resolve();
           })
           .catch(error => {
