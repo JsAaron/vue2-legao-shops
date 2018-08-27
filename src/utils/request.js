@@ -10,15 +10,20 @@ const service = axios.create({
 // 添加一个请求拦截器
 service.interceptors.request.use(
   config => {
-    config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+    // config.headers["Content-Type"] = "application/json";
     //请求的时候头部带上token
     if (store.getters.cookie) {
       config.headers["userid"] = store.getters.cookie.userid;
       config.headers["token"] = store.getters.cookie.token;
     }
-    if (config.params && store.getters.shopId) {
+
+    if (store.getters.shopId) {
+      if (!config.params) {
+        config.params = {};
+      }
       config.params["shopid"] = store.getters.shopId;
     }
+    // console.log(config.params);
     return config;
   },
   error => {

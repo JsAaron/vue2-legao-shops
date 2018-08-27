@@ -79,6 +79,7 @@ const user = {
         getUserInfo()
           .then(response => {
             if (response.data.state == "error") {
+              console.log(response);
               exit(commit);
               console.log(response.data.msg);
               resolve();
