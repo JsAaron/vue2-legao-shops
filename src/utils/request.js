@@ -16,7 +16,9 @@ service.interceptors.request.use(
       config.headers["userid"] = store.getters.cookie.userid;
       config.headers["token"] = store.getters.cookie.token;
     }
-    // console.log("发送", config);
+    if (store.getters.shopId) {
+      config.params["shopid"] = store.getters.shopId;
+    }
     return config;
   },
   error => {
@@ -29,6 +31,11 @@ service.interceptors.request.use(
 // 添加一个响应拦截器
 service.interceptors.response.use(
   response => response,
+  // response => {
+  //   const res = response.data;
+  //   console.log(333333, response);
+  //   return response.data;
+  // },
   error => {
     console.log("响应错误", error);
     return Promise.reject(error);

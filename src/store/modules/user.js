@@ -1,13 +1,19 @@
 import { loginByUsername, getUserInfo, logout } from "@/api/login";
 import { getCookie, saveCookie, removeCookie } from "@/utils/cookie";
 
-let setDefaultCookise = function() {
+const setDefaultCookise = function() {
   const cookie = getCookie();
   if (cookie) {
     const data = JSON.parse(cookie);
     return { userid: data.userid, token: data.token };
   }
   return "";
+};
+
+const exit = function(commit) {
+  commit("SET_TOKEN", "");
+  commit("SET_ROLES", []);
+  removeCookie();
 };
 
 const user = {
@@ -23,17 +29,17 @@ const user = {
     SET_SHOPID: (state, id) => {
       state.shopId = id;
     },
-    SET_TOKEN(state, tokens) {
-      state.token = tokens;
+    SET_SHOPNAME(state, name) {
+      state.shopName = name;
+    },
+    SET_TOKEN(state, cookie) {
+      state.cookie = cookie;
     },
     SET_LOGINDATA(state, token) {
       state.userData = token;
     },
     SET_ROLES(state, roles) {
       state.roles = roles;
-    },
-    SET_NAME(state, name) {
-      state.shopName = name;
     },
     SET_INTRODUCTION: (state, introduction) => {
       state.introduction = introduction;
@@ -72,9 +78,15 @@ const user = {
       return new Promise((resolve, reject) => {
         getUserInfo()
           .then(response => {
-            const data = response.data;
+            if (response.data.state == "error") {
+              exit(commit);
+              console.log(response.data.msg);
+              resolve();
+              return;
+            }
+            const data = response.data.data;
             commit("SET_LOGINDATA", data);
-            commit("SET_NAME", data.shopname);
+            commit("SET_SHOPNAME", data.shopname);
             commit("SET_SHOPID", data.shopid);
             commit("SET_ROLES", "admin");
             resolve(response);
@@ -92,9 +104,7 @@ const user = {
       return new Promise((resolve, reject) => {
         logout(state.token)
           .then(() => {
-            commit("SET_TOKEN", "");
-            commit("SET_ROLES", []);
-            removeCookie();
+            exit(commit);
             resolve();
           })
           .catch(error => {

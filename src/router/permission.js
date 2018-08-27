@@ -27,13 +27,19 @@ export default function(router) {
         //判断当前用户是否已拉取完user_info信息
         //用户已经登录，所以不需要跳入登录页面，直接进管理页面
         if (store.getters.roles.length === 0) {
-          store.dispatch("GET_USERINFO").then(res => {
-            store
-              .dispatch("GENERAT_ROUTES", { roles: res.data.roles })
-              .then(() => {
-                router.addRoutes(store.getters.addRouters);
-                next({ ...to, replace: true });
-              });
+          store.dispatch("GET_USERINFO").then(response => {
+            if (response) {
+              store
+                .dispatch("GENERAT_ROUTES", { roles: response.data.roles })
+                .then(() => {
+                  router.addRoutes(store.getters.addRouters);
+                  next({ ...to, replace: true });
+                });
+            } else {
+              //cookies失效
+              next("/login");
+              // console.log("cookies失效");
+            }
           });
         } else {
           // 没有动态改变权限的需求可直接next() 删除下方权限判断
