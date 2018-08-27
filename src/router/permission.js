@@ -1,4 +1,4 @@
-import { getToken } from "@/utils/cookie"; // getToken from cookie
+import { getCookie } from "@/utils/cookie"; // getCookie from cookie
 import store from "@/store";
 
 /**
@@ -19,7 +19,7 @@ function hasPermission(roles, permissionRoles) {
 export default function(router) {
   router.beforeEach((to, from, next) => {
     //js-cookies
-    if (getToken()) {
+    if (getCookie()) {
       //有token
       if (to.path === "/login") {
         next({ path: "/" });

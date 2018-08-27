@@ -1,13 +1,13 @@
 import { loginByUsername, getUserInfo, logout } from "@/api/login";
-import { getToken, saveToken, removeToken } from "@/utils/cookie";
+import { getCookie, saveCookie, removeCookie } from "@/utils/cookie";
 
 let setDefaultCookise = function() {
-  const tokens = getToken();
-  if (tokens) {
-    const data = tokens.split("-");
-    return { userid: data[0], token: data[1] };
+  const cookie = getCookie();
+  if (cookie) {
+    const data = JSON.parse(cookie);
+    return { userid: data.userid, token: data.token };
   }
-  return [];
+  return "";
 };
 
 const user = {
@@ -15,7 +15,7 @@ const user = {
     shopId: "", //登录ID
     shopName: "", //商店名
     loginData: "", //用户登录数据
-    cookise: setDefaultCookise(), //第二次加载，可能已经存在
+    cookie: setDefaultCookise(), //第二次加载，可能已经存在
     roles: "" //权限
   },
 
@@ -51,11 +51,10 @@ const user = {
         loginByUsername(username, userInfo.password)
           .then(response => {
             const data = response.data;
-            commit("SET_TOKEN", {
-              userid: data.data.id,
-              token: data.toke
-            });
-            saveToken(data.data.id + "-" + data.token);
+            const userid = data.data.id;
+            const token = data.token;
+            commit("SET_TOKEN", { userid, token });
+            saveCookie(JSON.stringify({ userid, token }));
             resolve();
           })
           .catch(error => {
@@ -95,7 +94,7 @@ const user = {
           .then(() => {
             commit("SET_TOKEN", "");
             commit("SET_ROLES", []);
-            removeToken();
+            removeCookie();
             resolve();
           })
           .catch(error => {

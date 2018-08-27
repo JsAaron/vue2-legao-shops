@@ -2,7 +2,7 @@ const getters = {
   //user状态
   shopId: state => state.user.shopId,
   name: state => state.user.name,
-  cookise: state => state.user.cookise, //cookise
+  cookie: state => state.user.cookie, //cookie
   roles: state => state.user.roles,
   loginData: state => state.user.loginData, //用户登录数据
 

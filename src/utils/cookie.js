@@ -1,13 +1,13 @@
 import Cookies from "js-cookie";
 
-export function getToken(key = "token") {
+export function getCookie(key = "cookie") {
   return Cookies.get(key);
 }
 
-export function saveToken(value, key = "token") {
+export function saveCookie(value, key = "cookie") {
   return Cookies.set(key, value);
 }
 
-export function removeToken(key = "token") {
+export function removeCookie(key = "cookie") {
   return Cookies.remove(key);
 }
