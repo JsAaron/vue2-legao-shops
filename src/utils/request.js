@@ -16,7 +16,7 @@ service.interceptors.request.use(
       config.headers["userid"] = store.getters.cookie.userid;
       config.headers["token"] = store.getters.cookie.token;
     }
-    if (store.getters.shopId) {
+    if (config.params && store.getters.shopId) {
       config.params["shopid"] = store.getters.shopId;
     }
     return config;
