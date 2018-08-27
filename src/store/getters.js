@@ -1,14 +1,21 @@
 const getters = {
-  //user状态
+  //登录用户状态
   shopId: state => state.user.shopId,
   name: state => state.user.name,
-  cookie: state => state.user.cookie, //cookie
+  cookie: state => state.user.cookie,
   roles: state => state.user.roles,
-  loginData: state => state.user.loginData, //用户登录数据
+  loginData: state => state.user.loginData,
 
-  sidebar: state => state.app.sidebar, //左边导航
+  //左边导航
+  sidebar: state => state.app.sidebar,
 
-  addRouters: state => state.permission.addRouters, //动态路由
+  //会员管理
+  queryVisible: state => state.member.queryVisible,
+  manageVisible: state => state.member.manageVisible,
+
+  //动态路由
+  addRouters: state => state.permission.addRouters,
+
   // 获取许可的路由规则
   permission_routers: state => state.permission.routers //左边路由
 };

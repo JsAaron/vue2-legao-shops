@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <!-- 左边导航 -->
-    <sidebar class="sidebar-container" @memberQuery-active="memberQueryDialogAcitve" ></sidebar>
+    <sidebar class="sidebar-container"></sidebar>
     <!-- 右边内容 -->
     <el-scrollbar wrapClass="scrollbar-wrapper">
       <div class="main-container">
@@ -14,7 +14,7 @@
       </div>
     </el-scrollbar>
     <!-- 快速查询 -->
-    <member-query @close="memberQueryDialogClose" :visible="memberQueryVisible"></member-query>
+    <member-query></member-query>
   </div>
 </template>
 
@@ -24,19 +24,6 @@ import HeadTop from "../common/header";
 import AppMain from "./AppMain";
 import MemberQuery from "@/views/common/member/query";
 export default {
-  data() {
-    return {
-      memberQueryVisible: false
-    };
-  },
-  methods: {
-    memberQueryDialogClose() {
-      this.memberQueryVisible = false;
-    },
-    memberQueryDialogAcitve() {
-      this.memberQueryVisible = true;
-    }
-  },
   components: {
     HeadTop,
     Sidebar,

@@ -1,14 +1,5 @@
-import Cookies from "js-cookie";
-
-const app = {
-  state: {
-    sidebar: {
-      opened: true,
-      withoutAnimation: false
-    },
-    device: "desktop",
-    language: Cookies.get("language") || "en"
-  },
+const menmber = {
+  state: {},
   mutations: {
     //切换列表缩放
     ["TOGGLE_SIDEBAR"](state) {
@@ -31,4 +22,4 @@ const app = {
   }
 };
 
-export default app;
+export default menmber;

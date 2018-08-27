@@ -25,7 +25,7 @@
 <script>
 import path from "path";
 import { generateTitle } from "@/utils/i18n.js";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     ...mapGetters(["permission_routers"])
@@ -36,9 +36,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["OPEN-MEMBER-QUERY"]),
     handleOpen(route) {
+      //如果是快速查询
       if (route.path === "/member-query") {
-        this.$emit("memberQuery-active");
+        this["OPEN-MEMBER-QUERY"]();
       }
     },
     resolvePath(route) {

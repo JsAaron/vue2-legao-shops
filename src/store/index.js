@@ -5,6 +5,7 @@ import user from "./modules/user";
 import app from "./modules/app";
 import permission from "./modules/permission";
 import tagsView from "./modules/tagsView";
+import member from "./modules/member";
 
 import getters from "./getters";
 
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
   modules: {
     app,
     user,
+    member,
     tagsView,
     permission
   },

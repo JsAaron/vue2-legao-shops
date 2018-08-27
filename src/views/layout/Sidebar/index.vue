@@ -16,7 +16,7 @@
         background-color="transparent" 
         active-text-color="#eeb339"
         text-color="white" >
-        <sideBar-item @memberQuery-active="activeMemberQuery"></sideBar-item>
+        <sideBar-item></sideBar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -27,12 +27,7 @@ import { mapGetters } from "vuex";
 import sideBarItem from "./SideBar";
 
 export default {
-  components: { sideBarItem },
-  methods: {
-    activeMemberQuery() {
-      this.$emit("memberQuery-active");
-    }
-  }
+  components: { sideBarItem }
 };
 </script>
 
