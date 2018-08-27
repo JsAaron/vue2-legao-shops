@@ -1,6 +1,6 @@
 import axios from "axios";
 // import { Message } from "element-ui";
-import { getToken } from "@/utils/cookie";
+import store from "@/store";
 
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
@@ -12,9 +12,8 @@ service.interceptors.request.use(
   config => {
     config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     //请求的时候头部带上token
-    const tokens = getToken();
-    if (tokens) {
-      const data = tokens.split("-");
+    if (store.getters.token) {
+      const data = store.getters.token.split("-");
       config.headers["userid"] = data[0];
       config.headers["token"] = data[1];
     }
