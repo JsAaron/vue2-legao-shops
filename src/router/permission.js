@@ -1,4 +1,4 @@
-import { getToken } from "@/utils/auth"; // getToken from cookie
+import { getToken } from "@/utils/cookie"; // getToken from cookie
 import store from "@/store";
 
 /**
@@ -28,15 +28,12 @@ export default function(router) {
         //用户已经登录，所以不需要跳入登录页面，直接进管理页面
         if (store.getters.roles.length === 0) {
           store.dispatch("GET_USERINFO").then(res => {
-            const roles = res.data.roles;
-            // 根据roles权限生成可访问的路由表
-            store.dispatch("GENERAT_ROUTES", { roles }).then(() => {
-              // 动态添加可访问路由表
-              router.addRoutes(store.getters.addRouters);
-              // router.addRoutes(store.getters.addRouters);
-              next({ ...to, replace: true });
-              // next({ path: "/home", replace: true });
-            });
+            store
+              .dispatch("GENERAT_ROUTES", { roles: res.data.roles })
+              .then(() => {
+                router.addRoutes(store.getters.addRouters);
+                next({ ...to, replace: true });
+              });
           });
         } else {
           // 没有动态改变权限的需求可直接next() 删除下方权限判断

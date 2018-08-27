@@ -4,7 +4,7 @@ export function getToken(key = "token") {
   return Cookies.get(key);
 }
 
-export function setToken(value, key = "token") {
+export function saveToken(value, key = "token") {
   return Cookies.set(key, value);
 }
 

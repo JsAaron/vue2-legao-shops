@@ -1,28 +1,30 @@
 import { loginByUsername, getUserInfo, logout } from "@/api/login";
-import { getToken, setToken, removeToken } from "@/utils/auth";
+import { getToken, saveToken, removeToken } from "@/utils/cookie";
 
 const user = {
   state: {
-    //第二次加载，可能已经存在
-    token: getToken(), //cookies
-    roles: [],
-    name: "",
-    avatar: "",
-    introduction: ""
+    shopId: "", //登录ID
+    shopName: "", //商店名
+    loginData: "", //用户登录数据
+    token: getToken(), //第二次加载，可能已经存在
+    roles: "" //权限
   },
 
   mutations: {
+    SET_SHOPID: (state, id) => {
+      state.shopId = id;
+    },
     SET_TOKEN(state, token) {
       state.token = token;
+    },
+    SET_LOGINDATA(state, token) {
+      state.userData = token;
     },
     SET_ROLES(state, roles) {
       state.roles = roles;
     },
     SET_NAME(state, name) {
-      state.name = name;
-    },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar;
+      state.shopName = name;
     },
     SET_INTRODUCTION: (state, introduction) => {
       state.introduction = introduction;
@@ -42,7 +44,7 @@ const user = {
             const data = response.data;
             const token = data.data.id + "-" + data.token;
             commit("SET_TOKEN", token);
-            setToken(token);
+            saveToken(token);
             resolve();
           })
           .catch(error => {
@@ -60,13 +62,11 @@ const user = {
       return new Promise((resolve, reject) => {
         getUserInfo()
           .then(response => {
-            // const data = response.data;
-            // if (data.roles && data.roles.length > 0) {
-            //   // 验证返回的roles是否是一个非空数组
+            const data = response.data;
+            commit("SET_LOGINDATA", data);
+            commit("SET_NAME", data.shopname);
+            commit("SET_SHOPID", data.shopid);
             commit("SET_ROLES", "admin");
-            // } else {
-            //   reject("getInfo: roles must be a non-null array !");
-            // }
             resolve(response);
           })
           .catch(error => {

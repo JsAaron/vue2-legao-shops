@@ -10,7 +10,6 @@ import Layout from "@/views/layout";
 export default [
   //库存管理
   {
-    sort: 1,
     path: "/inventory",
     component: Layout,
     children: [
@@ -30,7 +29,6 @@ export default [
 
   // 订单管理
   {
-    sort: 2,
     path: "/order",
     component: Layout,
     children: [
@@ -50,7 +48,6 @@ export default [
 
   //3.会员管理
   {
-    sort: 3,
     path: "/member",
     component: Layout,
     children: [
@@ -68,29 +65,8 @@ export default [
     ]
   },
 
-  // 会员卡销售
-  {
-    sort: 4,
-    path: "/member-sell",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/member-sell/index"),
-        name: "sell",
-        meta: {
-          title: "sell",
-          icon: "sell",
-          url: "sell.png",
-          group: "top"
-        }
-      }
-    ]
-  },
-
   //资产管理
   {
-    sort: 5,
     path: "/asset",
     component: Layout,
     children: [
@@ -108,27 +84,6 @@ export default [
     ]
   },
 
-  //10 数据统计
-  {
-    sort: 6,
-    path: "/statistics",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/statistics/index"),
-        name: "statistics",
-        meta: {
-          title: "statistics",
-          icon: "statistics",
-          url: "statistics.png",
-          group: "bottom"
-        }
-      }
-    ]
-  },
-
-  //店铺管理
   {
     sort: 7,
     path: "/shop",
@@ -149,7 +104,44 @@ export default [
     ]
   },
 
-  //5 会员卡查询
+  //10 数据统计
+  {
+    path: "/statistics",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/statistics/index"),
+        name: "statistics",
+        meta: {
+          title: "statistics",
+          icon: "statistics",
+          url: "statistics.png",
+          group: "bottom"
+        }
+      }
+    ]
+  },
+
+  // 会员卡销售
+  {
+    path: "/member-sell",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/member-sell/index"),
+        name: "sell",
+        meta: {
+          title: "sell",
+          icon: "sell",
+          url: "sell.png",
+          group: "top"
+        }
+      }
+    ]
+  },
+
   {
     path: "/member-query",
     component: Layout,
@@ -169,7 +161,6 @@ export default [
     ]
   },
 
-  //6.产品扫码
   {
     sort: 8,
     path: "/scanCode",
@@ -190,7 +181,6 @@ export default [
     ]
   },
 
-  //7订单扫码销核
   {
     sort: 9,
     path: "/scanDestroy",
