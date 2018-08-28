@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 快速查询 -->
-    <common-dialog class="member-query-dialog el-dialog-middle" @close-self="memberQueryDialogClose" :before-close="memberQueryDialogClose" :visible="queryVisible" :title="memberQueryTitle">
+    <common-dialog class="member-query-dialog el-dialog-middle" @close-self="memberQueryDialogClose" :before-close="memberQueryDialogClose" :visible="memberQueryVisible" :title="memberQueryTitle">
       <div class="main" slot="main">
         <p class="phone">手机号码:</p>
         <div>
@@ -14,11 +14,11 @@
       </div>
       <template slot="footer">
         <el-button type="primary" @click="memberQueryDialogClose">取消</el-button>
-        <el-button type="primary" @click="memberQueryDialogQuery">确定</el-button>
+        <el-button type="primary" @click="memberQueryDialogOpen">确定</el-button>
       </template>
     </common-dialog>
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="manageVisible"></member-manage>
+    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible"></member-manage>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   props: ["visible"],
   computed: {
-    ...mapGetters(["queryVisible", "manageVisible"])
+    ...mapGetters(["memberQueryVisible", "memberManageVisible"])
   },
   data() {
     return {
@@ -40,23 +40,27 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["OPEN-MEMBER-QUERY", "CLOSE-MANAGE-QUERY"]),
+    ...mapActions([
+      "MEMBER-QUERY-CLOSE",
+      "MEMBER-MANAGE-OPEN",
+      "MEMBER-MANAGE-CLOSE"
+    ]),
 
     /////////////////
-    /// 个人管理
+    /// 个人主页
     /////////////////
     manageDialogClose() {
-      this["CLOSE-MANAGE-QUERY"]();
+      this["MEMBER-MANAGE-CLOSE"]();
     },
 
     /////////////////
     /// 查询页面
     /////////////////
     memberQueryDialogClose() {
-      this["CLOSE-MEMBER-QUERY"]();
+      this["MEMBER-QUERY-CLOSE"]();
     },
-    memberQueryDialogQuery() {
-      this["OPEN-MEMBER-MANAGE"]();
+    memberQueryDialogOpen() {
+      this["MEMBER-MANAGE-OPEN"]();
     }
   },
   components: {

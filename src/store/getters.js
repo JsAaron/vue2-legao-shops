@@ -10,8 +10,8 @@ const getters = {
   sidebar: state => state.app.sidebar,
 
   //会员管理
-  queryVisible: state => state.member.queryVisible,
-  manageVisible: state => state.member.manageVisible,
+  memberQueryVisible: state => state.member.queryVisible,
+  memberManageVisible: state => state.member.manageVisible,
 
   //动态路由
   addRouters: state => state.permission.addRouters,

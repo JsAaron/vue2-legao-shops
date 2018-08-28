@@ -119,7 +119,7 @@
     </div>
 
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="manageDialogVisible" :data="personalManageData"></member-manage>
+    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible" :data="personalManageData"></member-manage>
 
   </div>
 </template>
@@ -128,17 +128,20 @@
 import { fetchList } from "@/api/member";
 import MemberManage from "@/views/common/member/manage";
 import { transformMemberStatuss } from "@/utils";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     MemberManage
+  },
+  computed: {
+    ...mapGetters(["memberManageVisible"])
   },
   data() {
     return {
       //====================
       // 管理目录
       //====================
-      manageDialogVisible: false,
       personalManageData: null, //个人主页数据
       //====================
       // 过滤表单
@@ -181,6 +184,7 @@ export default {
     this.getList();
   },
   methods: {
+    ...mapActions(["MEMBER-MANAGE-OPEN", "MEMBER-MANAGE-CLOSE"]),
     transformMemberStatuss,
     //====================
     //  获取数据
@@ -199,10 +203,10 @@ export default {
     //====================
     manageDialogOpen(data) {
       this.personalManageData = data;
-      this.manageDialogVisible = true;
+      this["MEMBER-MANAGE-OPEN"]();
     },
     manageDialogClose() {
-      this.manageDialogVisible = false;
+      this["MEMBER-MANAGE-CLOSE"]();
     },
 
     //====================

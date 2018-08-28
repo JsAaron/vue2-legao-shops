@@ -36,11 +36,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["OPEN-MEMBER-QUERY"]),
+    ...mapActions(["MEMBER-QUERY-OPEN"]),
     handleOpen(route) {
       //如果是快速查询
       if (route.path === "/member-query") {
-        this["OPEN-MEMBER-QUERY"]();
+        this["MEMBER-QUERY-OPEN"]();
       }
     },
     resolvePath(route) {
