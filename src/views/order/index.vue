@@ -3,7 +3,7 @@
 
     <!-- 搜索，过滤 -->
     <div class="legao-filter">
-      <el-form :model="form">
+      <el-form size="small" :model="form">
         <el-row>
           <el-col :xs="10" :sm="12" :lg="6">
             <el-form-item label="订单编号：">

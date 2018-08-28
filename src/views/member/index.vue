@@ -3,7 +3,7 @@
 
     <!-- 搜索，过滤 -->
     <div class="legao-filter">
-      <el-form :model="filterForm">
+      <el-form size="small" :model="filterForm">
         <el-row>
           <el-col :span="8">
             <el-form-item label="手机号码：">
