@@ -26,7 +26,7 @@ export default {
     Breadcrumb
   },
   computed: {
-    ...mapGetters(["sidebar", "name", "avatar"])
+    ...mapGetters(["sidebar"])
   },
   methods: {
     ...mapActions(["TOGGLE_SIDEBAR", "LOGOUT"]),

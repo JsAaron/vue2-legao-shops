@@ -1,32 +1,21 @@
 <template>
   <div class="sell-container">
+
     <div class="sell-left">
-      <ul>
-        <li><img src="../../images/menber-sell/1-1.png" /></li>
-        <li><img src="../../images/menber-sell/1-2.png" /></li>
-        <li><img src="../../images/menber-sell/1-3.png" /></li>
-      </ul>
-      <ul>
-        <li><img src="../../images/menber-sell/2-1.png" /></li>
-        <li><img src="../../images/menber-sell/2-2.png" /></li>
-        <li><img src="../../images/menber-sell/2-3.png" /></li>
-      </ul>
-      <ul>
-        <li><img src="../../images/menber-sell/3-1.png" /></li>
-        <li><img src="../../images/menber-sell/3-2.png" /></li>
-        <li><img src="../../images/menber-sell/3-3.png" /></li>
-      </ul>
-      <ul>
-        <li><img src="../../images/menber-sell/4-1.png" /></li>
-        <li class="sell-account">
-          <p>共1件商品</p>
-          <p>
-            <label>应收:</label><span>899.00</span>
-            <label>实收:</label><span>899.00</span>
-          </p>
-        </li>
-      </ul>
+      <div class="sell-scroll-wrapper">
+        <el-scrollbar ref="wrapper" class="warp-box" :native="false">
+          <li v-for="item in cardData" :key="item.id"><img src="../../images/menber-sell/1-1.png" /></li>
+        </el-scrollbar>
+      </div>
+      <div class="sell-account">
+        <p>共1件商品</p>
+        <p>
+          <label>应收:</label><span>899.00</span>
+          <label>实收:</label><span>899.00</span>
+        </p>
+      </div>
     </div>
+
     <div class="sell-right">
       <div class="right-main">
         <ul class="right-info">
@@ -79,9 +68,11 @@
 </template>
 
 <script>
+import { fetchCards } from "@/api/member-sell";
 export default {
   data() {
     return {
+      cardData: null, //会员卡数据列表
       numberValue: 1,
       number: [
         {
@@ -99,7 +90,22 @@ export default {
       ]
     };
   },
+  created() {
+    this.getCards();
+  },
   methods: {
+    getCards() {
+      fetchCards()
+        .then(response => {
+          this.cardData = [...response.data.data.list];
+        })
+        .then(() => {
+          this.$nextTick(() => {
+            //强制刷新获取bar的高度
+            this.$refs.wrapper.update();
+          });
+        });
+    },
     pay() {}
   }
 };
@@ -108,31 +114,33 @@ export default {
 <style lang="scss" scoped>
 .sell-container {
   margin-top: 0.2rem;
+  margin-left: 0.5rem;
   display: flex;
+
   .sell-left {
-    margin-left: 0.5rem;
-    ul {
-      display: flex;
+    width: 9.3rem;
+    .sell-scroll-wrapper {
+      height: 6.2rem;
+      overflow: hidden;
       li {
-        margin-top: 0.15rem;
-        margin-left: 0.15rem;
-      }
-      img {
+        float: left;
+        margin: 0.15rem;
         @include setWH(2.786rem, 1.75rem);
         @include borderRadius(0.26rem);
       }
-      .sell-account {
-        width: 200%;
-        @include borderRadius(0.26rem);
-        border: 1px solid #707070;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        p {
-          font-size: 0.2rem;
-          padding: 0.1rem;
-        }
+    }
+    .sell-account {
+      padding: 0.2rem;
+      margin-top: 0.15rem;
+      @include borderRadius(0.26rem);
+      border: 1px solid #707070;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      p {
+        font-size: 0.25rem;
+        padding: 0.1rem;
       }
     }
   }

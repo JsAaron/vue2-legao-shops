@@ -1,6 +1,7 @@
 const getters = {
   //登录用户状态
   shopId: state => state.user.shopId,
+  shopName: state => state.user.shopName,
   name: state => state.user.name,
   cookie: state => state.user.cookie,
   roles: state => state.user.roles,

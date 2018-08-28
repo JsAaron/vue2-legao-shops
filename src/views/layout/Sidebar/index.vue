@@ -5,7 +5,7 @@
       <img src="../../../images/common/logo.png" />
       <div>
         <p></p>
-        <span>长沙喜盈门范城店</span>
+        <span>{{shopName}}</span>
       </div>
     </header>
     <!-- 列表 -->
@@ -27,6 +27,9 @@ import { mapGetters } from "vuex";
 import sideBarItem from "./SideBar";
 
 export default {
+  computed: {
+    ...mapGetters(["shopName"])
+  },
   components: { sideBarItem }
 };
 </script>
