@@ -46,7 +46,7 @@
 //table居中
 //设置父元素
 //子元素设置display:inline-block;
-@mixin positionCenter() {
+@mixin tableCenter() {
   display: table-cell;
   vertical-align: middle;
   text-align: center;

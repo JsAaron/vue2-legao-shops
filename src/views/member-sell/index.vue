@@ -23,43 +23,44 @@
 
     <div class="sell-right">
       <div class="right-main">
-        <el-form size="small" :rules="rules"  label-position="left" label-width="100px" :model="payForm" >
-          <ul class="right-info">
-            <el-form-item label="会员账号：" prop="phone">
-              <el-col :span="15">
-                <el-input v-model.number="payForm.phone" placeholder="请输入手机号码"></el-input> 
-              </el-col>
-              <el-col :span="6" :offset="1">
-                <span>{{payForm.phonePrompt}}</span>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="商品名称：">
-              <span>{{payForm.name}}</span>
-            </el-form-item>
-            <el-form-item label="会员费：">
-              <span>13877777777</span>
-            </el-form-item>
-            <el-form-item label="押金：">
+        <el-form size="small" :rules="rules" label-position="center" label-width="1.3rem" :model="payForm" >
+          <el-form-item label="会员账号：" prop="phone">
+            <el-col :span="15">
+              <el-input v-model.number="payForm.phone" placeholder="请输入手机号码"></el-input> 
+            </el-col>
+            <el-col :span="6" :offset="1">
+              <span>{{payForm.phonePrompt}}</span>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="商品名称：">
+            <span>{{payForm.name}}</span>
+          </el-form-item>
+          <el-form-item label="会员费：">
             <span>13877777777</span>
-              </el-form-item>
-            <el-form-item label="优惠金额：">
-              <span>13877777777</span>
+          </el-form-item>
+          <el-form-item label="押金：">
+          <span>13877777777</span>
             </el-form-item>
-            <el-form-item label="店铺玩次数：">
-              <span>13877777777</span>
-            </el-form-item>
-            <el-form-item label="件数：">
-              <el-select v-model="payForm.region" placeholder="请选择">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </ul>
+          <el-form-item label="优惠金额：">
+            <span>13877777777</span>
+          </el-form-item>
+          <el-form-item label="店铺玩次数：">
+            <span>13877777777</span>
+          </el-form-item>
+          <el-form-item label="件数：">
+            <el-select v-model="payForm.region" placeholder="请选择">
+              <el-option label="区域一" value="shanghai"></el-option>
+              <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+ 
+
           <ul class="pay-plat">
             <li><el-button type="primary" @click="pay(weixin)">微信支付</el-button></li>
             <li><el-button type="primary" @click="pay(zhifubao)">支付宝支付</el-button></li>
             <li><el-button type="primary" @click="pay(cash)">现金支付</el-button></li>
           </ul>
+
           <div class="put-money">
             <div>
               <label>实收：</label>
@@ -73,10 +74,12 @@
               <span>0:00</span>
             </div>
           </div>
+
           <div class="handle-button">
             <el-button type="primary" >结算</el-button>
             <el-button type="primary" >清空</el-button>
           </div>
+
           <p class="notice" >
             <el-checkbox>阅读并同意读库会员借还须知</el-checkbox>
           </p>
@@ -155,7 +158,6 @@ export default {
       fetchCards()
         .then(response => {
           this.cardData = [...response.data.data.list];
-          // console.log(this.cardData);
         })
         .then(() => {
           setTimeout(() => {
@@ -182,9 +184,10 @@ export default {
 .sell-container {
   margin-top: 0.2rem;
   margin-left: 0.5rem;
-  display: flex;
-
+  height: 100%;
+  // display: flex;
   .sell-left {
+    float: left;
     width: 9.3rem;
     .sell-scroll-wrapper {
       height: 6.2rem;
@@ -222,33 +225,27 @@ export default {
     }
   }
   .sell-right {
+    float: left;
     margin-left: 0.5rem;
     border: 1px solid #707070;
-    @include setWH(5.52rem, 7.8rem);
+    @include setWH(5.52rem, auto);
     @include borderRadius(0.26rem);
     .right-main {
       width: 80%;
-      margin: 0 auto;
+      margin: 0.5rem auto;
+      .el-form {
+        .el-form-item {
+          margin-bottom: 0.1rem;
+        }
+      }
       .handle-button,
       .notice,
       .put-money,
       .right-info,
       .pay-plat {
-        margin-top: 0.4rem;
+        margin-top: 0.5rem;
       }
-      .right-info {
-        li {
-          font-size: 0.16rem;
-          font-weight: 700;
-          padding: 0.08rem;
-          label {
-            text-align: center;
-            width: 1rem;
-            display: inline-block;
-            margin-right: 0.05rem;
-          }
-        }
-      }
+
       .pay-plat,
       .put-money,
       .handle-button {
