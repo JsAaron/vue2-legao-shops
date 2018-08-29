@@ -9,8 +9,8 @@ export default {
     asset: "资产管理",
     statistics: "数据统计",
     query: "会员卡快速查询",
-    scanCode: "产品扫码归还",
-    scanDestroy: "订单扫码核销"
+    return: "产品扫码归还",
+    destroy: "订单扫码核销"
   },
   navbar: {
     logOut: "退出登录",

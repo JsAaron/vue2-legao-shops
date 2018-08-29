@@ -163,18 +163,18 @@ export default [
 
   {
     sort: 8,
-    path: "/scanCode",
+    path: "product-return",
     component: Layout,
     onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
         path: "index",
-        component: () => import("@/views/scanCode/index"),
-        name: "scanCode",
+        component: () => import("@/views/product-return/index"),
+        name: "return",
         meta: {
-          title: "scanCode",
-          icon: "scanCode",
-          url: "scanCode.png",
+          title: "return",
+          icon: "return",
+          url: "return.png",
           group: "middle"
         }
       }
@@ -183,18 +183,18 @@ export default [
 
   {
     sort: 9,
-    path: "/scanDestroy",
+    path: "/product-destroy",
     component: Layout,
     onlyClick: true, //只能被点击使用,不能跳转
     children: [
       {
         path: "index",
-        component: () => import("@/views/scanDestroy/index"),
-        name: "scanDestroy",
+        component: () => import("@/views/product-destroy/index"),
+        name: "destroy",
         meta: {
-          title: "scanDestroy",
-          url: "scanDestroy.png",
-          icon: "scanDestroy",
+          title: "destroy",
+          url: "destroy.png",
+          icon: "destroy",
           group: "middle"
         }
       }
