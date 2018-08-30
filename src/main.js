@@ -3,15 +3,9 @@ import FastClick from "fastclick";
 
 import App from "./App";
 
-//css复位
-// import "normalize.css/normalize.css";
-
-//全局css
-import "@/styles/index.scss";
-
-//element-ui
 import ElementUI from "element-ui";
-// import "element-ui/lib/theme-chalk/index.css";
+import "normalize.css";
+import "@/styles/index.scss";
 import "@/styles/element-ui.scss";
 
 //国际化
@@ -26,9 +20,6 @@ import Icon from "vue-svg-icon/Icon.vue";
 
 //模拟数据
 import "./mock";
-
-//弹性布局
-import "@/config/rem";
 
 Vue.component("icon", Icon);
 

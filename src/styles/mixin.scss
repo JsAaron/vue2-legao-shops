@@ -1,3 +1,24 @@
+$vm_fontsize: 192; // iPhone 6尺寸的根元素大小基准值
+@function rem($px) {
+  @return ($px / 192) * 1rem;
+}
+$vm_design: 1920;
+html {
+  // font-size: ($vm_fontsize / ($vm_design / 2)) * 100vw;
+  font-size: 100/ ($vm_design/100) * 1vw;
+  &,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    font-size: 0.15rem;
+    min-width: 1000px;
+    max-width: 1920px;
+    background-color: #f5f5f5;
+  }
+}
+
 @function setVW($px) {
   @return ($px / 1920) * 100vw;
 }
@@ -6,6 +27,10 @@
 @mixin setFontColor($size, $color) {
   font-size: $size;
   color: $color;
+}
+
+@function rem($px) {
+  @return ($px / 192)/2 * 1rem;
 }
 
 //圆角
