@@ -7,6 +7,7 @@ const getters = {
   roles: state => state.user.roles,
   loginData: state => state.user.loginData,
   userName: state => state.user.userName,
+  userId: state => state.user.userId,
 
   //会员管理
   memberQueryVisible: state => state.member.queryVisible,

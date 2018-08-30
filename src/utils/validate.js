@@ -19,6 +19,13 @@ export function isValidPhone(str) {
   return reg.test(str);
 }
 
+//校验密码：只能输入6-20个字母、数字、下划线
+export function isPasswd(s) {
+  var patrn = /^(\w){6,20}$/;
+  if (!patrn.exec(s)) return false;
+  return true;
+}
+
 export function isvalidUsername(str) {
   var str2 = "";
   if ("" == str) {

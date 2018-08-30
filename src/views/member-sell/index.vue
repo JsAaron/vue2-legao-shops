@@ -251,12 +251,15 @@ export default {
       .handle-button {
         @include setFJ;
       }
-      .pay-plat,
-      .handle-button {
+
+      .pay-plat {
+        justify-content: space-around;
         .el-button {
-          width: 1.2rem;
+          margin: 0.1rem;
+          padding: 0.1rem;
         }
       }
+
       .put-money {
         div {
           flex: 1;

@@ -23,7 +23,6 @@ service.interceptors.request.use(
       }
       config.params["shopid"] = store.getters.shopId;
     }
-    // console.log(config.params);
     return config;
   },
   error => {
