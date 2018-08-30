@@ -7,7 +7,7 @@
       <div class="main-container">
         <!-- 顶部导航条 -->
         <div class="head-top">
-          <head-top></head-top>
+          <header-top></header-top>
         </div>
         <!-- 底部内容 -->
         <app-main></app-main>
@@ -20,12 +20,12 @@
 
 <script>
 import Sidebar from "./Sidebar";
-import HeadTop from "../common/header";
+import HeaderTop from "./Header";
 import AppMain from "./AppMain";
 import MemberQuery from "@/views/common/member/query";
 export default {
   components: {
-    HeadTop,
+    HeaderTop,
     Sidebar,
     AppMain,
     MemberQuery
