@@ -1,3 +1,7 @@
+.el-button span {
+  color: #f5f5f5;
+}
+
 //搜索
 .legao-filter {
   width: 90%;
@@ -24,7 +28,12 @@
 .legao-list {
   width: 95%;
   margin: 0 auto;
+
   .el-table__header th {
+    .cell {
+      color: #f5f5f5;
+      font-weight: 700;
+    }
     background-color: #4b91cd;
     @include setFontColor(0.15rem, white);
   }

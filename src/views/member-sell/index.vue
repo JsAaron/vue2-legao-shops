@@ -227,8 +227,7 @@ export default {
     float: left;
     margin-left: 0.5rem;
     border: 1px solid #707070;
-    // @include setWH(28vw, auto);
-    width: setVW(500);
+    @include setWH(5.5rem, auto);
     @include borderRadius(0.26rem);
     .right-main {
       width: 80%;
@@ -252,11 +251,16 @@ export default {
         @include setFJ;
       }
 
+      .handle-button .el-button {
+        @include setWH(1.24rem, 0.46rem);
+      }
+
       .pay-plat {
         justify-content: space-around;
         .el-button {
           margin: 0.1rem;
-          padding: 0.1rem;
+          padding: 0.1rem 0.3rem;
+          height: 0.46rem;
         }
       }
 
