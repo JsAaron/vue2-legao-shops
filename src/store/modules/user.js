@@ -18,6 +18,7 @@ const exit = function(commit) {
 
 const user = {
   state: {
+    realname: "", //用户名
     shopId: "", //登录ID
     shopName: "", //商店名
     loginData: "", //用户登录数据
@@ -28,6 +29,9 @@ const user = {
   mutations: {
     SET_SHOPID: (state, id) => {
       state.shopId = id;
+    },
+    SET_USERNAME: (state, realname) => {
+      state.userName = realname;
     },
     SET_SHOPNAME(state, name) {
       state.shopName = name;
@@ -86,6 +90,7 @@ const user = {
               return;
             }
             const data = response.data.data;
+            commit("SET_USERNAME", data.realname);
             commit("SET_LOGINDATA", data);
             commit("SET_SHOPNAME", data.shopname);
             commit("SET_SHOPID", data.shopid);

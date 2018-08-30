@@ -6,9 +6,7 @@ const getters = {
   cookie: state => state.user.cookie,
   roles: state => state.user.roles,
   loginData: state => state.user.loginData,
-
-  //左边导航
-  sidebar: state => state.app.sidebar,
+  userName: state => state.user.userName,
 
   //会员管理
   memberQueryVisible: state => state.member.queryVisible,

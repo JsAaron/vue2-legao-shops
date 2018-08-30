@@ -28,6 +28,7 @@ export default {
   }
   .el-form-item__label {
     font-size: 0.15rem;
+    white-space: nowrap;
   }
 }
 </script>

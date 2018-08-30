@@ -177,7 +177,7 @@ export default {
     transform: scale(1);
   }
   to {
-    transform: scale(0.95);
+    transform: scale(0.96);
   }
 }
 
@@ -185,7 +185,6 @@ export default {
   margin-top: 0.2rem;
   margin-left: 0.5rem;
   height: 100%;
-  // display: flex;
   .sell-left {
     float: left;
     width: 9.3rem;
@@ -228,11 +227,12 @@ export default {
     float: left;
     margin-left: 0.5rem;
     border: 1px solid #707070;
-    @include setWH(5.52rem, auto);
+    // @include setWH(28vw, auto);
+    width: setVW(500);
     @include borderRadius(0.26rem);
     .right-main {
       width: 80%;
-      margin: 0.5rem auto;
+      margin: 0.3rem auto;
       .el-form {
         .el-form-item {
           margin-bottom: 0.1rem;
@@ -260,6 +260,10 @@ export default {
       .put-money {
         div {
           flex: 1;
+          &:first-child {
+            flex: 2;
+          }
+          text-align: center;
         }
         .el-input {
           width: 70%;

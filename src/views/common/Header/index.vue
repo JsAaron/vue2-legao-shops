@@ -3,17 +3,15 @@
     <h1>读酷儿童智力馆门店管理系统</h1>
     <!-- 位置 -->
     <breadcrumb class="breadcrumb-container"></breadcrumb> 
-
     <!-- 右边菜单，有退出 -->
     <div class="right-menu">
-      <label>账号：</label><span>店员:01</span>
+      <label>账号：</label><span>{{userName}}</span>
       <div @click="logout" class="menu-operate">
         <span>退出</span>
         <span>/</span>
         <span>切换账号</span>
       </div>
     </div>
-
   </el-menu>
 </template>
 
@@ -26,7 +24,7 @@ export default {
     Breadcrumb
   },
   computed: {
-    ...mapGetters(["sidebar"])
+    ...mapGetters(["userName"])
   },
   methods: {
     ...mapActions(["TOGGLE_SIDEBAR", "LOGOUT"]),
@@ -50,7 +48,6 @@ export default {
 <style lang="scss">
 .legao-navbar {
   width: 100%;
-  // 清空背景颜色
   background-color: transparent;
   border: none;
 }
@@ -75,6 +72,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 700;
     .menu-operate {
       cursor: pointer;
       margin-left: 0.5rem;

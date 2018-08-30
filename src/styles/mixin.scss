@@ -1,3 +1,7 @@
+@function setVW($px) {
+  @return ($px / 1920) * 100vw;
+}
+
 //字体大小，颜色
 @mixin setFontColor($size, $color) {
   font-size: $size;
