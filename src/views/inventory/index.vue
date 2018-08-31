@@ -151,30 +151,72 @@
         <section><img src="../../images/common/logo.png"></section>
         <!-- 右表单 -->
         <el-form ref="manageDialogForm"  :model="manageDialogForm" >
-          <el-form-item class="productName" label="产品名称 :">{{manageDialogForm.name}}</el-form-item>
+          <el-form-item class="productName">
+              <template slot="label">
+                <span>产品名称</span>
+                <span>:</span>
+              </template>
+            {{manageDialogForm.name}}
+          </el-form-item>
           <div class="between">
-            <el-form-item label="产品货号 :">{{manageDialogForm.storeid}}</el-form-item>
-            <el-form-item label="颗 粒 数 :">{{manageDialogForm.number}}</el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>产品货号</span>
+                <span>:</span>
+              </template>
+              {{manageDialogForm.storeid}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>颗粒数</span>
+                <span>:</span>
+              </template>
+              {{manageDialogForm.number}}
+              </el-form-item>
           </div>
           <div class="between">
-            <el-form-item label="押 金 价 :">{{manageDialogForm.price}}</el-form-item>
-            <el-form-item label="进 货 价 :">{{manageDialogForm.origin_price}}</el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>押金价</span>
+                <span>:</span>
+              </template>
+              {{manageDialogForm.price}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>进货价</span>
+                <span>:</span>
+              </template>
+              {{manageDialogForm.origin_price}}
+            </el-form-item>
           </div>
-          <el-form-item label="产品完整性 :">
+          <el-form-item>
+            <template slot="label">
+              <span>产品完整性</span>
+              <span>:</span>
+            </template>
             <el-input
               :placeholder="transformProductStatus(manageDialogForm.is_new)"
               v-model="manageDialogForm.is_newValue"
               :disabled="true">
             </el-input>
           </el-form-item>
-          <el-form-item label="包装完整性 :">
+          <el-form-item>
+            <template slot="label">
+              <span>包装完整性</span>
+              <span>:</span>
+            </template>
             <el-input
               :placeholder="transformProductStatus(manageDialogForm.flag)"
               v-model="manageDialogForm.flagValue"
               :disabled="true">
             </el-input>
           </el-form-item>
-          <el-form-item label="功能管理 :">
+          <el-form-item>
+            <template slot="label">
+              <span>功能管理</span>
+              <span>:</span>
+            </template>
             <el-select v-model="manageDialogForm.extflagValue" :placeholder="transformExtStatus(manageDialogForm.extflag)">
               <el-option v-for="(item,index) in extStatus" :key="index" :label="item.label" :value="item.value"></el-option>
             </el-select>
@@ -731,10 +773,10 @@ export default {
             align-items: center;
           }
           .el-form-item__label {
-            width: 1.2rem;
-            text-align: justify;
+            width: 0.9rem;
             display: flex !important;
-            justify-content: space-around;
+            justify-content: space-between;
+            margin-right: 0.1rem;
           }
           .el-form-item__content {
             @include ellipsis;
@@ -763,7 +805,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        .el-form-item__label {
+        }
       }
+
       .el-form-item {
         width: 100% !important;
       }
