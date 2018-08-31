@@ -100,7 +100,7 @@
         <el-table-column
           prop="is_new"
           align="center"
-          label="完整性">
+          label="产品完整性">
           <template slot-scope="scope">
             {{transformProductStatus(scope.row.is_new)}}
           </template>
@@ -108,16 +108,18 @@
         <el-table-column
           prop="flag"
           align="center"
+          min-width="120"
           label="库存状态">
           <template slot-scope="scope">
-            {{transformInventoryStatus(scope.row.flag)}}
+            {{transformInventoryStatus(scope.row.flag,scope.row.extflag)}}
           </template>
         </el-table-column>
         <el-table-column 
           align="center" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="clickManageUpdate(scope.row)">管理</el-button>
+            <el-button v-if="scope.row.flag==1" type="primary" size="mini" @click="clickManageUpdate(scope.row)">管理</el-button>
+            <el-button v-if="scope.row.flag==-1" type="primary" size="mini" @click="clickProductUpdate(scope.row)">收货</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -149,7 +151,7 @@
         <section><img src="../../images/common/logo.png"></section>
         <!-- 右表单 -->
         <el-form ref="manageDialogForm"  :model="manageDialogForm" >
-          <el-form-item label="产品名称 :">{{manageDialogForm.name}}</el-form-item>
+          <el-form-item class="productName" label="产品名称 :">{{manageDialogForm.name}}</el-form-item>
           <div class="between">
             <el-form-item label="产品货号 :">{{manageDialogForm.storeid}}</el-form-item>
             <el-form-item label="颗 粒 数 :">{{manageDialogForm.number}}</el-form-item>
@@ -158,15 +160,19 @@
             <el-form-item label="押 金 价 :">{{manageDialogForm.price}}</el-form-item>
             <el-form-item label="进 货 价 :">{{manageDialogForm.origin_price}}</el-form-item>
           </div>
-          <el-form-item label="库存状态 :">
-            <el-select  v-model="manageDialogForm.flagValue" :placeholder="transformInventoryStatus(manageDialogForm.flag)">
-              <el-option v-for="(item,index) in inventoryStatus" :key="index" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+          <el-form-item label="产品完整性 :">
+            <el-input
+              :placeholder="transformProductStatus(manageDialogForm.is_new)"
+              v-model="manageDialogForm.is_newValue"
+              :disabled="true">
+            </el-input>
           </el-form-item>
-          <el-form-item label="完 整 性 :">
-            <el-select v-model="manageDialogForm.is_newValue" :placeholder="transformProductStatus(manageDialogForm.is_new)">
-              <el-option v-for="(item,index) in productStatus" :key="index" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+          <el-form-item label="包装完整性 :">
+            <el-input
+              :placeholder="transformProductStatus(manageDialogForm.flag)"
+              v-model="manageDialogForm.flagValue"
+              :disabled="true">
+            </el-input>
           </el-form-item>
           <el-form-item label="功能管理 :">
             <el-select v-model="manageDialogForm.extflagValue" :placeholder="transformExtStatus(manageDialogForm.extflag)">
@@ -178,6 +184,71 @@
       <template slot="footer">
         <el-button type="primary" @click="manageDialogClose">取消</el-button>
         <el-button type="primary" @click="manageDialogSave">确定</el-button>
+      </template>
+    </common-dialog>
+
+    <!-- 收货更新 -->
+    <common-dialog class="product-dialog el-dialog-large" @close-self="productDialogClose" :visible="productDialogVisible" :title="productDialogTitle">
+      <template class="main" slot="main">
+        <div class="product-top">
+          <!-- 左图 -->
+          <section><img src="../../images/common/logo.png"></section>
+          <!-- 右表单 -->
+          <el-form ref="productDialogForm"  :model="productDialogForm" >
+            <el-form-item >
+              <template slot="label">
+                <span>产品名称</span>
+                <span>:</span>
+              </template>
+              {{productDialogForm.name}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>产品货号</span>
+                <span>:</span>
+              </template>
+              {{productDialogForm.storeid}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>押金价</span>
+                <span>:</span>
+              </template>
+              {{productDialogForm.price}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>所属卡</span>
+                <span>:</span>
+              </template>
+              {{productDialogForm.cardname}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>颗粒数</span>
+                <span>:</span>
+              </template>
+              {{productDialogForm.number}}
+            </el-form-item>
+            <el-form-item>
+              <template slot="label">
+                <span>进货价</span>
+                <span>:</span>
+              </template>
+              {{productDialogForm.origin_price}}
+            </el-form-item>
+          </el-form>
+        </div>
+        <div class="product-bottom">
+          <p>备注：</p>
+          <el-input type="textarea" v-model="productFormTextarea"></el-input>
+          <p><el-checkbox v-model="productFormChecked" @change="productFormChange">收纳盒损坏</el-checkbox></p>
+        </div>
+      </template>
+      <div>1111</div>
+      <template slot="footer">
+        <el-button type="primary" @click="productDialogClose">取消</el-button>
+        <el-button type="primary" @click="productDialogSave">确定</el-button>
       </template>
     </common-dialog>
 
@@ -272,6 +343,15 @@ export default {
       manageDialogTitle: "商品信息",
       manageDialogVisible: false,
       manageDialogForm: {},
+
+      //===================
+      //  收货更新
+      //===================
+      productDialogTitle: "收货管理",
+      productDialogVisible: false,
+      productFormTextarea: "",
+      productFormChecked: false,
+      productDialogForm: {},
 
       //===================
       //  进货确定
@@ -406,6 +486,25 @@ export default {
     },
 
     //===================
+    //  收货按钮
+    //===================
+    clickProductUpdate(data) {
+      this.productDialogVisible = true;
+      this.productDialogForm = Object.assign({}, data);
+    },
+    productDialogClose() {
+      this.productDialogVisible = false;
+    },
+    productFormChange() {
+      if (this.productFormChecked) {
+        this.productFormTextarea = "收纳盒损坏";
+      } else {
+        this.productFormTextarea = "";
+      }
+    },
+    productDialogSave() {},
+
+    //===================
     //  管理按钮
     //===================
     clickManageUpdate(data) {
@@ -435,13 +534,13 @@ export default {
     manageDialogSave() {
       const query = {};
 
-      this.getValue("flag", "flagValue", function(prop, value) {
-        query[prop] = value;
-      });
+      // this.getValue("flag", "flagValue", function(prop, value) {
+      //   query[prop] = value;
+      // });
 
-      this.getValue("is_new", "is_newValue", function(prop, value) {
-        query[prop] = value;
-      });
+      // this.getValue("is_new", "is_newValue", function(prop, value) {
+      //   query[prop] = value;
+      // });
 
       this.getValue("extflag", "extflagValue", function(prop, value) {
         query[prop] = value;
@@ -603,7 +702,8 @@ export default {
     color: white;
   }
   //管理更新
-  .manage-dialog {
+  .manage-dialog,
+  .product-dialog {
     .el-dialog {
       .el-dialog__body {
         display: flex;
@@ -613,14 +713,17 @@ export default {
           @include setWH(2.92rem, 2.92rem);
         }
         .el-form {
-          width: 4.6rem;
+          width: 4.5rem;
           height: 2.92rem;
-          margin-left: 0.1rem;
+          margin-left: 0.3rem;
           .between {
             display: flex;
           }
           & div:first-child {
             width: 2.7rem;
+            &.productName {
+              width: 100%;
+            }
           }
           .el-form-item {
             margin-bottom: 0.05rem;
@@ -628,18 +731,48 @@ export default {
             align-items: center;
           }
           .el-form-item__label {
-            width: 0.8rem;
-            text-align: left;
+            width: 1.2rem;
+            text-align: justify;
+            display: flex !important;
+            justify-content: space-around;
+          }
+          .el-form-item__content {
+            @include ellipsis;
           }
           .el-form-item__label,
           .el-form-item__content {
+            // white-space: nowrap;
             line-height: 0.4rem;
             display: inline-block;
-            font-weight: 600;
-            font-size: 0.15rem;
+            // font-weight: 600;
+            font-size: 0.2rem;
             padding: 0;
           }
         }
+      }
+    }
+  }
+  //收货
+  .product-dialog {
+    .el-dialog__body {
+      flex-direction: column;
+    }
+    .product-top {
+      display: flex;
+      .el-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+      .el-form-item {
+        width: 100% !important;
+      }
+    }
+    .product-bottom {
+      margin: 0.1rem;
+      width: 100%;
+      p {
+        margin: 0.1rem;
       }
     }
   }

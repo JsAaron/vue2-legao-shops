@@ -15,26 +15,28 @@ export function param2Obj(url) {
 
 //扩展状态(-1:送还清点0:可租借,1:门店展示,2:门店拼装)(1:2:分拣,3:4:清洗)
 export const extStatus = [
-  { value: -1, label: "送还清点" },
+  // { value: -1, label: "送还清点" },
   { value: 0, label: "可租借" },
   { value: 1, label: "门店展示" },
   { value: 2, label: "门店拼装" }
 ];
 
-//产品状态,完整性
+//产品完整性状态
 export const productStatus = [
   { value: 1, label: "新品" },
   { value: 0, label: "二手" },
   { value: -1, label: "残缺" }
 ];
 
-//存储状态
+//库存状态
 export const inventoryStatus = [
-  { value: -2, label: "门店收货" },
-  { value: -1, label: "已借出" },
+  { value: -9, label: "已出库" },
+  { value: -2, label: "发送总部" },
+  // { value: -1, label: "已借出" },
   { value: 0, label: "清点中" },
-  { value: 1, label: "在仓库" },
-  { value: -9, label: "已出库" }
+  { value: 1, label: "在仓库" }, // { value: -9, label: "已出库" },
+  { value: 2, label: "收货确认" },
+  { value: -1, label: "收货确认" }
 ];
 
 //会员状态
@@ -81,9 +83,71 @@ export function transformProductStatus(status) {
 }
 
 /**
- * 转化存储状态
- * (-2:门店收货,-1:已借出,0:清点中,1:在仓库)
+ * 库存状态处理，比较麻烦
  */
-export function transformInventoryStatus(status) {
-  return matchStatus(inventoryStatus, status);
+function getStockExtState($flag, $extflag) {
+  if ($flag == 1) {
+    //在仓库
+    switch ($extflag) {
+      case -1:
+        return "会员归还";
+        break;
+      case 0:
+        return "可租借";
+        break;
+      case 1:
+        return "门店展示";
+        break;
+      case 2:
+        return "门店拼装";
+        break;
+      default:
+        return "未知";
+        break;
+    }
+  } else if ($flag == 0) {
+    //清点中
+    switch ($extflag) {
+      case 1:
+        return "分拣收货";
+        break;
+      case 2:
+        return "分拣完成";
+        break;
+      case 3:
+        return "清洗收货";
+        break;
+      case 4:
+        return "清洗完成";
+        break;
+      default:
+        return "未知";
+        break;
+    }
+  }
+}
+
+function getStockState($flag, $extflag) {
+  switch ($flag) {
+    case -9:
+      return "己出库>";
+    case -2:
+      return "发回总部";
+    case -1:
+      return "已借出";
+    case 0:
+      return "清点中-" + getStockExtState($flag, $extflag);
+    case 1:
+      if ($extflag == 0) return "在仓库";
+      else return "在仓库-" + getStockExtState($flag, $extflag);
+      break;
+    case 2:
+      return "商铺收货";
+    default:
+      return "未知";
+  }
+}
+
+export function transformInventoryStatus(flag, extflag) {
+  return getStockState(Number(flag), Number(extflag));
 }

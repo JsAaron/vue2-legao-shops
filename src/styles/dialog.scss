@@ -46,8 +46,12 @@
       background-color: #4b91cd;
       height: 0.56rem;
       position: relative;
-      .el-dialog__title {
+      .el-dialog__title,
+      .el-dialog__headerbtn {
         @include translateCenter;
+      }
+      .el-dialog__headerbtn {
+        left: 96% !important;
       }
       .el-dialog__title,
       .el-dialog__close {

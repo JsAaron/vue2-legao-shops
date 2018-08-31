@@ -1,3 +1,10 @@
+//单行文本溢出
+@mixin ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 //字体大小，颜色
 @mixin setFontColor($size, $color) {
   font-size: $size;
