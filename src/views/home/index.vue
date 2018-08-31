@@ -96,7 +96,7 @@ export default {
         if (this.routers[pos]) {
           //不能直接修改meta，重复进页面就会出错，因为会叠加
           this.routers[pos].push({
-            opacity: hidden ? 0.3 : 1,
+            opacity: hidden ? 0.2 : 1,
             newUrl: require("../../images/home/" + meta.url),
             newPath: hidden
               ? ""
