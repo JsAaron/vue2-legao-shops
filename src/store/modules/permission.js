@@ -3,6 +3,7 @@ import asyncRouterMap from "@/router/asyncMap";
 
 const permission = {
   state: {
+    homeRouters: [...defaultRouterMap.concat(asyncRouterMap)], //全部路由，首页使用
     routers: defaultRouterMap, //总路由
     addRouters: [] //新增路由
   },
@@ -20,15 +21,13 @@ const permission = {
      */
     ["GENERAT_ROUTES"]({ commit }, data) {
       return new Promise(resolve => {
-        const { roles } = data;
-        let accessedRouters;
-        accessedRouters = asyncRouterMap;
-        //管理员权限，或者别的
-        // if (roles.indexOf("admin") >= 0) {
-        //   accessedRouters = asyncRouterMap;
-        // } else {
-        //   // accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
-        // }
+        const roles = data.roles;
+        let accessedRouters = [];
+        for (let i = 0; i < asyncRouterMap.length; i++) {
+          if (~roles.indexOf(asyncRouterMap[i].path + "/index")) {
+            accessedRouters.push(asyncRouterMap[i]);
+          }
+        }
         commit("SET_ROUTERS", accessedRouters);
         resolve();
       });

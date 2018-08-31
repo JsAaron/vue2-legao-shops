@@ -27,7 +27,7 @@
         <ul>
           <li v-for="item in routers.top" :key="item.id">
             <router-link :to="item.newPath">
-              <figure>
+              <figure :style="{opacity:item.opacity}">
                 <img :src="item.newUrl"/>
                 <figcaption>{{generateTitle(item.title)}}</figcaption>
               </figure>
@@ -37,7 +37,7 @@
         <div class="nav-border"></div>
         <ul>
           <li v-for="item in routers.middle" :key="item.id">
-           <figure>
+           <figure :style="{opacity:item.opacity}">
               <img :src="item.newUrl"/>
               <figcaption>{{generateTitle(item.title)}}</figcaption>
             </figure>
@@ -52,7 +52,7 @@
         <div class="nav-border"></div>
         <ul>
           <li v-for="item in routers.bottom" :key="item.id">
-           <figure>
+           <figure :style="{opacity:item.opacity}">
               <img :src="item.newUrl"/>
               <figcaption>{{generateTitle(item.title)}}</figcaption>
             </figure>
@@ -86,26 +86,47 @@ export default {
     generateTitle
   },
   computed: {
-    ...mapGetters(["permission_routers"])
+    ...mapGetters(["permissionRouters", "homeRouters"])
   },
   created() {
-    //初始化路由表结构
-    this.permission_routers.forEach(
-      function(item, index, array) {
-        if (!item.hidden && !item.special) {
-          const meta = item.children[0].meta;
-          const pos = meta.group;
-          if (this.routers[pos]) {
-            //不能直接修改meta，重复进页面就会出错，因为会叠加
-            this.routers[pos].push({
-              newUrl: require("../../images/home/" + meta.url),
-              newPath: path.resolve(item.path, item.children[0].path),
-              title: meta.title
-            });
-          }
+    const setRouters = (item, hidden) => {
+      if (!item.hidden && !item.special) {
+        const meta = item.children[0].meta;
+        const pos = meta.group;
+        if (this.routers[pos]) {
+          //不能直接修改meta，重复进页面就会出错，因为会叠加
+          this.routers[pos].push({
+            opacity: hidden ? 0.3 : 1,
+            newUrl: require("../../images/home/" + meta.url),
+            newPath: hidden
+              ? ""
+              : path.resolve(item.path, item.children[0].path),
+            title: meta.title
+          });
         }
-      }.bind(this)
-    );
+      }
+    };
+
+    //授权
+    const permissionRouters = this.permissionRouters.map(function(item) {
+      return item.path;
+    });
+    const matchRouter = item => {
+      if (~permissionRouters.indexOf(item.path)) {
+        return true;
+      }
+      return false;
+    };
+
+    this.homeRouters.forEach((item, index, array) => {
+      if (matchRouter(item)) {
+        //授权显示
+        return setRouters(item, false);
+      } else {
+        //隐藏
+        return setRouters(item, true);
+      }
+    });
   },
   components: {
     HeadTop

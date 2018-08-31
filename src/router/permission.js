@@ -30,7 +30,9 @@ export default function(router) {
           store.dispatch("GET_USERINFO").then(response => {
             if (response) {
               store
-                .dispatch("GENERAT_ROUTES", { roles: response.data.roles })
+                .dispatch("GENERAT_ROUTES", {
+                  roles: store.getters.roles
+                })
                 .then(() => {
                   router.addRoutes(store.getters.addRouters);
                   next({ ...to, replace: true });
@@ -38,7 +40,6 @@ export default function(router) {
             } else {
               //cookies失效
               next("/login");
-              // console.log("cookies失效");
             }
           });
         } else {

@@ -94,12 +94,13 @@ const user = {
               return;
             }
             const data = response.data.data;
+            // console.log(data);
             commit("SET_USERID", data.id);
             commit("SET_USERNAME", data.realname);
             commit("SET_LOGINDATA", data);
             commit("SET_SHOPNAME", data.shopname);
             commit("SET_SHOPID", data.shopid);
-            commit("SET_ROLES", "admin");
+            commit("SET_ROLES", data.roles);
             resolve(response);
           })
           .catch(error => {

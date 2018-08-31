@@ -163,7 +163,7 @@ export default [
 
   {
     sort: 8,
-    path: "product-return",
+    path: "/product-return",
     component: Layout,
     onlyClick: true, //只能被点击使用,不能跳转
     children: [

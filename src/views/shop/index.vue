@@ -7,7 +7,7 @@
       </el-table-column>
       <el-table-column prop="shopname" label="所属门店">
       </el-table-column>
-      <el-table-column label="设置">
+      <el-table-column label="密码修改">
         <template slot-scope="scope">
           <el-button type="primary" @click="changePassword(scope.$index, scope.row)">修改密码</el-button>
         </template>
@@ -34,6 +34,7 @@
         <el-button type="primary" @click="passwordDialogSave">确定修改</el-button>
       </template>
     </common-dialog>
+
 
   </div>
 </template>
@@ -145,6 +146,11 @@ export default {
         id: row.id,
         realname: row.realname
       };
+    },
+    //=======权限设置===========
+    changeRules() {},
+    ruleDialogClose() {
+      this.ruleDialogVisible = false;
     }
   }
 };

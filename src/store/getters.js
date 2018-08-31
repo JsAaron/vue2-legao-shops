@@ -17,6 +17,7 @@ const getters = {
   addRouters: state => state.permission.addRouters,
 
   // 获取许可的路由规则
-  permission_routers: state => state.permission.routers //左边路由
+  permissionRouters: state => state.permission.routers, //左边路由
+  homeRouters: state => state.permission.homeRouters //左边路由
 };
 export default getters;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="route in permission_routers" :key="route.name">
+    <div v-for="route in permissionRouters" :key="route.name">
        <div onlyClick v-if="!route.hidden&&route.children" class="menu-wrapper">
         <!-- 选择是否可跳转与可点击的导航 -->
         <router-link v-if="!route.onlyClick" :to="resolvePath(route)">
@@ -28,7 +28,7 @@ import { generateTitle } from "@/utils/i18n.js";
 import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["permission_routers"])
+    ...mapGetters(["permissionRouters"])
   },
   data() {
     return {
