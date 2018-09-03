@@ -89,7 +89,7 @@
         <el-table-column
           prop="storeid"
           align="center"
-          min-width="120"
+          min-width="140"
           label="产品货号">
         </el-table-column>
         <el-table-column
@@ -100,7 +100,7 @@
         <el-table-column
           prop="is_new"
           align="center"
-          label="产品完整性">
+          label="产品完整">
           <template slot-scope="scope">
             {{transformProductStatus(scope.row.is_new)}}
           </template>
@@ -144,7 +144,7 @@
       </el-pagination>
     </div>
 
-    <!-- 管理更新 -->
+    <!-- 管理弹框 -->
     <common-dialog class="manage-dialog el-dialog-large" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageDialogTitle">
       <template class="main" slot="main">
         <!-- 左图 -->
@@ -158,7 +158,7 @@
               </template>
             {{manageDialogForm.name}}
           </el-form-item>
-          <div class="between">
+          <div class="inline">
             <el-form-item>
               <template slot="label">
                 <span>产品货号</span>
@@ -166,7 +166,7 @@
               </template>
               {{manageDialogForm.storeid}}
             </el-form-item>
-            <el-form-item>
+            <el-form-item >
               <template slot="label">
                 <span>颗粒数</span>
                 <span>:</span>
@@ -174,7 +174,7 @@
               {{manageDialogForm.number}}
               </el-form-item>
           </div>
-          <div class="between">
+          <div class="inline">
             <el-form-item>
               <template slot="label">
                 <span>押金价</span>
@@ -229,7 +229,7 @@
       </template>
     </common-dialog>
 
-    <!-- 收货更新 -->
+    <!-- 收货弹框 -->
     <common-dialog class="product-dialog el-dialog-large" @close-self="productDialogClose" :visible="productDialogVisible" :title="productDialogTitle">
       <template class="main" slot="main">
         <div class="product-top">
@@ -380,14 +380,14 @@ export default {
   data() {
     return {
       //===================
-      //  管理 更新
+      //  管理弹框
       //===================
       manageDialogTitle: "商品信息",
       manageDialogVisible: false,
       manageDialogForm: {},
 
       //===================
-      //  收货更新
+      //  收货弹框
       //===================
       productDialogTitle: "收货管理",
       productDialogVisible: false,
@@ -758,7 +758,7 @@ export default {
           width: 4.5rem;
           height: 2.92rem;
           margin-left: 0.3rem;
-          .between {
+          .inline {
             display: flex;
           }
           & div:first-child {
@@ -775,8 +775,11 @@ export default {
           .el-form-item__label {
             width: 0.9rem;
             display: flex !important;
-            justify-content: space-between;
+            justify-content: flex-end;
             margin-right: 0.1rem;
+            & span:last-child {
+              margin-left: 0.05rem;
+            }
           }
           .el-form-item__content {
             @include ellipsis;
