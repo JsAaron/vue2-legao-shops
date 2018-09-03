@@ -21,8 +21,5 @@ export function logout() {
  * @param {*} token
  */
 export function getUserInfo() {
-  return request({
-    url: "/admin/token",
-    method: "POST"
-  });
+  return request({ url: "/admin/token", method: "post" });
 }

@@ -5,9 +5,5 @@ import request from "@/utils/request";
  * @param {*} query
  */
 export function fetchList(query) {
-  return request({
-    url: "cardinfo/getlist",
-    method: "get",
-    params: query
-  });
+  return request({ url: "cardinfo/getlist", method: "post", params: query });
 }

@@ -5,11 +5,7 @@ import request from "@/utils/request";
  * @param {*} query
  */
 export function fetchList(query) {
-  return request({
-    url: "/admin/getlist",
-    method: "get",
-    params: query
-  });
+  return request({ url: "/admin/getlist", method: "post", params: query });
 }
 
 export function chagePassword(query) {

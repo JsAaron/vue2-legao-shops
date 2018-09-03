@@ -125,8 +125,8 @@
       </el-table>
       <!-- 确定按钮 -->
       <div class="checked-bt">
-          <el-checkbox v-model="checkedAll" @change="toggleAllSelection(list)" class="all-checkbox">全选</el-checkbox>
-          <el-button type="primary" @click="clickStockSelection()">确认收货</el-button>
+          <el-checkbox v-model="checkedAll" @change="toggleAllSelection()" class="all-checkbox">全选</el-checkbox>
+          <el-button type="primary" @click="stockSelectionButton()">确认收货</el-button>
           <el-button type="primary" @click="clickReturnSelection()">退回总部</el-button>
       </div>
     </div>
@@ -292,11 +292,11 @@
       </template>
     </common-dialog>
 
-    <!-- 进货确定框 -->
+    <!-- 确认收货 -->
     <common-dialog class="stock-dialog el-dialog-mini" @close-self="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
       <div class="title" slot="main">
-        <p>共选择商品(件): 4</p>
-        <p>总金额(元): 3453234</p>
+        <p>共选择商品(件): {{stockDialogCount}}</p>
+        <p>总金额(元): {{stockDialogMoney}}</p>
       </div>
       <template slot="footer">
           <el-button type="primary" @click="stockDialogClose">取 消</el-button>
@@ -394,14 +394,16 @@ export default {
       productDialogForm: {},
 
       //===================
-      //  进货确定
+      //  底部进货确定
       //===================
       multipleSelection: [], //多选项内容
       stockDialogVisible: false,
-      stockDialogTitle: "进货确定",
+      stockDialogMoney: "", //总金额
+      stockDialogCount: "", //选择总数
+      stockDialogTitle: "收货确定",
 
       //===================
-      //  退回总部
+      // 底部退回总部
       //===================
       checkedAll: false, //全选
       sendBackDialogVisible: false,
@@ -663,11 +665,16 @@ export default {
     },
 
     //===================
-    //  进货确定关闭按钮
+    //  多选：确定收货
     //===================
-    clickStockSelection() {
+    stockSelectionButton() {
       if (this.multipleSelection.length) {
         this.stockDialogVisible = true;
+        const pricesTotal = this.multipleSelection.reduce((prev, cur) => {
+          return Number(cur.origin_price) + prev;
+        }, 0);
+        this.stockDialogCount = this.multipleSelection.length;
+        this.stockDialogMoney = pricesTotal;
       }
     },
     stockDialogClose() {
@@ -680,21 +687,21 @@ export default {
     //===================
     // 退回总部
     //===================
-    toggleAllSelection(rows) {
+    toggleAllSelection() {
       const multipleSelectionCount = this.multipleSelection.length;
-      //默认情况
+      // //默认情况
       if (multipleSelectionCount == 0) {
         this.$refs.multipleTable.toggleAllSelection();
         this.checkedAll = true;
       }
-      if (multipleSelectionCount === this.list.length) {
+      if (multipleSelectionCount === this.listData.length) {
         this.$refs.multipleTable.clearSelection();
         this.checkedAll = false;
       }
       //如果只选中几个的情况
       if (
         multipleSelectionCount > 0 &&
-        multipleSelectionCount < this.list.length
+        multipleSelectionCount < this.listData.length
       ) {
         this.$refs.multipleTable.toggleAllSelection();
         this.checkedAll = true;
