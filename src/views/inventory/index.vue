@@ -197,7 +197,6 @@
             </template>
             <el-input
               :placeholder="transformProductStatus(manageDialogForm.is_new)"
-              v-model="manageDialogForm.is_newValue"
               :disabled="true">
             </el-input>
           </el-form-item>
@@ -208,7 +207,6 @@
             </template>
             <el-input
               :placeholder="transformProductStatus(manageDialogForm.flag)"
-              v-model="manageDialogForm.flagValue"
               :disabled="true">
             </el-input>
           </el-form-item>
@@ -361,7 +359,7 @@
 </template>
 
 <script>
-import { fetchList, updateInventory } from "@/api/inventory";
+import { fetchList, acceptGoods, modifyExtflag } from "@/api/inventory";
 import CommonDialog from "@/views/common/dialog";
 import { Message } from "element-ui";
 import {
@@ -474,29 +472,6 @@ export default {
           value: "选项5",
           label: "铂金卡5"
         }
-      ],
-      //店铺名
-      shopName: [
-        {
-          value: "选项1",
-          label: "乐高实体店1"
-        },
-        {
-          value: "选项2",
-          label: "乐高实体店2"
-        },
-        {
-          value: "选项3",
-          label: "乐高实体店3"
-        },
-        {
-          value: "选项4",
-          label: "乐高实体店4"
-        },
-        {
-          value: "选项5",
-          label: "乐高实体店5"
-        }
       ]
     };
   },
@@ -511,24 +486,22 @@ export default {
     //  获取数据
     //===================
     getList() {
+      this.listLoading = true; //每次重新获取，需要处理
       //查询，库存状态
       if (this.listQuery.inventory) {
         this.listQuery.flag = this.listQuery.inventory[0];
         this.listQuery.extflag = this.listQuery.inventory[1];
         delete this.listQuery.inventory;
       }
-      // this.listQuery
-      this.listLoading = true; //每次重新获取，需要处理
-      console.log(this.listQuery);
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
         this.listLoading = false;
+        this.listQuery = {
+          pages: 1, //取第几个页面
+          limit: 10 //多少条数据
+        };
       });
-    },
-
-    handleInventoryChange() {
-      // console.log(1);
     },
 
     //===================
@@ -569,15 +542,12 @@ export default {
       this.activeData = data;
       this.manageDialogVisible = true;
       this.manageDialogForm = Object.assign({}, data, {
-        flagValue: "", //库存值
-        is_newtValue: "", //完整性
         extflagValue: "" //额外功能
       });
     },
     manageDialogClose() {
       this.manageDialogVisible = false;
     },
-
     //必须是修改了数据，并且是有效值
     //0的数据,判断复杂
     getValue(original, setOriginal, fn) {
@@ -588,22 +558,11 @@ export default {
         }
       }
     },
-
     manageDialogSave() {
-      const query = {};
-
-      // this.getValue("flag", "flagValue", function(prop, value) {
-      //   query[prop] = value;
-      // });
-
-      // this.getValue("is_new", "is_newValue", function(prop, value) {
-      //   query[prop] = value;
-      // });
-
+      let query = {};
       this.getValue("extflag", "extflagValue", function(prop, value) {
-        query[prop] = value;
+        query["new" + prop] = value;
       });
-
       if (!Object.keys(query).length) {
         Message({
           message: "没有修改数据!",
@@ -612,15 +571,11 @@ export default {
         });
         return;
       }
-      query["id"] = this.manageDialogForm.id;
-      updateInventory(query).then(
-        () => {
-          if (query["flag"] || query["flag"] == 0) {
-            this.activeData.flag = this.manageDialogForm["flagValue"];
-          }
-          if (query["is_new"] || query["is_new"] == 0) {
-            this.activeData.is_new = this.manageDialogForm["is_newValue"];
-          }
+      query.storeid = this.manageDialogForm.storeid;
+      query.extflag = this.manageDialogForm.extflag;
+      modifyExtflag(query).then(
+        req => {
+          this.activeData.extflag = query["newextflag"];
           Message({
             message: "数据更新成功!",
             type: "success",

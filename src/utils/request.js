@@ -10,17 +10,17 @@ const service = axios.create({
 // 添加一个请求拦截器
 service.interceptors.request.use(
   config => {
-    // config.headers["Content-Type"] = "application/json";
-    //请求的时候头部带上token
     if (store.getters.cookie) {
       config.headers["userid"] = store.getters.cookie.userid;
       config.headers["token"] = store.getters.cookie.token;
     }
-
+    if (!config.params) {
+      config.params = {};
+    }
+    if (store.getters.userId) {
+      config.params["aid"] = store.getters.userId;
+    }
     if (store.getters.shopId) {
-      if (!config.params) {
-        config.params = {};
-      }
       config.params["shopid"] = store.getters.shopId;
     }
     return config;
@@ -34,14 +34,16 @@ service.interceptors.request.use(
 
 // 添加一个响应拦截器
 service.interceptors.response.use(
-  response => response,
-  // response => {
-  //   const res = response.data;
-  //   console.log(333333, response);
-  //   return response.data;
-  // },
+  response => {
+    const res = response.data;
+    if (res.state == "error") {
+      console.error(`${res.msg} ${res.arg}`);
+      return Promise.reject(error);
+    }
+    return response;
+  },
   error => {
-    console.log("响应错误", error);
+    console.error(`${res.msg} ${res.arg}`);
     return Promise.reject(error);
   }
 );

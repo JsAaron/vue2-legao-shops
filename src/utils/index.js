@@ -166,6 +166,11 @@ function getStockState($flag, $extflag) {
   }
 }
 
+/**
+ * 转化库存状态
+ * @param {d} flag
+ * @param {*} extflag
+ */
 export function transformInventoryStatus(flag, extflag) {
   return getStockState(Number(flag), Number(extflag));
 }

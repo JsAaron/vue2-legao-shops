@@ -14,14 +14,27 @@ export function fetchList(query) {
 }
 
 /**
- * 更新库存状态
- * 功能管理
+ * 收货
+ * 商品信息
  * @param {} data
  */
-export function updateInventory(query) {
+export function acceptGoods(query) {
   return request({
     url: "goods/acceptgoods",
     method: "post",
+    params: query
+  });
+}
+
+/**
+ * 管理
+ * 修改库存状态
+ * @param {}} query
+ */
+export function modifyExtflag(query) {
+  return request({
+    url: "goods/modifyextflag",
+    method: "get",
     params: query
   });
 }
