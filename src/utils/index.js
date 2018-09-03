@@ -97,9 +97,9 @@ export const inventoryStatus = [
     ]
   },
   { label: "已借出", value: -1 },
-  { label: "已出库", value: -9 },
+  // { label: "已出库", value: -9 },
   { label: "发回总部", value: -2 },
-  { label: "商铺收货", value: 2 }
+  { label: "进货确认", value: 2 }
 ];
 
 /**
@@ -160,7 +160,7 @@ function getStockState($flag, $extflag) {
     case 1:
       return "在仓库-" + getStockExtState($flag, $extflag);
     case 2:
-      return "商铺收货";
+      return "进货确认";
     default:
       return "未知";
   }

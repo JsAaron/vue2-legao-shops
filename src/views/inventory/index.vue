@@ -126,7 +126,7 @@
       <!-- 确定按钮 -->
       <div class="checked-bt">
           <el-checkbox v-model="checkedAll" @change="toggleAllSelection(list)" class="all-checkbox">全选</el-checkbox>
-          <el-button type="primary" @click="clickStockSelection()">进货确定</el-button>
+          <el-button type="primary" @click="clickStockSelection()">确认收货</el-button>
           <el-button type="primary" @click="clickReturnSelection()">退回总部</el-button>
       </div>
     </div>
@@ -288,7 +288,7 @@
       <div>1111</div>
       <template slot="footer">
         <el-button type="primary" @click="productDialogClose">取消</el-button>
-        <el-button type="primary" @click="productDialogSave">确定</el-button>
+        <el-button type="primary" @click="productDialogUpdate">确定</el-button>
       </template>
     </common-dialog>
 
@@ -533,7 +533,35 @@ export default {
         this.productFormTextarea = "";
       }
     },
-    productDialogSave() {},
+    productDialogUpdate() {
+      acceptGoods({
+        desc: this.productFormTextarea,
+        storeid: this.productDialogForm.storeid
+      }).then(
+        req => {
+          Message({
+            message: "数据更新成功!",
+            type: "success",
+            duration: 1000
+          });
+          for (var i = 0; i < this.listData.length; i++) {
+            if (this.listData[i].id === this.productDialogForm.id) {
+              this.listData.splice(i, 1);
+            }
+          }
+          setTimeout(() => {
+            this.productDialogClose();
+          }, 1000);
+        },
+        () => {
+          Message({
+            message: "数据修改失败!",
+            type: "error",
+            duration: 2000
+          });
+        }
+      );
+    },
 
     //===================
     //  管理按钮

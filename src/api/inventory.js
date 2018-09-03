@@ -14,9 +14,10 @@ export function fetchList(query) {
 }
 
 /**
- * 收货
+ * 单独确定收货
  * 商品信息
  * @param {} data
+ * http://192.168.1.30/api/goods/acceptgoods?aid=10&shopid=2&storeid=76087-48-08-01&desc=1111
  */
 export function acceptGoods(query) {
   return request({
