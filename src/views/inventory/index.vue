@@ -31,14 +31,13 @@
           </el-col>
           <el-col :xs="10" :sm="10" :lg="7">
             <el-form-item label="库存状态：">
-              <el-select v-model="listQuery.flag" clearable>
-                <el-option
-                  v-for="(item,index) in inventoryStatus"
-                  :key="index"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
+              <el-cascader
+                clearable
+                separator="-"
+                :options="inventoryStatus"
+                expand-trigger="hover"
+                v-model="listQuery.inventory">
+              </el-cascader>
             </el-form-item>
           </el-col>
           <!-- 查询 -->
@@ -57,11 +56,12 @@
         ref="multipleTable"
         :data="listData"
         tooltip-effect="dark"
+        style="width: 100%"
         @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
           align="center"
-          width="35">
+          width="45">
         </el-table-column>
         <el-table-column
           prop="code"
@@ -119,7 +119,7 @@
           label="操作"> 
           <template slot-scope="scope">
             <el-button v-if="scope.row.flag==1" type="primary" size="mini" @click="clickManageUpdate(scope.row)">管理</el-button>
-            <el-button v-if="scope.row.flag==-1" type="primary" size="mini" @click="clickProductUpdate(scope.row)">收货</el-button>
+            <el-button v-if="scope.row.flag==2" type="primary" size="mini" @click="clickProductUpdate(scope.row)">收货</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -448,7 +448,9 @@ export default {
       listQuery: {
         //列表查询条件
         pages: 1, //取第几个页面
-        limit: 10 //多少条数据
+        limit: 10, //多少条数据
+        flag: "", //库存搜索
+        extflag: "" //库存搜索
       },
       //所属卡
       cardType: [
@@ -509,12 +511,24 @@ export default {
     //  获取数据
     //===================
     getList() {
+      //查询，库存状态
+      if (this.listQuery.inventory) {
+        this.listQuery.flag = this.listQuery.inventory[0];
+        this.listQuery.extflag = this.listQuery.inventory[1];
+        delete this.listQuery.inventory;
+      }
+      // this.listQuery
       this.listLoading = true; //每次重新获取，需要处理
+      console.log(this.listQuery);
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
         this.listLoading = false;
       });
+    },
+
+    handleInventoryChange() {
+      // console.log(1);
     },
 
     //===================
@@ -535,6 +549,8 @@ export default {
       this.productDialogForm = Object.assign({}, data);
     },
     productDialogClose() {
+      this.productFormTextarea = "";
+      this.productFormChecked = false;
       this.productDialogVisible = false;
     },
     productFormChange() {
@@ -790,7 +806,7 @@ export default {
             line-height: 0.4rem;
             display: inline-block;
             // font-weight: 600;
-            font-size: 0.2rem;
+            font-size: 0.18rem;
             padding: 0;
           }
         }
