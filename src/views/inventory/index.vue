@@ -42,7 +42,7 @@
           </el-col>
           <!-- 查询 -->
           <el-form-item>
-            <el-button type="primary" @click="reset">重置</el-button>
+            <el-button type="primary" @click="filterReset">重置</el-button>
             <el-button type="primary" @click="getList">开始查询</el-button>
           </el-form-item>
         </el-row>
@@ -119,16 +119,16 @@
           align="center" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button v-if="scope.row.flag==1" type="primary" size="mini" @click="clickManageUpdate(scope.row)">管理</el-button>
-            <el-button v-if="scope.row.flag==2" type="primary" size="mini" @click="clickProductUpdate(scope.row)">收货</el-button>
+            <el-button v-if="scope.row.flag==1" type="primary" size="mini" @click="manageDialogButton(scope.row)">管理</el-button>
+            <el-button v-if="scope.row.flag==2" type="primary" size="mini" @click="productDialogButton(scope.row)">收货</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!-- 确定按钮 -->
       <div class="all-selection" >
           <el-checkbox v-model="checkedAll" v-if="allSelectionVisible" @change="toggleAllSelection()" class="all-checkbox">全选</el-checkbox>
-          <el-button type="primary" v-if="stockSelectionVisible" @click="stockSelectionButton()">确认收货</el-button>
-          <el-button type="primary" v-if="returnSelectionVisible" @click="returnSelectionButton()">退回总部</el-button>
+          <el-button type="primary" v-if="stockSelectionVisible" @click="stockDialogButton()">确认收货</el-button>
+          <el-button type="primary" v-if="returnSelectionVisible" @click="returnDialogButton()">退回总部</el-button>
       </div>
     </div>
 
@@ -224,7 +224,7 @@
       </template>
       <template slot="footer">
         <el-button type="primary" @click="manageDialogClose">取消</el-button>
-        <el-button type="primary" @click="manageDialogSave">确定</el-button>
+        <el-button type="primary" @click="manageDialogUpdate">确定</el-button>
       </template>
     </common-dialog>
 
@@ -301,12 +301,12 @@
       </div>
       <template slot="footer">
           <el-button type="primary" @click="stockDialogClose">取 消</el-button>
-          <el-button type="primary" @click="stockDialogSave">确 定</el-button>
+          <el-button type="primary" @click="stockDialogUpdate">确 定</el-button>
       </template>
     </common-dialog>
 
     <!-- 退回总部 -->
-    <common-dialog class="send-dialog legao-list" @close-self="sendBackDialogClose" :visible="sendBackDialogVisible"  :title="sendBackDialogTitle">
+    <common-dialog class="return-dialog legao-list" @close-self="returnDialogClose" :visible="returnDialogVisible"  :title="returnDialogTitle">
       <template class="main" slot="main">
         <el-table
         :data="sendBackListData"
@@ -352,7 +352,7 @@
           align="center" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="sendBackDelete(scope.row)">删除</el-button>
+            <el-button type="primary" size="mini" @click="returnSubListDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -362,8 +362,8 @@
       </p>
       </template>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary"  @click="sendBackDialogClose">取消</el-button>
-        <el-button type="primary" @click="sendBackDialogSave">确定归还</el-button>
+        <el-button type="primary"  @click="returnDialogClose">取消</el-button>
+        <el-button type="primary"  @click="returnDialogUpdate">确定归还</el-button>
       </span>
     </common-dialog>
 
@@ -439,8 +439,8 @@ export default {
       // 底部退回总部
       //===================
       checkedAll: false, //全选
-      sendBackDialogVisible: false,
-      sendBackDialogTitle: "归还清单",
+      returnDialogVisible: false,
+      returnDialogTitle: "归还清单",
       sendBackListData: [],
 
       //===================
@@ -503,8 +503,12 @@ export default {
     transformProductStatus,
     transformInventoryStatus,
     //===================
-    //  获取数据
+    //  公共方法
     //===================
+
+    /**
+     * 获取数据
+     */
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
       //查询，库存状态
@@ -535,9 +539,33 @@ export default {
       });
     },
 
-    reset() {
+    /**
+     * 搜索复位
+     */
+    filterReset() {
       this.listQuery = Object.assign({}, defaultQuery);
       this.getList();
+    },
+
+    /**
+     * 删除总列表数据
+     * 对比storeid
+     * 对应减少页码
+     */
+    updateListData({ list, storeid, callback, updatePage }) {
+      //找到对应的storeid,删除list,如果提供回调
+      for (var i = 0; i < list.length; i++) {
+        if (list[i]["storeid"] === storeid) {
+          list.splice(i, 1);
+          //更新总页码
+          if (updatePage) {
+            --this.listTotal;
+          }
+          if (callback) {
+            callback();
+          }
+        }
+      }
     },
 
     //===================
@@ -554,7 +582,7 @@ export default {
     // 列表右
     //  收货按钮
     //===================
-    clickProductUpdate(data) {
+    productDialogButton(data) {
       this.productDialogVisible = true;
       this.productDialogForm = Object.assign({}, data);
     },
@@ -570,6 +598,9 @@ export default {
         this.productFormTextarea = "";
       }
     },
+    /**
+     * 点击收货更新
+     */
     productDialogUpdate() {
       acceptGoods({
         desc: this.productFormTextarea,
@@ -581,12 +612,11 @@ export default {
             type: "success",
             duration: 1000
           });
-          for (var i = 0; i < this.listData.length; i++) {
-            if (this.listData[i].id === this.productDialogForm.id) {
-              this.listData.splice(i, 1);
-              --this.listTotal;
-            }
-          }
+          this.updateListData({
+            list: this.listData,
+            storeid: this.productDialogForm.storeid,
+            updatePage: true
+          });
           setTimeout(() => {
             this.productDialogClose();
           }, 1000);
@@ -605,7 +635,7 @@ export default {
     //  列表右
     //   管理按钮
     //===================
-    clickManageUpdate(data) {
+    manageDialogButton(data) {
       this.activeData = data;
       this.manageDialogVisible = true;
       this.manageDialogForm = Object.assign({}, data, {
@@ -625,7 +655,7 @@ export default {
         }
       }
     },
-    manageDialogSave() {
+    manageDialogUpdate() {
       let query = {};
       this.getValue("extflag", "extflagValue", function(prop, value) {
         query["new" + prop] = value;
@@ -687,10 +717,9 @@ export default {
     },
 
     //===================
-    //  底部多选：
-    //    确定收货
+    //  底部:确定收货
     //===================
-    stockSelectionButton() {
+    stockDialogButton() {
       if (this.multipleSelectionItems.length) {
         this.stockDialogVisible = true;
         this.stockDialogMoney = this.multipleSelectionItems.reduce(
@@ -704,7 +733,7 @@ export default {
     stockDialogClose() {
       this.stockDialogVisible = false;
     },
-    stockDialogSave() {
+    stockDialogUpdate() {
       const storeids = this.multipleSelectionItems.map(item => {
         return item.storeid;
       });
@@ -717,12 +746,11 @@ export default {
             const storeid = item.storeid;
             //数据正常,删除
             if (item.state === "ok") {
-              for (var i = 0; i < this.listData.length; i++) {
-                if (this.listData[i]["storeid"] === storeid) {
-                  this.listData.splice(i, 1);
-                  --this.listTotal;
-                }
-              }
+              this.updateListData({
+                list: this.listData,
+                storeid,
+                updatePage: true
+              });
             } else {
               //删除出错
               error.push(storeid);
@@ -762,23 +790,27 @@ export default {
     // 底部多选
     //    退回总部
     //==================
-    returnSelectionButton() {
+    //触发入口
+    returnDialogButton() {
       if (this.multipleSelectionItems.length) {
-        this.sendBackDialogVisible = true;
+        this.returnDialogVisible = true;
         this.sendBackListData = [...this.multipleSelectionItems];
       }
     },
-    sendBackDelete(row) {
+    //子菜单列表删除
+    returnSubListDelete(row) {
       for (var i = 0; i < this.sendBackListData.length; i++) {
         if (this.sendBackListData[i]["storeid"] === row.storeid) {
           this.sendBackListData.splice(i, 1);
         }
       }
     },
-    sendBackDialogClose() {
-      this.sendBackDialogVisible = false;
+    //子菜单关闭
+    returnDialogClose() {
+      this.returnDialogVisible = false;
     },
-    sendBackDialogSave() {
+    //批量列表删除确定
+    returnDialogUpdate() {
       const storeids = this.sendBackListData.map(item => {
         return item.storeid;
       });
@@ -791,12 +823,17 @@ export default {
             const storeid = item.storeid;
             //数据正常,删除
             if (item.state === "ok") {
-              for (var i = 0; i < this.sendBackListData.length; i++) {
-                if (this.sendBackListData[i]["storeid"] === storeid) {
-                  this.sendBackListData.splice(i, 1);
-                  --this.listTotal;
+              this.updateListData({
+                list: this.sendBackListData,
+                storeid,
+                callback: () => {
+                  this.updateListData({
+                    list: this.listData,
+                    storeid,
+                    updatePage: true
+                  });
                 }
-              }
+              });
             } else {
               //删除出错
               error.push(storeid);
@@ -809,7 +846,7 @@ export default {
               duration: 1000
             });
             setTimeout(() => {
-              this.sendBackDialogClose();
+              this.returnDialogClose();
             }, 3000);
           } else {
             Message({
@@ -818,7 +855,7 @@ export default {
               duration: 1000
             });
             setTimeout(() => {
-              this.sendBackDialogClose();
+              this.returnDialogClose();
             }, 1000);
           }
         },
@@ -833,7 +870,7 @@ export default {
     },
 
     //===================
-    //  底部页面
+    //  底部页码
     //===================
     handleSizeChange(val) {
       this.listQuery.limit = val;
@@ -943,7 +980,7 @@ export default {
     }
   }
   //退回总部
-  .send-dialog {
+  .return-dialog {
     .el-dialog {
       @include setWH(14.5rem, auto);
       padding-top: 0.3rem;
