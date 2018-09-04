@@ -387,7 +387,7 @@ import {
   transformExtStatus,
   transformProductStatus,
   transformInventoryStatus
-} from "@/utils";
+} from "@/utils/status";
 
 export default {
   components: {
@@ -500,20 +500,15 @@ export default {
     //===================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
-      let flag;
       //查询，库存状态
       if (this.listQuery.inventory && this.listQuery.inventory.length) {
         this.listQuery.flag = this.listQuery.inventory[0];
         this.listQuery.extflag = this.listQuery.inventory[1];
-        delete this.listQuery.inventory;
-        flag = this.listQuery.flag;
       }
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
-        this.listLoading = false;
-
-        switch (flag) {
+        switch (this.listQuery.flag) {
           case 1: //返回
             this.allSelectionVisible = true;
             this.returnSelectionVisible = true;
@@ -529,6 +524,7 @@ export default {
             this.stockSelectionVisible = false;
             this.returnSelectionVisible = false;
         }
+        this.listLoading = false;
       });
     },
 
@@ -663,45 +659,6 @@ export default {
           });
         }
       );
-    },
-    openNotification(message, type = "info") {
-      const config = {
-        duration: 1000,
-        message,
-        offset: 100
-      };
-      if (type === "success") {
-        this.$notify(
-          Object.assign(
-            {
-              type,
-              title: "成功"
-            },
-            config
-          )
-        );
-      }
-      if (type === "info") {
-        this.$notify.info(
-          Object.assign(
-            {
-              title: "通知"
-            },
-            config
-          )
-        );
-      }
-      if (type === "warning") {
-        this.$notify(
-          Object.assign(
-            {
-              title: "警告",
-              type: "warning"
-            },
-            config
-          )
-        );
-      }
     },
 
     //===================
