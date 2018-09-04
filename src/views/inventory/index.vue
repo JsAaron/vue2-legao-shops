@@ -389,6 +389,19 @@ import {
   transformInventoryStatus
 } from "@/utils/status";
 
+/**
+ * 默认查询条件
+ */
+const defaultQuery = {
+  code: "",
+  storeid: "",
+  pages: 1, //取第几个页面
+  limit: 10, //多少条数据
+  flag: "", //库存搜索
+  extflag: "", //库存搜索
+  inventory: []
+};
+
 export default {
   components: {
     CommonDialog
@@ -446,13 +459,7 @@ export default {
       listLoading: true, //加载进度条
       activeFlag: "", //动态改变的库存状态
       activeIs_new: "", //动态改变的完整性
-      listQuery: {
-        //列表查询条件
-        pages: 1, //取第几个页面
-        limit: 10, //多少条数据
-        flag: "", //库存搜索
-        extflag: "" //库存搜索
-      },
+      listQuery: Object.assign({}, defaultQuery),
       //所属卡
       cardType: [
         {
@@ -529,13 +536,7 @@ export default {
     },
 
     reset() {
-      this.listQuery.code = "";
-      this.listQuery.storeid = "";
-      this.listQuery.pages = 1;
-      this.listQuery.limit = 10;
-      this.listQuery.flag = "";
-      this.listQuery.extflag = "";
-      this.listQuery.inventory = [];
+      this.listQuery = Object.assign({}, defaultQuery);
       this.getList();
     },
 
