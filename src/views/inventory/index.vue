@@ -42,7 +42,8 @@
           </el-col>
           <!-- 查询 -->
           <el-form-item>
-            <el-button type="primary" @click="getList">查询</el-button>
+            <el-button type="primary" @click="reset">重置</el-button>
+            <el-button type="primary" @click="getList">开始查询</el-button>
           </el-form-item>
         </el-row>
 
@@ -124,10 +125,10 @@
         </el-table-column>
       </el-table>
       <!-- 确定按钮 -->
-      <div class="checked-bt">
-          <el-checkbox v-model="checkedAll" @change="toggleAllSelection()" class="all-checkbox">全选</el-checkbox>
-          <el-button type="primary" @click="stockSelectionButton()">确认收货</el-button>
-          <el-button type="primary" @click="clickReturnSelection()">退回总部</el-button>
+      <div class="all-selection" >
+          <el-checkbox v-model="checkedAll" v-if="allSelectionVisible" @change="toggleAllSelection()" class="all-checkbox">全选</el-checkbox>
+          <el-button type="primary" v-if="stockSelectionVisible" @click="stockSelectionButton()">确认收货</el-button>
+          <el-button type="primary" v-if="returnSelectionVisible" @click="clickReturnSelection()">退回总部</el-button>
       </div>
     </div>
 
@@ -359,7 +360,12 @@
 </template>
 
 <script>
-import { fetchList, acceptGoods, modifyExtflag } from "@/api/inventory";
+import {
+  fetchList,
+  acceptGoods,
+  modifyExtflag,
+  acceptGoodsBatch
+} from "@/api/inventory";
 import CommonDialog from "@/views/common/dialog";
 import { Message } from "element-ui";
 import {
@@ -396,7 +402,10 @@ export default {
       //===================
       //  底部进货确定
       //===================
-      multipleSelection: [], //多选项内容
+      allSelectionVisible: false, //全选状态
+      returnSelectionVisible: false, //退回
+      stockSelectionVisible: false, //收货
+      multipleSelectionItems: [], //多选项内容
       stockDialogVisible: false,
       stockDialogMoney: "", //总金额
       stockDialogCount: "", //选择总数
@@ -489,34 +498,51 @@ export default {
     //===================
     getList() {
       this.listLoading = true; //每次重新获取，需要处理
+      let flag;
       //查询，库存状态
-      if (this.listQuery.inventory) {
+      if (this.listQuery.inventory && this.listQuery.inventory.length) {
         this.listQuery.flag = this.listQuery.inventory[0];
         this.listQuery.extflag = this.listQuery.inventory[1];
         delete this.listQuery.inventory;
+        flag = this.listQuery.flag;
       }
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
         this.listLoading = false;
-        this.listQuery = {
-          pages: 1, //取第几个页面
-          limit: 10 //多少条数据
-        };
+        if (flag == 2) {
+          this.allSelectionVisible = true;
+          this.stockSelectionVisible = true;
+        } else {
+          this.allSelectionVisible = false;
+          this.stockSelectionVisible = false;
+        }
       });
     },
 
+    reset() {
+      this.listQuery.code = "";
+      this.listQuery.storeid = "";
+      this.listQuery.pages = 1;
+      this.listQuery.limit = 10;
+      this.listQuery.flag = "";
+      this.listQuery.extflag = "";
+      this.listQuery.inventory = [];
+      this.getList();
+    },
+
     //===================
-    //  全选
+    //  列表：全选
     //===================
     handleSelectionChange(val) {
-      this.multipleSelection = val;
+      this.multipleSelectionItems = val;
       if (val.length === 0) {
         this.checkedAll = false;
       }
     },
 
     //===================
+    // 列表右
     //  收货按钮
     //===================
     clickProductUpdate(data) {
@@ -549,6 +575,7 @@ export default {
           for (var i = 0; i < this.listData.length; i++) {
             if (this.listData[i].id === this.productDialogForm.id) {
               this.listData.splice(i, 1);
+              --this.listTotal;
             }
           }
           setTimeout(() => {
@@ -566,7 +593,8 @@ export default {
     },
 
     //===================
-    //  管理按钮
+    //  列表右
+    //   管理按钮
     //===================
     clickManageUpdate(data) {
       this.activeData = data;
@@ -665,30 +693,84 @@ export default {
     },
 
     //===================
-    //  多选：确定收货
+    //  底部多选：
+    //    确定收货
     //===================
     stockSelectionButton() {
-      if (this.multipleSelection.length) {
+      if (this.multipleSelectionItems.length) {
         this.stockDialogVisible = true;
-        const pricesTotal = this.multipleSelection.reduce((prev, cur) => {
-          return Number(cur.origin_price) + prev;
-        }, 0);
-        this.stockDialogCount = this.multipleSelection.length;
-        this.stockDialogMoney = pricesTotal;
+        this.stockDialogCount = this.multipleSelectionItems.length;
+        this.stockDialogMoney = this.multipleSelectionItems.reduce(
+          (prev, cur) => {
+            return Number(cur.origin_price) + prev;
+          },
+          0
+        );
       }
     },
     stockDialogClose() {
       this.stockDialogVisible = false;
     },
     stockDialogSave() {
-      this.stockDialogClose();
+      const storeids = this.multipleSelectionItems.map(item => {
+        return item.storeid;
+      });
+      acceptGoodsBatch({
+        storeid: storeids.join(",")
+      }).then(
+        req => {
+          const error = [];
+          req.data.map(item => {
+            const storeid = item.storeid;
+            //数据正常,删除
+            if (item.state === "ok") {
+              for (var i = 0; i < this.listData.length; i++) {
+                if (this.listData[i]["storeid"] === storeid) {
+                  this.listData.splice(i, 1);
+                  --this.listTotal;
+                }
+              }
+            } else {
+              //删除出错
+              error.push(storeid);
+            }
+          });
+          if (error.length) {
+            Message({
+              message: "部分数据修改失败,请重新操作!",
+              type: "info",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.stockDialogClose();
+            }, 3000);
+          } else {
+            Message({
+              message: "数据更新成功!",
+              type: "success",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.stockDialogClose();
+            }, 1000);
+          }
+        },
+        () => {
+          Message({
+            message: "数据修改失败!",
+            type: "error",
+            duration: 2000
+          });
+        }
+      );
     },
 
     //===================
-    // 退回总部
+    // 底部多选
+    //    退回总部
     //===================
     toggleAllSelection() {
-      const multipleSelectionCount = this.multipleSelection.length;
+      const multipleSelectionCount = this.multipleSelectionItems.length;
       // //默认情况
       if (multipleSelectionCount == 0) {
         this.$refs.multipleTable.toggleAllSelection();
@@ -708,7 +790,7 @@ export default {
       }
     },
     clickReturnSelection() {
-      if (this.multipleSelection.length) {
+      if (this.multipleSelectionItems.length) {
         this.sendBackDialogVisible = true;
       }
     },
@@ -738,7 +820,7 @@ export default {
 <style lang="scss">
 .inventory-container {
   .legao-list {
-    .checked-bt {
+    .all-selection {
       font-size: 0;
       .all-checkbox {
         margin: 0.2rem 0.15rem;

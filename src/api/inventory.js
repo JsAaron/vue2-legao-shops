@@ -39,3 +39,15 @@ export function modifyExtflag(query) {
     params: query
   });
 }
+
+/**
+ * 批量收货
+ * @param {}} query
+ */
+export function acceptGoodsBatch(query) {
+  return request({
+    url: "goods/acceptgoodsbatch",
+    method: "get",
+    params: query
+  });
+}
