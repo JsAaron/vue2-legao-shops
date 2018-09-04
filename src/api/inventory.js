@@ -47,6 +47,19 @@ export function modifyExtflag(query) {
 export function acceptGoodsBatch(query) {
   return request({
     url: "goods/acceptgoodsbatch",
+    method: "post",
+    params: query
+  });
+}
+
+/**
+ * 批量退回
+ * @param {}} query
+ * remandgoodsbatch?
+ */
+export function remandGoodsBatch(query) {
+  return request({
+    url: "goods/remandgoodsbatch",
     method: "get",
     params: query
   });

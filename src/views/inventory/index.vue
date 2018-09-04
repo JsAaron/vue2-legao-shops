@@ -128,7 +128,7 @@
       <div class="all-selection" >
           <el-checkbox v-model="checkedAll" v-if="allSelectionVisible" @change="toggleAllSelection()" class="all-checkbox">全选</el-checkbox>
           <el-button type="primary" v-if="stockSelectionVisible" @click="stockSelectionButton()">确认收货</el-button>
-          <el-button type="primary" v-if="returnSelectionVisible" @click="clickReturnSelection()">退回总部</el-button>
+          <el-button type="primary" v-if="returnSelectionVisible" @click="returnSelectionButton()">退回总部</el-button>
       </div>
     </div>
 
@@ -296,7 +296,7 @@
     <!-- 确认收货 -->
     <common-dialog class="stock-dialog el-dialog-mini" @close-self="stockDialogClose" :visible="stockDialogVisible" :title="stockDialogTitle">
       <div class="title" slot="main">
-        <p>共选择商品(件): {{stockDialogCount}}</p>
+        <p>共选择商品(件): {{multipleSelectionItems.length}}</p>
         <p>总金额(元): {{stockDialogMoney}}</p>
       </div>
       <template slot="footer">
@@ -306,40 +306,47 @@
     </common-dialog>
 
     <!-- 退回总部 -->
-    <common-dialog class="send-dialog" @close-self="sendBackDialogClose" :visible="sendBackDialogVisible"  :title="sendBackDialogTitle">
+    <common-dialog class="send-dialog legao-list" @close-self="sendBackDialogClose" :visible="sendBackDialogVisible"  :title="sendBackDialogTitle">
       <template class="main" slot="main">
         <el-table
-        :data="sendBackList"
+        :data="sendBackListData"
         tooltip-effect="dark">
         <el-table-column
-          prop="productName"
+          prop="name"
           label="产品名称"
+          min-width="140"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="productId"
+          prop="storeid"
           label="产品货号"
+          min-width="100"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="cashPledge"
+          prop="price"
           label="押金价"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="purchasePrice"
+          prop="origin_price"
           align="center"
           label="进货价">
         </el-table-column>
         <el-table-column
-          prop="productStatus"
           align="center"
+          min-width="100"
           label="产品状态">
+          <template slot-scope="scope">
+            {{transformInventoryStatus(scope.row.flag,scope.row.extflag)}}
+          </template>
         </el-table-column>
         <el-table-column
-          prop="integrity"
           align="center"
           label="完整性">
+          <template slot-scope="scope">
+            {{transformProductStatus(scope.row.is_new)}}
+          </template>
         </el-table-column>
         <el-table-column 
           align="center" 
@@ -349,10 +356,14 @@
           </template>
         </el-table-column>
       </el-table>
+      <p class="send-info">
+        <span>总件数：{{sendBackListData.length}}</span>
+        <span>总金额：{{sendBackDialogMoney}}</span>
+      </p>
       </template>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary"  @click="sendBackDialogClose">取 消</el-button>
-        <el-button type="primary" @click="sendBackDialogSave">确 定</el-button>
+        <el-button type="primary"  @click="sendBackDialogClose">取消</el-button>
+        <el-button type="primary" @click="sendBackDialogSave">确定归还</el-button>
       </span>
     </common-dialog>
 
@@ -364,7 +375,8 @@ import {
   fetchList,
   acceptGoods,
   modifyExtflag,
-  acceptGoodsBatch
+  acceptGoodsBatch,
+  remandGoodsBatch
 } from "@/api/inventory";
 import CommonDialog from "@/views/common/dialog";
 import { Message } from "element-ui";
@@ -407,8 +419,7 @@ export default {
       stockSelectionVisible: false, //收货
       multipleSelectionItems: [], //多选项内容
       stockDialogVisible: false,
-      stockDialogMoney: "", //总金额
-      stockDialogCount: "", //选择总数
+      stockDialogMoney: 0, //总金额
       stockDialogTitle: "收货确定",
 
       //===================
@@ -417,26 +428,7 @@ export default {
       checkedAll: false, //全选
       sendBackDialogVisible: false,
       sendBackDialogTitle: "归还清单",
-      sendBackForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      },
-      sendBackList: [
-        {
-          productName: "张三",
-          productId: "04-23-4-5-6-23-32",
-          cashPledge: 1000,
-          purchasePrice: 200,
-          productStatus: "新品",
-          integrity: "完整"
-        }
-      ],
+      sendBackListData: [],
 
       //===================
       // 数据查询/过滤
@@ -489,6 +481,16 @@ export default {
   created() {
     this.getList();
   },
+
+  computed: {
+    //返回总部，金额动态计算
+    sendBackDialogMoney() {
+      return this.sendBackListData.reduce((prev, cur) => {
+        return Number(cur.origin_price) + prev;
+      }, 0);
+    }
+  },
+
   methods: {
     transformExtStatus,
     transformProductStatus,
@@ -510,12 +512,22 @@ export default {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
         this.listLoading = false;
-        if (flag == 2) {
-          this.allSelectionVisible = true;
-          this.stockSelectionVisible = true;
-        } else {
-          this.allSelectionVisible = false;
-          this.stockSelectionVisible = false;
+
+        switch (flag) {
+          case 1: //返回
+            this.allSelectionVisible = true;
+            this.returnSelectionVisible = true;
+            this.stockSelectionVisible = false;
+            break;
+          case 2: //收货
+            this.allSelectionVisible = true;
+            this.stockSelectionVisible = true;
+            this.returnSelectionVisible = false;
+            break;
+          default:
+            this.allSelectionVisible = false;
+            this.stockSelectionVisible = false;
+            this.returnSelectionVisible = false;
         }
       });
     },
@@ -694,12 +706,35 @@ export default {
 
     //===================
     //  底部多选：
+    //===================
+    toggleAllSelection() {
+      const multipleSelectionCount = this.multipleSelectionItems.length;
+      // //默认情况
+      if (multipleSelectionCount == 0) {
+        this.$refs.multipleTable.toggleAllSelection();
+        this.checkedAll = true;
+      }
+      if (multipleSelectionCount === this.listData.length) {
+        this.$refs.multipleTable.clearSelection();
+        this.checkedAll = false;
+      }
+      //如果只选中几个的情况
+      if (
+        multipleSelectionCount > 0 &&
+        multipleSelectionCount < this.listData.length
+      ) {
+        this.$refs.multipleTable.toggleAllSelection();
+        this.checkedAll = true;
+      }
+    },
+
+    //===================
+    //  底部多选：
     //    确定收货
     //===================
     stockSelectionButton() {
       if (this.multipleSelectionItems.length) {
         this.stockDialogVisible = true;
-        this.stockDialogCount = this.multipleSelectionItems.length;
         this.stockDialogMoney = this.multipleSelectionItems.reduce(
           (prev, cur) => {
             return Number(cur.origin_price) + prev;
@@ -768,38 +803,75 @@ export default {
     //===================
     // 底部多选
     //    退回总部
-    //===================
-    toggleAllSelection() {
-      const multipleSelectionCount = this.multipleSelectionItems.length;
-      // //默认情况
-      if (multipleSelectionCount == 0) {
-        this.$refs.multipleTable.toggleAllSelection();
-        this.checkedAll = true;
-      }
-      if (multipleSelectionCount === this.listData.length) {
-        this.$refs.multipleTable.clearSelection();
-        this.checkedAll = false;
-      }
-      //如果只选中几个的情况
-      if (
-        multipleSelectionCount > 0 &&
-        multipleSelectionCount < this.listData.length
-      ) {
-        this.$refs.multipleTable.toggleAllSelection();
-        this.checkedAll = true;
-      }
-    },
-    clickReturnSelection() {
+    //==================
+    returnSelectionButton() {
       if (this.multipleSelectionItems.length) {
         this.sendBackDialogVisible = true;
+        this.sendBackListData = [...this.multipleSelectionItems];
       }
     },
-    sendBackDelete() {},
+    sendBackDelete(row) {
+      for (var i = 0; i < this.sendBackListData.length; i++) {
+        if (this.sendBackListData[i]["storeid"] === row.storeid) {
+          this.sendBackListData.splice(i, 1);
+        }
+      }
+    },
     sendBackDialogClose() {
       this.sendBackDialogVisible = false;
     },
     sendBackDialogSave() {
-      this.sendBackDialogClose();
+      const storeids = this.sendBackListData.map(item => {
+        return item.storeid;
+      });
+      remandGoodsBatch({
+        storeid: storeids.join(",")
+      }).then(
+        req => {
+          const error = [];
+          req.data.map(item => {
+            const storeid = item.storeid;
+            //数据正常,删除
+            if (item.state === "ok") {
+              for (var i = 0; i < this.sendBackListData.length; i++) {
+                if (this.sendBackListData[i]["storeid"] === storeid) {
+                  this.sendBackListData.splice(i, 1);
+                  --this.listTotal;
+                }
+              }
+            } else {
+              //删除出错
+              error.push(storeid);
+            }
+          });
+          if (error.length) {
+            Message({
+              message: "部分数据修改失败,请重新操作!",
+              type: "info",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.sendBackDialogClose();
+            }, 3000);
+          } else {
+            Message({
+              message: "数据更新成功!",
+              type: "success",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.sendBackDialogClose();
+            }, 1000);
+          }
+        },
+        () => {
+          Message({
+            message: "数据修改失败!",
+            type: "error",
+            duration: 2000
+          });
+        }
+      );
     },
 
     //===================
@@ -915,10 +987,13 @@ export default {
   //退回总部
   .send-dialog {
     .el-dialog {
-      @include setWH(14.5rem, 8.5rem);
+      @include setWH(14.5rem, auto);
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
       background: #ffffff;
       @include translateCenter;
       .el-dialog__header {
+        background: #fff !important;
         position: relative;
         .el-dialog__title {
           @include translateCenter;
@@ -927,6 +1002,13 @@ export default {
         .el-dialog__title,
         .el-dialog__close {
           font-size: 0.3rem;
+        }
+      }
+      .send-info {
+        text-align: center;
+        span {
+          display: inline-block;
+          margin: 0.1rem 0.5rem;
         }
       }
       .el-dialog__footer {
