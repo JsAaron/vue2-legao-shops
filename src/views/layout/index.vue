@@ -1,15 +1,11 @@
 <template>
   <div class="app-wrapper">
     <!-- 左边导航 -->
-    <sidebar class="sidebar-container"></sidebar>
+    <sidebar class="app-sidebar"></sidebar>
     <!-- 右边内容 -->
-    <el-scrollbar wrapClass="scrollbar-wrapper">
-      <div class="main-container">
-        <!-- 顶部导航条 -->
-        <div class="head-top">
-          <header-top></header-top>
-        </div>
-        <!-- 底部内容 -->
+    <el-scrollbar ref="appWrapper">
+      <div class="app-container">
+        <div class="head-top"><header-top></header-top></div>
         <app-main></app-main>
       </div>
     </el-scrollbar>
@@ -21,7 +17,7 @@
 <script>
 import Sidebar from "./Sidebar";
 import HeaderTop from "./Header";
-import AppMain from "./AppMain";
+import AppMain from "./Main";
 import MemberQuery from "@/views/common/member/query";
 export default {
   components: {
@@ -29,6 +25,17 @@ export default {
     Sidebar,
     AppMain,
     MemberQuery
+  },
+  mounted() {
+    // console.log(this.$refs.appWrapper);
+  },
+  destroyed() {
+    // console.log(2);
+  },
+  methods: {
+    updateIscroll() {
+      this.$refs.appWrapper.update();
+    }
   }
 };
 </script>
@@ -37,6 +44,10 @@ export default {
 .app-wrapper {
   .el-scrollbar__view {
     height: 100%;
+  }
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   .el-scrollbar {
     height: 100%;
@@ -48,15 +59,15 @@ export default {
 .app-wrapper {
   height: 100%;
   width: 100%;
-  overflow-y: hidden;
-  .sidebar-container,
-  .main-container {
+  overflow: hidden;
+  .app-sidebar,
+  .app-container {
     float: left;
     height: 100%;
   }
 
   // 侧边栏
-  .sidebar-container {
+  .app-sidebar {
     width: 2.65rem;
     position: fixed;
     z-index: 1;
@@ -68,7 +79,7 @@ export default {
   }
 
   //内容栏
-  .main-container {
+  .app-container {
     margin-left: 2.65rem;
     width: 16.55rem;
     height: 100%;

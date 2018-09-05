@@ -138,7 +138,7 @@
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[5,10,20,50,100]"
+        :page-sizes="[10,50,100,200]"
         :page-size="listQuery.limit"
         layout="total, sizes, prev, pager, next, jumper"
         :total="listTotal">
@@ -396,7 +396,7 @@ const defaultQuery = {
   code: "",
   storeid: "",
   pages: 1, //取第几个页面
-  limit: 10, //多少条数据
+  limit: 100, //多少条数据
   flag: "", //库存搜索
   extflag: "", //库存搜索
   inventory: []

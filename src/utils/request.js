@@ -48,7 +48,6 @@ service.interceptors.response.use(
     return response;
   },
   error => {
-    console.error(`${res.msg} ${res.arg}`);
     return Promise.reject(error);
   }
 );
