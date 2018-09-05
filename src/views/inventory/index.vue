@@ -388,6 +388,7 @@ import {
   transformProductStatus,
   transformInventoryStatus
 } from "@/utils/status";
+import { mapActions } from "vuex";
 
 /**
  * 默认查询条件
@@ -396,7 +397,7 @@ const defaultQuery = {
   code: "",
   storeid: "",
   pages: 1, //取第几个页面
-  limit: 100, //多少条数据
+  limit: 10, //多少条数据
   flag: "", //库存搜索
   extflag: "", //库存搜索
   inventory: []
@@ -499,6 +500,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(["UPDATE_APP_SCROLL"]),
     transformExtStatus,
     transformProductStatus,
     transformInventoryStatus,
@@ -509,7 +511,7 @@ export default {
     /**
      * 获取数据
      */
-    getList() {
+    getList(updateScroll) {
       this.listLoading = true; //每次重新获取，需要处理
       //查询，库存状态
       if (this.listQuery.inventory && this.listQuery.inventory.length) {
@@ -536,6 +538,11 @@ export default {
             this.returnSelectionVisible = false;
         }
         this.listLoading = false;
+        if (updateScroll) {
+          this.$nextTick(() => {
+            this.UPDATE_APP_SCROLL();
+          });
+        }
       });
     },
 
@@ -874,7 +881,7 @@ export default {
     //===================
     handleSizeChange(val) {
       this.listQuery.limit = val;
-      this.getList();
+      this.getList(true);
     },
     handleCurrentChange(val) {
       this.listQuery.pages = val;

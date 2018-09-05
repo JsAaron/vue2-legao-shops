@@ -19,6 +19,8 @@ import Sidebar from "./Sidebar";
 import HeaderTop from "./Header";
 import AppMain from "./Main";
 import MemberQuery from "@/views/common/member/query";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   components: {
     HeaderTop,
@@ -27,15 +29,15 @@ export default {
     MemberQuery
   },
   mounted() {
-    // console.log(this.$refs.appWrapper);
+    this.SAVE_SCROLL_FN(() => {
+      this.$refs.appWrapper.update();
+    });
   },
-  destroyed() {
-    // console.log(2);
+  beforeDestroy() {
+    this.DEL_SCROLL_FN();
   },
   methods: {
-    updateIscroll() {
-      this.$refs.appWrapper.update();
-    }
+    ...mapActions(["SAVE_SCROLL_FN", "DEL_SCROLL_FN"])
   }
 };
 </script>
