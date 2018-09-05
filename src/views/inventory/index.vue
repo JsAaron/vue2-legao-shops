@@ -989,10 +989,12 @@ export default {
   //退回总部
   .return-dialog {
     .el-dialog {
-      @include setWH(14.5rem, auto);
+      width: 12.5rem;
+      max-height: 90%;
       padding-top: 0.3rem;
       padding-bottom: 0.3rem;
       background: #ffffff;
+      overflow-y: scroll;
       @include translateCenter;
       .el-dialog__header {
         background: #fff !important;
