@@ -38,7 +38,7 @@
               <el-input v-model="form.poductId"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="6" :sm="4" :lg="9">
+          <el-col :xs="6" :sm="4" :lg="7">
             <el-form-item label="时间：">
               <el-date-picker
                 v-model="value"
@@ -49,8 +49,9 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :xs="6" :sm="4" :lg="3">
-            <el-button type="primary" @click="onQuery">查询</el-button>
+          <el-col :xs="6" :sm="4" :lg="4">
+            <el-button type="primary" @click="filterReset">重置</el-button>
+            <el-button type="primary" @click="filterQuery">开始查询</el-button>
           </el-col>
         </el-row>
 
@@ -61,64 +62,63 @@
     <div class="legao-list legao-table-line">
         <el-table
         ref="multipleTable"
-        :data="list"
+        :data="listData"
         tooltip-effect="dark">
         <el-table-column
-          prop="shop"
           label="商品"
           min-width="250"
           align="center">
           <template slot-scope="scope">
             <div class="shop-id">
-              <div><label>订单编号:</label><span> {{scope.row.orderId}}</span></div>
-              <div><span> {{scope.row.plat}}</span></div>
-              <div><label>支付交易号:</label><span> {{scope.row.transactionId}}</span></div>
+              <div><label>订单编号:</label><span>{{scope.row.tid}}</span></div>
+              <div><span> {{payPlatform(scope.row.pay_type)}}</span></div>
+              <div><label style="text-align:left;">支付交易号:</label><span>{{scope.row.transaction_tid?scope.row.transaction_tid:"无"}}</span></div>
             </div>
-            <div class="order-main">
-              <section class="shop-left"><img :src="scope.row.image"></section>
+            <div class="order-main" v-for="item in scope.row.orders" :key="item.id">
+              <section class="shop-left"><img :src="item.pic_path"></section>
               <hgroup class="shop-right">
-                <h4>{{scope.row.title}}</h4>
-                <h5>{{scope.row.productId}}</h5>
-                <h5>{{scope.row.cardType}}<span>{{scope.row.batch}}</span></h5>
+                <h4>{{item.title}}</h4>
+                <h5 v-if="item.goods_no">{{item.goods_no}}<span>{{transformProductStatus(item.is_new)}}</span></h5>
+                <h5>{{getTradeType(scope.row.trade_type)}}<span>第{{item.times}}批</span></h5>
               </hgroup>
             </div>
           </template>
         </el-table-column>
 
         <el-table-column
-          prop="buyer"
           label="买家信息"
           align="center">
           <template slot-scope="scope">
-            <h5>{{scope.row.username}}</h5>
-            <h5>{{scope.row.phone}}</h5>
+            <h5>{{scope.row.receiver_name}}</h5>
+            <h5>{{scope.row.receiver_mobile}}</h5>
           </template>
         </el-table-column>
 
         <el-table-column
-          prop="time"
+          prop="created"
           label="下单时间"
           align="center">
-          <template slot-scope="scope">
-            <h5>{{scope.row.data}}</h5>
-            <h5>{{scope.row.time}}</h5>
-          </template>
         </el-table-column>
         <el-table-column
-          prop="money"
+          prop="payment"
           label="实付金额"
           align="center">
-          <template slot-scope="scope">
-            <h5>{{scope.row.meney}}</h5>
-          </template>
         </el-table-column>
         <el-table-column
-          prop="state"
           align="center"
           label="订单状态">
           <template slot-scope="scope">
-            <h5>{{scope.row.state}}</h5>
-            <h5 @click="cancelOrder" class="cancel-order">取消订单</h5>
+            <h5>{{getTradeFlagStr(scope.row.flag)}}</h5>
+            <el-popover
+              placement="top"
+              width="200"
+              trigger="hover">
+                <p style="text-align: center;margin:0.1rem;">是否确定删除订单?</p>
+                <div style="text-align: center;margin-top:.2rem; margin-bottom:.1rem;">
+                  <el-button size="mini" type="primary" @click="cancelOrder(scope.row)">确定删除</el-button>
+                </div>
+              <el-button slot="reference" type="text" style="color:#111111;">取消订单</el-button>
+            </el-popover>
           </template>
         </el-table-column>
         <el-table-column 
@@ -138,15 +138,19 @@
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[4,10,20,50,100]"
+        :page-sizes="[4,10,50,100,200]"
         :page-size="listQuery.limit"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
+        :total="listTotal">
       </el-pagination>
     </div>
 
     <!-- 订单详情 -->
-    <order-details @close-dialog="closeDialog" :detailsData="detailsData" :dialogDetailsVisible="dialogDetailsVisible"></order-details>
+    <order-details 
+      @close-dialog="closeDialog" 
+      :detailsData="detailsData" 
+      :dialogDetailsVisible="dialogDetailsVisible">
+    </order-details>
 
     <!-- 取消订单 -->
     <el-dialog
@@ -167,6 +171,21 @@
 import { fetchList } from "@/api/order";
 import OrderDetails from "./details";
 import CommonDialog from "@/views/common/dialog";
+import { mapActions } from "vuex";
+import {
+  payPlatform,
+  getTradeType,
+  getTradeFlagStr,
+  transformProductStatus
+} from "@/utils/status";
+/**
+ * 默认查询条件
+ */
+const defaultQuery = {
+  pages: 1, //取第几个页面
+  limit: 4 //多少条数据
+};
+
 /**
  * 订单管理
  */
@@ -177,6 +196,13 @@ export default {
   },
   data() {
     return {
+      //===================
+      // 数据列表
+      //===================
+      listQuery: Object.assign({}, defaultQuery),
+      listTotal: 0, //总数
+      listData: null, //列表数据
+
       visible2: false,
       value: "",
       form: {
@@ -189,11 +215,6 @@ export default {
       //总数据量
       total: null,
       list: null,
-      //列表查询条件
-      listQuery: {
-        page: 1, //取第几个页面
-        limit: 4 //多少条数据
-      },
       //详情数据
       detailsData: null,
       //详情
@@ -202,63 +223,86 @@ export default {
       dialogCancelVisible: false
     };
   },
+
   created() {
     this.getList();
   },
   methods: {
-    handleCancelClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
+    payPlatform,
+    getTradeType,
+    getTradeFlagStr,
+    transformProductStatus,
+    ...mapActions(["UPDATE_APP_SCROLL"]),
+    //=========================
+    //  公共方法
+    //=========================
+    getList(updateScroll) {
+      fetchList(this.listQuery).then(response => {
+        this.listData = [...response.data.data];
+        this.listTotal = Number(response.data.count);
+        if (updateScroll) {
+          this.$nextTick(() => {
+            this.UPDATE_APP_SCROLL();
+          });
+        }
+      });
     },
+
+    /**
+     * 取消订单
+     */
+    cancelOrder(row) {
+      console.log(row);
+      // this.dialogCancelVisible = true;
+    },
+
+    //=========================
+    //  查询
+    //=========================
+    /**
+     * 重置查询
+     */
+    filterReset() {},
+    /**
+     * 开始查询
+     */
+    filterQuery() {},
+
+    //=========================
+    //  查看详情
+    //=========================
     /**
      * 子组件改变dialog的装填
      */
     closeDialog() {
       this.dialogDetailsVisible = false;
     },
-    /**
-     * 取消订单
-     */
-    cancelOrder() {
-      this.dialogCancelVisible = true;
-    },
+
     /**
      * 管理
      */
     handleUpdate() {
       this.dialogDetailsVisible = true;
     },
+
+    //=======================
+    //  页码操作
+    //=======================
     /**
      * 改变每页显示的数量
      */
     handleSizeChange(val) {
       this.listQuery.limit = val;
-      this.getList();
+      this.getList(true);
     },
     /**
      * 改变当前页码
      */
     handleCurrentChange(val) {
-      this.listQuery.page = val;
+      this.listQuery.pages = val;
       this.getList();
     },
-    /**
-     * 获取数据
-     */
-    getList() {
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items.map(function(item) {
-          if (item.image) {
-            item.image = require("../../images/home/" + item.image);
-          }
-          return item;
-        });
-        this.total = response.data.total;
-      });
-    },
+
     onQuery() {}
   }
 };
@@ -272,11 +316,22 @@ export default {
 .order-container {
   .legao-list {
     .shop-id {
-      color: #111111;
-      display: flex;
-      justify-content: space-between;
+      @include clearfix;
+      div {
+        text-align: center;
+        display: inline-block;
+        float: left;
+      }
+      div:first-child {
+        width: 40%;
+      }
+      div:nth-child(2) {
+        width: 25%;
+      }
+      div:nth-child(3) {
+        width: 35%;
+      }
       font-size: 0.1rem;
-      border-bottom: 1px solid #ebeef5;
     }
     .order-main {
       display: flex;
@@ -306,6 +361,11 @@ export default {
     }
     .cancel-order:hover {
       color: #eeb339;
+    }
+    .el-popover__reference {
+      span {
+        color: #4b91cd;
+      }
     }
   }
 }

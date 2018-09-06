@@ -159,3 +159,119 @@ function getStockState($flag, $extflag) {
 export function transformInventoryStatus(flag, extflag) {
   return getStockState(Number(flag), Number(extflag));
 }
+
+/**
+ * 支付平台
+ */
+export function payPlatform($pay_type) {
+  let $typeStr = "";
+  switch ($pay_type) {
+    case "WEIXIN":
+      $typeStr = "微信自有支付";
+      break;
+    case "WEIXIN_DAIXIAO":
+      $typeStr = "微信代销支付";
+      break;
+    case "ALIPAY":
+      $typeStr = "支付宝支付";
+      break;
+    case "BANKCARDPAY":
+      $typeStr = "银行卡支付";
+      break;
+    case "PEERPAY":
+      $typeStr = "代付";
+      break;
+    case "CODPAY":
+      $typeStr = "货到付款";
+      break;
+    case "BAIDUPAY":
+      $typeStr = "百度钱包支付";
+      break;
+    case "PRESENTTAKE":
+      $typeStr = "PRESENTTAKE";
+      break;
+    case "COUPONPAY":
+      $typeStr = "优惠券/码全额抵扣";
+      break;
+    case "BULKPURCHASE":
+      $typeStr = "来自分销商的采购";
+      break;
+    case "MERGEDPAY":
+      $typeStr = "合并付货款";
+      break;
+    case "ECARD":
+      $typeStr = "有赞E卡支付";
+      break;
+  }
+  return $typeStr;
+}
+
+/**
+ * 卡类型
+ */
+export function getTradeType($type) {
+  $type = Number($type);
+  let $typeStr = "";
+  switch ($type) {
+    case 1:
+      $typeStr = "单品订单";
+      break;
+    case 2:
+      $typeStr = "年卡订单";
+      break;
+    case 3:
+      $typeStr = "虚拟商品";
+      break;
+    case 4:
+      $typeStr = "混合订单";
+      break;
+    case 5:
+      $typeStr = "内部刷单";
+      break;
+    default:
+      $typeStr = "未知";
+      break;
+  }
+  return $typeStr;
+}
+
+/**
+ * 订单状态
+ * @param {*} $flag
+ */
+export function getTradeFlagStr($flag) {
+  let $flagStr = "";
+  switch (Number($flag)) {
+    case 1:
+      $flagStr = "客服己审";
+      break;
+    case 2:
+      $flagStr = "财务己审";
+      break;
+    case 3:
+      $flagStr = "己打单";
+      break;
+    case 4:
+      $flagStr = "己发货";
+      break;
+    case 5:
+      $flagStr = "己回收";
+      break;
+    case 6:
+      $flagStr = "己补/退款";
+      break;
+    case 7:
+      $flagStr = "己完结";
+      break;
+    case 8:
+      $flagStr = "找回零件";
+      break;
+    case -1:
+      $flagStr = "己报废";
+      break;
+    default:
+      $flagStr = "未知";
+      break;
+  }
+  return $flagStr;
+}
