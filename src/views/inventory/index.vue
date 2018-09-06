@@ -552,7 +552,7 @@ export default {
      */
     filterReset() {
       this.listQuery = Object.assign({}, defaultQuery);
-      this.getList();
+      this.getList(true);
     },
 
     /**
