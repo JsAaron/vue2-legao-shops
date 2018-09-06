@@ -309,6 +309,7 @@
     <common-dialog class="return-dialog legao-list" @close-self="returnDialogClose" :visible="returnDialogVisible"  :title="returnDialogTitle">
       <template class="main" slot="main">
         <el-table
+        max-height="550"
         :data="sendBackListData"
         tooltip-effect="dark">
         <el-table-column
@@ -990,7 +991,6 @@ export default {
   .return-dialog {
     .el-dialog {
       width: 12.5rem;
-      max-height: 90%;
       padding-top: 0.3rem;
       padding-bottom: 0.3rem;
       background: #ffffff;
