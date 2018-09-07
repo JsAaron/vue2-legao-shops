@@ -7,10 +7,10 @@
 
 <p align="center">
   <a href="https://github.com/JsAaron/">
-    <img width="200px" src="https://github.com/JsAaron/res/blob/master/legao1.png">
+    <img src="https://github.com/JsAaron/res/blob/master/legao1.png">
   </a>
   <br><br>
   <a href="https://github.com/JsAaron/">
-    <img width="200px" src="https://github.com/JsAaron/res/blob/master/legao2.png">
+    <img src="https://github.com/JsAaron/res/blob/master/legao2.png">
   </a>
 </p>
