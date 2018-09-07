@@ -4,43 +4,44 @@
     <!-- 搜索，过滤 -->
     <div class="legao-filter">
       <el-form size="small" :model="form">
-        <el-row>
-          <el-col :xs="10" :sm="12" :lg="6">
+        <el-row type="flex" justify="space-between">
+          <el-col :xs="10" :sm="12" :lg="5">
             <el-form-item label="订单编号：">
               <el-input v-model="form.id" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="6">
+          <el-col :xs="10" :sm="12" :lg="5">
             <el-form-item label="会员姓名：">
               <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="6">
+          <el-col :xs="10" :sm="12" :lg="5">
             <el-form-item label="手机号码：">
               <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="6">
+          <el-col :xs="10" :sm="12" :lg="5">
             <el-form-item label="产品货号：">
               <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-row>
-          <el-col :xs="8" :sm="12" :lg="6">
+        <el-row type="flex" justify="space-between" >
+          <el-col :lg="5">
             <el-form-item label="所属门店：">
               <el-input v-model="form.id"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="8" :sm="4" :lg="6">
+          <el-col :lg="4">
             <el-form-item label="订单状态：">
               <el-input v-model="form.poductId"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="6" :sm="4" :lg="7">
+          <el-col :lg="8">
             <el-form-item label="时间：">
               <el-date-picker
+                size="small"
                 v-model="value"
                 type="daterange"
                 range-separator="至"
@@ -49,9 +50,9 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :xs="6" :sm="4" :lg="4">
-            <el-button type="primary" @click="filterReset">重置</el-button>
-            <el-button type="primary" @click="filterQuery">开始查询</el-button>
+          <el-col  :lg="5" >
+            <el-button type="primary" size="small" @click="filterReset">重置</el-button>
+            <el-button type="primary" size="small" @click="filterQuery">开始查询</el-button>
           </el-col>
         </el-row>
 
@@ -225,7 +226,7 @@ export default {
   },
 
   created() {
-    this.getList();
+    this.getList(true);
   },
   methods: {
     payPlatform,

@@ -48,7 +48,7 @@ export default {
   header {
     @include flexCenter(column);
     @include setWH(2.19rem, 1.39rem);
-    margin-top: 0.8135rem;
+    margin-top: 0.6135rem;
     margin-right: auto;
     margin-left: auto;
     img {
@@ -76,9 +76,8 @@ export default {
   .scrollbar-wrapper {
     margin-top: 0.3rem;
     width: 100%;
-    height: 80%;
+    height: 70%;
     padding-left: 0.45rem;
-    // margin-left: 0.6rem;
   }
 }
 </style>

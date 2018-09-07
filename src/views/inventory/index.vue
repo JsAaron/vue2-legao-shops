@@ -42,8 +42,8 @@
           </el-col>
           <!-- 查询 -->
           <el-form-item>
-            <el-button type="primary" @click="filterReset">重置</el-button>
-            <el-button type="primary" @click="getList">开始查询</el-button>
+            <el-button type="primary" size="small" @click="filterReset">重置</el-button>
+            <el-button type="primary" size="small" @click="getList">开始查询</el-button>
           </el-form-item>
         </el-row>
 
@@ -127,8 +127,8 @@
       <!-- 确定按钮 -->
       <div class="all-selection" >
           <el-checkbox v-model="checkedAll" v-if="allSelectionVisible" @change="toggleAllSelection()" class="all-checkbox">全选</el-checkbox>
-          <el-button type="primary" v-if="stockSelectionVisible" @click="stockDialogButton()">确认收货</el-button>
-          <el-button type="primary" v-if="returnSelectionVisible" @click="returnDialogButton()">退回总部</el-button>
+          <el-button type="primary"  size="small" v-if="stockSelectionVisible" @click="stockDialogButton()">确认收货</el-button>
+          <el-button type="primary"  size="small" v-if="returnSelectionVisible" @click="returnDialogButton()">退回总部</el-button>
       </div>
     </div>
 
@@ -488,7 +488,7 @@ export default {
     };
   },
   created() {
-    this.getList();
+    this.getList(true);
   },
 
   computed: {

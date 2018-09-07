@@ -1,13 +1,12 @@
-$vm_design: 1920;
 html {
-  font-size: 100/ ($vm_design/100) * 1vw;
+  font-size: 100/ (1920/100) * 1vw;
   //超过1920
   @media screen and (min-width: 1920px) {
     font-size: 100px;
   }
-  //小于1100
-  @media screen and (max-width: 1100px) {
-    font-size: 60px;
+  //小于1440
+  @media screen and (max-width: 1440px) {
+    font-size: 80px;
   }
   &,
   body {
@@ -16,7 +15,7 @@ html {
   }
   body {
     font-size: 0.15rem;
-    min-width: 1100px;
+    min-width: 1440px;
     max-width: 1920px;
     background-color: #f5f5f5;
   }
