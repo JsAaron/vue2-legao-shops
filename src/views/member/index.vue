@@ -5,7 +5,7 @@
     <div class="legao-filter">
       <el-form size="small" :model="filterForm">
         <el-row>
-          <el-col :span="8">
+          <el-col :span="9">
             <el-form-item label="手机号码：">
               <el-input v-model="filterForm.mobile" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
@@ -17,7 +17,7 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="9">
             <el-form-item label="时间：" clearable>
               <el-date-picker
                 v-model="filterForm.date"
@@ -28,7 +28,7 @@
               </el-date-picker>
               </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="状态：">
               <el-select v-model="filterForm.state" clearable>
                 <el-option
