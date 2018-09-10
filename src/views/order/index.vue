@@ -67,7 +67,7 @@
         tooltip-effect="dark">
         <el-table-column
           label="商品"
-          min-width="250"
+          min-width="350"
           align="center">
           <template slot-scope="scope">
             <div class="shop-id">
@@ -94,16 +94,19 @@
             <h5>{{scope.row.receiver_mobile}}</h5>
           </template>
         </el-table-column>
-
         <el-table-column
-          prop="created"
           label="下单时间"
           align="center">
+          <template slot-scope="scope">
+            <p>{{splitTime(scope.row.created)[0]}}</p>
+            <p>{{splitTime(scope.row.created)[1]}}</p>
+          </template>
         </el-table-column>
         <el-table-column
           prop="payment"
           label="实付金额"
           align="center">
+          <span></span>
         </el-table-column>
         <el-table-column
           align="center"
@@ -234,6 +237,9 @@ export default {
     getTradeFlagStr,
     transformProductStatus,
     ...mapActions(["UPDATE_APP_SCROLL"]),
+    splitTime(time) {
+      return time.split(" ");
+    },
     //=========================
     //  公共方法
     //=========================
