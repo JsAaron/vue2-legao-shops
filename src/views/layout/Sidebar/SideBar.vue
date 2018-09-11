@@ -65,6 +65,7 @@ export default {
       background-color: transparent !important;
     }
     p {
+      color: white;
       position: absolute;
       z-index: 2;
       span {
