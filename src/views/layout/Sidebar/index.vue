@@ -64,7 +64,7 @@ export default {
     div {
       position: relative;
       p {
-        @include setWH(2.19rem, 0.4rem);
+        @include setWH(2rem, 0.4rem);
         @include borderRadius(0.2rem);
         background: #ffffff;
         opacity: 0.36;
@@ -74,7 +74,7 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        @include setWH(2.19rem, 0.4rem);
+        @include setWH(2rem, 0.4rem);
         @include setFontColor(0.16rem, white);
       }
     }
