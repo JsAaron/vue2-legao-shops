@@ -60,6 +60,7 @@ export default {
 <style lang="scss" scoped>
 .menu-wrapper {
   li {
+    height: 0.7rem;
     border-top-left-radius: 0.6rem;
     border-bottom-left-radius: 0.6rem;
     padding: 0 !important;

@@ -76,7 +76,7 @@ export default {
   .scrollbar-wrapper {
     margin-top: 0.3rem;
     width: 100%;
-    height: 70%;
+    height: 80%;
     padding-left: 0.45rem;
   }
 }

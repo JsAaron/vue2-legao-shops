@@ -37,13 +37,16 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     if (res.state == "error") {
-      console.error(`${res.msg} - ${res.arg}`);
-      if (/token已经过期/.test(res.msg)) {
+      if (res.code == 1) {
+        //token过期
         store.dispatch("LOGOUT").then(() => {
           location.reload();
         });
+        return;
+      } else {
+        console.error(`${res.msg} - ${res.arg}`);
       }
-      return Promise.reject(error);
+      return Promise.reject();
     }
     return response;
   },
