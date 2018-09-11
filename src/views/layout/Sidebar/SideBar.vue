@@ -6,15 +6,21 @@
         <router-link v-if="!route.onlyClick" :to="resolvePath(route)">
           <el-menu-item :index="resolvePath(route)" >
             <template slot="title">
-              <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
-              <span slot="title">{{generateTitle(route.children[0].meta.title)}}</span>
+              <p></p>
+              <p>
+                <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
+                <span slot="title">{{generateTitle(route.children[0].meta.title)}}</span>
+              </p>
             </template>
           </el-menu-item>
         </router-link>
         <el-menu-item v-else :index="resolvePath(route)"  @click="handleOpen(route)" >
             <template slot="title">
-              <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
-              <span slot="title">{{generateTitle(route.children[0].meta.title)}}</span>
+              <p></p>
+              <p>
+                <icon :name="route.children[0].meta.icon" :scale="1.5"></icon>
+                <span slot="title">{{generateTitle(route.children[0].meta.title)}}</span>
+              </p>
             </template>
         </el-menu-item>
        </div>
@@ -52,21 +58,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-menu {
-  border: none;
-}
-.menu-wrapper li {
-  border-top-left-radius: 0.6rem;
-  border-bottom-left-radius: 0.6rem;
-}
-.menu-wrapper li:hover {
-  // background: transparent !important;
-  opacity: 0.5;
-}
-.el-menu-item span {
-  color: white;
-  font-weight: 800;
-  margin-left: 0.05rem;
-  text-align: center;
+.menu-wrapper {
+  li {
+    padding: 0 !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+    p {
+      position: absolute;
+      z-index: 2;
+      span {
+        color: white;
+        font-weight: 800;
+        margin-left: 0.05rem;
+        text-align: center;
+      }
+      &:last-child {
+        margin-left: 0.2rem;
+      }
+      &:first-child {
+        border-top-left-radius: 0.6rem;
+        border-bottom-left-radius: 0.6rem;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        opacity: 0.3;
+      }
+    }
+    &.is-active {
+      p {
+        color: #eeb339;
+        &:first-child {
+          background-color: #111111;
+        }
+      }
+    }
+  }
 }
 </style>
