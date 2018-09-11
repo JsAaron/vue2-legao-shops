@@ -9,6 +9,10 @@ const getters = {
   userName: state => state.user.userName,
   userId: state => state.user.userId,
 
+  //分页状态管理
+  inventoryLimit: state => state.limit.inventory,
+  orderLimit: state => state.limit.order,
+
   //会员管理
   memberQueryVisible: state => state.member.queryVisible,
   memberManageVisible: state => state.member.manageVisible,

@@ -69,7 +69,7 @@
         tooltip-effect="dark">
         <el-table-column
           label="商品"
-          min-width="360"
+          min-width="370"
           align="center">
           <template slot-scope="scope">
             <div class="shop-id">
@@ -177,7 +177,7 @@
 import { fetchList } from "@/api/order";
 import OrderDetails from "./details";
 import CommonDialog from "@/views/common/dialog";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import {
   payPlatform,
   getTradeType,
@@ -199,6 +199,9 @@ export default {
   components: {
     OrderDetails,
     CommonDialog
+  },
+  computed: {
+    ...mapGetters(["orderLimit"])
   },
   data() {
     return {
@@ -233,7 +236,6 @@ export default {
       dialogCancelVisible: false
     };
   },
-
   created() {
     this.getList(true);
   },
@@ -242,7 +244,7 @@ export default {
     getTradeType,
     getTradeFlagStr,
     transformProductStatus,
-    ...mapActions(["UPDATE_APP_SCROLL"]),
+    ...mapActions(["UPDATE_APP_SCROLL", "SET_ORDER_LIMIT"]),
     splitTime(time) {
       return time.split(" ");
     },
@@ -251,6 +253,7 @@ export default {
     //=========================
     getList(updateScroll) {
       this.listLoading = true;
+      this.listQuery.limit = this.orderLimit;
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
@@ -277,7 +280,10 @@ export default {
     /**
      * 重置查询
      */
-    filterReset() {},
+    filterReset() {
+      this.listQuery = Object.assign({}, defaultQuery);
+      this.getList(true);
+    },
     /**
      * 开始查询
      */
@@ -306,15 +312,15 @@ export default {
     /**
      * 改变每页显示的数量
      */
-    handleSizeChange(val) {
-      this.listQuery.limit = val;
+    handleSizeChange(value) {
+      this.SET_ORDER_LIMIT(value);
       this.getList(true);
     },
     /**
      * 改变当前页码
      */
-    handleCurrentChange(val) {
-      this.listQuery.pages = val;
+    handleCurrentChange(value) {
+      this.listQuery.pages = value;
       this.getList();
     },
 

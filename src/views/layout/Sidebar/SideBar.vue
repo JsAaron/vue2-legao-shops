@@ -60,9 +60,16 @@ export default {
 <style lang="scss" scoped>
 .menu-wrapper {
   li {
+    border-top-left-radius: 0.6rem;
+    border-bottom-left-radius: 0.6rem;
     padding: 0 !important;
+    background-color: transparent !important;
     &:hover {
-      background-color: transparent !important;
+      p {
+        span {
+          color: #eeb339;
+        }
+      }
     }
     p {
       color: white;

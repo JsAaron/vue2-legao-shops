@@ -390,7 +390,7 @@ import {
   transformProductStatus,
   transformInventoryStatus
 } from "@/utils/status";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 /**
  * 默认查询条件
@@ -409,6 +409,17 @@ export default {
   components: {
     CommonDialog
   },
+
+  computed: {
+    ...mapGetters(["inventoryLimit"]),
+    //返回总部，金额动态计算
+    sendBackDialogMoney() {
+      return this.sendBackListData.reduce((prev, cur) => {
+        return Number(cur.origin_price) + prev;
+      }, 0);
+    }
+  },
+
   data() {
     return {
       //===================
@@ -462,7 +473,7 @@ export default {
       listLoading: true, //加载进度条
       activeFlag: "", //动态改变的库存状态
       activeIs_new: "", //动态改变的完整性
-      listQuery: Object.assign({}, defaultQuery),
+      listQuery: Object.assign({}),
       //所属卡
       cardType: [
         {
@@ -488,21 +499,13 @@ export default {
       ]
     };
   },
-  created() {
+
+  mounted() {
     this.getList(true);
   },
 
-  computed: {
-    //返回总部，金额动态计算
-    sendBackDialogMoney() {
-      return this.sendBackListData.reduce((prev, cur) => {
-        return Number(cur.origin_price) + prev;
-      }, 0);
-    }
-  },
-
   methods: {
-    ...mapActions(["UPDATE_APP_SCROLL"]),
+    ...mapActions(["UPDATE_APP_SCROLL", "SET_INVENTORY_LIMIT"]),
     transformExtStatus,
     transformProductStatus,
     transformInventoryStatus,
@@ -514,6 +517,7 @@ export default {
      * 获取数据
      */
     getList(updateScroll) {
+      this.listQuery.limit = this.inventoryLimit;
       this.listLoading = true; //每次重新获取，需要处理
       //查询，库存状态
       if (this.listQuery.inventory && this.listQuery.inventory.length) {
@@ -881,12 +885,12 @@ export default {
     //===================
     //  底部页码
     //===================
-    handleSizeChange(val) {
-      this.listQuery.limit = val;
+    handleSizeChange(value) {
+      this.SET_INVENTORY_LIMIT(value);
       this.getList(true);
     },
-    handleCurrentChange(val) {
-      this.listQuery.pages = val;
+    handleCurrentChange(value) {
+      this.listQuery.pages = value;
       this.getList();
     }
   }

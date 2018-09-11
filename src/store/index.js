@@ -6,6 +6,7 @@ import app from "./modules/app";
 import permission from "./modules/permission";
 import tagsView from "./modules/tagsView";
 import member from "./modules/member";
+import limit from "./modules/limit";
 
 import getters from "./getters";
 
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
     user,
     member,
     tagsView,
-    permission
+    permission,
+    limit
   },
   getters
 });
