@@ -18,6 +18,12 @@
         text-color="white" >
         <sideBar-item></sideBar-item>
       </el-menu>
+      <el-menu mode="vertical" 
+        background-color="transparent" 
+        active-text-color="#eeb339"
+        text-color="white" >
+        <hiddenBar-item></hiddenBar-item>
+      </el-menu>
     </el-scrollbar>
   </div>
 </template>
@@ -25,12 +31,12 @@
 <script>
 import { mapGetters } from "vuex";
 import sideBarItem from "./SideBar";
-
+import hiddenBarItem from "./HiddenBar";
 export default {
   computed: {
     ...mapGetters(["shopName"])
   },
-  components: { sideBarItem }
+  components: { sideBarItem, hiddenBarItem }
 };
 </script>
 
