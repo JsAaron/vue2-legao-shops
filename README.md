@@ -8,14 +8,14 @@
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/JsAaron/res/master/legao1.png">
-    <img src="https://github.com/JsAaron/res/blob/master/legao1.png">
+    <img src="https://raw.githubusercontent.com/JsAaron/res/master/legao1.png">
   </a>
   <br><br>
   <a href="https://raw.githubusercontent.com/JsAaron/res/master/legao2.png">
-    <img src="https://github.com/JsAaron/res/blob/master/legao2.png">
+    <img src="https://raw.githubusercontent.com/JsAaron/res/master/legao2.png">
   </a>
   <br><br>
   <a href="https://raw.githubusercontent.com/JsAaron/res/master/legao3.png">
-    <img src="https://github.com/JsAaron/res/blob/master/legao3.png">
+    <img src="https://raw.githubusercontent.com/JsAaron/res/master/legao3.png">
   </a>
 </p>
