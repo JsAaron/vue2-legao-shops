@@ -53,7 +53,8 @@
     <!-- 主体列表查询 -->
     <div class="legao-list">
       <el-table
-        v-loading="listLoading" 
+        v-loading="listLoading"
+        element-loading-text="拼命加载中"
         ref="multipleTable"
         :data="listData"
         tooltip-effect="dark"
@@ -538,12 +539,12 @@ export default {
             this.stockSelectionVisible = false;
             this.returnSelectionVisible = false;
         }
-        this.listLoading = false;
-        if (updateScroll) {
-          this.$nextTick(() => {
+        this.$nextTick(() => {
+          this.listLoading = false;
+          if (updateScroll) {
             this.UPDATE_APP_SCROLL();
-          });
-        }
+          }
+        });
       });
     },
 

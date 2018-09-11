@@ -62,12 +62,14 @@
     <!-- 内容区域 -->
     <div class="legao-list legao-table-line">
         <el-table
+        v-loading="listLoading"
+        element-loading-text="拼命加载中"
         ref="multipleTable"
         :data="listData"
         tooltip-effect="dark">
         <el-table-column
           label="商品"
-          min-width="350"
+          min-width="360"
           align="center">
           <template slot-scope="scope">
             <div class="shop-id">
@@ -206,7 +208,11 @@ export default {
       listQuery: Object.assign({}, defaultQuery),
       listTotal: 0, //总数
       listData: null, //列表数据
+      listLoading: false,
 
+      //===================
+      // 查询
+      //===================
       visible2: false,
       value: "",
       form: {
@@ -244,14 +250,16 @@ export default {
     //  公共方法
     //=========================
     getList(updateScroll) {
+      this.listLoading = true;
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
-        if (updateScroll) {
-          this.$nextTick(() => {
+        this.$nextTick(() => {
+          this.listLoading = false;
+          if (updateScroll) {
             this.UPDATE_APP_SCROLL();
-          });
-        }
+          }
+        });
       });
     },
 

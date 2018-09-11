@@ -43,7 +43,8 @@
           <!-- 查询 -->
           <el-col :span="6">
             <el-form-item>
-              <el-button type="primary" @click="filterQuery">查询</el-button>
+              <el-button type="primary" size="small" @click="filterReset">重置</el-button>
+              <el-button type="primary" size="small" @click="filterQuery">开始查询</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -194,7 +195,12 @@ export default {
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
-        this.listLoading = false;
+        this.$nextTick(() => {
+          this.listLoading = false;
+          if (updateScroll) {
+            this.UPDATE_APP_SCROLL();
+          }
+        });
       });
     },
 
