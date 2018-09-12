@@ -29,15 +29,15 @@ export default {
     MemberQuery
   },
   mounted() {
-    this.SAVE_SCROLL_FN(() => {
+    this.SaveScrollHandle(() => {
       this.$refs.appWrapper.update();
     });
   },
   beforeDestroy() {
-    this.DEL_SCROLL_FN();
+    this.clearScrollHandle();
   },
   methods: {
-    ...mapActions(["SAVE_SCROLL_FN", "DEL_SCROLL_FN"])
+    ...mapActions(["SaveScrollHandle", "clearScrollHandle"])
   }
 };
 </script>

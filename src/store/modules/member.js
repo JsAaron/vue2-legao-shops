@@ -18,23 +18,23 @@ const member = {
     /**
      * 打开会员查询
      */
-    ["MEMBER-QUERY-OPEN"]({ commit }) {
+    ["MemberQueryOpen"]({ commit }) {
       commit("SET_QUERY_VISIBLE", true);
     },
     /**
      * 关闭会员查询状态
      */
-    ["MEMBER-QUERY-CLOSE"]({ commit }) {
+    ["MemberQueryClose"]({ commit }) {
       commit("SET_QUERY_VISIBLE", false);
     },
 
     /**
      * 打开个人主页
      */
-    ["MEMBER-MANAGE-OPEN"]({ commit }) {
+    ["MemberManageOpen"]({ commit }) {
       commit("SET_MANAGE_VISIBLE", true);
     },
-    ["MEMBER-MANAGE-CLOSE"]({ commit }) {
+    ["MemberManageClose"]({ commit }) {
       commit("SET_MANAGE_VISIBLE", false);
     }
   }

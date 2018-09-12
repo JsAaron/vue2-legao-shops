@@ -1,5 +1,9 @@
 import { getCookie } from "@/utils/cookie"; // getCookie from cookie
 import store from "@/store";
+import NProgress from "nprogress"; // progress bar
+import "nprogress/nprogress.css"; // progress bar style
+
+NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 /**
  * 判断权限
@@ -18,19 +22,21 @@ function hasPermission(roles, permissionRoles) {
  */
 export default function(router) {
   router.beforeEach((to, from, next) => {
+    NProgress.start();
     //js-cookies
     if (getCookie()) {
       //有token
       if (to.path === "/login") {
         next({ path: "/" });
+        NProgress.done();
       } else {
         //判断当前用户是否已拉取完user_info信息
         //用户已经登录，所以不需要跳入登录页面，直接进管理页面
         if (store.getters.roles.length === 0) {
-          store.dispatch("GET_USERINFO").then(response => {
+          store.dispatch("GetUserInfo").then(response => {
             if (response) {
               store
-                .dispatch("GENERAT_ROUTES", {
+                .dispatch("GenerateRoutes", {
                   roles: store.getters.roles
                 })
                 .then(() => {
@@ -65,7 +71,11 @@ export default function(router) {
       } else {
         // 否则全部重定向到登录页
         next("/login");
+        NProgress.done();
       }
     }
+  });
+  router.afterEach(() => {
+    NProgress.done(); // finish progress bar
   });
 }

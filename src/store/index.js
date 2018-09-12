@@ -4,7 +4,6 @@ import Vuex from "vuex";
 import user from "./modules/user";
 import app from "./modules/app";
 import permission from "./modules/permission";
-import tagsView from "./modules/tagsView";
 import member from "./modules/member";
 import limit from "./modules/limit";
 
@@ -19,7 +18,6 @@ const store = new Vuex.Store({
     app,
     user,
     member,
-    tagsView,
     permission,
     limit
   },

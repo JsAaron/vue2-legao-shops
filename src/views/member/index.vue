@@ -185,7 +185,7 @@ export default {
     this.getList();
   },
   methods: {
-    ...mapActions(["MEMBER-MANAGE-OPEN", "MEMBER-MANAGE-CLOSE"]),
+    ...mapActions(["MemberManageOpen", "MemberManageClose"]),
     transformMemberStatuss,
     //====================
     //  获取数据
@@ -198,7 +198,7 @@ export default {
         this.$nextTick(() => {
           this.listLoading = false;
           if (updateScroll) {
-            this.UPDATE_APP_SCROLL();
+            this.UpdateAppScroll();
           }
         });
       });
@@ -209,10 +209,10 @@ export default {
     //====================
     manageDialogOpen(data) {
       this.personalManageData = data;
-      this["MEMBER-MANAGE-OPEN"]();
+      this.MemberManageOpen();
     },
     manageDialogClose() {
-      this["MEMBER-MANAGE-CLOSE"]();
+      this.MemberManageClose();
     },
 
     //====================

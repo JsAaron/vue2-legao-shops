@@ -39,7 +39,7 @@ service.interceptors.response.use(
     if (res.state == "error") {
       if (res.code == 1) {
         //token过期
-        store.dispatch("LOGOUT").then(() => {
+        store.dispatch("LogOut").then(() => {
           location.reload();
         });
         return;

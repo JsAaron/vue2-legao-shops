@@ -15,10 +15,10 @@ const limit = {
     }
   },
   actions: {
-    ["SET_INVENTORY_LIMIT"]({ commit }, value) {
+    ["SaveInventoryLimit"]({ commit }, value) {
       commit("SET_INVENTORY", value);
     },
-    ["SET_ORDER_LIMIT"]({ commit }, value) {
+    ["SaveOrderLimit"]({ commit }, value) {
       commit("SET_ORDER", value);
     }
   }

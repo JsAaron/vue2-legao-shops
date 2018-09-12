@@ -27,18 +27,12 @@ export default {
     ...mapGetters(["userName"])
   },
   methods: {
-    ...mapActions(["TOGGLE_SIDEBAR", "LOGOUT"]),
-    /**
-     * 切换首页图标
-     */
-    toggleSideBar() {
-      this["TOGGLE_SIDEBAR"]();
-    },
+    ...mapActions(["LogOut"]),
     /**
      * 退出登录
      */
     logout() {
-      this["LOGOUT"]().then(() => {
+      this["LogOut"]().then(() => {
         location.reload();
       });
     }

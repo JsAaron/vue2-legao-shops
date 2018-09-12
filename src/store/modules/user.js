@@ -59,7 +59,7 @@ const user = {
      * 第一次登陆
      * 记录用户信息
      */
-    ["RECORD_USERINFO"]({ commit }, userInfo) {
+    ["RecordUserInfo"]({ commit }, userInfo) {
       const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password)
@@ -82,7 +82,7 @@ const user = {
      * 再次登陆
      * 获取用户信息
      */
-    ["GET_USERINFO"]({ commit, state }) {
+    ["GetUserInfo"]({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo()
           .then(response => {
@@ -94,7 +94,6 @@ const user = {
               return;
             }
             const data = response.data.data;
-            // console.log(data);
             commit("SET_USERID", data.id);
             commit("SET_USERNAME", data.realname);
             commit("SET_LOGINDATA", data);
@@ -112,7 +111,7 @@ const user = {
     /**
      * 退出登录
      */
-    ["LOGOUT"]({ commit, state }) {
+    ["LogOut"]({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token)
           .then(() => {

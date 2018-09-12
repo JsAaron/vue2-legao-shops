@@ -505,7 +505,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["UPDATE_APP_SCROLL", "SET_INVENTORY_LIMIT"]),
+    ...mapActions(["UpdateAppScroll", "SaveInventoryLimit"]),
     transformExtStatus,
     transformProductStatus,
     transformInventoryStatus,
@@ -546,7 +546,7 @@ export default {
         this.$nextTick(() => {
           this.listLoading = false;
           if (updateScroll) {
-            this.UPDATE_APP_SCROLL();
+            this.UpdateAppScroll();
           }
         });
       });
@@ -886,7 +886,7 @@ export default {
     //  底部页码
     //===================
     handleSizeChange(value) {
-      this.SET_INVENTORY_LIMIT(value);
+      this.SaveInventoryLimit(value);
       this.getList(true);
     },
     handleCurrentChange(value) {

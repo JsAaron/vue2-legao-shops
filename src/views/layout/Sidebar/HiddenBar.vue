@@ -24,11 +24,11 @@ export default {
     ...mapGetters(["permissionRouters"])
   },
   methods: {
-    ...mapActions(["MEMBER-QUERY-OPEN"]),
+    ...mapActions(["MemberQueryOpen"]),
     handleOpen(route, $event) {
       //如果是快速查询
       if (route.path === "/member-query") {
-        this["MEMBER-QUERY-OPEN"]();
+        this.MemberQueryOpen();
       }
     },
     resolvePath(route) {

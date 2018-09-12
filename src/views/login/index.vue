@@ -86,7 +86,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["RECORD_USERINFO"]),
+    ...mapActions(["RecordUserInfo"]),
     showPwd() {
       if (this.passwordType === "password") {
         this.passwordType = "";
@@ -105,7 +105,7 @@ export default {
         if (valid) {
           this.loading = true;
           //请求登录
-          this.RECORD_USERINFO(this.loginForm)
+          this.RecordUserInfo(this.loginForm)
             .then(() => {
               this.loading = false;
               this.$router.push({ path: "/home" });

@@ -244,7 +244,7 @@ export default {
     getTradeType,
     getTradeFlagStr,
     transformProductStatus,
-    ...mapActions(["UPDATE_APP_SCROLL", "SET_ORDER_LIMIT"]),
+    ...mapActions(["UpdateAppScroll", "SaveOrderLimit"]),
     splitTime(time) {
       return time.split(" ");
     },
@@ -260,7 +260,7 @@ export default {
         this.$nextTick(() => {
           this.listLoading = false;
           if (updateScroll) {
-            this.UPDATE_APP_SCROLL();
+            this.UpdateAppScroll();
           }
         });
       });
@@ -313,7 +313,7 @@ export default {
      * 改变每页显示的数量
      */
     handleSizeChange(value) {
-      this.SET_ORDER_LIMIT(value);
+      this.SaveOrderLimit(value);
       this.getList(true);
     },
     /**

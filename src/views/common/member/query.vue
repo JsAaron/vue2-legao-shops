@@ -41,26 +41,26 @@ export default {
   },
   methods: {
     ...mapActions([
-      "MEMBER-QUERY-CLOSE",
-      "MEMBER-MANAGE-OPEN",
-      "MEMBER-MANAGE-CLOSE"
+      "MemberQueryClose",
+      "MemberManageOpen",
+      "MemberManageClose"
     ]),
 
     /////////////////
     /// 个人主页
     /////////////////
     manageDialogClose() {
-      this["MEMBER-MANAGE-CLOSE"]();
+      this.MemberManageClose();
     },
 
     /////////////////
     /// 查询页面
     /////////////////
     memberQueryDialogClose() {
-      this["MEMBER-QUERY-CLOSE"]();
+      this.MemberQueryClose();
     },
     memberQueryDialogOpen() {
-      this["MEMBER-MANAGE-OPEN"]();
+      this.MemberManageOpen();
     }
   },
   components: {

@@ -8,7 +8,7 @@ const permission = {
     addRouters: [] //新增路由
   },
   mutations: {
-    SET_ROUTERS: (state, routers) => {
+    ["SET_ROUTERS"]: (state, routers) => {
       state.addRouters = routers;
       state.routers = defaultRouterMap.concat(routers);
     }
@@ -19,7 +19,7 @@ const permission = {
      * @param {*} param0
      * @param {*} data
      */
-    ["GENERAT_ROUTES"]({ commit }, data) {
+    ["GenerateRoutes"]({ commit }, data) {
       return new Promise(resolve => {
         const roles = data.roles;
         let accessedRouters = [];

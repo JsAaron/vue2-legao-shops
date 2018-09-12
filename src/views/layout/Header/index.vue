@@ -26,12 +26,9 @@ export default {
     ...mapGetters(["userName"])
   },
   methods: {
-    ...mapActions(["TOGGLE_SIDEBAR", "LOGOUT"]),
-    toggleSideBar() {
-      this["TOGGLE_SIDEBAR"]();
-    },
+    ...mapActions(["LogOut"]),
     logout() {
-      this["LOGOUT"]().then(() => {
+      this["LogOut"]().then(() => {
         location.reload();
       });
     }
