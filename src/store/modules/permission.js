@@ -1,10 +1,15 @@
 import defaultRouterMap from "@/router/defaultMap";
 import asyncRouterMap from "@/router/asyncMap";
+import staticRouterMap from "@/router/staticMap";
 
 const permission = {
   state: {
-    homeRouters: [...defaultRouterMap.concat(asyncRouterMap)], //全部路由，首页使用
+    //全部路由，首页使用
+    homeRouters: [
+      ...defaultRouterMap.concat(asyncRouterMap).concat(staticRouterMap)
+    ],
     routers: defaultRouterMap, //总路由
+    staticRouters: staticRouterMap, //静态路由
     addRouters: [] //新增路由
   },
   mutations: {

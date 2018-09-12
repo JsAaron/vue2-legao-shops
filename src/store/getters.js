@@ -19,9 +19,8 @@ const getters = {
 
   //动态路由
   addRouters: state => state.permission.addRouters,
-
-  // 获取许可的路由规则
-  permissionRouters: state => state.permission.routers, //左边路由
-  homeRouters: state => state.permission.homeRouters //左边路由
+  permissionRouters: state => state.permission.routers, //导航，主路由
+  staticRouters: state => state.permission.staticRouters, //导航，静态路由
+  homeRouters: state => state.permission.homeRouters //主页路由
 };
 export default getters;

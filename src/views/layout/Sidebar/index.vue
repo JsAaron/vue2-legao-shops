@@ -16,13 +16,13 @@
         background-color="transparent" 
         active-text-color="#eeb339"
         text-color="white" >
-        <sideBar-item></sideBar-item>
+        <mainBar-item></mainBar-item>
       </el-menu>
       <el-menu mode="vertical" 
         background-color="transparent" 
         active-text-color="#eeb339"
         text-color="white" >
-        <hiddenBar-item></hiddenBar-item>
+        <staticBar-item></staticBar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -30,13 +30,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import sideBarItem from "./SideBar";
-import hiddenBarItem from "./HiddenBar";
+import MainBarItem from "./MainBar";
+import StaticBarItem from "./StaticBar";
 export default {
   computed: {
     ...mapGetters(["shopName"])
   },
-  components: { sideBarItem, hiddenBarItem }
+  components: { MainBarItem, StaticBarItem }
 };
 </script>
 
