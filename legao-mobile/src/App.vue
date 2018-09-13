@@ -1,9 +1,7 @@
 <template>
-  <div id="app">
-		<transition name="router-fade" mode="out-in">
-      <router-view></router-view>
-		</transition>
-  </div>
+  <transition name="router-fade" mode="out-in">
+    <router-view></router-view>
+  </transition>
 </template>
 
 <script>
@@ -12,9 +10,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "./styles/common";
 #app {
-  width: 100%;
+  width: 50%;
   height: 100%;
   overflow: hidden;
 }

@@ -6,6 +6,8 @@ import FastClick from "fastclick";
 import "./config/rem";
 import { routerMode } from "@/config";
 
+import "@/styles/common.scss";
+
 if ("addEventListener" in document) {
   document.addEventListener(
     "DOMContentLoaded",

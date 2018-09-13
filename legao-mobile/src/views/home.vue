@@ -1,7 +1,8 @@
 <template>
-  	<div>
-      <div class="tet"></div>
-    </div>
+  <div class="home-container">
+    <p class="a"></p>
+    <p class="b">11</p>
+  </div>
 </template>
 
 <script>
@@ -18,10 +19,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tet {
-  margin: 0;
-  width: 7.5rem;
-  height: 100px;
-  background: #111111;
+.home-container {
+  .a {
+    margin-top: 100px;
+    width: 3.75rem;
+    height: 3.75rem;
+    border: 1px solid red;
+  }
+  .b {
+    margin-top: 100px;
+    width: 375px;
+    height: 200px;
+    border: 1px solid red;
+    @include px2px(font-size, 16);
+  }
 }
 </style>
