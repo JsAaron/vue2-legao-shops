@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import store from "./store";
 import routes from "./router";
 import FastClick from "fastclick";
-import "./config/rem";
+// import "./config/rem";
 import { routerMode } from "@/config";
 
 import "@/styles/common.scss";

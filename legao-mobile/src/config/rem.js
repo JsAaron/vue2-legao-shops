@@ -11,15 +11,6 @@ function resetRem() {
   let rem = 100 / (design / innerWidth);
   let scale = 1 / dpr;
 
-  // function setBodyFontSize() {
-  //   if (document.body) {
-  //     document.body.style.fontSize = 12 * dpr + "px";
-  //   } else {
-  //     document.addEventListener("DOMContentLoaded", setBodyFontSize);
-  //   }
-  // }
-  // setBodyFontSize();
-
   document.getElementsByTagName("html")[0].style.fontSize = rem + "px";
 
   // 设置viewport，进行缩放，达到高清效果
@@ -39,17 +30,6 @@ function resetRem() {
       ",user-scalable=no"
   );
 
-  // // 设置data-dpr属性，留作的css hack之用
+  //设置data-dpr属性，留作的css hack之用
   docEl.setAttribute("data-dpr", dpr);
-
-  // window.rem2px = function(v) {
-  //   v = parseFloat(v);
-  //   return v * rem;
-  // };
-  // window.px2rem = function(v) {
-  //   v = parseFloat(v);
-  //   return v / rem;
-  // };
-  // window.dpr = dpr;
-  // window.rem = rem;
 }

@@ -1,7 +1,9 @@
 <template>
   <div class="home-container">
-    <p class="a"></p>
-    <p class="b">11</p>
+    <header>123</header>
+    <div class="home-main">
+      
+    </div>
   </div>
 </template>
 
@@ -20,18 +22,13 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
-  .a {
-    margin-top: 100px;
-    width: 3.75rem;
-    height: 3.75rem;
-    border: 1px solid red;
+  header {
+    height: 251px;
+    background-color: #f7bf1f;
   }
-  .b {
-    margin-top: 100px;
-    width: 375px;
-    height: 200px;
-    border: 1px solid red;
-    @include px2px(font-size, 16);
+  .home-main {
+    height: 1700px;
+    background-color: #ffffff;
   }
 }
 </style>

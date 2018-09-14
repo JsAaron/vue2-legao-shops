@@ -1,10 +1,130 @@
-html,
+@charset "utf-8";
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+//禁止文本缩放 字体设置  取消touch高亮效果
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  -webkit-text-size-adjust: 100%;
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", Helvetica,
+    STHeiTi, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background: transparent;
+}
+
 body {
   width: 100%;
   height: 100%;
-  padding: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+hr,
+button,
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+sumary {
   margin: 0;
-  overflow: hidden;
+  padding: 0;
+}
+
+//清除输入框内阴影
+input,
+select,
+textarea {
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/** 重置列表元素 **/
+ul,
+ol {
+  list-style: none;
+}
+
+//禁止选中文本内容
+*:not(input, select, textarea) {
+  -webkit-user-select: none;
+}
+
+//禁用长按页面时的弹出菜单(iOS下有效) ,img和a标签都要加
+img,
+a {
+  -webkit-touch-callout: none;
+}
+
+a,
+a:active,
+a:hover {
+  text-decoration: none;
+}
+
+//去掉点击链接和文本框对象时默认的灰色半透明覆盖层(iOS)或者虚框(Android)
+a,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* 设计稿是750,采用1：100的比例,font-size为100*(100vw/750) */
+.border-1px {
+  position: relative;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-1px:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid #d9d9d9;
+    color: #d9d9d9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
 }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
