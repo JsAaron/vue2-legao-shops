@@ -190,7 +190,7 @@ export default {
     //====================
     //  获取数据
     //====================
-    getList() {
+    getList(updateScroll) {
       this.listLoading = true; //每次重新获取，需要处理
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
@@ -219,6 +219,7 @@ export default {
     //  过滤查询
     //====================
     filterQuery() {},
+    filterReset() {},
 
     //====================
     //  页码
