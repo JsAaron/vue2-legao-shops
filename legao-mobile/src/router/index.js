@@ -1,8 +1,11 @@
+import Vue from "vue";
+import VueRouter from "vue-router";
+import { routerMode } from "@/config";
 import App from "../App";
 
 const home = r => require.ensure([], () => r(require("../views/home")), "home");
 
-export default [
+const routes = [
   {
     path: "/",
     component: App, //顶层路由，对应index.html
@@ -20,3 +23,13 @@ export default [
     ]
   }
 ];
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes,
+  mode: routerMode,
+  strict: process.env.NODE_ENV !== "production"
+});
+
+export default router;

@@ -1,7 +1,21 @@
-## NOTE
+# legao-mobile-cube
 
-- 乐高商铺端后台管理平台，手机端
-- 基于 vue2+webpack4，实现全程无刷新操作，体验第一
-- 布局采用 vw+rem+flexbox
-- 使用技术 vue2、es6/7、vuex、vue-router、element-ui、axios、scss、svg 等等...
-- 实现功能挺多，一个完整的后台系统，包含路由、单数据流、权限，换肤，语言、等等...
+> legao-cube
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

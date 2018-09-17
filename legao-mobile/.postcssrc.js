@@ -4,8 +4,8 @@ module.exports = {
   plugins: {
     //两个主要是用于处理引入的文件和资源路径的处理以及工作模式。如果你的项目也使用的是Vue，
     //并且配置了vue-loader，并且配置了相关的参数，那就就具有类似的功能
-    "postcss-import": {},
-    "postcss-url": {},
+    // "postcss-import": {},
+    // "postcss-url": {},
     // autoprefixer: {}
     "postcss-aspect-ratio-mini": {},
     "postcss-write-svg": { utf8: false },
@@ -21,7 +21,14 @@ module.exports = {
       minPixelValue: 1, // 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值
       mediaQuery: false // 允许在媒体查询中转换`px`
     },
-    "postcss-viewport-units": {},
+    //https://blog.csdn.net/perryliu6/article/details/80965734
+    "postcss-viewport-units": {
+      filterRule: rule =>
+        rule.selector.indexOf("::after") === -1 &&
+        rule.selector.indexOf("::before") === -1 &&
+        rule.selector.indexOf(":after") === -1 &&
+        rule.selector.indexOf(":before") === -1
+    },
     //压缩和清理CSS代码
     cssnano: {
       preset: "advanced",

@@ -2,7 +2,12 @@
   <div class="home-container">
     <header>123</header>
     <div class="home-main">
-      
+      <cube-button icon="cubeic-right">Button With Icon</cube-button>
+      <cube-button :active="true">Active Button</cube-button>
+      <cube-button :light="true">Light Button</cube-button>
+<cube-button :inline="true">Inline Button</cube-button>
+<cube-button :outline="true">Outline Button</cube-button>
+<cube-button :primary="true">Primary Button</cube-button>
     </div>
   </div>
 </template>

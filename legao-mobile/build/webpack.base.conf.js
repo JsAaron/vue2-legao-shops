@@ -3,14 +3,22 @@ const path = require("path");
 const utils = require("./utils");
 const config = require("../config");
 const vueLoaderConfig = require("./vue-loader.conf");
-const { VueLoaderPlugin } = require("vue-loader");
-const px2rem = require("postcss-px2rem");
-
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const TransformModulesPlugin = require("webpack-transform-modules-plugin");
 
 function resolve(dir) {
   return path.join(__dirname, "..", dir);
 }
+
+const createLintingRule = () => ({
+  test: /\.(js|vue)$/,
+  loader: "eslint-loader",
+  enforce: "pre",
+  include: [resolve("src"), resolve("test")],
+  options: {
+    formatter: require("eslint-friendly-formatter"),
+    emitWarning: !config.dev.showEslintErrorsInOverlay
+  }
+});
 
 module.exports = {
   context: path.resolve(__dirname, "../"),
@@ -29,6 +37,7 @@ module.exports = {
     extensions: [".js", ".vue", ".less", ".css", ".scss"],
     alias: {
       vue$: "vue/dist/vue.esm.js",
+      "cube-ui": "cube-ui/lib",
       "@": resolve("src"),
       static: resolve("static"),
       page: resolve("src/page"),
@@ -49,20 +58,14 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        include: [
-          resolve("src"),
-          resolve("test"),
-          resolve("node_modules/webpack-dev-server/client")
-        ]
+        include: [resolve("src"), resolve("test")]
       },
       {
-        //位置是在output.publicPath 下面
-        //punlicPath/static/img/[name].[hash:7].[ext
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: "url-loader",
         options: {
           limit: 10000,
-          name: utils.assetsPath("images/[name].[hash:7].[ext]")
+          name: utils.assetsPath("img/[name].[hash:7].[ext]")
         }
       },
       {
@@ -83,9 +86,6 @@ module.exports = {
       }
     ]
   },
-  // postcss: function() {
-  //   return [px2rem({ remUnit: 75 })];
-  // },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).
@@ -98,5 +98,5 @@ module.exports = {
     tls: "empty",
     child_process: "empty"
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [new TransformModulesPlugin()]
 };
