@@ -2,12 +2,7 @@
   <div class="home-container">
     <header>123</header>
     <div class="home-main">
-      <cube-button icon="cubeic-right">Button With Icon</cube-button>
-      <cube-button :active="true">Active Button</cube-button>
-      <cube-button :light="true">Light Button</cube-button>
-<cube-button :inline="true">Inline Button</cube-button>
-<cube-button :outline="true">Outline Button</cube-button>
-<cube-button :primary="true">Primary Button</cube-button>
+      <cube-toolbar :actions="actions" @click="clickHandler"></cube-toolbar>
     </div>
   </div>
 </template>
@@ -16,11 +11,41 @@
 export default {
   data() {
     return {
-      guessCity: "", //当前城市
-      guessCityid: "", //当前城市id
-      hotcity: [], //热门城市列表
-      groupcity: {} //所有城市列表
+      money: 10,
+      actions: [
+        {
+          text: "完成订单",
+          action: "showText"
+        },
+        {
+          text: "打车来接",
+          checked: false,
+          type: "checkbox"
+        },
+        {
+          text: '一口价<span class="orange">10元</span>',
+          action: "moreMoney"
+        }
+      ]
     };
+  },
+  methods: {
+    showText(item) {
+      this.$createToast({
+        type: "correct",
+        txt: "clicked " + item.text,
+        time: 1000
+      }).show();
+    },
+    moreMoney(item) {
+      this.money += 10;
+      item.text = '一口价<span class="orange">' + this.money + "元</span>";
+    },
+    clickHandler(item) {
+      if (item.action) {
+        this[item.action](item);
+      }
+    }
   }
 };
 </script>
@@ -32,7 +57,6 @@ export default {
     background-color: #f7bf1f;
   }
   .home-main {
-    height: 1700px;
     background-color: #ffffff;
   }
 }
