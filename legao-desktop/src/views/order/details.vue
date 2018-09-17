@@ -1,35 +1,35 @@
 <template>
   <div>
     <!-- 订单详情 -->
-    <el-dialog class="dialogDetailsVisible" title="订单详情" :visible.sync="dialogDetailsVisible" :before-close="handleClose" >
+    <el-dialog class="dialogDetails" title="订单详情" :visible.sync="dialogDetailsVisible" :before-close="handleClose" >
       <dl class="details-group">
         <dt>订单信息</dt>
         <dd>
-          <p><label>订单编号: </label><span>1</span></p>
-          <p><label>下单时间: </label><span>1</span></p>
+          <p><label>订单编号</label><span>{{detailsData.tid}}</span></p>
+          <p><label>下单时间</label><span>{{detailsData.created}}</span></p>
         </dd>
         <dd>
-          <p><label>付款方式: </label><span>1</span></p>
-          <p><label>支付流水: </label><span>1</span></p>
+          <p><label>付款方式</label><span>{{payPlatform(detailsData.pay_type)}}</span></p>
+          <p><label>支付流水</label><span>{{detailsData.outer_tid}}</span></p>
         </dd>
         <dd>
-          <p><label>押金价: </label><span>1</span></p>
-        <p><label>实付金额: </label><span>1</span></p>
+          <p><label>押金价</label><span>1</span></p>
+        <p><label>实付金额</label><span>{{detailsData.payment}}</span></p>
         </dd>
         <dd>
-          <p><label>所属门店: </label><span>1</span></p>
+          <p><label>所属门店</label><span>1</span></p>
         </dd>
       </dl>
 
       <dl class="details-group">
         <dt>买家信息</dt>
         <dd>
-          <p><label>会员姓名: </label><span>张三</span></p>
-          <p><label>手机号码: </label><span>13455555555</span></p>
+          <p><label>会员姓名</label><span>张三</span></p>
+          <p><label>手机号码</label><span>13455555555</span></p>
         </dd>
         <dd>
-          <p><label>卡类型: </label><span>读库通用卡</span></p>
-          <p><label>租借批次: </label><span>第2批</span></p>
+          <p><label>卡类型</label><span>读库通用卡</span></p>
+          <p><label>租借批次</label><span>第2批</span></p>
         </dd>
       </dl>
 
@@ -82,7 +82,7 @@
     </el-dialog>
 
     <!-- 清点信息录入 -->
-    <el-dialog class="dialogDetailsVisible" title="清点信息录入"  :visible.sync="dialogTypeInVisible" :before-close="typeInClose" >
+    <el-dialog class="dialogDetails" title="清点信息录入"  :visible.sync="dialogTypeInVisible" :before-close="typeInClose" >
       <dl class="details-group">
         <dt>租借信息</dt>
         <dd>
@@ -202,15 +202,22 @@
         </div>
       </dl>
  
-    </el-dialog>
+    </el-dialog> 
   </div>
 </template>
 
 
 
 <script>
+import {
+  payPlatform,
+  getTradeType,
+  getTradeFlagStr,
+  transformProductStatus
+} from "@/utils/status";
+
 export default {
-  props: ["dialogDetailsVisible"],
+  props: ["detailsData", "dialogDetailsVisible"],
   data() {
     return {
       storageBox: [], //收纳盒多选
@@ -285,6 +292,7 @@ export default {
     };
   },
   methods: {
+    payPlatform,
     /**
      * 回收清点
      */
@@ -303,7 +311,7 @@ export default {
 
 <style lang="scss" >
 .order-container {
-  .dialogDetailsVisible {
+  .dialogDetails {
     .el-dialog {
       margin-top: 0.8rem !important;
       @include setWH(10.36rem, auto);
@@ -335,11 +343,33 @@ export default {
           font-weight: 700;
           margin: 0.1rem 0;
         }
+        // 冒号对齐
         dd {
           display: flex;
           p {
             flex: 1;
             margin: 0.02rem;
+            position: relative;
+            label {
+              position: absolute;
+              width: 0.6rem;
+              text-align: justify;
+              text-align-last: justify;
+              & :after {
+                display: inline-block;
+                content: "";
+                width: 100%;
+                height: 0;
+              }
+              &:before {
+                position: absolute;
+                left: 0.6rem;
+                content: "\FF1A";
+              }
+            }
+            span {
+              padding-left: 0.75rem;
+            }
           }
         }
         .save-remark {

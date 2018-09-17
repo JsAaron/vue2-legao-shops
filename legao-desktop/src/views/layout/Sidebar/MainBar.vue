@@ -44,6 +44,8 @@ export default {
     border-bottom-left-radius: 0.6rem;
     padding: 0 !important;
     background-color: transparent !important;
+    display: flex;
+    align-items: center;
     &:hover {
       p {
         span {

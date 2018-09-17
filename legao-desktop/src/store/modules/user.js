@@ -1,4 +1,4 @@
-import { loginByUsername, getUserInfo, logout } from "@/api/login";
+import { userLogin, getUserInfo, userLogout } from "@/api/login";
 import { getCookie, saveCookie, removeCookie } from "@/utils/cookie";
 
 const setDefaultCookise = function() {
@@ -62,7 +62,7 @@ const user = {
     ["RecordUserInfo"]({ commit }, userInfo) {
       const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password)
+        userLogin(username, userInfo.password)
           .then(response => {
             const data = response.data;
             const userid = data.data.id;
@@ -113,7 +113,7 @@ const user = {
      */
     ["LogOut"]({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token)
+        userLogout(state.token)
           .then(() => {
             exit(commit);
             resolve();

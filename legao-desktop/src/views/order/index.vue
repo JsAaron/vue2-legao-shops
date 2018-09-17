@@ -132,7 +132,7 @@
           width="120" 
           label="操作"> 
           <template slot-scope="scope">
-            <el-button type="primary"  @click="handleUpdate(scope.row)">查看详情</el-button>
+            <el-button type="primary"  @click="viewDetailHandle(scope.row)">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -174,7 +174,7 @@
 </template>
 
 <script>
-import { fetchList } from "@/api/order";
+import { fetchList, viewDetailApi } from "@/api/order";
 import OrderDetails from "./details";
 import CommonDialog from "@/views/common/dialog";
 import { mapActions, mapGetters } from "vuex";
@@ -228,12 +228,18 @@ export default {
       //总数据量
       total: null,
       list: null,
-      //详情数据
-      detailsData: null,
-      //详情
+
+      //===================
+      // 详细列表
+      //===================
       dialogDetailsVisible: false,
-      //取消订单
-      dialogCancelVisible: false
+      dialogCancelVisible: false,
+      detailsData: {
+        tid: null,
+        created: null,
+        pay_type: null,
+        payment: null
+      }
     };
   },
   created() {
@@ -300,10 +306,15 @@ export default {
     },
 
     /**
-     * 管理
+     * 查看详情
      */
-    handleUpdate() {
-      this.dialogDetailsVisible = true;
+    viewDetailHandle(data) {
+      this.listLoading = true;
+      viewDetailApi({ tid: data.tid }).then(response => {
+        this.listLoading = false;
+        this.detailsData = response.data.data;
+        this.dialogDetailsVisible = true;
+      });
     },
 
     //=======================

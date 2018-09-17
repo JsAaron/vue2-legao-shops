@@ -12,3 +12,16 @@ export function fetchList(query) {
     params: query
   });
 }
+
+/**
+ * 查看详情
+ * @param {*} query
+ * trades/getlist?pages=1&limit=20&shopid=2
+ */
+export function viewDetailApi(query) {
+  return request({
+    url: "trades/info",
+    method: "get",
+    params: query
+  });
+}
