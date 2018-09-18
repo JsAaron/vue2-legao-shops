@@ -205,11 +205,11 @@ export default {
               float: left;
               width: 392px;
               height: 257px;
-              margin-left: 24px;
+              margin-left: 25px;
             }
             div {
               float: left;
-              // width: 280px;
+              width: 280px;
               height: 257px;
               position: relative;
               figcaption {
@@ -240,13 +240,13 @@ export default {
                 }
               }
               .arrows {
-                width: 27px;
-                height: 27px;
+                width: 31px;
+                height: 17px;
                 background-image: url("../images/home/arrows.png");
                 background-size: 100% 100%;
                 position: absolute;
-                right: 35px;
-                bottom: 10px;
+                right: 45px;
+                bottom: 15px;
               }
             }
           }
