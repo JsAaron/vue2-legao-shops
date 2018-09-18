@@ -12,8 +12,9 @@ Vue.use(VueTouch, { name: "v-touch" });
 
 // Vue.use(Vant);
 
-import { Button } from "vant";
+import { Button, Icon } from "vant";
 Vue.use(Button);
+Vue.use(Icon);
 
 import "@/styles/common.scss";
 

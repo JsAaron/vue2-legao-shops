@@ -17,7 +17,7 @@ export default {
 }
 .router-fade-enter-active,
 .router-fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.5s;
 }
 .router-fade-enter,
 .router-fade-leave-active {

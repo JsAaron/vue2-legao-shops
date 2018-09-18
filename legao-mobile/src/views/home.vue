@@ -2,17 +2,7 @@
   <div class="home-container">
     <header>
       <p>长沙市-喜盈门范城店</p>
-      <div class="home-menu">
-        <img @click="popupMenuOpen" src="../images/home/indicator.png"/>
-        <transition name="fade">
-        <hgroup v-if="popupMenuVisible">
-          <h2><span>分享给好友</span></h2>
-          <div class="menu-linear"></div>
-          <h2><span>会员借还须知</span></h2>
-        </hgroup>
-        </transition>
-        <div @click="popupMenuClose" v-if="popupMenuVisible" class="full-popup"></div>
-      </div>
+      <head-menu type="home"></head-menu>
     </header>
     <div class="home-main">
       <header>
@@ -72,18 +62,17 @@
 
 <script>
 import { getCardList } from "@/api/home";
+import headMenu from "@/views/common/headMenu";
+
 export default {
+  components: { headMenu },
   data() {
+    console.log(this.popupMenuVisible);
     return {
       //===============
       //  列表
       //===============
-      cardListData: [],
-
-      //===============
-      //  头部菜单
-      //===============
-      popupMenuVisible: true
+      cardListData: []
     };
   },
   mounted() {
@@ -96,20 +85,11 @@ export default {
         console.log(this.cardListData);
       });
     },
-    /**
-     * 弹出菜单
-     */
-    popupMenuOpen() {
-      this.popupMenuVisible = true;
-    },
-    popupMenuClose() {
-      this.popupMenuVisible = false;
-    },
-    /**
-     * 详情页面
-     */
+    //===============
+    //  详情按钮
+    //===============
     detailsView() {
-      alert(1);
+      this.$router.push("details");
     }
   }
 };
@@ -117,65 +97,14 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
-
   > header {
     height: 251px;
     background-color: #f7bf1f;
-    position: relative;
     p {
       position: absolute;
       left: 85.73px;
       top: 77.92px;
       font-size: 24px;
-    }
-    .home-menu {
-      position: absolute;
-      border: 1px solid red;
-      .full-popup {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        z-index: 1;
-        background-color: #000000;
-        opacity: 0.3;
-      }
-      img {
-        position: absolute;
-        width: 51px;
-        height: 14px;
-        left: 650px;
-        top: 80px;
-      }
-      hgroup {
-        position: absolute;
-        z-index: 2;
-        width: 300px;
-        height: 193px;
-        left: 434px;
-        top: 126px;
-        background-image: url("../images/home/popup.png");
-        background-size: 100% 100%;
-        padding-top: 14px;
-        h2 {
-          @include flexCenter;
-          height: 50%;
-          font-size: 26px;
-        }
-        .menu-linear {
-          width: 261px;
-          margin: 0 auto;
-          height: 2px;
-          background-color: #bcbcbc;
-        }
-      }
     }
   }
   .home-main {

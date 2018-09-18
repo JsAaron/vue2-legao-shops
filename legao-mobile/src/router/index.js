@@ -5,6 +5,9 @@ import App from "../App";
 
 const home = r => require.ensure([], () => r(require("../views/home")), "home");
 
+const details = r =>
+  require.ensure([], () => r(require("../views/details")), "details");
+
 const routes = [
   {
     path: "/",
@@ -19,6 +22,10 @@ const routes = [
       {
         path: "/home",
         component: home
+      },
+      {
+        path: "/details",
+        component: details
       }
     ]
   }

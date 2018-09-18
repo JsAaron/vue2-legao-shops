@@ -3,8 +3,7 @@ import Vuex from "vuex";
 
 import user from "./modules/user";
 import app from "./modules/app";
-import member from "./modules/member";
-import limit from "./modules/limit";
+import head from "./modules/head";
 
 import getters from "./getters";
 
@@ -16,8 +15,7 @@ const store = new Vuex.Store({
   modules: {
     app,
     user,
-    member,
-    limit
+    head
   },
   getters
 });
