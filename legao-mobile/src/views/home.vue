@@ -46,12 +46,12 @@
           <li v-for="item in this.cardListData" :key="item.id">
             <figure>
               <img :src="item.img_url" />
-              <figcaption>
-                {{item.description}}
-                <p>669元</p>
-              </figcaption>
+              <div>
+                <figcaption><span>{{item.description}}</span></figcaption>
+                <p><span>669元</span></p>
+                <div class="arrows"></div> 
+              </div>
             </figure>
-            <div class="arrows"></div>
           </li>
         </ul>
       </section>
@@ -192,49 +192,63 @@ export default {
         flex-direction: column;
         align-items: center;
         li {
-          border: 1px solid blue;
           width: 692px;
           height: 295px;
           background-image: url("../images/home/type.png");
           background-size: 100% 100%;
-          position: relative;
-          img,
-          figcaption {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-          }
-          img {
-            left: 25px;
-            border: 1px solid red;
-            width: 392px;
-            height: 257px;
-          }
-          figcaption {
-            left: 440px;
-            width: 197px;
-            font-size: 19px;
-            line-height: 30px;
-            color: #000000;
-            p {
-              font-size: 28px;
-              color: #ffffff;
-              text-align: center;
-              line-height: 37px;
-              width: 203px;
-              height: 37px;
-              background-color: #f7bf1f;
-              @include borderRadius(20px);
+          overflow: hidden;
+          figure {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            img {
+              float: left;
+              width: 392px;
+              height: 257px;
+              margin-left: 24px;
             }
-          }
-          .arrows {
-            width: 27px;
-            height: 27px;
-            background-image: url("../images/home/arrows.png");
-            background-size: 100% 100%;
-            position: absolute;
-            bottom: 20px;
-            right: 30px;
+            div {
+              float: left;
+              // width: 280px;
+              height: 257px;
+              position: relative;
+              figcaption {
+                width: 80%;
+                margin: 10px auto 0 auto;
+                font-size: 19px;
+                line-height: 30px;
+                height: 150px;
+                display: table;
+                span {
+                  display: table-cell;
+                  vertical-align: middle;
+                }
+              }
+              p {
+                font-size: 28px;
+                color: #ffffff;
+                text-align: center;
+                width: 200px;
+                height: 45px;
+                margin: 0 auto;
+                background-color: #f7bf1f;
+                @include borderRadius(20px);
+                display: table;
+                span {
+                  display: table-cell;
+                  vertical-align: middle;
+                }
+              }
+              .arrows {
+                width: 27px;
+                height: 27px;
+                background-image: url("../images/home/arrows.png");
+                background-size: 100% 100%;
+                position: absolute;
+                right: 35px;
+                bottom: 10px;
+              }
+            }
           }
         }
       }
