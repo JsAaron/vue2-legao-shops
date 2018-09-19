@@ -1,6 +1,6 @@
 <template>
   <div class="details-container">
-    <head-top></head-top>
+    <head-top title="【钻石黄金会员卡】"></head-top>
     <section class="details-top van-hairline--bottom">
       <van-swipe :autoplay="3000" >
         <van-swipe-item v-for="(image, index) in images" :key="index">
@@ -28,7 +28,12 @@
         </van-col>
       </van-row>
     </section>
-
+    <section class="details-bottom">
+      <img src="../images/details/cover-top.png"/>
+      <img src="../images/details/cover-bottom.png"/>
+      <van-checkbox v-model="checked">阅读并同意 <router-link to="/notice"><span>《读酷会员借还须知》</span></router-link></van-checkbox>
+      <van-button type="default">立即开通</van-button>
+    </section>
   </div>
 </template>
 
@@ -43,7 +48,8 @@ export default {
         "https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg",
         "https://img.yzcdn.cn/public_files/2017/09/05/4e3ea0898b1c2c416eec8c11c5360833.jpg",
         "https://img.yzcdn.cn/public_files/2017/09/05/fd08f07665ed67d50e11b32a21ce0682.jpg"
-      ]
+      ],
+      checked: false
     };
   },
   created() {
@@ -59,6 +65,7 @@ export default {
   margin-left: 5%;
 }
 .details-container {
+  margin-bottom: 50px;
   .details-top {
     @extend .sectionWidth;
     padding-bottom: 20px;
@@ -108,6 +115,30 @@ export default {
         color: #000000;
         font-size: 28px;
       }
+    }
+  }
+  .details-bottom {
+    @extend .sectionWidth;
+    margin-top: 30px;
+    img {
+      width: 669px;
+    }
+    .van-checkbox {
+      font-size: 24px;
+      margin-top: 50px;
+      text-align: center;
+      span {
+        color: #e69500;
+      }
+    }
+    .van-button {
+      margin-top: 20px;
+      width: 668px;
+      height: 100px;
+      font-size: 36px;
+      color: #ffffff;
+      @include borderRadius(50px);
+      background-color: #f7bf1f;
     }
   }
 }

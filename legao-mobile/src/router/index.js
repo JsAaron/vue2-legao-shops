@@ -8,6 +8,9 @@ const home = r => require.ensure([], () => r(require("../views/home")), "home");
 const details = r =>
   require.ensure([], () => r(require("../views/details")), "details");
 
+const notice = r =>
+  require.ensure([], () => r(require("../views/notice")), "notice");
+
 const routes = [
   {
     path: "/",
@@ -26,6 +29,10 @@ const routes = [
       {
         path: "/details",
         component: details
+      },
+      {
+        path: "/notice",
+        component: notice
       }
     ]
   }
