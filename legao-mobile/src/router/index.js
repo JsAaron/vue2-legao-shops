@@ -43,7 +43,18 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
   mode: routerMode,
-  strict: process.env.NODE_ENV !== "production"
+  strict: process.env.NODE_ENV !== "production",
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+    // if (savedPosition) {
+    //   return savedPosition;
+    // } else {
+    //   if (from.meta.keepAlive) {
+    //     from.meta.savedPosition = document.body.scrollTop;
+    //   }
+    //   return { x: 0, y: to.meta.savedPosition || 0 };
+    // }
+  }
 });
 
 export default router;

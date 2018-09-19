@@ -1,14 +1,60 @@
 <template>
     <div class="home-menu">
-      <img @click="PopupMenuOpen" src="../../images/home/indicator.png" :class="{chooseHome:type=='home'}"/>
+      <div class="home-icon" @click="PopupMenuOpen" :class="{chooseHome:type=='home'}"></div>
       <transition name="menu-fade">
         <hgroup v-if="popupMenuVisible" :class="{chooseHgroup:type=='home'}">
-          <h2><span>分享给好友</span></h2>
+          <h2 @click="shareFriend"><span>分享给好友</span></h2>
           <div class="menu-linear"></div>
           <h2><span>会员借还须知</span></h2>
         </hgroup>
       </transition>
       <div @click="PopupMenuClose" v-if="popupMenuVisible" class="full-popup"></div>
+
+      <!-- 弹出 -->
+      <van-popup v-model="shareVisible" position="bottom" :overlay="false">
+        <p>分享到</p>
+        <van-row>
+          <van-col span="6">
+            <figure>
+              <img src="../../images/home/indicator.png"/>
+              <figcaption>微信好友</figcaption>
+            </figure>
+          </van-col>
+          <van-col span="6">
+            <figure>
+              <img src="../../images/home/indicator.png"/>
+              <figcaption>朋友圈</figcaption>
+            </figure>
+          </van-col>
+          <van-col span="6">
+            <figure>
+              <img src="../../images/home/indicator.png"/>
+              <figcaption>QQ好友</figcaption>
+            </figure>
+          </van-col>
+          <van-col span="6">
+            <figure>
+              <img src="../../images/home/indicator.png"/>
+              <figcaption>QQ空间</figcaption>
+            </figure>
+          </van-col>        
+        </van-row>
+        <van-row>
+          <van-col span="6">
+            <figure>
+              <img src="../../images/home/indicator.png"/>
+              <figcaption>新浪微博</figcaption>
+            </figure>
+          </van-col>
+          <van-col span="6">
+            <figure>
+              <img src="../../images/home/indicator.png"/>
+              <figcaption>复制</figcaption>
+            </figure>
+          </van-col>      
+        </van-row>
+        <p class="cancel van-hairline--top">取消</p>
+      </van-popup>
     </div>
 </template>
 
@@ -17,14 +63,22 @@ export default {
   props: ["type"],
   data() {
     return {
+      shareVisible: false,
       popupMenuVisible: false
     };
   },
   methods: {
+    shareFriend() {
+      this.shareVisible = true;
+    },
+    shareClose() {
+      this.shareVisible = false;
+    },
     PopupMenuOpen() {
       this.popupMenuVisible = true;
     },
     PopupMenuClose() {
+      this.shareVisible = false;
       this.popupMenuVisible = false;
     }
   }
@@ -40,12 +94,53 @@ export default {
 .menu-fade-leave-to {
   opacity: 0;
 }
+.white .home-menu .home-icon {
+  background-image: url("../../images/notice/indicator.png");
+}
 .home-menu {
-  img {
+  .van-popup {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 606px;
+    z-index: 3;
+    > p {
+      text-align: center;
+      margin-top: 45px;
+      font-size: 32px;
+    }
+    .van-row {
+      margin-top: 41px;
+      text-align: center;
+      width: 90%;
+      margin-left: 5%;
+      img {
+        width: 100px;
+        height: 100px;
+      }
+      figcaption {
+        font-size: 24px;
+        color: #6a6a6a;
+      }
+    }
+    .cancel {
+      @include flexCenter;
+      height: 105px;
+      width: 90%;
+      margin-left: 5%;
+      color: #6a6a6a;
+      &::after {
+        border-color: #d1d1d1;
+      }
+    }
+  }
+
+  .home-icon {
     position: absolute;
     width: 51px;
     height: 14px;
     left: 650px;
+    background-size: 100% 100%;
+    background-image: url("../../images/home/indicator.png");
   }
   // 主页特定高度
   .chooseHome {
@@ -59,7 +154,7 @@ export default {
     left: 0;
     z-index: 1;
     background-color: #000000;
-    opacity: 0.3;
+    opacity: 0.5;
   }
   // 主页特定高度
   .chooseHgroup {

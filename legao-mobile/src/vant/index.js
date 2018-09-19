@@ -3,6 +3,7 @@ import {
   Row,
   Col,
   Button,
+  Popup,
   Icon,
   Swipe,
   SwipeItem,
@@ -11,6 +12,7 @@ import {
   CheckboxGroup
 } from "vant";
 
+Vue.use(Popup);
 Vue.use(Button);
 Vue.use(Icon);
 Vue.use(Swipe);

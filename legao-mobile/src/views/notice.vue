@@ -15,23 +15,12 @@ export default {
     return {
       checked: false
     };
-  },
-  created() {
-    // console.log(this.$route.query);
-  },
-  methods: {}
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .details-notice {
-  // .head-top {
-  //   background-color: #f7bf1f;
-  //   color: #ffffff;
-  //   .head-arrow .van-icon {
-  //     color: #ffffff !important;
-  //   }
-  // }
   > section {
     padding: 50px 0;
     background-color: #dbdbdb;
