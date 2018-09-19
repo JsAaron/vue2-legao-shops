@@ -10,18 +10,6 @@
     "build": "node build/build.js",
     "local": "node build/local.test.js"
   },
-  "transformModules": {
-    "cube-ui": {
-      "transform": "cube-ui/lib/${member}",
-      "kebabCase": true,
-      "style": {
-        "ignore": [
-          "create-api",
-          "better-scroll"
-        ]
-      }
-    }
-  },
   "dependencies": {
     "axios": "^0.18.0",
     "cssnano": "^4.1.0",
