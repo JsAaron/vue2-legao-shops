@@ -7,15 +7,7 @@ import App from "./App";
 //https://github.com/vuejs/vue-touch/tree/next
 Vue.use(VueTouch, { name: "v-touch" });
 
-// import Vant from "vant";
-// import "vant/lib/vant-css/index.css";
-
-// Vue.use(Vant);
-
-import { Button, Icon } from "vant";
-Vue.use(Button);
-Vue.use(Icon);
-
+import "@/vant";
 import "@/styles/common.scss";
 
 Vue.config.productionTip = false;

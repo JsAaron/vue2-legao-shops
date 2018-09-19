@@ -2,7 +2,7 @@
     <div class="home-menu">
       <img @click="PopupMenuOpen" src="../../images/home/indicator.png" :class="{chooseHome:type=='home'}"/>
       <transition name="menu-fade">
-        <hgroup v-if="popupMenuVisible">
+        <hgroup v-if="popupMenuVisible" :class="{chooseHgroup:type=='home'}">
           <h2><span>分享给好友</span></h2>
           <div class="menu-linear"></div>
           <h2><span>会员借还须知</span></h2>
@@ -41,16 +41,6 @@ export default {
   opacity: 0;
 }
 .home-menu {
-  .full-popup {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-color: #000000;
-    opacity: 0.3;
-  }
   img {
     position: absolute;
     width: 51px;
@@ -61,13 +51,27 @@ export default {
   .chooseHome {
     top: 80px;
   }
+  .full-popup {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #000000;
+    opacity: 0.3;
+  }
+  // 主页特定高度
+  .chooseHgroup {
+    top: 126px;
+  }
   hgroup {
     position: absolute;
     z-index: 2;
     width: 300px;
     height: 193px;
     left: 434px;
-    top: 126px;
+    top: 80px;
     background-image: url("../../images/home/popup.png");
     background-size: 100% 100%;
     padding-top: 14px;

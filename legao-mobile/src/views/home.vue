@@ -89,7 +89,7 @@ export default {
     //  详情按钮
     //===============
     detailsView() {
-      this.$router.push("details");
+      this.$router.push({ path: "/details", query: { userId: 123 } });
     }
   }
 };
