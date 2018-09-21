@@ -55,7 +55,6 @@
           <el-table-column
             prop="remark"
             label="消费纪录"
-            width="400"
             align="center">
             <template slot-scope="scope">
               <p>{{scope.row.remark}}</p>

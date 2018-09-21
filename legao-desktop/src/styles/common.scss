@@ -5,7 +5,7 @@ html {
     font-size: 100px;
   }
   //小于1440
-  @media screen and (max-width: 1400px) {
+  @media screen and (max-width: 1000px) {
     font-size: 80px;
   }
   &,
@@ -15,7 +15,7 @@ html {
   }
   body {
     font-size: 0.15rem;
-    min-width: 1400px;
+    min-width: 1000px;
     max-width: 1920px;
     background-color: #f5f5f5;
   }
