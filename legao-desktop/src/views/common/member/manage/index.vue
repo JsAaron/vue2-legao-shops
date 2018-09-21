@@ -72,9 +72,26 @@
     </common-dialog>
 
     <!-- 充值 -->
-    <common-dialog class="money-dialog el-dialog-mini" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
+    <common-dialog class="money-dialog" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
       <div class="main" slot="main">
-        <label>充值金额:</label><el-input v-model="moneyValue" placeholder="请输入金额"></el-input>
+        <ul>
+          <li><el-button type="primary" @click="pay(weixin)">微信支付</el-button></li>
+          <li><el-button type="primary" @click="pay(zhifubao)">支付宝支付</el-button></li>
+          <li><el-button type="primary" @click="pay(cash)">现金支付</el-button></li>
+        </ul>
+        <div class="put-money">
+          <div>
+            <label>实收：</label>
+            <el-input
+              placeholder="请输入收款金额"
+              clearable>
+            </el-input>
+          </div>
+          <div>
+            <label>找零：</label>
+            <span>0:00</span>
+          </div>
+        </div>
       </div>
       <template slot="footer">
         <el-button type="primary" @click="ensurePay">立即支付</el-button>
@@ -108,7 +125,7 @@
       </span>
     </common-dialog>
 
-     <!-- 次卡消费 -->
+    <!-- 次卡消费 -->
     <common-dialog class="second-card-dialog el-dialog-mini" @close-self="secondCardDialogClose" :visible="secondCardDialogVisible" :title="secondCardTitle">
       <template class="main" slot="main">
         <dl>
@@ -437,7 +454,7 @@ export default {
         .update-list {
           height: 3.05rem;
           border: 1px solid #ccc;
-          font-size: 0.18rem;
+          font-size: 0.16rem;
           div {
             margin: 0.1rem;
             display: flex;
@@ -481,17 +498,34 @@ export default {
   }
 }
 .money-dialog {
+  .el-dialog {
+    @include setWH(5rem, auto);
+  }
   .el-dialog__body {
+    padding: 0.2rem;
     .main {
-      width: 70%;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      label {
-        flex: 2;
+      > ul {
+        display: flex;
+        justify-content: space-around;
+        .el-button {
+          margin: 0.1rem;
+          padding: 0.1rem 0.3rem;
+          height: 0.46rem;
+        }
       }
-      div {
-        flex: 4;
+      .put-money {
+        margin-top: 0.3rem;
+        @include setFJ;
+        div {
+          flex: 1;
+          &:first-child {
+            flex: 2;
+          }
+          text-align: center;
+        }
+        .el-input {
+          width: 70%;
+        }
       }
     }
   }
