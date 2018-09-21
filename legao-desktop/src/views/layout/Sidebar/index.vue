@@ -30,8 +30,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import MainBarItem from "./MainBar";
-import StaticBarItem from "./StaticBar";
+import MainBarItem from "./mainBar";
+import StaticBarItem from "./staticBar";
 export default {
   computed: {
     ...mapGetters(["shopName"])

@@ -37,10 +37,12 @@
         <div class="nav-border"></div>
         <ul>
           <li v-for="item in routers.middle" :key="item.id">
-           <figure :style="{opacity:item.opacity}">
-              <img :src="item.newUrl"/>
-              <figcaption>{{generateTitle(item.title)}}</figcaption>
-            </figure>
+            <router-link :to="item.newPath">
+              <figure :style="{opacity:item.opacity}">
+                <img :src="item.newUrl"/>
+                <figcaption>{{generateTitle(item.title)}}</figcaption>
+              </figure>
+            </router-link>
           </li>
           <li class="man-layout">           
             <div class="nav-man">

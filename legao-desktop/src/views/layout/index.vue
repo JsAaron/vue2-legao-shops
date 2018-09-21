@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Sidebar from "./Sidebar";
-import HeaderTop from "./Header";
+import Sidebar from "./sidebar";
+import HeaderTop from "./header";
 import AppMain from "./Main";
 import MemberQuery from "@/views/common/member/query";
 import { mapGetters, mapActions } from "vuex";

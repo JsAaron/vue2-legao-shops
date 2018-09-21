@@ -69,7 +69,7 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="card_name"
           label="卡类型"
           align="center">
         </el-table-column>
@@ -120,13 +120,13 @@
     </div>
 
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible" :data="personalManageData"></member-manage>
+    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible" :personalData="personalManageData"></member-manage>
 
   </div>
 </template>
 
 <script>
-import { fetchList } from "@/api/member";
+import { fetchList, fetchPersonal } from "@/api/member";
 import MemberManage from "@/views/common/member/manage";
 import { transformMemberStatuss } from "@/utils";
 import { mapGetters, mapActions } from "vuex";
@@ -143,7 +143,10 @@ export default {
       //====================
       // 管理目录
       //====================
-      personalManageData: null, //个人主页数据
+      //个人主页数据
+      personalManageData: {
+        avatar: ""
+      },
       //====================
       // 过滤表单
       //====================
@@ -195,6 +198,7 @@ export default {
       fetchList(this.listQuery).then(response => {
         this.listData = [...response.data.data];
         this.listTotal = Number(response.data.count);
+        // console.log(this.listData);
         this.$nextTick(() => {
           this.listLoading = false;
           if (updateScroll) {
@@ -208,8 +212,17 @@ export default {
     //  管理
     //====================
     manageDialogOpen(data) {
-      this.personalManageData = data;
-      this.MemberManageOpen();
+      fetchPersonal({ card_no: data.card_no })
+        .then(response => {
+          console.log(this.personalManageData);
+          const data = [...response.data.data];
+          // this.personalManageData.avatar = data.avatar;
+          // this.personalManageData = [...response.data.data];
+          // console.log(response.data.data);
+        })
+        .then(() => {
+          this.MemberManageOpen();
+        });
     },
     manageDialogClose() {
       this.MemberManageClose();

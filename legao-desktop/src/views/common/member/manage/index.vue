@@ -154,8 +154,9 @@ export default {
   components: {
     CommonDialog
   },
-  props: ["data", "visible"],
+  props: ["personalData", "visible"],
   data() {
+    console.log(1, this.personalData);
     return {
       mobile: "",
       name: "",
