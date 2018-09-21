@@ -120,7 +120,7 @@
     </div>
 
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible" :personalData="personalManageData"></member-manage>
+    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible" :personalData="personalData"></member-manage>
 
   </div>
 </template>
@@ -141,11 +141,14 @@ export default {
   data() {
     return {
       //====================
-      // 管理目录
+      // 管理目录,数据定义
       //====================
-      //个人主页数据
-      personalManageData: {
-        avatar: ""
+      personalData: {
+        avatar: "",
+        username: "",
+        usermobile: "",
+        card_name: "",
+        deposit: ""
       },
       //====================
       // 过滤表单
@@ -177,11 +180,7 @@ export default {
       listQuery: {
         pages: 1, //取第几个页面
         limit: 8 //多少条数据
-      },
-      //====================
-      // 管理菜单
-      //====================
-      dialogVisible: false
+      }
     };
   },
   created() {
@@ -214,11 +213,11 @@ export default {
     manageDialogOpen(data) {
       fetchPersonal({ card_no: data.card_no })
         .then(response => {
-          console.log(this.personalManageData);
-          const data = [...response.data.data];
-          // this.personalManageData.avatar = data.avatar;
-          // this.personalManageData = [...response.data.data];
-          // console.log(response.data.data);
+          const data = response.data.data;
+          for (let key in data) {
+            this.personalData[key] = data[key];
+          }
+          console.log(this.personalData);
         })
         .then(() => {
           this.MemberManageOpen();

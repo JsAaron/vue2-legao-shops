@@ -4,19 +4,19 @@
     <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="homeDialogClose">
       <div class="homepage-box">
         <div class="title">
-          <img />
-          <p>三张</p>
+          <img :src="personalData.avatar"/>
+          <p>{{personalData.username}}</p>
         </div>
-        <div class="container fontWeight">
+        <div class="container">
           <p>
-            <label>手机号码：</label><span>{{mobile}}</span>
+            <label>手机号码:</label><span>{{personalData.usermobile}}</span>
           </p>
           <p>
-            <label>会员卡类型：</label><span>{{name}}</span>
-            <span @click="addManage" class="float-right pointer">管理</span>
+            <label>会员卡类型:</label><span>{{personalData.card_name}}</span>
+            <span @click="updateDateManage" class="float-right pointer">管理</span>
           </p>
           <p>
-            <label>零件余额保证金：</label><span>100:00</span>
+            <label>零件余额保证金:</label><span>{{personalData.deposit}}</span>
             <span @click="addMoney" class="float-right pointer">充值</span>
           </p>
         </div>
@@ -33,7 +33,7 @@
     <!-- 充值 -->
     <common-dialog class="money-dialog el-dialog-mini" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
       <div class="main" slot="main">
-        <label>充值金额：</label><el-input v-model="moneyValue" placeholder="请输入金额"></el-input>
+        <label>充值金额:</label><el-input v-model="moneyValue" placeholder="请输入金额"></el-input>
       </div>
       <template slot="footer">
         <el-button type="primary" @click="ensurePay">立即支付</el-button>
@@ -47,29 +47,23 @@
         <p>
           <label>有效期</label>
           <el-date-picker
-            v-model="manageTimeValue"
-            type="daterange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
+            v-model="manageTimeValueBan"
+            disabled
+            type="date"
+            placeholder="选择日期">
           </el-date-picker>
-          <span>修改</span>
-        </p>
-        <p>
-          <label>状态</label>
-          <el-select v-model="manageSelectValue" placeholder="请选择">
-            <el-option
-              v-for="item in manageOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+          <span class="flex-mini">至</span>
+          <el-date-picker
+            value-format="yyyy-MM-dd"
+            v-model="manageTimeValue"
+            type="date"
+            placeholder="选择日期">
+          </el-date-picker>
         </p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary"  @click="manageDialogClose">取 消</el-button>
-        <el-button type="primary" @click="manageDialogSave">保 存</el-button>
+        <el-button type="primary" @click="manageDialogUpdate">保 存</el-button>
       </span>
     </common-dialog>
 
@@ -77,15 +71,15 @@
     <common-dialog class="second-card-dialog el-dialog-mini" @close-self="secondCardDialogClose" :visible="secondCardDialogVisible" :title="secondCardTitle">
       <template class="main" slot="main">
         <dl>
-          <dt>会员姓名：</dt>
+          <dt>会员姓名:</dt>
           <dd>张三</dd>
         </dl>
         <dl>
-          <dt>手机号码：</dt>
+          <dt>手机号码:</dt>
           <dd>13888888888</dd>
         </dl>
         <dl>
-          <dt>本次消费人数：</dt>
+          <dt>本次消费人数:</dt>
           <dd>  
             <el-select v-model="secondCardValue" placeholder="1">
               <el-option
@@ -108,7 +102,7 @@
     <common-dialog class="rent-poduct-dialog el-dialog-middle" @close-self="rentPoductDialogClose" :visible="rentPoductDialogVisible" :title="rentPoductTitle">
       <template class="main" slot="main">
         <div class="title">
-          <label>产品货号：</label>
+          <label>产品货号:</label>
           <el-input v-model="rentPoductValue" placeholder="请输入内容"></el-input>
         </div>
       </template>
@@ -149,14 +143,15 @@
 </template>
 
 <script>
+import { fetchUpateDate } from "@/api/member";
 import CommonDialog from "@/views/common/dialog";
+import { Message } from "element-ui";
 export default {
   components: {
     CommonDialog
   },
   props: ["personalData", "visible"],
   data() {
-    console.log(1, this.personalData);
     return {
       mobile: "",
       name: "",
@@ -170,32 +165,10 @@ export default {
       //  管理
       //===================
       manageDialogVisible: false,
-      manageValue: null,
-      manageTimeValue: null,
+      manageValue: "",
+      manageTimeValueBan: "",
+      manageTimeValue: "",
       manageTitle: "会员卡管理界面",
-      manageSelectValue: "",
-      manageOptions: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
-        }
-      ],
       //===================
       //  租借产品
       //===================
@@ -266,16 +239,41 @@ export default {
     },
 
     //===================
-    //  管理
+    //  更新日期管理管理
     //===================
-    addManage() {
+    updateDateManage() {
+      this.manageTimeValueBan = this.personalData.card_start_time;
+      this.manageTimeValue = this.personalData.card_end_time;
       this.manageDialogVisible = true;
     },
     manageDialogClose() {
       this.manageDialogVisible = false;
     },
-    manageDialogSave() {
-      this.manageDialogClose();
+    manageDialogUpdate() {
+      if (this.manageTimeValue) {
+        fetchUpateDate({
+          card_no: this.personalData.card_no,
+          endtime: this.manageTimeValue
+        }).then(
+          () => {
+            Message({
+              message: "数据更新成功!",
+              type: "success",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.manageDialogClose();
+            }, 1000);
+          },
+          () => {
+            Message({
+              message: "数据修改失败!",
+              type: "error",
+              duration: 2000
+            });
+          }
+        );
+      }
     },
 
     //===================
@@ -348,7 +346,11 @@ export default {
           border-bottom: 1px solid #cccccc;
           padding-bottom: 0.15rem;
           p {
-            margin-top: 0.1rem;
+            margin-top: 0.2rem;
+            span {
+              display: inline-block;
+              text-indent: 1em;
+            }
           }
         }
         .button {
@@ -391,18 +393,31 @@ export default {
     margin-bottom: 0.2rem;
   }
   p {
+    display: flex;
     width: 80%;
     margin: 0 auto;
+    align-items: center;
     text-align: left;
+    justify-content: space-between;
+    text-align: center;
     label {
-      margin-right: 0.1rem;
+      flex: 1;
       width: 0.6rem;
-      display: inline-block;
       font-size: 0.17rem;
     }
+    div {
+      flex: 2;
+    }
+    .flex-mini {
+      flex: 0.5;
+    }
     span {
-      font-size: 0.17rem;
-      margin-left: 0.1rem;
+      flex: 1;
+      font-size: 0.16rem;
+      &:last-child {
+        display: inline-block;
+        color: #4b91cd;
+      }
     }
   }
 }

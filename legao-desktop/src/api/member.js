@@ -15,3 +15,15 @@ export function fetchList(query) {
 export function fetchPersonal(query) {
   return request({ url: "cardinfo/info", method: "post", params: query });
 }
+
+/**
+ * 更新日期
+ * cardinfo/updateendtime?card_no=&endtime&shopid
+ */
+export function fetchUpateDate(query) {
+  return request({
+    url: "cardinfo/updateendtime",
+    method: "post",
+    params: query
+  });
+}
