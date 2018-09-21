@@ -27,15 +27,50 @@
         <div class="update-list">
           <div v-if="personalData.timesLog">
             <label>消费更新记录</label>
-            <p>{{personalData.timesLog.created}}，{{personalData.timesLog.remark}}<a class="pointer">查看详情</a></p>
+            <p>{{personalData.timesLog.created}}，{{personalData.timesLog.remark}}<a @click="logDetails('timeslog','消费更新记录',personalData.timesLog)" class="pointer">查看详情</a></p>
           </div>
           <div v-if="personalData.depositLog">
             <label>保证金记录</label>
-            <p>{{personalData.depositLog.created}}，{{personalData.depositLog.remark}}<a class="pointer">查看详情</a></p>
+            <p>{{personalData.depositLog.created}}，{{personalData.depositLog.remark}}<a @click="logDetails('depositlog','保证金记录',personalData.depositLog)" class="pointer">查看详情</a></p>
           </div>
         </div>
       </div>
     </el-dialog>
+
+    <!-- 日志详情 -->
+    <common-dialog class="log-dialog legao-list" @close-self="logDialogClose" :visible="logDialogVisible" :title="logTitle">
+      <div class="main" slot="main">
+        <el-table
+          element-loading-text="拼命加载中"
+          ref="multipleTable"
+          :data="logData"
+          tooltip-effect="dark">
+          <el-table-column
+            label="消费时间"
+            align="center">
+            <template slot-scope="scope">
+              <p>{{splitTime(scope.row.created)[0]}}</p>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="remark"
+            label="消费纪录"
+            width="400"
+            align="center">
+            <template slot-scope="scope">
+              <p>{{scope.row.remark}}</p>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="消费门店"
+            align="center">
+            <template slot-scope="scope">
+              <p>{{shopName}}</p>
+            </template>
+          </el-table-column>        
+        </el-table>
+      </div>
+    </common-dialog>
 
     <!-- 充值 -->
     <common-dialog class="money-dialog el-dialog-mini" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
@@ -47,7 +82,7 @@
       </template>
     </common-dialog>
 
-    <!-- 管理 -->
+    <!-- 修改日期管理 -->
     <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageTitle">
       <div class="main" slot="main">
         <img src="../../../../images/menber-sell/1-1.png" />
@@ -150,18 +185,29 @@
 </template>
 
 <script>
-import { fetchUpateDate } from "@/api/member";
+import { fetchUpateDate, fetchLogDetails } from "@/api/member";
 import CommonDialog from "@/views/common/dialog";
 import { Message } from "element-ui";
+import { mapGetters } from "vuex";
 export default {
   components: {
     CommonDialog
+  },
+  computed: {
+    ...mapGetters(["shopName"])
   },
   props: ["personalData", "visible"],
   data() {
     return {
       mobile: "",
       name: "",
+
+      //===================
+      //  日志数据
+      //===================
+      logDialogVisible: false,
+      logTitle: "",
+      logData: [],
       //===================
       //  充值
       //===================
@@ -217,6 +263,10 @@ export default {
     };
   },
   methods: {
+    splitTime(time) {
+      return time.split(" ");
+    },
+
     //===================
     //  主页
     //===================
@@ -228,6 +278,23 @@ export default {
     },
     secondCardOpen() {
       this.secondCardDialogVisible = true;
+    },
+
+    //===================
+    //  日志详情
+    //===================
+    logDetails(type, title, data) {
+      fetchLogDetails(type, {
+        card_no: data.card_no
+      }).then(response => {
+        this.logData = [...response.data.data];
+        this.logTitle = title;
+        console.log(this.logData);
+        this.logDialogVisible = true;
+      });
+    },
+    logDialogClose() {
+      this.logDialogVisible = false;
     },
 
     //===================
@@ -407,6 +474,11 @@ export default {
         }
       }
     }
+  }
+}
+.log-dialog {
+  .el-table__row p {
+    font-size: 0.15rem !important;
   }
 }
 .money-dialog {

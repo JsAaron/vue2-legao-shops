@@ -27,3 +27,16 @@ export function fetchUpateDate(query) {
     params: query
   });
 }
+
+/**
+ * 获取日志记录合集
+ * http://192.168.1.59/api/cardinfo/timeslog?card_no=338541921295302120次卡消费日志
+ * http://192.168.1.59/api/cardinfo/depositlog?card_no=338541921295302120积分日志
+ */
+export function fetchLogDetails(type, query) {
+  return request({
+    url: `cardinfo/${type}`,
+    method: "post",
+    params: query
+  });
+}
