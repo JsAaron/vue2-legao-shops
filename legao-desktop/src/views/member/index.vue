@@ -148,7 +148,15 @@ export default {
         username: "",
         usermobile: "",
         card_name: "",
-        deposit: ""
+        deposit: "",
+        depositLog: {
+          created: "",
+          remark: ""
+        },
+        timesLog: {
+          created: "",
+          remark: ""
+        }
       },
       //====================
       // 过滤表单
@@ -215,7 +223,12 @@ export default {
         .then(response => {
           const data = response.data.data;
           for (let key in data) {
-            this.personalData[key] = data[key];
+            //数组只取第一条
+            if (~["depositLog", "timesLog"].indexOf(key)) {
+              this.personalData[key] = data[key][0];
+            } else {
+              this.personalData[key] = data[key];
+            }
           }
           console.log(this.personalData);
         })

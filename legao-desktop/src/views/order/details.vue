@@ -352,7 +352,7 @@ export default {
             position: relative;
             label {
               position: absolute;
-              width: 0.6rem;
+              width: 0.8rem;
               text-align: justify;
               text-align-last: justify;
               & :after {
@@ -363,12 +363,12 @@ export default {
               }
               &:before {
                 position: absolute;
-                left: 0.6rem;
+                left: 0.8rem;
                 content: "\FF1A";
               }
             }
             span {
-              padding-left: 0.75rem;
+              padding-left: 1rem;
             }
           }
         }

@@ -25,7 +25,14 @@
           <el-button @click="secondCardOpen" type="primary">次卡消费</el-button>
         </div>
         <div class="update-list">
-          123
+          <div v-if="personalData.timesLog">
+            <label>消费更新记录</label>
+            <p>{{personalData.timesLog.created}}，{{personalData.timesLog.remark}}<a class="pointer">查看详情</a></p>
+          </div>
+          <div v-if="personalData.depositLog">
+            <label>保证金记录</label>
+            <p>{{personalData.depositLog.created}}，{{personalData.depositLog.remark}}<a class="pointer">查看详情</a></p>
+          </div>
         </div>
       </div>
     </el-dialog>
@@ -364,6 +371,39 @@ export default {
         .update-list {
           height: 3.05rem;
           border: 1px solid #ccc;
+          font-size: 0.18rem;
+          div {
+            margin: 0.1rem;
+            display: flex;
+            line-height: 0.3rem;
+            position: relative;
+            label {
+              width: 1.2rem;
+              text-align: justify;
+              text-align-last: justify;
+              & :after {
+                display: inline-block;
+                content: "";
+                width: 100%;
+                height: 0;
+              }
+              &:before {
+                position: absolute;
+                left: 1.2rem;
+                content: "\FF1A";
+              }
+            }
+            p {
+              margin-left: 0.2rem;
+              width: 5.5rem;
+              display: inline-block;
+              a {
+                margin-left: 0.1rem;
+                display: inline-block;
+                color: #4b91cd;
+              }
+            }
+          }
         }
       }
     }
@@ -394,7 +434,7 @@ export default {
   }
   p {
     display: flex;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     align-items: center;
     text-align: left;
