@@ -79,6 +79,15 @@
           <li><el-button type="primary" @click="pay(zhifubao)">支付宝支付</el-button></li>
           <li><el-button type="primary" @click="pay(cash)">现金支付</el-button></li>
         </ul>
+        <div class="qr-code">
+          <p>
+            <label>付款条码:</label>
+            <el-input
+              placeholder="【请扫描用户的条码】"
+              clearable>
+            </el-input>
+          </p>
+        </div>
         <div class="put-money">
           <div>
             <label>实收：</label>
