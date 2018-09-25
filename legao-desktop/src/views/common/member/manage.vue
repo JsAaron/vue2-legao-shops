@@ -40,34 +40,36 @@
     <!-- 日志详情 -->
     <common-dialog class="log-dialog legao-list" @close-self="logDialogClose" :visible="logDialogVisible" :title="logTitle">
       <div class="main" slot="main">
-        <el-table
-          element-loading-text="拼命加载中"
-          ref="multipleTable"
-          :data="logData"
-          tooltip-effect="dark">
-          <el-table-column
-            label="消费时间"
-            align="center">
-            <template slot-scope="scope">
-              <p>{{splitTime(scope.row.created)[0]}}</p>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="remark"
-            label="消费纪录"
-            align="center">
-            <template slot-scope="scope">
-              <p>{{scope.row.remark}}</p>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="消费门店"
-            align="center">
-            <template slot-scope="scope">
-              <p>{{shopName}}</p>
-            </template>
-          </el-table-column>        
-        </el-table>
+        <el-scrollbar>
+          <el-table
+            element-loading-text="拼命加载中"
+            ref="multipleTable"
+            :data="logData"
+            tooltip-effect="dark">
+            <el-table-column
+              label="消费时间"
+              align="center">
+              <template slot-scope="scope">
+                <p>{{splitTime(scope.row.created)[0]}}</p>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="remark"
+              label="消费纪录"
+              align="center">
+              <template slot-scope="scope">
+                <p>{{scope.row.remark}}</p>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="消费门店"
+              align="center">
+              <template slot-scope="scope">
+                <p>{{shopName}}</p>
+              </template>
+            </el-table-column>        
+          </el-table>
+        </el-scrollbar>
       </div>
     </common-dialog>
 
@@ -314,7 +316,7 @@ export default {
       }).then(response => {
         this.logData = [...response.data.data];
         this.logTitle = title;
-        console.log(this.logData);
+        // console.log(this.logData);
         this.logDialogVisible = true;
       });
     },
@@ -505,6 +507,9 @@ export default {
   }
 }
 .log-dialog {
+  .main {
+    height: 7rem;
+  }
   .el-table__row p {
     font-size: 0.15rem !important;
   }
