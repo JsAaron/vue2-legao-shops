@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  props: ["title", "visible", "modal"],
+  props: ["title", "visible", "modal", "appendBody"],
   methods: {
     dialogClose() {
       this.$emit("close-self");

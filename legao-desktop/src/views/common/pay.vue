@@ -30,26 +30,6 @@
         <el-button size="medium" type="primary" @click="pay(weixin)">立即支付</el-button>
       </el-col>
     </el-row>
-
-    <!-- 支付扫码 -->
-    <common-dialog class="qr-dialog el-dialog-white" :visible="qrDialogVisible" :modal="false">
-      <div class="main" slot="main">
-        <p class="title"><label>收款金额:</label><span>899元</span></p>
-        <div class="qr-code">
-          <label>付款条码:</label>
-          <el-input
-            size="mini"
-            placeholder="【请扫用户付款条码】"
-            v-model="qrCode">
-          </el-input>
-        </div>
-        <img src="../../images/member/code.png"/>
-      </div>
-      <template slot="footer">
-        <el-button type="primary" >重新下单</el-button>
-      </template>
-    </common-dialog>
-
   </div>
 </template>
 
@@ -101,8 +81,8 @@ export default {
   }
   .qr-dialog {
     .el-dialog {
-      height: 5.26rem;
-      width: 6.41rem;
+      // height: 5.26rem;
+      // width: 6.41rem;
     }
     .title {
     }

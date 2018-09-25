@@ -1,5 +1,6 @@
 <template>
   <div class="legao-dialog">
+    
     <!-- 个人主页 -->
     <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="homeDialogClose">
       <div class="homepage-box">
@@ -79,6 +80,9 @@
         <pay-manage></pay-manage>
       </div>
     </common-dialog>
+
+    <!-- qr扫码 -->
+    <qr-manage class="qr-manage"></qr-manage>
 
     <!-- 修改日期管理 -->
     <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageTitle">
@@ -185,11 +189,13 @@
 <script>
 import { fetchUpateDate, fetchLogDetails } from "@/api/member";
 import CommonDialog from "@/views/common/dialog";
+import QrManage from "@/views/common/qr";
 import PayManage from "@/views/common/pay";
 import { Message } from "element-ui";
 import { mapGetters } from "vuex";
 export default {
   components: {
+    QrManage,
     PayManage,
     CommonDialog
   },
@@ -489,7 +495,9 @@ export default {
 }
 .money-dialog {
   .el-dialog {
-    @include setWH(5rem, auto);
+    // height: 5.26rem;
+    width: 6.41rem;
+    // @include setWH(5rem, auto);
     .el-dialog__body {
       padding: 0.4rem 0.2rem 0 0.2rem !important;
     }
