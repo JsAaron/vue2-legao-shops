@@ -6,16 +6,18 @@
 .legao-filter {
   width: 90%;
   margin: 0 auto;
+
   .el-form-item {
     display: flex;
     font-weight: 800;
     height: 0.33rem;
   }
   .el-form-item__label {
-    width: auto;
-    text-align: center;
-    white-space: nowrap;
+    // width: auto;
+    // text-align: center;
+    // white-space: nowrap;
   }
+
   .el-form-item {
     // margin-bottom: 0.1rem;
   }

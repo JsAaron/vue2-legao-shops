@@ -8,7 +8,7 @@
               :key="item.id"
               @click="clickCard(item,index)"
               :class="selectCardIndex === index?'active':''">
-            <img src="../../images/menber-sell/1-1.png" />
+            <img src="../../images/member-sell/1-1.png" />
           </li>
         </el-scrollbar>
       </div>
