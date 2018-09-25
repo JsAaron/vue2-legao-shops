@@ -4,42 +4,42 @@
     <!-- 搜索，过滤 -->
     <div class="legao-filter">
       <el-form size="small" :model="form">
-        <el-row type="flex" justify="space-between">
-          <el-col :xs="10" :sm="12" :lg="5">
-            <el-form-item label="订单编号：">
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <el-form-item label="订单编号:">
               <el-input v-model="form.id" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="5">
-            <el-form-item label="会员姓名：">
+          <el-col :span="6">
+            <el-form-item label="会员姓名:">
               <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="5">
-            <el-form-item label="手机号码：">
+          <el-col :span="6">
+            <el-form-item label="手机号码:">
               <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="5">
-            <el-form-item label="产品货号：">
+          <el-col :span="6">
+            <el-form-item label="产品货号:">
               <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-row type="flex" justify="space-between" >
-          <el-col :lg="5">
-            <el-form-item label="所属门店：">
+        <el-row  :gutter="20">
+          <el-col :span="5">
+            <el-form-item label="所属门店:">
               <el-input v-model="form.id"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :lg="4">
-            <el-form-item label="订单状态：">
+          <el-col :span="5">
+            <el-form-item label="订单状态:">
               <el-input v-model="form.poductId"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :lg="8">
-            <el-form-item label="时间：">
+          <el-col :span="14">
+            <el-form-item label="时间:">
               <el-date-picker
                 size="small"
                 v-model="value"
@@ -48,12 +48,10 @@
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
+              <el-button type="primary" size="small" @click="filterQuery">开始查询</el-button>
             </el-form-item>
           </el-col>
-          <el-col  :lg="5" >
-            <el-button type="primary" size="small" @click="filterReset">重置</el-button>
-            <el-button type="primary" size="small" @click="filterQuery">开始查询</el-button>
-          </el-col>
+
         </el-row>
 
       </el-form>

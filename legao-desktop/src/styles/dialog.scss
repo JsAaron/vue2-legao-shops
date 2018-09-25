@@ -73,8 +73,7 @@
     .el-dialog__footer {
       .dialog-footer {
         width: 100%;
-        display: flex;
-        justify-content: space-around;
+        @include setFJ(space-around); // width: 100%;
       }
       background-color: #ffffff;
       border-bottom-left-radius: 0.2rem;
@@ -82,6 +81,7 @@
       .el-button {
         width: 1.56rem;
         height: 0.49rem;
+        line-height: 0.1rem;
         font-size: 0.16rem;
       }
     }

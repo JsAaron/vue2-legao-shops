@@ -4,20 +4,20 @@
     <!-- 搜索，过滤 -->
     <div class="legao-filter">
       <el-form size="small" :model="listQuery">
-        <el-row>
-          <el-col :xs="10" :sm="12" :lg="7">
+        <el-row gutter="20">
+          <el-col :span="7">
             <el-form-item label="产品编号：">
               <el-input v-model="listQuery.code" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="12" :lg="7">
+          <el-col :span="7">
             <el-form-item label="产品货号：">
               <el-input v-model="listQuery.storeid" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :xs="10" :sm="11" :lg="7">
+        <el-row gutter="20">
+          <el-col :span="7">
             <el-form-item label="所属卡：">
                   <el-select v-model="listQuery.card" clearable>
                   <el-option
@@ -29,7 +29,7 @@
                 </el-select>
                 </el-form-item>
           </el-col>
-          <el-col :xs="10" :sm="10" :lg="7">
+          <el-col :span="14">
             <el-form-item label="库存状态：">
               <el-cascader
                 clearable
@@ -38,13 +38,10 @@
                 expand-trigger="hover"
                 v-model="listQuery.inventory">
               </el-cascader>
+              <el-button type="primary" size="small" @click="filterReset">重置</el-button>
+              <el-button type="primary" size="small" @click="getList">开始查询</el-button>
             </el-form-item>
           </el-col>
-          <!-- 查询 -->
-          <el-form-item>
-            <el-button type="primary" size="small" @click="filterReset">重置</el-button>
-            <el-button type="primary" size="small" @click="getList">开始查询</el-button>
-          </el-form-item>
         </el-row>
 
       </el-form>
@@ -473,7 +470,7 @@ export default {
       listLoading: true, //加载进度条
       activeFlag: "", //动态改变的库存状态
       activeIs_new: "", //动态改变的完整性
-      listQuery: Object.assign({}),
+      listQuery: Object.assign({}, defaultQuery),
       //所属卡
       cardType: [
         {

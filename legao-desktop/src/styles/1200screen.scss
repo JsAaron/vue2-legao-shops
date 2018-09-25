@@ -1,0 +1,20 @@
+@media screen and (max-width: 1400px) {
+  // 左导航
+  .app-sidebar {
+    .el-menu-item {
+      font-size: 0.13rem;
+      margin-top: 0.18rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  // 会员管理
+  .member-container {
+    .manage-dialog {
+      .el-dialog {
+        width: 8rem;
+      }
+    }
+  }
+}

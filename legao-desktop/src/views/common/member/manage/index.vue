@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="legao-dialog">
     <!-- 个人主页 -->
     <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="homeDialogClose">
       <div class="homepage-box">
@@ -470,7 +470,7 @@ export default {
             line-height: 0.3rem;
             position: relative;
             label {
-              width: 1.2rem;
+              width: 1.3rem;
               text-align: justify;
               text-align-last: justify;
               & :after {
@@ -481,7 +481,7 @@ export default {
               }
               &:before {
                 position: absolute;
-                left: 1.2rem;
+                left: 1.3rem;
                 content: "\FF1A";
               }
             }
@@ -489,6 +489,9 @@ export default {
               margin-left: 0.2rem;
               width: 5.5rem;
               display: inline-block;
+              font-size: 0.16rem;
+              // font-size: 0.18rem;
+              padding-top: 0;
               a {
                 margin-left: 0.1rem;
                 display: inline-block;

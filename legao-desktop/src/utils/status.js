@@ -15,10 +15,14 @@ export const productStatus = [
 
 //会员状态
 export const memberStatus = [
-  { value: 2, label: "财务己审" },
-  { value: 1, label: "资料己核" },
-  { value: -1, label: "无效" },
-  { value: "other", label: "未知" }
+  {
+    value: "1",
+    label: "有效"
+  },
+  {
+    value: "-1",
+    label: "无效"
+  }
 ];
 
 /**
@@ -37,7 +41,12 @@ function matchStatus(items, value) {
  * @param} status
  */
 export function transformMemberStatuss(status) {
-  return matchStatus(memberStatus, status);
+  if (status >= 0) {
+    return "有效";
+  }
+  if (status == -1) {
+    return "无效";
+  }
 }
 
 /**
