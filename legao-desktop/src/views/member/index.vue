@@ -45,89 +45,18 @@
         </el-row>
       </el-form>
     </div>
-
-    <!-- 主体列表查询 -->
-    <div class="legao-list legao-table-line">
-      <el-table
-        v-loading="listLoading" 
-        :data="listData"
-        tooltip-effect="dark">
-        <el-table-column
-          prop="username"
-          label="会员姓名"
-          width="150"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="mobile"
-          label="手机号码"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          prop="card_name"
-          label="卡类型"
-          align="center">
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="开始时间">
-          <template slot-scope="scope">
-            <p>{{scope.row.card_start_time.split(" ")[0]}}</p>
-            <p>{{scope.row.card_start_time.split(" ")[1]}}</p>
-          </template>
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="结束时间">
-          <template slot-scope="scope">
-            <p>{{scope.row.card_end_time.split(" ")[0]}}</p>
-            <p>{{scope.row.card_end_time.split(" ")[1]}}</p>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="status"
-          align="center"
-          width="100"
-          label="状态">
-          <template slot-scope="scope">
-            {{transformMemberStatuss(scope.row.flag)}}
-          </template>
-        </el-table-column>
-        <el-table-column 
-          align="center" 
-          width="120"
-          label="操作"> 
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="manageDialogOpen(scope.row)">管理</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-
-    <!-- 底部页码导航 -->
-    <div class="legao-pagination">
-      <el-pagination
-        ref="pagination"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-sizes="[8,10,20,50,100]"
-        :page-size="listQuery.limit"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="listTotal">
-      </el-pagination>
-    </div>
-
+    <!-- 列表显示 -->
+    <list-show ref="list" :listQuery="listQuery"></list-show>
     <!-- 管理 -->
-    <member-manage @close-self="manageDialogClose" :visible="memberManageVisible" :personalData="personalData"></member-manage>
-
+    <member-manage @close-self="this.MemberManageClose"></member-manage>
   </div>
 </template>
 
 <script>
-import { fetchList, fetchPersonal } from "@/api/member";
+import { memberStatus } from "@/utils";
+import { mapActions } from "vuex";
+import ListShow from "@/views/common/member/list";
 import MemberManage from "@/views/common/member/manage";
-import { transformMemberStatuss, memberStatus } from "@/utils";
-import { mapGetters, mapActions } from "vuex";
 
 /**
  * 默认查询条件
@@ -143,116 +72,35 @@ const defaultQuery = {
 
 export default {
   components: {
+    ListShow,
     MemberManage
-  },
-  computed: {
-    ...mapGetters(["memberManageVisible"])
   },
   data() {
     return {
-      //====================
-      // 数据列表
-      //====================
-      listLoading: true,
-      listData: null,
-      listTotal: null,
       memberStatus,
-      listQuery: Object.assign({}, defaultQuery), //列表查询条件
-      //====================
-      // 管理目录,数据定义
-      //====================
-      personalData: {
-        avatar: "",
-        username: "",
-        usermobile: "",
-        card_name: "",
-        deposit: "",
-        depositLog: {
-          created: "",
-          remark: ""
-        },
-        timesLog: {
-          created: "",
-          remark: ""
-        }
-      }
+      listQuery: Object.assign({}, defaultQuery) //列表查询条件
     };
   },
-  created() {
-    this.getList();
-  },
   methods: {
-    ...mapActions(["MemberManageOpen", "MemberManageClose", "UpdateAppScroll"]),
-    transformMemberStatuss,
-    //====================
-    //  获取数据
-    //====================
-    getList(updateScroll) {
-      this.listLoading = true; //每次重新获取，需要处理
-      fetchList(this.listQuery).then(response => {
-        this.listData = [...response.data.data];
-        this.listTotal = Number(response.data.count);
-        this.$nextTick(() => {
-          this.listLoading = false;
-          if (updateScroll) {
-            this.UpdateAppScroll();
-          }
-        });
-      });
-    },
-
-    //====================
-    //  管理
-    //====================
-    manageDialogOpen(data) {
-      fetchPersonal({ card_no: data.card_no })
-        .then(response => {
-          const data = response.data.data;
-          for (let key in data) {
-            //数组只取第一条
-            if (~["depositLog", "timesLog"].indexOf(key)) {
-              this.personalData[key] = data[key][0];
-            } else {
-              this.personalData[key] = data[key];
-            }
-          }
-          console.log(this.personalData);
-        })
-        .then(() => {
-          this.MemberManageOpen();
-        });
-    },
-    manageDialogClose() {
-      this.MemberManageClose();
-    },
-
+    ...mapActions(["MemberManageClose"]),
     //====================
     //  过滤查询
     //====================
+    updateList() {
+      this.$nextTick(() => {
+        this.$refs.list.getList(true);
+      });
+    },
     filterQuery() {
       if (this.listQuery.date) {
         this.listQuery.starttime = this.listQuery.date[0];
         this.listQuery.endtime = this.listQuery.date[1];
       }
-      this.getList();
+      this.updateList();
     },
     filterReset() {
       this.listQuery = Object.assign({}, defaultQuery);
-      // this.$refs.pagination.size(1);
-      // console.log(this.$refs.);
-      this.getList(true);
-    },
-
-    //====================
-    //  页码
-    //====================
-    handleSizeChange(val) {
-      this.listQuery.limit = val;
-      this.getList();
-    },
-    handleCurrentChange(val) {
-      this.listQuery.pages = val;
-      this.getList();
+      this.updateList();
     }
   }
 };

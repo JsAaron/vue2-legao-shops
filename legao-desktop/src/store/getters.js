@@ -16,6 +16,7 @@ const getters = {
   //会员管理
   memberQueryVisible: state => state.member.queryVisible,
   memberManageVisible: state => state.member.manageVisible,
+  personalData: state => state.member.personal,
 
   //二维码
   qrVisible: state => state.pay.qrVisible,

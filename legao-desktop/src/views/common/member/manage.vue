@@ -2,7 +2,7 @@
   <div class="legao-dialog">
     
     <!-- 个人主页 -->
-    <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="visible" :before-close="homeDialogClose">
+    <el-dialog :modal="false" class="homepage-dialog" title="会员个人主页" :visible.sync="memberManageVisible" :before-close="homeDialogClose">
       <div class="homepage-box">
         <div class="title">
           <img :src="personalData.avatar"/>
@@ -122,10 +122,10 @@
           <dt>手机号码:</dt>
           <dd>13888888888</dd>
         </dl>
-        <dl>
+        <dl class="second-card-last">
           <dt>本次消费人数:</dt>
           <dd>  
-            <el-select v-model="secondCardValue" placeholder="1">
+            <el-select size="mini" v-model="secondCardValue" placeholder="1">
               <el-option
                 v-for="item in secondCardOptions"
                 :key="item.value"
@@ -192,7 +192,7 @@ import CommonDialog from "@/views/common/dialog";
 import QrManage from "@/views/common/qr";
 import PayManage from "@/views/common/pay";
 import { Message } from "element-ui";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     QrManage,
@@ -200,9 +200,8 @@ export default {
     CommonDialog
   },
   computed: {
-    ...mapGetters(["shopName"])
+    ...mapGetters(["shopName", "personalData", "memberManageVisible"])
   },
-  props: ["personalData", "visible"],
   data() {
     return {
       mobile: "",
@@ -246,24 +245,24 @@ export default {
       secondCardValue: null,
       secondCardOptions: [
         {
-          value: "选项1",
-          label: "黄金糕"
+          value: "1",
+          label: "1"
         },
         {
-          value: "选项2",
-          label: "双皮奶"
+          value: "2",
+          label: "2"
         },
         {
-          value: "选项3",
-          label: "蚵仔煎"
+          value: "3",
+          label: "3"
         },
         {
-          value: "选项4",
-          label: "龙须面"
+          value: "4",
+          label: "4"
         },
         {
-          value: "选项5",
-          label: "北京烤鸭"
+          value: "5",
+          label: "5"
         }
       ]
     };
@@ -545,6 +544,18 @@ export default {
       display: flex;
       padding: 0.05rem;
       align-items: center;
+      dd {
+        text-indent: 1em;
+      }
+    }
+    .second-card-last {
+      dt {
+        width: 1.5rem;
+      }
+      dd {
+        text-indent: 0;
+        width: 1rem;
+      }
     }
   }
 }
