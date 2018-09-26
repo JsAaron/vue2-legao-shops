@@ -23,6 +23,12 @@
   }
 }
 
+.el-dialog-super {
+  .el-dialog {
+    width: 14rem;
+  }
+}
+
 //头部白色
 .el-dialog-white {
   .el-dialog__header {
