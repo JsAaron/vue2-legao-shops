@@ -217,7 +217,7 @@ export default {
       //===================
       //  充值
       //===================
-      moneyDialogVisible: true,
+      moneyDialogVisible: false,
       moneyValue: null, //充值金额
       moneyTitle: "充值",
       //===================

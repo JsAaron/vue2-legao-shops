@@ -15,6 +15,7 @@
       <div>
         <label>应收：</label>
         <el-input
+          ref="putMoney"
           size="small"
           placeholder="请输入收款金额"
           clearable>
@@ -27,7 +28,6 @@
       <div>
         <label>实收：</label>
         <el-input
-          ref="putMoney"
           size="small"
           placeholder="请输入收款金额"
           clearable>
