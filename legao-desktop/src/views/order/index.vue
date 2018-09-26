@@ -116,7 +116,7 @@
             <el-popover
               placement="top"
               width="200"
-              trigger="hover">
+              trigger="click">
                 <p style="text-align: center;margin:0.1rem;">是否确定删除订单?</p>
                 <div style="text-align: center;margin-top:.2rem; margin-bottom:.1rem;">
                   <el-button size="mini" type="primary" @click="cancelOrder(scope.row)">确定删除</el-button>
@@ -156,24 +156,13 @@
       :dialogDetailsVisible="dialogDetailsVisible">
     </order-details>
 
-    <!-- 取消订单 -->
-    <el-dialog
-      title="提示"
-      :visible.sync="dialogCancelVisible"
-      width="30%">
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <!-- <el-button @click="dialogDetailsVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogDetailsVisible = false">确 定</el-button> -->
-      </span>
-    </el-dialog>
-
   </div>
 </template>
 
 <script>
-import { fetchList, viewDetailApi } from "@/api/order";
+import { fetchList, viewDetailApi, cancelOrderApi } from "@/api/order";
 import OrderDetails from "./details";
+import { Message } from "element-ui";
 import CommonDialog from "@/views/common/dialog";
 import { mapActions, mapGetters } from "vuex";
 import {
@@ -231,7 +220,6 @@ export default {
       // 详细列表
       //===================
       dialogDetailsVisible: false,
-      dialogCancelVisible: false,
       detailsData: {
         tid: null,
         created: null,
@@ -274,8 +262,38 @@ export default {
      * 取消订单
      */
     cancelOrder(row) {
-      console.log(row);
-      // this.dialogCancelVisible = true;
+      cancelOrderApi({
+        tid: row.tid
+      }).then(
+        response => {
+          this.updateListData({
+            list: this.listData,
+            tid: row.tid,
+            updatePage: true
+          });
+        },
+        () => {
+          Message({
+            message: "数据删除失败!",
+            type: "error",
+            duration: 2000
+          });
+        }
+      );
+    },
+    updateListData({ list, tid, callback, updatePage }) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i]["tid"] === tid) {
+          list.splice(i, 1);
+          //更新总页码
+          if (updatePage) {
+            --this.listTotal;
+          }
+          if (callback) {
+            callback();
+          }
+        }
+      }
     },
 
     //=========================

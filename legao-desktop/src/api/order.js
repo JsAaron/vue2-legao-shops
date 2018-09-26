@@ -21,6 +21,18 @@ export function fetchList(query) {
 export function viewDetailApi(query) {
   return request({
     url: "trades/info",
+    method: "post",
+    params: query
+  });
+}
+
+/**
+ * 取消订单
+ * http://192.168.1.30/api/trades/canceltrade?tid=E20180817102956005800006&shopid=2&userid=1
+ */
+export function cancelOrderApi(query) {
+  return request({
+    url: "trades/canceltrade",
     method: "get",
     params: query
   });
