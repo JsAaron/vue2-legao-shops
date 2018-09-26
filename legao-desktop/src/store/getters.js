@@ -17,6 +17,11 @@ const getters = {
   memberQueryVisible: state => state.member.queryVisible,
   memberManageVisible: state => state.member.manageVisible,
 
+  //二维码
+  qrVisible: state => state.pay.qrVisible,
+  //支付数据
+  payData: state => state.pay.data,
+
   //动态路由
   addRouters: state => state.permission.addRouters,
   permissionRouters: state => state.permission.routers, //导航，主路由

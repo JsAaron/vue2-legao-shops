@@ -1,25 +1,26 @@
 <template>
   <div class="legao-dialog qr-manage">
     <!-- 支付扫码 -->
-    <common-dialog class="qr-dialog el-dialog-white" :visible="qrDialogVisible" :modal="false">
+    <common-dialog class="qr-dialog el-dialog-white" @close-self="QrClose"  :visible="qrVisible" :modal="false">
       <div class="main" slot="main">
-        <p class="title"><label>收款金额:</label>&yen;<span>899</span>元</p>
+        <p class="title"><label>收款金额:</label>&yen;<span>{{payData.money}}</span>元</p>
         <div class="qr-code">
           <label>付款条码:</label>
           <el-input
+            @change="qrCodeUpdate"
             clearable
             size="mini"
             placeholder="【请扫用户付款条码】"
-            v-model="qrCode">
+            v-model="qrCodeValue">
           </el-input>
         </div>
         <div class="qr-img">
           <img src="../../images/member/code.png"/>
-          <p>请扫描用户手机客户端中的条码</p>
+          <p>请扫描用户手机客户端中的<span style="color:red;">{{payData.plat}}</span>条码</p>
         </div>
       </div>
       <template slot="footer">
-        <el-button type="primary" >扫描中，请稍等...</el-button>
+        <el-button type="primary" >{{qrCodeValue?'确定支付':'扫描中，请稍等...'}}</el-button>
       </template>
     </common-dialog>
   </div>
@@ -27,19 +28,24 @@
 
 <script>
 import CommonDialog from "@/views/common/dialog";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     CommonDialog
   },
+  computed: {
+    ...mapGetters(["qrVisible", "payData"])
+  },
   data() {
     return {
-      qrCode: "", //条码
-      qrDialogVisible: false
+      qrCodeValue: "" //条码
     };
   },
   methods: {
-    pay() {
-      this.qrDialogVisible = true;
+    ...mapActions(["QrClose"]),
+    pay() {},
+    qrCodeUpdate() {
+      // console.log(this.qrCodeValue);
     }
   }
 };

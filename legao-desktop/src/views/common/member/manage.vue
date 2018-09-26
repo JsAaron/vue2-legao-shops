@@ -77,12 +77,12 @@
     <!-- 充值 -->
     <common-dialog class="money-dialog" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
       <div class="main" slot="main">
-        <pay-manage></pay-manage>
+        <pay-manage :selfVisible="moneyDialogVisible"></pay-manage>
       </div>
     </common-dialog>
 
     <!-- qr扫码 -->
-    <qr-manage class="qr-manage"></qr-manage>
+    <qr-manage></qr-manage>
 
     <!-- 修改日期管理 -->
     <common-dialog class="manage-dialog el-dialog-middle" @close-self="manageDialogClose" :visible="manageDialogVisible" :title="manageTitle">
@@ -217,7 +217,7 @@ export default {
       //===================
       //  充值
       //===================
-      moneyDialogVisible: false,
+      moneyDialogVisible: true,
       moneyValue: null, //充值金额
       moneyTitle: "充值",
       //===================

@@ -1,33 +1,54 @@
 <template>
   <div class="pay-manage">
-    <el-row type="flex" justify="space-around" class="pay-plat">
-      <el-col :span="7">
-        <el-button size="small" type="primary" @click="pay(weixin)">微信支付</el-button>
+    <el-row  class="pay-plat">
+      <el-col :span="8">
+        <el-button size="medium" type="primary" @click="choosePay('微信')">微信支付</el-button>
       </el-col>
-      <el-col :span="7">
-        <el-button size="small" type="primary" @click="pay(zhifubao)">支付宝支付</el-button>
+      <el-col :span="8">
+        <el-button size="medium" type="primary" @click="choosePay('支付宝支付')">支付宝支付</el-button>
       </el-col>
-      <el-col :span="7">
-        <el-button size="small" type="primary" @click="pay(cash)">现金支付</el-button>
+      <el-col :span="8">
+        <el-button size="medium" :icon="checkCash" type="primary" @click="choosePay('cash')">现金支付</el-button>
       </el-col>
     </el-row>
     <div class="put-money">
       <div>
-        <label>实收：</label>
+        <label>应收：</label>
         <el-input
           size="small"
           placeholder="请输入收款金额"
           clearable>
+          <i
+            class="el-icon-edit el-input__icon"
+            slot="suffix">
+          </i>
+        </el-input>
+      </div>
+      <div>
+        <label>实收：</label>
+        <el-input
+          ref="putMoney"
+          size="small"
+          placeholder="请输入收款金额"
+          clearable>
+          <i
+            class="el-icon-edit el-input__icon"
+            slot="suffix">
+          </i>
         </el-input>
       </div>
       <div>
         <label>找零：</label>
-        <span>0:00</span>
+        <el-input
+          :disabled="true"
+          size="small"
+          clearable>
+        </el-input>
       </div>
     </div>
     <el-row class="submit-money" type="flex" justify="center" >
       <el-col :span="8">
-        <el-button size="medium" type="primary" @click="pay(weixin)">立即支付</el-button>
+        <el-button size="medium" type="primary" @click="submitPay()">立即支付</el-button>
       </el-col>
     </el-row>
   </div>
@@ -35,19 +56,44 @@
 
 <script>
 import CommonDialog from "@/views/common/dialog";
+import { mapGetters, mapActions } from "vuex";
 export default {
+  props: ["selfVisible"],
   components: {
     CommonDialog
   },
   data() {
     return {
       qrCode: "", //条码
-      qrDialogVisible: false
+      qrDialogVisible: false,
+      checkCash: ""
     };
   },
+  watch: {
+    selfVisible() {
+      if (this.checkCash) {
+        this.checkCash = "";
+      }
+    }
+  },
   methods: {
-    pay() {
-      this.qrDialogVisible = true;
+    ...mapActions(["QrOpen", "QrClose"]),
+    //===========
+    //  支付
+    //===========
+    choosePay(plat) {
+      switch (plat) {
+        case "cash":
+          this.$refs.putMoney.focus();
+          this.checkCash = "el-icon-success";
+          break;
+        default:
+          this.checkCash = "";
+          this.QrOpen({ plat, money: 100 });
+      }
+    },
+    submitPay() {
+      // this.QrClose()
     }
   }
 };
@@ -61,16 +107,15 @@ export default {
   }
   .put-money {
     margin-top: 0.5rem;
-    @include setFJ;
-    div {
-      flex: 1;
-      &:first-child {
-        flex: 2;
-      }
-      text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    > div {
+      padding: 0.1rem;
     }
     .el-input {
-      width: 70%;
+      width: 80%;
     }
   }
   .submit-money {

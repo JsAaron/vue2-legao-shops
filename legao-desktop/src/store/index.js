@@ -6,6 +6,7 @@ import app from "./modules/app";
 import permission from "./modules/permission";
 import member from "./modules/member";
 import limit from "./modules/limit";
+import pay from "./modules/pay";
 
 import getters from "./getters";
 
@@ -15,6 +16,7 @@ Vue.use(Vuex);
 //gettters直接引用文件
 const store = new Vuex.Store({
   modules: {
+    pay,
     app,
     user,
     member,
