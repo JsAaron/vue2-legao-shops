@@ -20,15 +20,7 @@
               <el-input v-model="listQuery.receiver_mobile" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-         <el-col :span="5">
-            <el-form-item label="产品货号:">
-              <el-input v-model="listQuery.goods_no" clearable prefix-icon="el-icon-search" ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
+          <el-col :span="5">
             <el-form-item label="订单状态:">
               <el-select v-model="listQuery.status_str" clearable>
                 <el-option
@@ -38,6 +30,14 @@
                   :value="type.value">
                 </el-option>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row :gutter="20">
+         <el-col :span="5">
+            <el-form-item label="产品货号:">
+              <el-input v-model="listQuery.goods_no" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="15">
@@ -145,9 +145,9 @@
 
     <!-- 订单详情 -->
     <order-details 
-      @close-dialog="closeDialog" 
+      @close-self="closeDialog" 
       :detailsData="detailsData" 
-      :dialogDetailsVisible="dialogDetailsVisible">
+      :detailsVisible="detailsVisible">
     </order-details>
 
   </div>
@@ -226,7 +226,7 @@ export default {
       //===================
       // 详细列表
       //===================
-      dialogDetailsVisible: false,
+      detailsVisible: true,
       detailsData: {
         tid: null,
         created: null,
@@ -335,7 +335,7 @@ export default {
      * 子组件改变dialog的装填
      */
     closeDialog() {
-      this.dialogDetailsVisible = false;
+      this.detailsVisible = false;
     },
 
     /**
@@ -346,7 +346,8 @@ export default {
       viewDetailApi({ tid: data.tid }).then(response => {
         this.listLoading = false;
         this.detailsData = response.data.data;
-        this.dialogDetailsVisible = true;
+        console.log(this.detailsData);
+        this.detailsVisible = true;
       });
     },
 
