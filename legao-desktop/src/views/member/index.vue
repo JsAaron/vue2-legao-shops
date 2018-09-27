@@ -4,19 +4,19 @@
     <div class="legao-filter">
       <el-form size="small" :model="listQuery">
         <el-row :gutter="20">
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="手机号码:">
               <el-input v-model="listQuery.mobile" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="卡类型:">
               <el-input v-model="listQuery.card_name" clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="状态:">
               <el-select v-model="listQuery.flag" clearable>
                 <el-option

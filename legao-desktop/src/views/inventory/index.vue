@@ -5,19 +5,19 @@
     <div class="legao-filter">
       <el-form size="small" :model="listQuery">
         <el-row :gutter="20">
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="产品编号：">
               <el-input v-model="listQuery.code" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="产品货号：">
               <el-input v-model="listQuery.storeid" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="所属卡：">
               <el-select v-model="listQuery.card" clearable>
                 <el-option

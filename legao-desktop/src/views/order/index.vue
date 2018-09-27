@@ -5,22 +5,22 @@
     <div class="legao-filter">
       <el-form size="small" :model="listQuery">
         <el-row :gutter="20">
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="订单编号:">
               <el-input v-model="listQuery.tid" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="会员姓名:">
               <el-input v-model="listQuery.receiver_name" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="手机号码:">
               <el-input v-model="listQuery.receiver_mobile" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item label="订单状态:">
               <el-select v-model="listQuery.status_str" clearable>
                 <el-option
@@ -35,12 +35,12 @@
         </el-row>
 
         <el-row :gutter="20">
-         <el-col :span="5">
+         <el-col :span="6">
             <el-form-item label="产品货号:">
               <el-input v-model="listQuery.goods_no" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="15">
+          <el-col :span="18">
             <el-form-item label="时间:">
               <el-date-picker
                 size="small"
