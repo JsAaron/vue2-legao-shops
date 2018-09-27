@@ -5,29 +5,29 @@
     <div class="legao-filter">
       <el-form size="small" :model="listQuery">
         <el-row :gutter="20">
-          <el-col :span="7">
+          <el-col :span="6">
             <el-form-item label="产品编号：">
               <el-input v-model="listQuery.code" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="6">
             <el-form-item label="产品货号：">
               <el-input v-model="listQuery.storeid" clearable prefix-icon="el-icon-search" placeholder="请输入内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="7">
+          <el-col :span="6">
             <el-form-item label="所属卡：">
-                  <el-select v-model="listQuery.card" clearable>
-                  <el-option
-                    v-for="type in cardType"
-                    :key="type.value"
-                    :label="type.label"
-                    :value="type.value">
-                  </el-option>
-                </el-select>
-                </el-form-item>
+              <el-select v-model="listQuery.card" clearable>
+                <el-option
+                  v-for="type in cardType"
+                  :key="type.value"
+                  :label="type.label"
+                  :value="type.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
           </el-col>
           <el-col :span="14">
             <el-form-item label="库存状态：">
@@ -39,7 +39,7 @@
                 v-model="listQuery.inventory">
               </el-cascader>
               <el-button type="primary" size="small" @click="filterReset">重置</el-button>
-              <el-button type="primary" size="small" @click="getList">开始查询</el-button>
+              <el-button type="primary" size="small" @click="getList">查询</el-button>
             </el-form-item>
           </el-col>
         </el-row>

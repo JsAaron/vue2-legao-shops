@@ -39,7 +39,7 @@
                 end-placeholder="结束日期">
               </el-date-picker>
               <el-button type="primary" size="small" @click="filterReset">重置</el-button>
-              <el-button type="primary" size="small" @click="filterQuery">开始查询</el-button>
+              <el-button type="primary" size="small" @click="filterQuery">查询</el-button>
             </el-form-item>
           </el-col>
         </el-row>

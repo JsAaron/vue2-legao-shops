@@ -3,52 +3,56 @@
 
     <!-- 搜索，过滤 -->
     <div class="legao-filter">
-      <el-form size="small" :model="form">
+      <el-form size="small" :model="listQuery">
         <el-row :gutter="20">
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item label="订单编号:">
-              <el-input v-model="form.id" clearable prefix-icon="el-icon-search" ></el-input>
+              <el-input v-model="listQuery.tid" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item label="会员姓名:">
-              <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
+              <el-input v-model="listQuery.receiver_name" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item label="手机号码:">
-              <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="产品货号:">
-              <el-input v-model="form.poductId" clearable prefix-icon="el-icon-search" ></el-input>
+              <el-input v-model="listQuery.receiver_mobile" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-row  :gutter="20">
-          <el-col :span="5">
-            <el-form-item label="所属门店:">
-              <el-input v-model="form.id"></el-input>
+        <el-row :gutter="20">
+         <el-col :span="5">
+            <el-form-item label="产品货号:">
+              <el-input v-model="listQuery.goods_no" clearable prefix-icon="el-icon-search" ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="4">
             <el-form-item label="订单状态:">
-              <el-input v-model="form.poductId"></el-input>
+              <el-select v-model="listQuery.status_str" clearable>
+                <el-option
+                  v-for="type in orderType"
+                  :key="type.value"
+                  :label="type.label"
+                  :value="type.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="14">
+          <el-col :span="15">
             <el-form-item label="时间:">
               <el-date-picker
                 size="small"
-                v-model="value"
+                v-model="listQuery.date"
+                value-format="yyyy-MM-dd"
                 type="daterange"
                 range-separator="至"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
-              <el-button type="primary" size="small" @click="filterQuery">开始查询</el-button>
+              <el-button type="primary" size="small" @click="filterReset">重置</el-button>
+              <el-button type="primary" size="small" @click="filterQuery">查询</el-button>
             </el-form-item>
           </el-col>
 
@@ -62,7 +66,6 @@
         <el-table
         v-loading="listLoading"
         element-loading-text="拼命加载中"
-        ref="multipleTable"
         :data="listData"
         tooltip-effect="dark">
         <el-table-column
@@ -113,7 +116,7 @@
           label="订单状态">
           <template slot-scope="scope">
             <h5>{{getTradeFlagStr(scope.row.flag)}}</h5>
-            <p class="cancel-order" @click="cancelOrder(scope.row)">取消订单</p>
+            <p v-if="scope.row.canceltrade==1" class="cancel-order" @click="cancelOrder(scope.row)">取消订单</p>
           </template>
         </el-table-column>
         <el-table-column 
@@ -165,9 +168,38 @@ import {
  * 默认查询条件
  */
 const defaultQuery = {
+  tid: "", //产品编号
+  receiver_name: "", //会员姓名
+  receiver_mobile: "", //手机号码
+  goods_no: "", //产品货号
+  status_str: "", //订单状态
+  date: "", //时间
   pages: 1, //取第几个页面
   limit: 4 //多少条数据
 };
+
+const orderType = [
+  {
+    value: "待付款",
+    label: "待付款"
+  },
+  {
+    value: "待发货",
+    label: "待发货"
+  },
+  {
+    value: "已发货",
+    label: "已发货"
+  },
+  {
+    value: "已完成",
+    label: "已完成"
+  },
+  {
+    value: "已关闭",
+    label: "已关闭"
+  }
+];
 
 /**
  * 订单管理
@@ -184,27 +216,12 @@ export default {
     return {
       //===================
       // 数据列表
-      //===================
+      //==================
+      orderType,
       listQuery: Object.assign({}, defaultQuery),
       listTotal: 0, //总数
       listData: null, //列表数据
       listLoading: false,
-
-      //===================
-      // 查询
-      //===================
-      visible2: false,
-      value: "",
-      form: {
-        id: "", //产品编号
-        poductId: "", //产品货号
-        cadrValue: "读库通用铂金卡",
-        stockValue: "进货确定",
-        shopValue: "长沙喜盈门范城店"
-      },
-      //总数据量
-      total: null,
-      list: null,
 
       //===================
       // 详细列表
@@ -294,17 +311,22 @@ export default {
     //=========================
     //  查询
     //=========================
-    /**
-     * 重置查询
-     */
+    updateList() {
+      this.$nextTick(() => {
+        this.getList(true);
+      });
+    },
     filterReset() {
       this.listQuery = Object.assign({}, defaultQuery);
-      this.getList(true);
+      this.updateList();
     },
-    /**
-     * 开始查询
-     */
-    filterQuery() {},
+    filterQuery() {
+      if (this.listQuery.date) {
+        this.listQuery.starttime = this.listQuery.date[0];
+        this.listQuery.endtime = this.listQuery.date[1];
+      }
+      this.updateList();
+    },
 
     //=========================
     //  查看详情
