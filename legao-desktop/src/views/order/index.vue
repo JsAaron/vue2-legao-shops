@@ -113,16 +113,7 @@
           label="订单状态">
           <template slot-scope="scope">
             <h5>{{getTradeFlagStr(scope.row.flag)}}</h5>
-            <el-popover
-              placement="top"
-              width="200"
-              trigger="click">
-                <p style="text-align: center;margin:0.1rem;">是否确定删除订单?</p>
-                <div style="text-align: center;margin-top:.2rem; margin-bottom:.1rem;">
-                  <el-button size="mini" type="primary" @click="cancelOrder(scope.row)">确定删除</el-button>
-                </div>
-              <el-button slot="reference" type="text" style="color:#111111;">取消订单</el-button>
-            </el-popover>
+            <p class="cancel-order" @click="cancelOrder(scope.row)">取消订单</p>
           </template>
         </el-table-column>
         <el-table-column 
@@ -162,7 +153,6 @@
 <script>
 import { fetchList, viewDetailApi, cancelOrderApi } from "@/api/order";
 import OrderDetails from "./details";
-import { Message } from "element-ui";
 import CommonDialog from "@/views/common/dialog";
 import { mapActions, mapGetters } from "vuex";
 import {
@@ -262,24 +252,29 @@ export default {
      * 取消订单
      */
     cancelOrder(row) {
-      cancelOrderApi({
-        tid: row.tid
-      }).then(
-        response => {
-          this.updateListData({
-            list: this.listData,
-            tid: row.tid,
-            updatePage: true
-          });
-        },
-        () => {
-          Message({
-            message: "数据删除失败!",
-            type: "error",
-            duration: 2000
-          });
-        }
-      );
+      this.$confirm("是否确定删除订单?", "删除订单", {
+        showCancelButton: false,
+        confirmButtonText: "确定删除",
+        type: "warning"
+      }).then(() => {
+        cancelOrderApi({
+          tid: row.tid
+        }).then(
+          response => {
+            this.updateListData({
+              list: this.listData,
+              tid: row.tid,
+              updatePage: true
+            });
+          },
+          () => {
+            this.$message({
+              type: "error",
+              message: "删除失败"
+            });
+          }
+        );
+      });
     },
     updateListData({ list, tid, callback, updatePage }) {
       for (var i = 0; i < list.length; i++) {
@@ -409,11 +404,6 @@ export default {
     }
     .cancel-order:hover {
       color: #eeb339;
-    }
-    .el-popover__reference {
-      span {
-        color: #4b91cd;
-      }
     }
   }
 }
