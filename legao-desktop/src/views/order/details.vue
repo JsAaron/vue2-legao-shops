@@ -114,14 +114,13 @@
             <dd class="details-lose">
               <p><label>收纳盒缺损</label><span>内2</span></p>
               <p><label>金额(元)</label><span>20:00</span></p>
-              <div style="visibility:hidden">占位占位占位占</div>
             </dd>
             <dd class="details-lose">
               <p><label>说明书缺损</label><span>2</span></p>
               <p><label>金额(元)</label><span>20:00</span></p>
-              <el-button v-if="detailsData.process==3" type="primary" @click="typeInClick">找回零件</el-button> 
             </dd>
           </div>
+          <el-button v-if="detailsData.process==3" type="primary" @click="typeInClick">找回零件</el-button> 
           <el-button v-if="detailsData.process==1" type="primary" @click="typeInClick">回收清点</el-button> 
         </dl>
         <!-- 商家备注 -->
@@ -165,7 +164,8 @@ export default {
     //2代表显示回收清点后的信息
     //3可以点击找回另加
     showTypeIn() {
-      if (this.detailsData == 1 || this.detailsData == 2) {
+      const process = this.detailsData.process;
+      if (process == 1 || process == 2 || process == 3) {
         return true;
       }
       return false;
