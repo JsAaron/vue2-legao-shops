@@ -159,6 +159,7 @@ import OrderDetails from "./details";
 import CommonDialog from "@/views/common/dialog";
 import { mapActions, mapGetters } from "vuex";
 import {
+  orderType,
   payPlatform,
   getTradeType,
   getTradeFlagStr,
@@ -177,29 +178,6 @@ const defaultQuery = {
   pages: 1, //取第几个页面
   limit: 4 //多少条数据
 };
-
-const orderType = [
-  {
-    value: "待付款",
-    label: "待付款"
-  },
-  {
-    value: "待发货",
-    label: "待发货"
-  },
-  {
-    value: "已发货",
-    label: "已发货"
-  },
-  {
-    value: "已完成",
-    label: "已完成"
-  },
-  {
-    value: "已关闭",
-    label: "已关闭"
-  }
-];
 
 /**
  * 订单管理
@@ -346,7 +324,7 @@ export default {
       viewDetailApi({ tid: data.tid }).then(response => {
         this.listLoading = false;
         this.detailsData = response.data.data;
-        console.log("process", this.detailsData.process);
+        // console.log("process", this.detailsData.process);
         this.detailsVisible = true;
       });
     },
@@ -367,9 +345,7 @@ export default {
     handleCurrentChange(value) {
       this.listQuery.pages = value;
       this.getList();
-    },
-
-    onQuery() {}
+    }
   }
 };
 </script>

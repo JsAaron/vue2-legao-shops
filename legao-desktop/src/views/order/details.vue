@@ -124,7 +124,7 @@
           <el-button v-if="detailsData.process==1" type="primary" @click="typeInClick">回收清点</el-button> 
         </dl>
         <!-- 商家备注 -->
-        <dl v-if="detailsData.process==0" class="details-group">
+        <dl class="details-group" v-if="detailsData.process==0" >
           <dt>商家备注</dt>
           <el-input
             type="textarea"

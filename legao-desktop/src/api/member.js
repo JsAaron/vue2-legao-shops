@@ -40,3 +40,16 @@ export function fetchLogDetails(type, query) {
     params: query
   });
 }
+
+/**
+ * 更新次数
+ * 次卡消费
+ * http://192.168.1.30/api/cardinfo/updatetimes?card_no=338541921295302120&usetimes=1&shopid=2&aid=10
+ */
+export function fetchUpateTimes(query) {
+  return request({
+    url: "cardinfo/updatetimes",
+    method: "post",
+    params: query
+  });
+}

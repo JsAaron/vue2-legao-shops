@@ -2,7 +2,7 @@
   <div class="legao-dialog">
     
     <!-- 个人主页 -->
-    <el-dialog :modal="false" class="homepage-dialog" title="会员个人主页" :visible.sync="memberManageVisible" :before-close="homeDialogClose">
+    <el-dialog class="homepage-dialog" title="会员个人主页" :visible.sync="memberManageVisible" :before-close="homeDialogClose">
       <div class="homepage-box">
         <div class="title">
           <img :src="personalData.avatar"/>
@@ -116,11 +116,11 @@
       <template class="main" slot="main">
         <dl>
           <dt>会员姓名:</dt>
-          <dd>张三</dd>
+          <dd>{{personalData.username}}</dd>
         </dl>
-        <dl>
+        <dl>         
           <dt>手机号码:</dt>
-          <dd>13888888888</dd>
+          <dd>{{personalData.usermobile}}</dd>
         </dl>
         <dl class="second-card-last">
           <dt>本次消费人数:</dt>
@@ -187,7 +187,7 @@
 </template>
 
 <script>
-import { fetchUpateDate, fetchLogDetails } from "@/api/member";
+import { fetchUpateDate, fetchLogDetails, fetchUpateTimes } from "@/api/member";
 import CommonDialog from "@/views/common/dialog";
 import QrManage from "@/views/common/qr";
 import PayManage from "@/views/common/pay";
@@ -242,7 +242,7 @@ export default {
       //===================
       secondCardDialogVisible: false,
       secondCardTitle: "次卡消费界面",
-      secondCardValue: null,
+      secondCardValue: 1,
       secondCardOptions: [
         {
           value: "1",
@@ -362,7 +362,30 @@ export default {
       this.secondCardDialogVisible = false;
     },
     secondCardDialogSave() {
-      this.secondCardDialogClose();
+      if (this.secondCardValue) {
+        fetchUpateTimes({
+          card_no: this.personalData.card_no,
+          usetimes: this.secondCardValue
+        }).then(
+          () => {
+            Message({
+              message: "数据修改成功!",
+              type: "success",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.secondCardDialogClose();
+            }, 1000);
+          },
+          () => {
+            Message({
+              message: "数据提交失败!",
+              type: "error",
+              duration: 2000
+            });
+          }
+        );
+      }
     },
 
     //===================
