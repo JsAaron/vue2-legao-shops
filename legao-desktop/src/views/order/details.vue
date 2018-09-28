@@ -70,9 +70,9 @@
           </el-table>
         </dl>
         <!-- 回收清点 -->
-        <dl class="details-group">
+        <dl class="details-group" v-if="showTypeIn">
           <dt>清点信息</dt>
-          <div>
+          <div v-if="detailsData.process==2" >
             <dd class="details-typeIn-info">
               <p><label>清点结果</label><span>缺失</span></p>
               <p><label>清点时间</label><span>2015-18-12</span></p>
@@ -119,21 +119,21 @@
             <dd class="details-lose">
               <p><label>说明书缺损</label><span>2</span></p>
               <p><label>金额(元)</label><span>20:00</span></p>
-              <el-button type="primary" @click="typeInClick">找回零件</el-button> 
+              <el-button v-if="detailsData.process==3" type="primary" @click="typeInClick">找回零件</el-button> 
             </dd>
           </div>
-          <!-- <el-button type="primary" @click="typeInClick">回收清点</el-button>  -->
+          <el-button v-if="detailsData.process==1" type="primary" @click="typeInClick">回收清点</el-button> 
         </dl>
         <!-- 商家备注 -->
-        <dl class="details-group">
+        <dl v-if="detailsData.process==0" class="details-group">
           <dt>商家备注</dt>
           <el-input
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 4}"
             placeholder="请输入备注内容"
-            v-model="textarea">
+            v-model="remarkTextarea">
           </el-input>
-          <el-button class="save-remark" type="primary" @click="detailsVisible = false">确定保存</el-button> 
+          <el-button class="save-remark" type="primary" @click="saveRemark">确定保存</el-button> 
         </dl>
       </div>
     </common-dialog>
@@ -158,12 +158,23 @@ export default {
     CommonDialog
   },
   computed: {
-    ...mapGetters(["shopName"])
+    ...mapGetters(["shopName"]),
+    //process
+    //0代表可以添加备注的时候
+    //1代表可以有点击回收清点按钮
+    //2代表显示回收清点后的信息
+    //3可以点击找回另加
+    showTypeIn() {
+      if (this.detailsData == 1 || this.detailsData == 2) {
+        return true;
+      }
+      return false;
+    }
   },
   props: ["detailsData", "detailsVisible"],
   data() {
     return {
-      textarea: ""
+      remarkTextarea: ""
     };
   },
   methods: {
@@ -179,6 +190,14 @@ export default {
     },
     detailsDialogClose() {
       this.$emit("close-self");
+    },
+    /**
+     * 保存备注
+     */
+    saveRemark() {
+      if (this.remarkTextarea) {
+        alert(this.remarkTextarea);
+      }
     }
   }
 };

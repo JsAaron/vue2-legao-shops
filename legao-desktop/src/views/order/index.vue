@@ -346,7 +346,7 @@ export default {
       viewDetailApi({ tid: data.tid }).then(response => {
         this.listLoading = false;
         this.detailsData = response.data.data;
-        console.log(this.detailsData);
+        console.log("process", this.detailsData.process);
         this.detailsVisible = true;
       });
     },
