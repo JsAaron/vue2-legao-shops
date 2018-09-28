@@ -77,7 +77,7 @@
     <!-- 充值 -->
     <common-dialog class="money-dialog" @close-self="moneyDialogClose" :visible="moneyDialogVisible" :title="moneyTitle">
       <div class="main" slot="main">
-        <pay-manage :selfVisible="moneyDialogVisible"></pay-manage>
+        <pay-manage :card_no="personalData.card_no" :selfVisible="moneyDialogVisible"></pay-manage>
       </div>
     </common-dialog>
 

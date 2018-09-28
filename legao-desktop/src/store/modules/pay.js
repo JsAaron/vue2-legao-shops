@@ -1,6 +1,7 @@
 const qr = {
   state: {
     data: {
+      card_no: "", //id
       plat: "", //支付平台money
       money: "" //金额
     },

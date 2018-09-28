@@ -2,10 +2,10 @@
   <div class="pay-manage">
     <el-row  class="pay-plat">
       <el-col :span="8">
-        <el-button size="medium" type="primary" @click="choosePay('微信')">微信支付</el-button>
+        <el-button size="medium" type="primary" @click="choosePay('wx')">微信支付</el-button>
       </el-col>
       <el-col :span="8">
-        <el-button size="medium" type="primary" @click="choosePay('支付宝支付')">支付宝支付</el-button>
+        <el-button size="medium" type="primary" @click="choosePay('ali')">支付宝支付</el-button>
       </el-col>
       <el-col :span="8">
         <el-button size="medium" :icon="checkCash" type="primary" @click="choosePay('cash')">现金支付</el-button>
@@ -17,7 +17,9 @@
         <el-input
           ref="putMoney"
           size="small"
-          placeholder="请输入收款金额"
+          @blur="calculatePrice"
+          v-model="receivable"
+          placeholder="请输入商品实际金额"
           clearable>
           <i
             class="el-icon-edit el-input__icon"
@@ -28,8 +30,11 @@
       <div>
         <label>实收：</label>
         <el-input
+          @blur="calculatePrice"
           size="small"
-          placeholder="请输入收款金额"
+          :disabled="!cashMode"
+          v-model="received"
+          placeholder="请输入收款实际金额"
           clearable>
           <i
             class="el-icon-edit el-input__icon"
@@ -40,6 +45,7 @@
       <div>
         <label>找零：</label>
         <el-input
+          v-model="changeFund"
           :disabled="true"
           size="small"
           clearable>
@@ -48,7 +54,7 @@
     </div>
     <el-row class="submit-money" type="flex" justify="center" >
       <el-col :span="8">
-        <el-button size="medium" type="primary" @click="submitPay()">立即支付</el-button>
+        <el-button :disabled="!cashMode" size="medium" type="primary" @click="submitPay()">立即支付</el-button>
       </el-col>
     </el-row>
   </div>
@@ -58,7 +64,7 @@
 import CommonDialog from "@/views/common/dialog";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  props: ["selfVisible"],
+  props: ["selfVisible", "card_no"],
   components: {
     CommonDialog
   },
@@ -66,13 +72,24 @@ export default {
     return {
       qrCode: "", //条码
       qrDialogVisible: false,
-      checkCash: ""
+      checkCash: "",
+      cashMode: false, //是否现金付款方式
+      changeFund: "", //找零
+      receivable: "", //应收价
+      received: "" //实际收取价格
     };
   },
   watch: {
     selfVisible() {
       if (this.checkCash) {
         this.checkCash = "";
+      }
+      //关闭，清空状态
+      if (!this.selfVisible) {
+        this.changeFund = "";
+        this.cashMode = false;
+        this.receivable = "";
+        this.received = "";
       }
     }
   },
@@ -84,12 +101,22 @@ export default {
     choosePay(plat) {
       switch (plat) {
         case "cash":
+          this.cashMode = true;
           this.$refs.putMoney.focus();
           this.checkCash = "el-icon-success";
           break;
         default:
+          this.cashMode = false;
           this.checkCash = "";
-          this.QrOpen({ plat, money: 100 });
+          this.QrOpen({ plat, money: this.receivable, card_no: this.card_no });
+      }
+    },
+    //===========
+    //  计算费用
+    //===========
+    calculatePrice() {
+      if (this.receivable && this.received) {
+        this.changeFund = this.received - this.receivable;
       }
     },
     submitPay() {
