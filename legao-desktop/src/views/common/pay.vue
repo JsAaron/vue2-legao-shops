@@ -63,6 +63,7 @@
 <script>
 import CommonDialog from "@/views/common/dialog";
 import { mapGetters, mapActions } from "vuex";
+import { fetchPayment } from "@/api/pay";
 export default {
   props: ["selfVisible", "card_no"],
   components: {
@@ -94,7 +95,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["QrOpen", "QrClose"]),
+    ...mapActions(["QrOpen"]),
     //===========
     //  支付
     //===========
@@ -108,7 +109,19 @@ export default {
         default:
           this.cashMode = false;
           this.checkCash = "";
-          this.QrOpen({ plat, money: this.receivable, card_no: this.card_no });
+          if (this.receivable) {
+            this.QrOpen({
+              plat,
+              money: this.receivable,
+              card_no: this.card_no
+            });
+          } else {
+            this.$message({
+              message: "请输入金额!",
+              type: "error",
+              duration: 2000
+            });
+          }
       }
     },
     //===========
@@ -120,7 +133,37 @@ export default {
       }
     },
     submitPay() {
-      // this.QrClose()
+      if (this.receivable) {
+        fetchPayment({
+          card_no: this.card_no,
+          type: "cash",
+          price: this.receivable
+        }).then(
+          () => {
+            this.$message({
+              message: "支付成功!",
+              type: "success",
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.$emit("close-self");
+            }, 1000);
+          },
+          () => {
+            this.$message({
+              message: "支付失败!",
+              type: "error",
+              duration: 2000
+            });
+          }
+        );
+      } else {
+        this.$message({
+          message: "请输入金额!",
+          type: "error",
+          duration: 2000
+        });
+      }
     }
   }
 };
