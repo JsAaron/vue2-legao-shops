@@ -35,9 +35,10 @@
           </dd>
         </dl>
         <!-- 商品信息 -->
-        <dl class="legao-list details-group">
+        <dl class="details-group">
           <dt>商品信息</dt>
           <el-table
+            border
             size="small"
             :data="detailsData.orders">
             <el-table-column
@@ -71,7 +72,57 @@
         <!-- 回收清点 -->
         <dl class="details-group">
           <dt>清点信息</dt>
-          <el-button type="primary" @click="typeInClick">回收清点</el-button> 
+          <div>
+            <dd class="details-typeIn-info">
+              <p><label>清点结果</label><span>缺失</span></p>
+              <p><label>清点时间</label><span>2015-18-12</span></p>
+              <p><label>缺损金额</label><span>199</span></p>
+            </dd>
+            <dd>
+              <p><label>零件缺损</label><span></span></p>
+            </dd>
+            <el-table
+              style="width: 100%" 
+              max-height="250"
+              show-summary
+              border
+              size="small"
+              :data="detailsData.orders">
+              <el-table-column
+                prop="title"
+                min-width="150"
+                show-overflow-tooltip
+                label="型号">
+              </el-table-column>
+              <el-table-column
+                prop="total_fee"
+                label="图片">
+              </el-table-column>
+              <el-table-column
+                prop="discount_fee"
+                label="单价">
+              </el-table-column>
+              <el-table-column
+                prop="num"
+                label="数量">
+              </el-table-column>
+              <el-table-column
+                prop="payment"
+                label="总金额">
+              </el-table-column>
+            </el-table>
+            <dd class="details-lose">
+              <p><label>收纳盒缺损</label><span>内2</span></p>
+              <p><label>金额(元)</label><span>20:00</span></p>
+              <div style="visibility:hidden">占位占位占位占</div>
+            </dd>
+            <dd class="details-lose">
+              <p><label>说明书缺损</label><span>2</span></p>
+              <p><label>金额(元)</label><span>20:00</span></p>
+              <el-button type="primary" @click="typeInClick">找回零件</el-button> 
+            </dd>
+          </div>
+          <!-- <el-button type="primary" @click="typeInClick">回收清点</el-button>  -->
         </dl>
         <!-- 商家备注 -->
         <dl class="details-group">
@@ -136,6 +187,7 @@ export default {
 <style lang="scss">
 .details-dialog .el-dialog {
   width: 10.36rem;
+  // margin
 }
 </style>
 
@@ -144,7 +196,8 @@ export default {
   .details-group {
     width: 8.5rem;
     margin: 0 auto;
-    padding-bottom: 0.2rem;
+    padding-bottom: 0.1rem;
+    // padding-bottom: 0.rem;
     border-bottom: 1px solid #ccc;
     dt {
       font-weight: 700;
@@ -152,7 +205,7 @@ export default {
     }
     // 冒号对齐
     dd {
-      display: flex;
+      @include setFJ;
       p {
         flex: 1;
         margin: 0.02rem;
@@ -162,7 +215,7 @@ export default {
           width: 0.8rem;
           text-align: justify;
           text-align-last: justify;
-          & :after {
+          &:after {
             display: inline-block;
             content: "";
             width: 100%;
@@ -177,6 +230,22 @@ export default {
         span {
           padding-left: 1rem;
         }
+      }
+      &.details-lose {
+        p {
+          label {
+            width: 1rem;
+            &:before {
+              left: 1rem;
+            }
+          }
+          span {
+            padding-left: 1.2rem;
+          }
+        }
+      }
+      &.details-typeIn-info {
+        flex: none;
       }
     }
     .save-remark {

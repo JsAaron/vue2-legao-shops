@@ -226,7 +226,7 @@ export default {
       //===================
       // 详细列表
       //===================
-      detailsVisible: true,
+      detailsVisible: false,
       detailsData: {
         tid: null,
         created: null,

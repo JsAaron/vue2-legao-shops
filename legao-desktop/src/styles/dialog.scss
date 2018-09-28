@@ -46,6 +46,7 @@
     // margin-top: 0 !important;
     @include borderRadius(0.2rem);
     @include translateCenter;
+    margin: 0;
     .el-dialog__header {
       border-top-left-radius: 0.2rem;
       border-top-right-radius: 0.2rem;
