@@ -72,7 +72,7 @@
         <!-- 回收清点 -->
         <dl class="details-group" v-if="showTypeIn">
           <dt>清点信息</dt>
-          <div v-if="detailsData.process==2" >
+          <div v-if="detailsData.process==2 || detailsData.process==3" >
             <dd class="details-typeIn-info">
               <p><label>清点结果</label><span>缺失</span></p>
               <p><label>清点时间</label><span>2015-18-12</span></p>
