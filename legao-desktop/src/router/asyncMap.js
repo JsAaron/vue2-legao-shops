@@ -69,6 +69,7 @@ export default [
   {
     path: "/asset",
     component: Layout,
+
     children: [
       {
         path: "index",
@@ -80,6 +81,11 @@ export default [
           icon: "asset",
           group: "bottom"
         }
+      },
+      {
+        path: "list",
+        component: () => import("@/views/asset/list"),
+        name: "收支明细列表"
       }
     ]
   },

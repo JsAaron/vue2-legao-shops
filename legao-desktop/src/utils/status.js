@@ -21,6 +21,21 @@ export const orderType = [
   }
 ];
 
+export const successType = [
+  {
+    value: -1,
+    label: "退款"
+  },
+  {
+    value: 0,
+    label: "未付款"
+  },
+  {
+    value: 1,
+    label: "交易成功"
+  }
+];
+
 //扩展状态(-1:送还清点0:可租借,1:门店展示,2:门店拼装)(1:2:分拣,3:4:清洗)
 export const extStatus = [
   // { value: -1, label: "送还清点" },

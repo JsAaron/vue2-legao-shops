@@ -20,51 +20,6 @@
       </div>
     </div>
 
-
-    <!-- 资产明细 -->
-    <div class="asset-detail"  v-show="false">
-      <!-- 搜索 -->
-      <div class="detail-filter">
-        <el-form :model="filterForm">
-          <el-row>
-            <el-col :span="8">
-              <el-form-item label="时间：" clearable>
-                <el-date-picker
-                  v-model="filterForm.date"
-                  type="daterange"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期">
-                </el-date-picker>
-                </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="交易状态：">
-                <el-select v-model="filterForm.state" clearable>
-                  <el-option
-                    v-for="state in filterForm.stateValue"
-                    :key="state.value"
-                    :label="state.label"
-                    :value="state.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <!-- 查询 -->
-            <el-col :span="6">
-              <el-form-item>
-                <el-button type="primary" @click="filterQuery">查询</el-button>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-      </div>
-
-
-    </div>
-
-
-
   </div>
 </template>
 
@@ -94,7 +49,7 @@ export default {
   },
   methods: {
     clickAsset() {
-      console.log(123);
+      this.$router.push({ path: "/asset/list" });
     }
   }
 };
