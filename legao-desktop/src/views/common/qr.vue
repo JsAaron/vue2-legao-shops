@@ -19,7 +19,7 @@
         </div>
       </div>
       <template slot="footer">
-        <el-button @click="submitPay" type="primary" >{{qrCodeValue?'确定支付':'扫描中，请稍等...'}}</el-button>
+        <el-button @click="submitPay" :loading="loading" type="primary" >{{buttonText}}</el-button>
       </template>
     </common-dialog>
   </div>
@@ -34,10 +34,17 @@ export default {
     CommonDialog
   },
   computed: {
-    ...mapGetters(["qrVisible", "payData"])
+    ...mapGetters(["qrVisible", "payData"]),
+    buttonText() {
+      if (this.loading) {
+        return "支付中...";
+      }
+      return this.qrCodeValue ? "确定支付" : "扫描中，请稍等...";
+    }
   },
   data() {
     return {
+      loading: false, //支付等待
       qrCodeValue: "" //条码
     };
   },
@@ -53,6 +60,7 @@ export default {
     },
     submitPay() {
       if (this.qrCodeValue && this.payData.card_no && this.payData.money) {
+        this.loading = true;
         fetchPayment({
           card_no: this.payData.card_no,
           type: this.payData.plat,
@@ -75,6 +83,7 @@ export default {
               type: "error",
               duration: 2000
             });
+            this.loading = false;
           }
         );
       }

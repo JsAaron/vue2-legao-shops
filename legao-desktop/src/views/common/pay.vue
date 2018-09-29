@@ -19,7 +19,7 @@
           size="small"
           @blur="calculatePrice"
           v-model="receivable"
-          placeholder="请输入商品实际金额"
+          placeholder="商品实际金额"
           clearable>
           <i
             class="el-icon-edit el-input__icon"
@@ -34,7 +34,7 @@
           size="small"
           :disabled="!cashMode"
           v-model="received"
-          placeholder="请输入收款实际金额"
+          placeholder="收款实际金额"
           clearable>
           <i
             class="el-icon-edit el-input__icon"
@@ -130,6 +130,8 @@ export default {
     calculatePrice() {
       if (this.receivable && this.received) {
         this.changeFund = this.received - this.receivable;
+      } else {
+        this.changeFund = "";
       }
     },
     submitPay() {
