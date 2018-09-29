@@ -518,7 +518,7 @@ export default {
 .money-dialog {
   .el-dialog {
     // height: 5.26rem;
-    width: 6.41rem;
+    width: 6rem;
     // @include setWH(5rem, auto);
     .el-dialog__body {
       padding: 0.4rem 0.2rem 0 0.2rem !important;

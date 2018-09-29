@@ -6,7 +6,7 @@
         <el-scrollbar ref="wrapper" class="warp-box" :native="false">
           <li v-for="(item,index) in cardData" 
               :key="item.id"
-              @click="clickCard(item,index)"
+              @click="changeCard(item,index)"
               :class="selectCardIndex === index?'active':''">
             <img src="../../images/member-sell/1-1.png" />
           </li>
@@ -25,75 +25,60 @@
       <div class="right-main">
         <el-form size="small" :rules="rules" label-position="center" label-width="1.3rem" :model="payForm" >
           <el-form-item label="会员账号：" prop="phone">
-            <el-col :span="15">
-              <el-input v-model.number="payForm.phone" placeholder="请输入手机号码"></el-input> 
+            <el-col :span="20">
+              <el-input size="mini" v-model.number="payForm.phone" placeholder="请输入手机号码" clearable></el-input> 
             </el-col>
             <el-col :span="6" :offset="1">
               <span>{{payForm.phonePrompt}}</span>
             </el-col>
           </el-form-item>
           <el-form-item label="商品名称：">
-            <span>{{payForm.name}}</span>
+            <span>{{payForm.card_name}}</span>
           </el-form-item>
           <el-form-item label="会员费：">
-            <span>13877777777</span>
+            <span>{{payForm.price}}</span>
           </el-form-item>
           <el-form-item label="押金：">
-          <span>13877777777</span>
-            </el-form-item>
-          <el-form-item label="优惠金额：">
-            <span>13877777777</span>
+          <span>{{payForm.deposit}}</span>
           </el-form-item>
           <el-form-item label="店铺玩次数：">
-            <span>13877777777</span>
+            <span>{{payForm.times}}</span>
           </el-form-item>
           <el-form-item label="件数：">
-            <el-select v-model="payForm.region" placeholder="请选择">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
+            <el-col :span="12">
+              <el-select size="mini" v-model="payForm.number" placeholder="请选择">
+                  <el-option label="1" value="1"></el-option>
+                  <el-option label="2" value="2"></el-option>
+                  <el-option label="3" value="3"></el-option>
+                  <el-option label="4" value="4"></el-option>
+                  <el-option label="5" value="5"></el-option>
+                </el-select>
+            </el-col>
           </el-form-item>
- 
-
-          <ul class="pay-plat">
-            <li><el-button type="primary" @click="pay(weixin)">微信支付</el-button></li>
-            <li><el-button type="primary" @click="pay(zhifubao)">支付宝支付</el-button></li>
-            <li><el-button type="primary" @click="pay(cash)">现金支付</el-button></li>
-          </ul>
-
-          <div class="put-money">
-            <div>
-              <label>实收：</label>
-              <el-input
-                placeholder="请输入收款金额"
-                clearable>
-              </el-input>
-            </div>
-            <div>
-              <label>找零：</label>
-              <span>0:00</span>
-            </div>
-          </div>
-
-          <div class="handle-button">
-            <el-button type="primary" >结算</el-button>
-            <el-button type="primary" >清空</el-button>
-          </div>
-
+          <pay-manage :card_no="1111" selfVisible="true"></pay-manage>
           <p class="notice" >
             <el-checkbox>阅读并同意读库会员借还须知</el-checkbox>
           </p>
         </el-form>
       </div>
     </div>
+
+      <!-- qr扫码 -->
+    <qr-manage></qr-manage>
+
   </div>
 </template>
 
 <script>
 import { fetchCards, fetchPhone } from "@/api/member-sell";
 import { isValidPhone } from "@/utils/validate";
-
+import PayManage from "@/views/common/pay";
+import QrManage from "@/views/common/qr";
 export default {
+  components: {
+    QrManage,
+    PayManage
+  },
   data() {
     const validPhone = (rule, value, callback) => {
       if (!value) {
@@ -116,16 +101,17 @@ export default {
       selectCardIndex: "",
       cardData: null, //会员卡数据列表
       payForm: {
-        name: "", //商品名
-        phone: "", //电话号码
-        phonePrompt: "" //用户注册提示
+        card_name: "", //商品名
+        price: "", //会员费用
+        deposit: "", //押金
+        times: "", //店铺玩的次数
+        number: 1 //件数
       },
       rules: {
         phone: [
           { required: true, trigger: "blur", validator: validPhone } //这里需要用到全局变量
         ]
       },
-
       numberValue: 1,
       number: [
         {
@@ -147,12 +133,12 @@ export default {
     this.getCards();
   },
   methods: {
-    test() {
-      console.log(1);
-    },
-    clickCard(item, index) {
+    /**
+     * 选择卡
+     */
+    changeCard(item, index) {
       this.selectCardIndex = index;
-      this.payForm.name = item.name;
+      Object.assign(this.payForm, item);
     },
     getCards() {
       fetchCards()
@@ -171,7 +157,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+
+<style lang="scss" >
 @keyframes scaleDraw {
   from {
     transform: scale(1);
@@ -231,49 +218,19 @@ export default {
     @include borderRadius(0.26rem);
     .right-main {
       width: 80%;
-      margin: 0.3rem auto;
+      margin: 0.2rem auto;
       .el-form {
         .el-form-item {
           margin-bottom: 0.1rem;
         }
       }
-      .handle-button,
-      .notice,
-      .put-money,
-      .right-info,
-      .pay-plat {
-        margin-top: 0.5rem;
-      }
-
-      .pay-plat,
-      .put-money,
-      .handle-button {
-        @include setFJ;
-      }
-
-      .handle-button .el-button {
-        @include setWH(1.24rem, 0.46rem);
-      }
-
-      .pay-plat {
-        justify-content: space-around;
-        .el-button {
-          margin: 0.1rem;
-          padding: 0.1rem 0.3rem;
-          height: 0.46rem;
-        }
-      }
-
-      .put-money {
-        div {
-          flex: 1;
-          &:first-child {
-            flex: 2;
-          }
-          text-align: center;
-        }
-        .el-input {
-          width: 70%;
+      .pay-manage,
+      .notice {
+        margin-top: 0.2rem;
+        text-align: center;
+        .put-money,
+        .submit-money {
+          margin-top: 0.2rem;
         }
       }
     }

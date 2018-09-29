@@ -84,6 +84,7 @@ export default {
               duration: 1000
             });
             setTimeout(() => {
+              2;
               this.QrClose();
             }, 1000);
           },

@@ -173,6 +173,11 @@ export default {
 <style lang="scss" scoped>
 .pay-manage {
   .pay-plat {
+    button {
+      padding: 0;
+      height: 0.5rem;
+      width: 1.3rem;
+    }
     .el-col {
       @include flexCenter;
     }
@@ -197,12 +202,6 @@ export default {
     }
   }
   .qr-dialog {
-    .el-dialog {
-      // height: 5.26rem;
-      // width: 6.41rem;
-    }
-    .title {
-    }
     .qr-code {
       width: 80%;
       margin: 0 auto;
