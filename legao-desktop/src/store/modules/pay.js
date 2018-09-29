@@ -5,7 +5,7 @@ const qr = {
       plat: "", //支付平台money
       money: "" //金额
     },
-    qrVisible: false //支付二维码
+    qrVisible: false //支付二维码dg
   },
   mutations: {
     ["SET_QR"]: (state, value) => {

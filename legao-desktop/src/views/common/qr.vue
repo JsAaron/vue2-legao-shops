@@ -7,6 +7,7 @@
         <div class="qr-code">
           <label>付款条码:</label>
           <el-input
+            ref="siteInput"
             clearable
             size="mini"
             placeholder="【请扫用户付款条码】"
@@ -40,6 +41,15 @@ export default {
         return "支付中...";
       }
       return this.qrCodeValue ? "确定支付" : "扫描中，请稍等...";
+    }
+  },
+  watch: {
+    qrVisible() {
+      if (this.qrVisible) {
+        this.$nextTick(function() {
+          this.$refs["siteInput"].focus();
+        });
+      }
     }
   },
   data() {
