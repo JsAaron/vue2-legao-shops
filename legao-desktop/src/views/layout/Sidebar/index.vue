@@ -16,7 +16,7 @@
         background-color="transparent" 
         active-text-color="#eeb339"
         text-color="white" >
-        <mainBar-item></mainBar-item>
+        <mainBar-item v-for="route in mainRouters" :key="route.name" :item="route" :base-path="route.path"></mainBar-item>
       </el-menu>
       <el-menu mode="vertical" 
         background-color="transparent" 
@@ -34,7 +34,7 @@ import MainBarItem from "./mainBar";
 import StaticBarItem from "./staticBar";
 export default {
   computed: {
-    ...mapGetters(["shopName"])
+    ...mapGetters(["shopName", "mainRouters"])
   },
   components: { MainBarItem, StaticBarItem }
 };
@@ -49,7 +49,7 @@ export default {
 </style>
 
 
-<style lang="scss" scoped>
+<style lang="scss" scped>
 .sidebar-wrapper {
   header {
     @include flexCenter(column);

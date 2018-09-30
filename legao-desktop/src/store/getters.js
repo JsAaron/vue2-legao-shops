@@ -25,7 +25,8 @@ const getters = {
 
   //动态路由
   addRouters: state => state.permission.addRouters,
-  permissionRouters: state => state.permission.routers, //导航，主路由
+  permissionRouters: state => state.permission.routers, //导航
+  mainRouters: state => state.permission.mainRouters, //主路由
   staticRouters: state => state.permission.staticRouters, //导航，静态路由
   homeRouters: state => state.permission.homeRouters //主页路由
 };

@@ -69,14 +69,18 @@ export default [
   {
     path: "/asset",
     component: Layout,
-
+    name: "asset",
+    meta: {
+      title: "asset",
+      icon: "asset"
+    },
     children: [
       {
         path: "index",
         component: () => import("@/views/asset/index"),
-        name: "asset",
+        name: "asset-statistics",
         meta: {
-          title: "asset",
+          title: "资产统计",
           url: "asset.png",
           icon: "asset",
           group: "bottom"
@@ -85,11 +89,34 @@ export default [
       {
         path: "list",
         component: () => import("@/views/asset/list"),
-        name: "收支明细列表"
+        name: "asset-list",
+        meta: {
+          title: "资产明细",
+          url: "asset.png",
+          icon: "asset",
+          group: "bottom"
+        }
       }
     ]
   },
-
+  //10 数据统计
+  {
+    path: "/statistics",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/statistics/index"),
+        name: "statistics",
+        meta: {
+          title: "statistics",
+          icon: "statistics",
+          url: "statistics.png",
+          group: "bottom"
+        }
+      }
+    ]
+  },
   {
     sort: 7,
     path: "/shop",
@@ -104,25 +131,6 @@ export default [
           title: "shop",
           url: "shop.png",
           icon: "shop",
-          group: "bottom"
-        }
-      }
-    ]
-  },
-
-  //10 数据统计
-  {
-    path: "/statistics",
-    component: Layout,
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/statistics/index"),
-        name: "statistics",
-        meta: {
-          title: "statistics",
-          icon: "statistics",
-          url: "statistics.png",
           group: "bottom"
         }
       }
