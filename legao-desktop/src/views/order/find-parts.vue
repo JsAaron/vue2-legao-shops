@@ -1,7 +1,7 @@
 <template>
-  <common-dialog class="typeIn-dialog el-dialog-max" @close-self="handleClose" :visible="typeInVisible" title="清点信息输入">
+  <common-dialog class="findParts-dialog el-dialog-max" @close-self="handleClose" :visible="findPartsVisible" title="找回零件信息录入">
     <div slot="main">
-      <dl class="typeIn-group">
+      <dl class="findParts-group">
         <dt>租借信息</dt>
         <dd>
           <p><label>商品名称</label><span>1</span></p>
@@ -16,7 +16,7 @@
           <p><label>租借批次</label><span>1</span></p>
         </dd>
       </dl>
-      <dl class="typeIn-group">
+      <dl class="findParts-group">
         <dt>清点信息</dt>
         <dd>
           <p><label>清点结果: </label><span><el-checkbox>完整</el-checkbox></span></p>
@@ -103,7 +103,7 @@
           </div>
         </div>
       </dl>
-      <dl class="typeIn-group">
+      <dl class="findParts-group">
         <dt>补充说明</dt>
         <el-input
           type="textarea"
@@ -134,7 +134,7 @@ export default {
   components: {
     CommonDialog
   },
-  props: ["typeInData", "typeInVisible"],
+  props: ["findPartsData", "findPartsVisible"],
   data() {
     return {
       storageBox: [], //收纳盒多选
@@ -228,8 +228,8 @@ export default {
 
 
 <style lang="scss" scoped>
-.typeIn-dialog {
-  .typeIn-group {
+.findParts-dialog {
+  .findParts-group {
     width: 9rem;
     margin: 0 auto;
     padding-bottom: 0.1rem;

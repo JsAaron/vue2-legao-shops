@@ -120,7 +120,7 @@
               <p><label>金额(元)</label><span>20:00</span></p>
             </dd>
           </div>
-          <el-button v-if="detailsData.process==3" type="primary" @click="typeInClick">找回零件</el-button> 
+          <el-button v-if="detailsData.process==3" type="primary" @click="findPartsClick">找回零件</el-button> 
           <el-button v-if="detailsData.process==1" type="primary" @click="typeInClick">回收清点</el-button> 
         </dl>
         <!-- 商家备注 -->
@@ -137,7 +137,12 @@
       </div>
     </common-dialog>
 
-    <!-- 清点录入 -->
+    <!-- 回收清点 -->
+    <type-in :typeInData="typeInData" @close-self="typeInDialogClose" :typeInVisible="dialogTypeInVisible"></type-in>
+
+    <!-- 找回零件 -->
+    <find-parts @close-self="findPartsDialogClose" :findPartsVisible="dialogFindPartsVisible"></find-parts>
+
   </div>
 </template>
 
@@ -151,9 +156,12 @@ import {
 } from "@/utils/status";
 import { mapActions, mapGetters } from "vuex";
 import CommonDialog from "@/views/common/dialog";
-
+import TypeIn from "./type-in";
+import FindParts from "./find-parts";
 export default {
   components: {
+    TypeIn,
+    FindParts,
     CommonDialog
   },
   computed: {
@@ -174,23 +182,41 @@ export default {
   props: ["detailsData", "detailsVisible"],
   data() {
     return {
-      remarkTextarea: ""
+      remarkTextarea: "",
+      typeInData: "",
+      dialogTypeInVisible: false,
+      dialogFindPartsVisible: false
     };
   },
   methods: {
     payPlatform,
     /**
-     * 回收清点
+     * 退出详情页面
      */
-    typeInClick() {
-      this.dialogTypeInVisible = true;
-    },
-    typeInClose() {
-      this.dialogTypeInVisible = false;
-    },
     detailsDialogClose() {
       this.$emit("close-self");
     },
+    //=========================
+    //  找回零件
+    //=========================
+    findPartsClick() {
+      this.dialogFindPartsVisible = true;
+    },
+    findPartsDialogClose() {
+      this.dialogFindPartsVisible = false;
+    },
+
+    //=========================
+    //  回收清点
+    //=========================
+    typeInClick() {
+      console.log(1);
+      this.dialogTypeInVisible = true;
+    },
+    typeInDialogClose() {
+      this.dialogTypeInVisible = false;
+    },
+
     /**
      * 保存备注
      */

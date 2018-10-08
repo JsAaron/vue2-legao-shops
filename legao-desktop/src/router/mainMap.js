@@ -70,6 +70,7 @@ export default [
     path: "/asset",
     component: Layout,
     name: "asset",
+    redirect: "/asset/index",
     meta: {
       title: "asset",
       icon: "asset"
