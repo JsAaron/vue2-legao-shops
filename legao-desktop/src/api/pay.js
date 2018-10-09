@@ -7,7 +7,7 @@ import request from "@/utils/request";
 export function fetchPayment(query) {
   return request({
     url: "cardinfo/payment",
-    method: "post",
+    method: "POST",
     params: query
   });
 }

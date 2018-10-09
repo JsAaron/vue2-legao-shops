@@ -680,6 +680,7 @@ export default {
       }
       query.storeid = this.manageDialogForm.storeid;
       query.extflag = this.manageDialogForm.extflag;
+
       modifyExtflag(query).then(
         req => {
           this.activeData.extflag = query["newextflag"];

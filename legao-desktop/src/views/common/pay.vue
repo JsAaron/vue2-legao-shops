@@ -135,6 +135,7 @@ export default {
       }
     },
     submitPay() {
+      //必须有价格
       if (this.receivable) {
         fetchPayment({
           card_no: this.card_no,
@@ -192,7 +193,7 @@ export default {
       padding: 0.1rem;
     }
     .el-input {
-      width: 80%;
+      width: 75%;
     }
   }
   .submit-money {

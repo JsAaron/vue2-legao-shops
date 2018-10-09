@@ -35,7 +35,7 @@ export function acceptGoods(query) {
 export function modifyExtflag(query) {
   return request({
     url: "goods/modifyextflag",
-    method: "post",
+    method: "get",
     params: query
   });
 }
